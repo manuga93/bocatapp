@@ -13,3 +13,4 @@ Run after udpating models:
 ./manage.py makemigrations
 ./manage.py migrate
 ```
+.
