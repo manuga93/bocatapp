@@ -116,3 +116,10 @@ ENV/
 
 # End of https://www.gitignore.io/api/linux,django,python
 
+
+# Migrations
+
+administration/migrations
+seller/migrations
+customer/migrations
+
