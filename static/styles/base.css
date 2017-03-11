@@ -1,0 +1,292 @@
+/*@font-face {
+	font-family: Honduro;
+	src: url("../fonts/Honduro.otf") format("opentype");
+}*/
+
+div, .block {
+	display: block;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	/*background-color: #d7f0f7;*/
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+button, select {
+    text-transform: none;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+button:focus {
+  outline: none;
+}
+
+.clean {
+	clear:both;
+}
+
+.main-header {
+	background-color: #009688;
+}
+
+.white { background-color: white }
+
+/* Header
+---------------------------------------------------------------*/
+.title {
+	font-family: 'Arial';
+	color: #00d395;
+	font-size: 30pt;
+	display: inline;
+	font-weight: normal;
+	margin: 0;
+}
+
+a.title:hover{
+  text-decoration: none;
+	color: #00d395;
+}
+
+.right-area {
+	float: right;
+}
+
+.page-title {
+    margin-bottom: 25px;
+}
+
+/* Containers
+---------------------------------------------------------------*/
+.main {
+    padding-top: 30px;
+    padding-bottom: 20px;
+    min-height: 550px;
+    -webkit-flex: 1;
+    flex: 1 0 auto;
+}
+
+/* Buttons
+---------------------------------------------------------------*/
+.button {
+	background-color: white;
+	color: black;
+	border: 2px solid #009688; /* Green */
+}
+
+.button:hover {
+    background-color: #fff;
+}
+
+.button:active {
+	background-color: #d7f0f7;
+}
+
+.box {
+    border: 1px double #335389;
+    border-radius: 11px;
+    background-color: rgba(0,195,203,0.388457);
+    padding: 15px 20px;
+  	z-index: 1;
+}
+
+/* Nav bar
+-----------------------------------------------------------*/
+/* Resposive menu */
+.navbar-custom .navbar-toggle {
+    border-color: #fff;
+}
+
+.navbar-custom .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+
+.navbar-custom .nav > li > a,
+.navbar-custom .nav .open > a {
+    line-height: 28px;
+    font-weight: bold;
+    background-color: transparent;
+    color: #fff;
+}
+
+.navbar-custom .nav > li > a:hover,
+.navbar-custom .nav > li > a:focus,
+.navbar-custom .nav .open > a:hover,
+.navbar-custom .nav .open > a:focus {
+    background-color: transparent;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.85;
+}
+
+/* Custom dropdown
+-----------------------------------------------------------*/
+.main-dp {
+    padding: 0 10px;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.9);
+}
+
+/* My account dropdown
+-----------------------------------------------------------*/
+
+/* Login dropdown
+------------------------------------------------------------*/
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+}
+#login-dp .help-block{
+    font-size:12px
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0
+}
+#login-dp .social-buttons a{
+    width: 100%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc;
+}
+
+/* Content
+-----------------------------------------------------------*/
+.form-signup {
+    max-width: 767px;
+    margin: auto;
+    padding: 25px 10px;
+}
+
+.help-text, .help-legend {
+    font-size: 9pt;
+    color: #999;
+}
+
+
+.social-buttons {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.separator.hr {
+    margin: 15px 0;
+    background: url('../images/separator.gif') repeat-x 0 50%;
+}
+
+.separator.hr span {
+    padding: 0 15px;
+    background-color: white;  /*background*/
+}
+
+.separator {
+    height: auto;
+    margin: 7px 0;
+    border: 0;
+    background: none;
+    text-align: center;
+}
+
+ul.errorlist {
+    padding-left: 10px;
+}
+
+ul.errorlist li{
+    list-style-type: none;
+}
+
+#message-list {
+    left: 30%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 40%;
+    z-index:9999;
+    max-width: 800px;
+}
+
+/* Footer
+------------------------------------------------------------*/
+footer {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+
+/* Media Queries
+------------------------------------------------------------*/
+
+@media (max-width: 1200px){
+
+}
+
+@media (max-width: 960px){
+
+}
+
+@media (max-width: 767px){
+    h2, h3 {
+        text-align: center;
+    }
+
+    .form-signup .btn{
+        width: 100%;
+    }
+
+    .dropdown-menu > li > a {
+        line-height: 28px;
+        background-color: transparent;
+        color: #fff;
+    }
+
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus {
+        background-color: transparent;
+        color: #fff;
+        text-decoration: none;
+        opacity: 0.85;
+    }
+
+		.title {
+			font-size: 25pt;
+		}
+
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
