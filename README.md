@@ -1,6 +1,7 @@
 # Bocatapp Core
 
 ## Project structure (IMPORTANT to read before make changes)
+If you have some question you could contact to @garridev directly. This is project structure:
 ```
 \bocatapp
   \bocatapp (General views, templates and urls. f.e. login, legal advice, home, contact, etc.)
@@ -31,11 +32,12 @@
   |--\scripts (.js)
   |--\styles (.css)
 ```
+
 **IMPORTANT ADVICE!**
 Django's models are the same as Spring's models.
-**BUT***
-Django's views are Spring's controllers in Django projects
-Django's templates are Spring's views in Django projects
+**BUT**
+Django's views are Spring's controllers in Django projects.
+Django's templates are Spring's views in Django projects.
 
 ## Start project
 
