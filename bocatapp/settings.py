@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -37,6 +36,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bocatapp',
+    'administration',
+    'customer',
+    'seller',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,7 +58,12 @@ ROOT_URLCONF = 'bocatapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'bocatapp', 'templates'),
+            os.path.join(BASE_DIR, 'administration', 'templates'),
+            os.path.join(BASE_DIR, 'customer', 'templates'),
+            os.path.join(BASE_DIR, 'seller', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,7 +84,7 @@ WSGI_APPLICATION = 'bocatapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bocatappdb',
         'USER': 'root',
         'PASSWORD': 'root',
