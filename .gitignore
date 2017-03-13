@@ -123,3 +123,4 @@ administration/migrations
 seller/migrations
 customer/migrations
 
+.idea/
