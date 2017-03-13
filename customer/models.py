@@ -1,3 +1,36 @@
 from django.db import models
+from seller.models import Local
+from administration.models import CreditCard
+from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 
 # Create your models here.
+
+class Order(models.Model):
+    totalPrice = models.DecimalField(max_digits=4, decimal_places=2)
+    moment = models.DateField(auto_now=True)
+    local = models.ForeignKey(Local)
+    comment = models.CharField(max_length=232)
+    customer = models.ForeignKey(User)
+    creditCard = models.ForeignKey(CreditCard)
+
+
+class OrderLine(models.Model):
+    quantity = models.IntegerField(validators=[MinValueValidator(1)])
+    name = models.CharField(max_length=32)
+    price = models.DecimalField(max_digits=4, decimal_places=2)
+    description = models.CharField(max_length=232)
+
+    def __unicode__(self):
+        return self.name
+
+
+class ShoppingCartLine(models.Model):
+    quantity = models.IntegerField(validators=[MinValueValidator(1)])
+
+
+class ShoppingCart(models.Model):
+    customer = models.ForeignKey(User)
+    shoppingCartLine = models.ForeignKey(ShoppingCartLine)
+
+
