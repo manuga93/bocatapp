@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Carta de local{%endblock%}
+
+{% block content %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <div class="container">
+        <h2>Carta de ÑamÑam</h2>
+         <div class="table-responsive">
+            <table id="menu" class="table table-striped table-hover table-menu">
+                <thead>
+                    <tr>
+                        <th class="no-sort">Nombre</th>
+                        <th class="no-sort">Ingredientes</th>
+                        <th>Precio</th>
+                        <th class="no-sort">Añadir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in productos %}
+                    <tr>
+                        <td> {{p.name}} </td>
+                        <td> Pollo, pollo, polla, lechuga y salsa de mi nabo</td>
+                        <td> {{p.price}} €</td>
+                        <td>
+                            <a href="#" class="button">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Al carrito
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+           </div>
+        </div>
+
+
+    
+ {%endblock%}
+    
+<html>
