@@ -54,3 +54,16 @@ Run after udpating models:
 ./manage.py makemigrations
 ./manage.py migrate
 ```
+## Populate DB
+
+To populate the database you must type in Terminal:
+```
+python manage.py populatedb
+```
+
+## Users and Roles
+
+To user an User you must type: 
+```
+from bocatapp.models import User
+```
