@@ -11,15 +11,6 @@ class Category(models.Model):
         return self.name
 
 
-class Product(models.Model):
-    name = models.CharField(max_length=48)
-    price = models.DecimalField(max_digits=4, decimal_places=2)
-    category = models.ManyToManyField(Category)
-
-    def __unicode__(self):
-        return self.name
-
-
 class Local(models.Model):
     name = models.CharField(max_length=32)
     description = models.CharField(max_length=256)
@@ -28,7 +19,16 @@ class Local(models.Model):
     photo = models.URLField()
     isActive = models.BooleanField(default=True)
     seller = models.ForeignKey(User)
-    products = models.ForeignKey(Product)
+
+    def __unicode__(self):
+        return self.name
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=48)
+    price = models.DecimalField(max_digits=4, decimal_places=2)
+    category = models.ManyToManyField(Category)
+    local = models.ForeignKey(Local)
 
     def __unicode__(self):
         return self.name

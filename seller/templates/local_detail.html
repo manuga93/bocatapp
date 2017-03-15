@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Locales{%endblock%}
+
+{% block content %}
+    <h1>Local {{ local.name }}</h1>
+    Descripci&oacute;n: {{ local.description }} <br/>
+    Direccii&oacute;n: {{ local.address }} <br/>
+    Tel&eacute;fono: {{ local.phone }} <br/>
+    Foto: {{ local.photo }} <br/>
+    <hr/>
+    <a  href="{% url 'local_edit' pk=local.pk %}">Editar</a>
+ {%endblock%}
