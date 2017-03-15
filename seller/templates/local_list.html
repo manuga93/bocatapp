@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Locales{%endblock%}
+
+{% block content %}
+    <h1>Locales</h1>
+    {% for local in locals %}
+        <div>
+            <h3><a href="{% url 'seller.views.local_detail' pk=local.pk %}">{{ local.name }}</a></h3>
+            <p>{{ local.description|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+ {%endblock%}

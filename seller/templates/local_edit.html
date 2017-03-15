@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Locales{%endblock%}
+
+{% block content %}
+    <h1>New Local</h1>
+    <form method="POST" class="local-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save">Save</button>
+    </form>
+ {%endblock%}
