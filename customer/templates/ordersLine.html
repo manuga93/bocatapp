@@ -27,11 +27,7 @@
                             <td>Hecho</td>
                         {% else %}
                             <td> No hecho &nbsp;
-                            <form action="/customer/do_order_line/{{ l.id }}%}" method="POST">
-                                    <input id="submit" type="button" value="DO" data_url/>
-                            </form>
-                            </td>
-
+                            <button class ='btn-primary' onclick="window.location.href='/customer/do_order_line/{{ l.id }}'" > DO </button>
                         {% endif %}
                     </tr>
 

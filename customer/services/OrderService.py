@@ -28,12 +28,12 @@ def set_order_status(order_id):
 
     # The order is completed if all order line are done
     if all(line.status is True for line in orders_line):
-        order.set_status(True)
+        order.status = True
         order.save()
 
     # The order is doing if any order line is done
     elif any(line.status is True for line in orders_line):
-        order.set_status(False)
+        order.status = False
         order.save()
 
 
