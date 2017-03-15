@@ -1,8 +1,9 @@
 from django.db import models
 from seller.models import Local
 from administration.models import CreditCard
-from django.contrib.auth.models import User
+from bocatapp.models import User
 from django.core.validators import MinValueValidator
+
 
 # Create your models here.
 
@@ -34,9 +35,3 @@ class ShoppingCartLine(models.Model):
 class ShoppingCart(models.Model):
     customer = models.ForeignKey(User)
     shoppingCartLine = models.ForeignKey(ShoppingCartLine)
-
-
-
-
-
-
