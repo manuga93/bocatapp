@@ -3,7 +3,6 @@ from customer.services import OrderService
 from django.template import RequestContext
 from django.http.response import HttpResponseRedirect
 from customer.models import Order, OrderLine
-from customer.forms.forms import OrderLineDoneForm
 
 # Create your views here.
 
@@ -26,24 +25,10 @@ def order_line_by_order(request, order_id):
         return render_to_response('error.html', context_instance=RequestContext(request))
 
 
-def order_line_done_form(request, id1):
-    order_line = get_object_or_404(OrderLine, pk=id1)
-    if request.method == 'POST':
-        form = OrderLineDoneForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
-    else:
-        form = OrderLineDoneForm(instance=order_line)
-    return render_to_response('/customer/ordersLine/' + str(order_line.order_id), {'form': form},
-                              context_instance=RequestContext(request))
-
-
 def do_order_line(request, id1):
     order_line = get_object_or_404(OrderLine, pk=id1)
-    if request.method == 'POST':
-        order_line.status = True
-        order_line.save()
-        return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
-    else:
-        return render_to_response('/customer/orders')
+    order_line.status = True
+    order_line.save()
+    OrderService.set_order_status(order_line.order_id)
+    return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
+
