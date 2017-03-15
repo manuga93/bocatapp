@@ -3,6 +3,7 @@
 from django.core.management.base import BaseCommand
 from bocatapp.models import User
 from django.contrib.auth.models import Permission
+from seller.models import Local
 
 
 # Los archivos que se encuentren en el paquete commands, se podr�n llamar
@@ -19,9 +20,9 @@ class Command(BaseCommand):
 
         User.objects.all().delete()
 
-        print('Assesment...OK\n'
-              'Populating database...OK\n'
-              'Ready to use!')
+        print('Populating database...')
+
+        # ==============================================================================================================
 
         admin_admin = User(
             username='admin',
@@ -31,6 +32,9 @@ class Command(BaseCommand):
         admin_admin.is_staff = True
         admin_admin.is_superuser = True
         admin_admin.save()
+        print('Admin created...Ok')
+
+        # ==============================================================================================================
 
         customer = User(
             username='customer',
@@ -39,8 +43,29 @@ class Command(BaseCommand):
         customer.set_password('customer')
         customer.save()
         customer.user_permissions.add(Permission.objects.get(codename="customer"))
+        print('customer created...Ok')
 
-        print('Customer created...Ok')
+        # ==============================================================================================================
+
+        seller = User(
+            username='seller',
+            email='seller@seller.com',
+            first_name='seller')
+        seller.set_password('seller')
+        seller.save()
+        seller.user_permissions.add(Permission.objects.get(codename="seller"))
+
+        print('Seller created...Ok')
+
+        # ==============================================================================================================
+
+        # local = Local(name='local1', description='local1Description', address='local1Address', phone=123456789,
+        #               seller=seller)
+        # # print (local.product_set)
+        # local.save()
+        # print ('Locals...Ok!')
+        #
+        # print ('Populated...Ok!')
 
     def handle(self, *args, **options):
         self._migrate()
