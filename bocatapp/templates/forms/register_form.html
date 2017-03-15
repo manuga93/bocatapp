@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div class="container">
+        <h1>  {{ type }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-group">
+                {{ form.as_p }}
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+{% endblock %}
