@@ -1,4 +1,6 @@
+from django.conf.urls import include, url
+
 urlpatterns = [
     # Users URLs
-    #url(r'^register$', RegistrationView.as_view(), name='guest_register')
+    url(r'^creditcard/new/$', 'administration.views.creditcard_new', name='creditcard_new'),
 ]

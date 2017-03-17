@@ -12,3 +12,4 @@ class CreditCard(models.Model):
     cvv = models.IntegerField(validators=[MinValueValidator(12), MaxValueValidator(999)])
     number = models.IntegerField()
     user = models.ForeignKey(User)
+
