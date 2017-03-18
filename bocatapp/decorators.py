@@ -41,7 +41,9 @@ def user_passes_test(test_func,
             messages.add_message(request, messages.WARNING, message)
             return redirect_to_login(
                 path, resolved_login_url, redirect_field_name)
+
         return _wrapped_view
+
     return decorator
 
 
@@ -63,16 +65,17 @@ def login_required(function=None,
     return actual_decorator
 
 
-def permission_required(perm, login_url=None, raise_exception=False):
+def permission_required(perm, login_url=None, raise_exception=False, message=None):
     """
     Decorator for views that checks whether a user has a particular permission
     enabled, redirecting to the log-in page if necessary.
     If the raise_exception parameter is given the PermissionDenied exception
     is raised.
     """
+
     def check_perms(user):
         if not isinstance(perm, (list, tuple)):
-            perms = (perm, )
+            perms = (perm,)
         else:
             perms = perm
         # First check if the user has the permission (even anon users)
@@ -83,7 +86,8 @@ def permission_required(perm, login_url=None, raise_exception=False):
             raise PermissionDenied
         # As the last resort, show the login form
         return False
-    return user_passes_test(check_perms, login_url=login_url)
+
+    return user_passes_test(check_perms, login_url=login_url, message=message)
 
 
 def anonymous_required(view_function=None, redirect_to=None, message=None):

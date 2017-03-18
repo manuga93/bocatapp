@@ -62,8 +62,26 @@ python manage.py populatedb
 ```
 
 ## Users and Roles
+To force a user to be logged in you must type this in the url file
+```
+from .decorators import anonymous_required
+url(r'^customer/register/$', anonymous_required(RegistrationCustomerView.as_view(),
+                                                    message='You`ve already sign in!'), name='user_register'),
+```
+you can check the permission in the view too typing this just before the controller 
+```
+from bocatapp.decorators import permission_required
+@permission_required('bocatapp.customer', message='you cant enter')
+```
 
-To user an User you must type: 
+And at the template you can use this to show whatever you want
 ```
-from bocatapp.models import User
+{% if perms.bocatapp.customer %}
+    <li><a href='seller/local'>Listado</a></li>
+{% endif %}
+
+{% if perms.bocatapp.seller %}
+    <li><a href='seller/local/new'>Insertar</a></li>
+{% endif %}
 ```
+ 

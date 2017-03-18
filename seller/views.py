@@ -1,13 +1,11 @@
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from seller.models import Product, Local
 from django.shortcuts import get_list_or_404, render_to_response, render, redirect, get_object_or_404
 from forms.forms import LocalForm
+from bocatapp.decorators import permission_required
 
 
 # Create your views here.
-
-
 
 def carta(request):  # Recibira una id de local def carta(request, local_id)
     productos = Product.objects.all()  # productos = get_list_or_404(Producto, fk=local_id)
@@ -16,13 +14,14 @@ def carta(request):  # Recibira una id de local def carta(request, local_id)
 
 
 # Vista para el lisstado de locales
-# @login_required()
+@permission_required('bocatapp.customer', message='you cant enter')
 def local_list(request):
     locals = Local.objects.all()
     return render(request, 'local_list.html', {'locals': locals})
 
 
 # Vista para la creacion de un nuevo local
+@permission_required('bocatapp.seller', message='You are not a seller')
 def local_new(request):
     if request.method == "POST":
         form = LocalForm(request.POST)
