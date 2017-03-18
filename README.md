@@ -66,9 +66,9 @@ To force a user to be logged in you must type this in the url file
 ```
 from .decorators import anonymous_required
 url(r'^customer/register/$', anonymous_required(RegistrationCustomerView.as_view(),
-                                                    message='You`ve already sign in!'), name='user_register'),
+                                               message='You`ve already sign in!'), name='user_register'),
 ```
-you can check the permission in the view too typing this just before the controller 
+you can check the permission in the view typing this just before the controller 
 ```
 from bocatapp.decorators import permission_required
 @permission_required('bocatapp.customer', message='you cant enter')
