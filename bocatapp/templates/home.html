@@ -6,16 +6,25 @@
     <section class="container">
         <h1>Welcome to Bocatapp!</h1>
         <br/>
-        <h2>Locales</h2>
-        <ul>
-            <li><a href='seller/local'>Listado</a></li>
-            <li><a href='seller/local/new'>Insertar</a></li>
-        </ul>
+        <div class="contact-main jumbotron">
+            <h2>Locales</h2>
+            <ul>
+                {% if perms.bocatapp.customer %}
+                    <li><a href='seller/local'>Listado</a></li>
+                {% endif %}
 
-        <h2>Usuarios</h2>
-        <ul>
-            <li><a href='customer/register'>Registrar Customer</a></li>
-            <li><a href='seller/register'>Registrar Seller</a></li>
-        </ul>
+                {% if perms.bocatapp.seller %}
+                    <li><a href='seller/local/new'>Insertar</a></li>
+                {% endif %}
+
+            </ul>
+        </div>
+        <div class="contact-main jumbotron">
+            <h2>Usuarios</h2>
+            <ul>
+                <li><a href='customer/register'>Registrar Customer</a></li>
+                <li><a href='seller/register'>Registrar Seller</a></li>
+            </ul>
+        </div>
     </section>
 {% endblock %}
