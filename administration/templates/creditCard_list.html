@@ -4,9 +4,9 @@
 
 {% block content %}
     <h1>Tarjetas de credito</h1>
-    {% for local in locals %}
+    {% for creditCard in creditCards %}
         <div>
-            <h3><a href="{% url 'administration.views.creditCard_detail' pk=local.pk %}">{{ creditCard.brandName }}</a></h3>
+            <h3>{{creditCard.brandName }}</h3>
             <p>{{ local.description|linebreaksbr }}</p>
         </div>
     {% endfor %}
