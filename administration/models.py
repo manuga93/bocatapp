@@ -11,7 +11,7 @@ class CreditCard(models.Model):
     expireMonth = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(12)])
     expireYear = models.IntegerField(validators=[MinValueValidator(2017)])
     cvv = models.IntegerField(validators=[MinValueValidator(12), MaxValueValidator(999)])
-    number = models.IntegerField()
+    number = models.BigIntegerField()
     user = models.ForeignKey(User)
     isDeleted = models.BooleanField(default=False)
 

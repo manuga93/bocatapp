@@ -73,11 +73,11 @@ class Command(BaseCommand):
 
         creditCard = CreditCard(
             holderName='customer',
-            brandName='customer',
+            brandName='visa',
             expireMonth = '12',
             expireYear = '2020',
             cvv = '123',
-            number = '12312314',
+            number = '4528348244106025',
             user=seller)
 
         creditCard.save()

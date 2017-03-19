@@ -5,4 +5,4 @@ from ..models import CreditCard
 class CreditCardForm(forms.ModelForm):
     class Meta:
         model = CreditCard
-        fields = ('holderName','brandName', 'expireMonth', 'expireYear', 'cvv', 'number','isDeleted')
+        fields = ('holderName', 'expireMonth', 'expireYear', 'cvv', 'number')
