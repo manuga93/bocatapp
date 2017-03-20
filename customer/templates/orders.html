@@ -22,7 +22,7 @@
                 <tbody>
                     {% for o in orders %}
                     <tr>
-                        <td>{{ o.customer }}</td>
+                        <td>{{ o.customer.first_name }}</td>
                         <td>{{ o.pickupMoment }}</td>
                         <td>
                             {% if o.status == True %}

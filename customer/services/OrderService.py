@@ -1,6 +1,8 @@
 from customer.models import Order,OrderLine
 
-
+#CREAR FUNCION PARA VER LAS ORDERS DEL CUSTOMER LOGUEADO 
+#CHECKEAR ESTATUS DE LAS ORDERS 
+#ALALLA
 def find_all_orders():
     orders = Order.objects.all().order_by('moment')
     return orders
@@ -8,6 +10,11 @@ def find_all_orders():
 
 def find_all_orders_by_local(local):
     orders = Order.objects.all().filter(local=local)
+    return orders
+
+
+def find_all_orders_by_customer(customer):
+    orders = Order.objects.all().filter(customer=customer)
     return orders
 
 
