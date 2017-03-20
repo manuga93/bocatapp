@@ -7,7 +7,9 @@
     {% for creditCard in creditCards %}
         <div>
             <h3>{{creditCard.brandName }}</h3>
-            <p>{{ local.description|linebreaksbr }}</p>
+        </div>
+        <div>
+             <button class ='btn-primary' onclick="window.location.href='/administration/creditcard/delete/{{ creditCard.id }}/'" > DELETE </button>
         </div>
     {% endfor %}
  {%endblock%}
