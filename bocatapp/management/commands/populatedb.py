@@ -3,7 +3,10 @@
 from django.core.management.base import BaseCommand
 from bocatapp.models import User
 from django.contrib.auth.models import Permission
+from administration.models import CreditCard
+
 from seller.models import Local, Product
+
 
 
 # Los archivos que se encuentren en el paquete commands, se podr�n llamar
@@ -101,6 +104,22 @@ class Command(BaseCommand):
         print ('Products...Ok!')
 
         print ('Populated...Ok!')
+
+        # ==============================================================================================================
+
+        creditCard = CreditCard(
+            holderName='customer',
+            brandName='visa',
+            expireMonth = '12',
+            expireYear = '2020',
+            cvv = '123',
+            number = '4528348244106025',
+            user=seller1)
+
+        creditCard.save()
+        print('creditCard created...Ok')
+
+        # ==============================================================================================================
 
     def handle(self, *args, **options):
         self._migrate()

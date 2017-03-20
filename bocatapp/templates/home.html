@@ -10,11 +10,19 @@
         <div class="contact-main jumbotron">
             <h2>Locales</h2>
             <ul>
-                    <li><a href='seller/local'>Listado</a></li>       
+                    <li><a href='seller/local'>Listado</a></li>
 
                 {% if perms.bocatapp.seller %}
                     <li><a href='seller/local/new'>Insertar</a></li>
                 {% endif %}
+
+        </ul>
+
+        <h2>Tarjetas de credito</h2>
+        <ul>
+            <li><a href='administration/creditcard/new'>Registrar tarjeta</a></li>
+            <li><a href='administration/creditcard'>Listado</a></li>
+
 
             </ul>
         </div>
@@ -34,6 +42,7 @@
                 <li><a href='seller/register'>Registrar Seller</a></li>
             </ul>
         </div>
+>>>>>>> develop
     </section>
 {% endblock %}
 
