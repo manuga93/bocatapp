@@ -29,6 +29,7 @@ class Product(models.Model):
     name = models.CharField(max_length=48)
     price = models.DecimalField(max_digits=4, decimal_places=2)
     category = models.ManyToManyField(Category)
+    #local = models.CharField(max_length=48)
     local = models.ForeignKey(Local)
 
     def __unicode__(self):
