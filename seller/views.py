@@ -1,20 +1,51 @@
 from django.http import HttpResponse
-from seller.models import Product, Local
+
+from seller.models import Product, Local, Category
 from django.shortcuts import get_list_or_404, render_to_response, render, redirect, get_object_or_404
+
+from forms.forms import LocalForm, CategoryForm, ProductForm
+
 from forms.forms import LocalForm
 from bocatapp.decorators import permission_required
 
-
 # Create your views here.
 
-def carta(request):  # Recibira una id de local def carta(request, local_id)
-    productos = Product.objects.all()  # productos = get_list_or_404(Producto, fk=local_id)
+# Lista el menu de productos de un local
+def menu_list(request, pk):
+    productos = get_list_or_404(Product, local = pk)
     return render_to_response('carta.html',
-                              {'productos': productos})
+                                {'productos': productos})
 
+# Vista para la creacion de una nueva categoria
+
+def category_new(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+            return redirect('/')
+    else:
+        form = CategoryForm()
+
+    return render(request, 'category_edit.html', {'form': form})
+
+# Vista para la creacion de un nuevo producto
+
+def product_new(request):
+
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.save()
+            return redirect('menu_list', pk = product.local.id)
+    else:
+        form = ProductForm()
+
+    return render(request, 'product_edit.html', {'form': form})
 
 # Vista para el lisstado de locales
-@permission_required('bocatapp.customer', message='you cant enter')
 def local_list(request):
     locals = Local.objects.all()
     return render(request, 'local_list.html', {'locals': locals})
@@ -58,3 +89,9 @@ def local_edit(request, pk):
         form = LocalForm(instance=local)
 
     return render(request, 'local_edit.html', {'form': form})
+
+
+def search(request):
+    # TODO: This is not finished!
+    locals = Local.objects.all()
+    return render(request, 'cp_search.html', {'locals': locals})
