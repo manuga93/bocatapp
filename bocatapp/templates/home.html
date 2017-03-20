@@ -3,19 +3,19 @@
 {% block title %}Bocatapp - Inicio{% endblock %}
 
 {% block content %}
+
     <section class="container">
         <h1>Welcome to Bocatapp!</h1>
         <br/>
-        <h2>Locales</h2>
-        <ul>
-            <li><a href='seller/local'>Listado</a></li>
-            <li><a href='seller/local/new'>Insertar</a></li>
-        </ul>
+        <div class="contact-main jumbotron">
+            <h2>Locales</h2>
+            <ul>
+                    <li><a href='seller/local'>Listado</a></li>
 
-        <h2>Usuarios</h2>
-        <ul>
-            <li><a href='customer/register'>Registrar Customer</a></li>
-            <li><a href='seller/register'>Registrar Seller</a></li>
+                {% if perms.bocatapp.seller %}
+                    <li><a href='seller/local/new'>Insertar</a></li>
+                {% endif %}
+
         </ul>
 
         <h2>Tarjetas de credito</h2>
@@ -23,6 +23,26 @@
             <li><a href='administration/creditcard/new'>Registrar tarjeta</a></li>
             <li><a href='administration/creditcard'>Listado</a></li>
 
-        </ul>
+
+            </ul>
+        </div>
+                {% if perms.bocatapp.seller %}
+        <div class="contact-main jumbotron">
+            <h2>Productos</h2>
+            <ul>
+                <li><a href="seller/category/new">Registrar categoria</a></li>
+                <li><a href='seller/product/new'>Registrar producto</a></li>
+            </ul>
+        </div>
+                {% endif %}
+        <div class="contact-main jumbotron">
+            <h2>Usuarios</h2>
+            <ul>
+                <li><a href='customer/register'>Registrar Customer</a></li>
+                <li><a href='seller/register'>Registrar Seller</a></li>
+            </ul>
+        </div>
+>>>>>>> develop
     </section>
 {% endblock %}
+

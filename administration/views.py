@@ -12,7 +12,7 @@ def creditcard_new(request):
             creditCard.user = request.user
             creditCard.brandName =  get_cc_type(creditCard.number)
             creditCard.save()
-            return redirect('administration.views.creditCard_list')
+            return redirect('creditCard_list')
     else:
         form = CreditCardForm()
 
