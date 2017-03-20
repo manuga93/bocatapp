@@ -1,8 +1,6 @@
 from customer.models import Order,OrderLine
 
-#CREAR FUNCION PARA VER LAS ORDERS DEL CUSTOMER LOGUEADO 
-#CHECKEAR ESTATUS DE LAS ORDERS 
-#ALALLA
+#CREAR UNA VISTA PARA MIS LOCALES -> DE AHI PODER NAVEGAR A LAS ORDERS DE TUS LOCALES Y POR TANTO A TUS LINEAS DE PEDIDO Y AMCABIAR SU ESTADO
 def find_all_orders():
     orders = Order.objects.all().order_by('moment')
     return orders
