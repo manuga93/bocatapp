@@ -2,31 +2,19 @@ from django.http import HttpResponse
 
 from seller.models import Product, Local, Category
 from django.shortcuts import get_list_or_404, render_to_response, render, redirect, get_object_or_404
-<<<<<<< HEAD
+
 from forms.forms import LocalForm, CategoryForm, ProductForm
 
-=======
 from forms.forms import LocalForm
 from bocatapp.decorators import permission_required
->>>>>>> develop
 
 # Create your views here.
 
-# Create your views here.
-
-<<<<<<< HEAD
 # Lista el menu de productos de un local
 def menu_list(request, local_id): 
     productos = get_list_or_404(Product, local_pk = local_id) 
     return render_to_response('carta.html', 
                                 {'productos': productos})
-=======
-def carta(request):  # Recibira una id de local def carta(request, local_id)
-    productos = Product.objects.all()  # productos = get_list_or_404(Producto, fk=local_id)
-    return render_to_response('carta.html',
-                              {'productos': productos})
->>>>>>> develop
-
 
 # Vista para la creacion de una nueva categoria
 
@@ -106,11 +94,5 @@ def local_edit(request, pk):
             return redirect('seller.views.local_detail', pk=local.pk)
     else:
         form = LocalForm(instance=local)
-<<<<<<< HEAD
     
     return render(request, 'local_edit.html', {'form': form})
-
-=======
-
-    return render(request, 'local_edit.html', {'form': form})
->>>>>>> develop
