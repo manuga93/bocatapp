@@ -1,3 +1,5 @@
+from administration.models import CreditCard
+from django.shortcuts import get_object_or_404
 def get_cc_type(number):
     """
     Gets credit card type given number. Based on values from Wikipedia page
@@ -27,3 +29,8 @@ def get_cc_type(number):
         if number[0] == "4":
             return "Visa"
     return "Unknown"
+
+def deleteCreditCard(i):
+    creditCard = get_object_or_404(CreditCard, pk=i)
+    creditCard.isDeleted=True
+    creditCard.save()
