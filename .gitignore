@@ -119,8 +119,8 @@ ENV/
 
 # Migrations
 
-administration/migrations
-seller/migrations
-customer/migrations
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
 
 .idea/
