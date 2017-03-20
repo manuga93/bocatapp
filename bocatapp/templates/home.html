@@ -1,39 +1,27 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block title %}Bocatapp - Inicio{% endblock %}
 
 {% block content %}
 
-    <section class="container">
-        <h1>Welcome to Bocatapp!</h1>
-        <br/>
-        <div class="contact-main jumbotron">
-            <h2>Locales</h2>
-            <ul>
-                    <li><a href='seller/local'>Listado</a></li>       
-
-                {% if perms.bocatapp.seller %}
-                    <li><a href='seller/local/new'>Insertar</a></li>
-                {% endif %}
-
-            </ul>
+    <div class="jumbotron jumbotron-fluid home-hero" style="background-image: url({% static "images/sandwich.jpg" %});">
+      <div class="container" style="text-align: center">
+        <h1 class="display-3">Don't wait queues anymore!</h1>
+        <p class="lead">Love eating. Enjoy no waiting.</p>
+      </div>
+      <div class="jumbotron jumbotron-fluid" style="background-color: rgba(0,0,0,.3); margin-top: 3%">
+        <div class="container" style="text-align: center">
+          <form class="form-inline" action ="/seller/local/" method="GET">
+            <p class="label-postcode">
+              Enter your postcode to find takeaways locals
+            </p>
+    				<div class ="form-group">
+    					<input type="text" class="form-control" placeholder="Enter postcode" name="postcode" id="cp">
+    				</div>
+    				<button onclick="#" class="form-control button">Search!</button>
+    			</form>
         </div>
-                {% if perms.bocatapp.seller %}
-        <div class="contact-main jumbotron">
-            <h2>Productos</h2>
-            <ul>
-                <li><a href="seller/category/new">Registrar categoria</a></li>
-                <li><a href='seller/product/new'>Registrar producto</a></li>
-            </ul>
-        </div>
-                {% endif %}
-        <div class="contact-main jumbotron">
-            <h2>Usuarios</h2>
-            <ul>
-                <li><a href='customer/register'>Registrar Customer</a></li>
-                <li><a href='seller/register'>Registrar Seller</a></li>
-            </ul>
-        </div>
-    </section>
+      </div>
+    </div>
+    
 {% endblock %}
-

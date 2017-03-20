@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <title>{% block title %}Bocatapp.com{% endblock %}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
 <!-- STYLES -->
@@ -60,7 +61,7 @@
 <!-- Uso de plugin DataTable y traduccion, +info "https://datatables.net/" -->
 <script type="text/javascript" language="javascript" src="{% static "scripts/jQuery.dataTables.js"%}"></script>
 <script type="text/javascript" language="javascript" src="{% static "scripts/dataTables.js"%}"></script>
-<script> 
+<script>
     $(document).ready( function () {
     $('#menu').DataTable({
         "columnDefs": [
@@ -74,12 +75,12 @@
             "infoEmpty": "No se encontraron resultados",
             "infoFiltered": "(filtrados de _MAX_ resultados totales)",
             "loadingRecords": "Cargando resultados...",
-            "emptyTable": "No hay nada para mostrar aqui", 
+            "emptyTable": "No hay nada para mostrar aqui",
             paginate: {
                 "previous": "Anterior",
                 "next": "Siguiente"
             },
-            
+
 
         }
     } );
