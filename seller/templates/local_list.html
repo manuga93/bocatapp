@@ -3,6 +3,7 @@
 {% block title %}Locales{%endblock%}
 
 {% block content %}
+  <div class="container">
     <h1>Locales</h1>
     {% for local in locals %}
         <div>
@@ -10,4 +11,6 @@
             <p>{{ local.description|linebreaksbr }}</p>
         </div>
     {% endfor %}
+  </div>
+
  {%endblock%}

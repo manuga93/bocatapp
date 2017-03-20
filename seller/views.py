@@ -11,9 +11,9 @@ from bocatapp.decorators import permission_required
 # Create your views here.
 
 # Lista el menu de productos de un local
-def menu_list(request, pk): 
+def menu_list(request, pk):
     productos = get_list_or_404(Product, local = pk)
-    return render_to_response('carta.html', 
+    return render_to_response('carta.html',
                                 {'productos': productos})
 
 # Vista para la creacion de una nueva categoria
@@ -27,13 +27,13 @@ def category_new(request):
             return redirect('/')
     else:
         form = CategoryForm()
-        
+
     return render(request, 'category_edit.html', {'form': form})
 
 # Vista para la creacion de un nuevo producto
 
 def product_new(request):
-    
+
     if request.method == "POST":
         form = ProductForm(request.POST)
         if form.is_valid():
@@ -87,5 +87,11 @@ def local_edit(request, pk):
             return redirect('seller.views.local_detail', pk=local.pk)
     else:
         form = LocalForm(instance=local)
-    
+
     return render(request, 'local_edit.html', {'form': form})
+
+
+def search(request):
+    # TODO: This is not finished!
+    locals = Local.objects.all()
+    return render(request, 'cp_search.html', {'locals': locals})

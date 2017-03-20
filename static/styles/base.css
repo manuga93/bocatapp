@@ -47,7 +47,7 @@ button:focus {
 	background-color: #009688;
 }
 
-.white { background-color: white }
+.white { background-color: white!important }
 
 /* Header
 ---------------------------------------------------------------*/
@@ -256,10 +256,61 @@ ul.errorlist li{
   font-weight: 500;
 }
 
-.form-inline input,
-.form-inline button {
+.home-hero .form-inline input,
+.home-hero .form-inline button {
 	height: 50px;
 }
+
+/* Search
+------------------------------------------------------------*/
+.search-filter h4 {font-size: 9pt}
+.search-filter label {
+	font-size: 8pt;
+	line-height: 2em;
+}
+
+.avatar-wrapper .stars,
+.stars .fa-star {
+	color: #d6b00d;
+	margin-top: 5px;
+	margin-bottom: 0;
+}
+
+.item-search .brief-text {
+	font-size:11px;
+	margin-bottom:0;
+}
+
+.item-search .bottom {position: absolute; bottom: 0}
+
+.buttons-wrapper,
+.avatar-wrapper,
+.ride-item__avatar {
+	margin: auto;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.buttons-wrapper button	{
+	margin-bottom: 5px;
+}
+
+.item-search:hover {
+	border-color: #737373;
+}
+
+.item-search .row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+.item-search .row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
 
 /* Footer
 ------------------------------------------------------------*/
