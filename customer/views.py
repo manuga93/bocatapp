@@ -1,8 +1,8 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, render
 from customer.services import OrderService
 from django.template import RequestContext
 from django.http.response import HttpResponseRedirect
-from customer.models import Order, OrderLine
+from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine
 
 # Create your views here.
 
@@ -31,4 +31,11 @@ def do_order_line(request, id1):
     order_line.save()
     OrderService.set_order_status(order_line.order_id)
     return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
+
+
+def list_shoppingcart(request):
+    current_user = request.user
+    shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
+    shoppingcart_line = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingcart.id)
+    return render(request, 'shoppingcart.html', {'shoppingcart_line': shoppingcart_line})
 
