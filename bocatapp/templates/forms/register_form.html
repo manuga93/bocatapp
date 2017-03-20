@@ -4,15 +4,30 @@
 
 {% block content %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <div class="container">
+
         <h1>  {{ type }}</h1>
-        <form method="post">
-            {% csrf_token %}
-            <div class="input-group">
-                {{ form.as_p }}
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
+
+        <div class="contact-main jumbotron">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <p class="field-error">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn btn-primary">register</button>
+            </form>
+        </div>
     </div>
+
 {% endblock %}
+

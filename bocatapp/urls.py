@@ -14,9 +14,11 @@ urlpatterns = [
     url(r'^logout/$', logout, {'next_page': '/'}),
     # url(r'^signup/$', views.signup),
     url(r'^admin/', admin.site.urls),
-    url(r'^seller/register/$', RegistrationSellerView.as_view(), name='user_register'),
+    url(r'^seller/register/$', anonymous_required(RegistrationSellerView.as_view(),
+                                                  message='You`ve already sign in!'), name='user_register'),
     url(r'^seller/', include('seller.urls')),
     url(r'^administration/', include('administration.urls')),
-    url(r'^customer/register/$', RegistrationCustomerView.as_view(), name='user_register'),
+    url(r'^customer/register/$', anonymous_required(RegistrationCustomerView.as_view(),
+                                                    message='You`ve already sign in!'), name='user_register'),
     url(r'^customer/', include('customer.urls')),
 ]
