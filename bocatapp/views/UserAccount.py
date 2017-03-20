@@ -27,23 +27,23 @@ class UserEdit(edit.BaseUpdateView):
     @transaction.atomic
     def post(self, request):
         if request.user.is_authenticated():
-            form = UserForm(data=request.POST, instance=request.user, prefix='user')
+            user_form = UserForm(data=request.POST, instance=request.user, prefix='user')
             profile_form = UserProfileForm(data=request.POST, instance=request.user.profile, prefix='profile')
-            if form.is_valid() and profile_form.is_valid():
-                user = form.save(commit=False)
+            if user_form.is_valid() and profile_form.is_valid():
+                user = user_form.save(commit=False)
                 user.save()
                 profile = profile_form.save(commit=False)
                 profile.user = user
                 profile.save()
-                context = {'user': request.user}
-                return render(request, '../templates/myaccount.html', context)
+                return render(request, '../templates/myaccount.html')
             else:
                 message = ""
-                for field, errors in form.errors.items():
+                for field, errors in zip(user_form.errors.items(), profile_form.errors.items()):
                     for error in errors:
                         message += error
                 context = {
-                    'form': form, 'message': message
+                    'user_form': user_form,
+                    'profile_form': profile_form, 'message': message
                 }
                 return render(request, '../templates/forms/user_edit.html', context)
         else:

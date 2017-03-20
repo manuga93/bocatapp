@@ -9,7 +9,6 @@ from seller.models import Local, Product
 from customer.models import Order, CreditCard, OrderLine
 
 
-
 # Los archivos que se encuentren en el paquete commands, se podr�n llamar
 # desde manage.py, de forma que para popular la base de datos debemos hacer
 # 'manage.py populate_db'
@@ -23,7 +22,11 @@ class Command(BaseCommand):
         print('Dropping tables...')
 
         User.objects.all().delete()
-
+        Product.objects.all().delete()
+        CreditCard.objects.all().delete()
+        Order.objects.all().delete()
+        OrderLine.objects.all().delete()
+        Local.objects.all().delete()
         print('Populating database...')
 
         # Admins =======================================================================================================
@@ -43,7 +46,7 @@ class Command(BaseCommand):
         customer1 = User(
             username='customer1',
             email='customer1@customer1.com',
-            first_name='customer1Firstname',last_name='customer1Lastname')
+            first_name='customer1Firstname', last_name='customer1Lastname')
         customer1.set_password('customer1')
         customer1.save()
         customer1.user_permissions.add(Permission.objects.get(codename="customer"))
@@ -110,7 +113,8 @@ class Command(BaseCommand):
         # phone = models.CharField(max_length=14)
         # birth_date = models.DateField(null=True, blank=True) YYYY-MM-DD
         # avatar = models.URLField(default=default)
-        profile_customer1 = Profile(user=customer1, phone=123456789, birth_date='1993-01-25')
+        profile_customer1 = Profile(user=customer1, phone=123456789, birth_date='1993-01-25',
+                                    avatar='https://http2.mlstatic.com/mascara-v-de-venganza-pelicula-v-for-vendetta-D_NQ_NP_2613-MLM2719793745_052012-O.jpg')
         profile_customer1.save()
 
         profile_customer2 = Profile(user=customer2, phone=123456789, birth_date='1993-01-25')
@@ -123,20 +127,20 @@ class Command(BaseCommand):
         profile_seller2.save()
 
         print ('Profiles...Ok!')
-         # CreditCard==============================================================================================================
+        # CreditCard==============================================================================================================
 
         creditCard1 = CreditCard(
-            holderName='Paco Perez',
+            holderName='Customer1',
             brandName='visa',
-            expireMonth = '12',
-            expireYear = '2020',
-            cvv = '123',
-            number = '4528348244106025',
+            expireMonth='12',
+            expireYear='2020',
+            cvv='123',
+            number='4528348244106025',
             user=customer1)
         creditCard1.save()
 
         creditCard2 = CreditCard(
-            holderName='customer',
+            holderName='customer2',
             brandName='visa',
             expireMonth='12',
             expireYear='2020',
@@ -149,25 +153,25 @@ class Command(BaseCommand):
 
         print('creditCard... Ok!')
 
-         # Order ==============================================================================================================
+        # Order ==============================================================================================================
 
-        order1 = Order(totalPrice=2.10, moment='2017-04-01 14:35:00',local=local1,
-                        comment="Sin salsas",customer=customer1,creditCard=creditCard,
-                        pickupMoment='2017-04-01 14:45:00')
+        order1 = Order(totalPrice=2.10, moment='2017-04-01 14:35:00', local=local1,
+                       comment="Sin salsas", customer=customer1, creditCard=creditCard1,
+                       pickupMoment='2017-04-01 14:45:00')
         order1.save()
 
         order2 = Order(totalPrice=5.10, moment='2017-04-01 14:30:00', local=local1,
-                       comment="Mucho roquefort", customer=customer1, creditCard=creditCard,
+                       comment="Mucho roquefort", customer=customer1, creditCard=creditCard1,
                        pickupMoment='2017-04-01 15:00:00')
         order2.save()
 
         order3 = Order(totalPrice=6.10, moment='2017-04-01 14:40:00', local=local2,
-                       comment="Lo quiero todo rapido", customer=customer2, creditCard=creditCard,
+                       comment="Lo quiero todo rapido", customer=customer2, creditCard=creditCard2,
                        pickupMoment='2017-04-01 14:55:00')
         order3.save()
         print("Orders... Ok!")
 
-         # OrderLine==============================================================================================================
+        # OrderLine==============================================================================================================
 
         order_line1 = OrderLine(quantity=1, name="Bocadillo de Pavo", price=2.10, order=order1)
         order_line1.save()
@@ -183,10 +187,9 @@ class Command(BaseCommand):
 
         print("OrdersLine... Ok!")
 
-# ==============================================================================================================
+    # ==============================================================================================================
 
     print ('Populated...Ok!')
-
 
     def handle(self, *args, **options):
         self._migrate()
