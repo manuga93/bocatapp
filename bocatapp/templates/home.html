@@ -10,7 +10,12 @@
         <div class="contact-main jumbotron">
             <h2>Locales</h2>
             <ul>
-                    <li><a href='seller/local'>Listado</a></li>
+
+                    {% if perms.bocatapp.customer %}
+                    <li><a href="{% url 'orders_by_customer' pk=request.user.id %}">Mis pedidos</a>
+                    {% endif %}
+                    <li><a href='seller/local'>Listado</a></li>       
+
 
                 {% if perms.bocatapp.seller %}
                     <li><a href='seller/local/new'>Insertar</a></li>
@@ -42,7 +47,7 @@
                 <li><a href='seller/register'>Registrar Seller</a></li>
             </ul>
         </div>
->>>>>>> develop
+
     </section>
 {% endblock %}
 
