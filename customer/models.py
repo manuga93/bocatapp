@@ -2,6 +2,7 @@ from django.db import models
 from seller.models import Local
 from administration.models import CreditCard
 from bocatapp.models import User
+from seller.models import Product
 from django.core.validators import MinValueValidator
 
 
@@ -30,10 +31,11 @@ class OrderLine(models.Model):
         return self.name
 
 
-class ShoppingCartLine(models.Model):
-    quantity = models.IntegerField(validators=[MinValueValidator(1)])
-
-
 class ShoppingCart(models.Model):
     customer = models.ForeignKey(User)
-    shoppingCartLine = models.ForeignKey(ShoppingCartLine)
+
+
+class ShoppingCartLine(models.Model):
+    quantity = models.IntegerField(validators=[MinValueValidator(1)])
+    product = models.ForeignKey(Product)
+    shoppingCart = models.ForeignKey(ShoppingCart)
