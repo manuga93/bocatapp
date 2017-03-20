@@ -47,7 +47,7 @@ button:focus {
 	background-color: #009688;
 }
 
-.white { background-color: white }
+.white { background-color: white!important }
 
 /* Header
 ---------------------------------------------------------------*/

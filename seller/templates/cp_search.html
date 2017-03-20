@@ -6,6 +6,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
+        <br/>
           <form class="form-inline well white" style="text-align:center;">
               <div class="form-group">
                   <label style="font-weight: normal;" for="postcode">Results for </label>
@@ -89,7 +90,8 @@
                                   <img height="60px" width="60px"  class="ride-item__avatar" alt="foto de perfil" src="{% static "images/default-pic-profile.png" %}" alt="Profile image">
                               {%endif%}
                               <p class="stars">
-                                  {{local.stars}}/5
+                                  {%if not local.stars%}0/5{%endif%}
+                                  {%if local.stars > 0 %}{{local.stars}}/5{%endif%}
                                   <i class="fa fa-star" aria-hidden="true"></i>
                               </p>
                           </div>
@@ -99,16 +101,15 @@
                                   {{ local.description|linebreaksbr }}
                               </p>
                               <p class="brief-text bottom">
-                                  {{local.service}}&nbsp;·&nbsp;
                                   {%if local.opinions.length == 0 or not local.opinions %} No opinions. Write yours!{%endif%}
                                   {%if local.opinions.length == 1 %} 1 opinion {%endif%}
                                   {%if local.opinions.length > 1 %} {{local.opinions.length}} opinions {%endif%}
                               </p>
                           </div>
                           <div class="col-md-2 buttons-wrapper">
-                              <button onclick="location.replace('{% url 'seller.views.local_detail' pk=local.pk %}');" class="form-control">Menu</button>
+                              <button onclick="location.replace('{% url 'menu_list' pk=local.pk %}');" class="form-control">Menu</button>
                               <p class="brief-text">
-                                  {{local.availability_days}} · {{local.availability_schedule}}
+                                  WEEK · 9-14:30
                               </p>
                           </div>
                       </div>
