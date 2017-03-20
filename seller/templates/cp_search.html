@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Locales{%endblock%}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <form class="form-inline well white" style="text-align:center;">
+              <div class="form-group">
+                  <label style="font-weight: normal;" for="postcode">Results for </label>
+                  <input id="postcode" name="postcode" type="text" class="form-control input-md" value="{{request.GET.postcode}}">
+              </div>
+              <button onclick="#" class="form-control">Search!</button>
+          </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 search-filter" id="sidebar">
+          <div class="col-md-12 well white">
+            <form action="" method="GET" >
+              <h4>List by</h4>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="list_by" onchange="this.form.submit();" value="0" {%if request.GET.list_by == '0'%}checked{%endif%}>
+                  Best match
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="list_by" onchange="this.form.submit();" value="1" {%if request.GET.list_by == '1'%}checked{%endif%}>
+                  New
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="list_by" onchange="this.form.submit();" value="2" {%if request.GET.list_by == '2'%}checked{%endif%}>
+                  Avg. rating
+                </label>
+              </div>
+              <hr />
+              <h4>Cuisine</h4>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="cuisine" onchange="this.form.submit();" value="pizza" {%if request.GET.cuisine == 'pizza'%}checked{%endif%}>
+                  Pizza
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="cuisine" onchange="this.form.submit();" value="sandwiches" {%if request.GET.cuisine == 'sandwiches'%}checked{%endif%}>
+                  Sandwiches
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="cuisine" onchange="this.form.submit();" value="kebab" {%if request.GET.cuisine == 'kebab'%}checked{%endif%}>
+                  Kebab
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="cuisine" onchange="this.form.submit();" value="chineese" {%if request.GET.cuisine == 'chineese'%}checked{%endif%}>
+                  Chineese
+                </label>
+              </div>
+              <input type="hidden" name="postcode" value="{{request.GET.postcode}}" />
+              <button onclick="#" class="form-control">Reload</button>
+            </form>
+          </div>
+      </div>
+      <div class="col-md-9">
+          <div id="map"></div>
+          <div class="row">
+              <div class="col-md-12">
+                  <h4>{{locals|length}} local{%if locals|length != 1 %}s{%endif%} found in this zone.</h4>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                {% for local in locals %}
+                  <div class="item-search well white">
+                      <div class="row">
+                          <div class="col-md-2 avatar-wrapper">
+                              {%if local.profile_picture %}
+                                  <img alt="" height="60px" width="60px" class="ride-item__avatar" src="{{MEDIA_URL}}{{local.profile_picture}}">
+                              {% else %}
+                                  <img height="60px" width="60px"  class="ride-item__avatar" alt="foto de perfil" src="{% static "images/default-pic-profile.png" %}" alt="Profile image">
+                              {%endif%}
+                              <p class="stars">
+                                  {{local.stars}}/5
+                                  <i class="fa fa-star" aria-hidden="true"></i>
+                              </p>
+                          </div>
+                          <div class="col-md-8 info-wrapper">
+                              <b>{{ local.name }}</b>
+                              <p>
+                                  {{ local.description|linebreaksbr }}
+                              </p>
+                              <p class="brief-text bottom">
+                                  {{local.service}}&nbsp;·&nbsp;
+                                  {%if local.opinions.length == 0 or not local.opinions %} No opinions. Write yours!{%endif%}
+                                  {%if local.opinions.length == 1 %} 1 opinion {%endif%}
+                                  {%if local.opinions.length > 1 %} {{local.opinions.length}} opinions {%endif%}
+                              </p>
+                          </div>
+                          <div class="col-md-2 buttons-wrapper">
+                              <button onclick="location.replace('{% url 'seller.views.local_detail' pk=local.pk %}');" class="form-control">Menu</button>
+                              <p class="brief-text">
+                                  {{local.availability_days}} · {{local.availability_schedule}}
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  {%endfor%}
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+ {%endblock%}

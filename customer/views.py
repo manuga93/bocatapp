@@ -1,8 +1,9 @@
-from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, render
 from customer.services import OrderService
 from django.template import RequestContext
 from django.http.response import HttpResponseRedirect
 from customer.models import Order, OrderLine
+from seller.models import Local
 
 # Create your views here.
 
@@ -36,4 +37,3 @@ def do_order_line(request, id1):
     order_line.save()
     OrderService.set_order_status(order_line.order_id)
     return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
-
