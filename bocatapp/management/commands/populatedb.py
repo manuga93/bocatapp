@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.management.base import BaseCommand
-from bocatapp.models import User
+from bocatapp.models import User, Profile
 from django.contrib.auth.models import Permission
 from seller.models import Local, Product
 
@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
         print('Populating database...')
 
-        # ==============================================================================================================
+        # Admins =======================================================================================================
 
         admin_admin = User(
             username='admin',
@@ -31,15 +31,15 @@ class Command(BaseCommand):
         admin_admin.set_password('admin')
         admin_admin.is_staff = True
         admin_admin.is_superuser = True
-        admin_admin.save()
+        self.save = admin_admin.save()
         print('Admin created...Ok')
 
-        # ==============================================================================================================
+        # Customers ====================================================================================================
 
         customer1 = User(
             username='customer1',
             email='customer1@customer1.com',
-            first_name='customer1')
+            first_name='customer1Firstname',last_name='customer1Lastname')
         customer1.set_password('customer1')
         customer1.save()
         customer1.user_permissions.add(Permission.objects.get(codename="customer"))
@@ -53,7 +53,7 @@ class Command(BaseCommand):
         customer2.user_permissions.add(Permission.objects.get(codename="customer"))
         print('customer created...Ok')
 
-        # ==============================================================================================================
+        # Sellers ======================================================================================================
 
         seller1 = User(
             username='seller1',
@@ -73,7 +73,7 @@ class Command(BaseCommand):
 
         print('Seller created...Ok')
 
-        # ==============================================================================================================
+        # Locals =======================================================================================================
 
         local1 = Local(name='local1', description='local1Description', address='local1Address', phone=123456789,
                        photo='www.photo.com', seller=seller1)
@@ -86,7 +86,7 @@ class Command(BaseCommand):
         local2.save()
         print ('Locals...Ok!')
 
-        # ==============================================================================================================
+        # Products =====================================================================================================
 
         product1_local1 = Product(name='product1', price=1.5, local=local1)
         product1_local1.save()
@@ -100,6 +100,25 @@ class Command(BaseCommand):
 
         print ('Products...Ok!')
 
+        # Profiles =====================================================================================================
+
+        # user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE)
+        # phone = models.CharField(max_length=14)
+        # birth_date = models.DateField(null=True, blank=True) YYYY-MM-DD
+        # avatar = models.URLField(default=default)
+        profile_customer1 = Profile(user=customer1, phone=123456789, birth_date='1993-01-25')
+        profile_customer1.save()
+
+        profile_customer2 = Profile(user=customer2, phone=123456789, birth_date='1993-01-25')
+        profile_customer2.save()
+
+        profile_seller1 = Profile(user=seller1, phone=123456789, birth_date='1993-01-25')
+        profile_seller1.save()
+
+        profile_seller2 = Profile(user=seller2, phone=123456789, birth_date='1993-01-25')
+        profile_seller2.save()
+
+        print ('Profiles...Ok!')
         print ('Populated...Ok!')
 
     def handle(self, *args, **options):

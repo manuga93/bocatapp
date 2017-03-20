@@ -3,15 +3,11 @@ from django.shortcuts import render
 from django.contrib.auth.models import Permission
 from bocatapp.models import User
 from django.views.generic import FormView
-from forms import UserRegistrationForm
+from bocatapp.forms import UserRegistrationForm
 from django.http.response import HttpResponseRedirect
 
 
-def home(request):
-    return render(request, 'home.html')
-
-
-class RegistrationCustomerView(FormView):  # Vista de la Registracion basada en vistas de Django ( View )
+class RegistrationCustomerView(FormView):
 
     def get(self, request):
         if not request.user.is_authenticated():
@@ -46,8 +42,7 @@ class RegistrationCustomerView(FormView):  # Vista de la Registracion basada en 
             return render(request, '../templates/forbidden.html')
 
 
-class RegistrationSellerView(FormView):  # Vista de la Registracion basada en vistas de Django ( View )
-
+class RegistrationSellerView(FormView):
     def get(self, request):
         if not request.user.is_authenticated():
             form = UserRegistrationForm()
