@@ -11,8 +11,8 @@ from bocatapp.decorators import permission_required
 # Create your views here.
 
 # Lista el menu de productos de un local
-def menu_list(request, local_id): 
-    productos = get_list_or_404(Product, local_pk = local_id) 
+def menu_list(request, pk): 
+    productos = get_list_or_404(Product, local = pk)
     return render_to_response('carta.html', 
                                 {'productos': productos})
 
@@ -24,13 +24,13 @@ def category_new(request):
         if form.is_valid():
             category = form.save(commit=False)
             category.save()
-            return redirect('seller.views.local_new')
+            return redirect('/')
     else:
         form = CategoryForm()
         
     return render(request, 'category_edit.html', {'form': form})
 
-# Vista para la creacion de un nuevo producto (a falta de seleccionar el local)
+# Vista para la creacion de un nuevo producto
 
 def product_new(request):
     
@@ -39,20 +39,13 @@ def product_new(request):
         if form.is_valid():
             product = form.save(commit=False)
             product.save()
-            return redirect('seller.views.local_new')
+            return redirect('menu_list', pk = product.local.id)
     else:
         form = ProductForm()
 
     return render(request, 'product_edit.html', {'form': form})
 
-# Vista para el listado de categorias y productos
-
-def category_list(request):
-    categories = Category.objects.all()
-    return render(request, 'category_list.html', {'categories': categories})
-
 # Vista para el lisstado de locales
-@permission_required('bocatapp.customer', message='you cant enter')
 def local_list(request):
     locals = Local.objects.all()
     return render(request, 'local_list.html', {'locals': locals})

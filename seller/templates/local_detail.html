@@ -8,6 +8,7 @@
     Direccii&oacute;n: {{ local.address }} <br/>
     Tel&eacute;fono: {{ local.phone }} <br/>
     Foto: {{ local.photo }} <br/>
+    <a href="{% url 'menu_list' pk=local.pk %}">Ver carta</a>
     <hr/>
     <a  href="{% url 'local_edit' pk=local.pk %}">Editar</a>
  {%endblock%}

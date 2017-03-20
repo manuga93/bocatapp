@@ -10,9 +10,7 @@
         <div class="contact-main jumbotron">
             <h2>Locales</h2>
             <ul>
-                {% if perms.bocatapp.customer %}
-                    <li><a href='seller/local'>Listado</a></li>
-                {% endif %}
+                    <li><a href='seller/local'>Listado</a></li>       
 
                 {% if perms.bocatapp.seller %}
                     <li><a href='seller/local/new'>Insertar</a></li>
@@ -20,6 +18,15 @@
 
             </ul>
         </div>
+                {% if perms.bocatapp.seller %}
+        <div class="contact-main jumbotron">
+            <h2>Productos</h2>
+            <ul>
+                <li><a href="seller/category/new">Registrar categoria</a></li>
+                <li><a href='seller/product/new'>Registrar producto</a></li>
+            </ul>
+        </div>
+                {% endif %}
         <div class="contact-main jumbotron">
             <h2>Usuarios</h2>
             <ul>
