@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from customer.services import OrderService
 from django.template import RequestContext
 from django.http.response import HttpResponseRedirect
@@ -15,6 +15,11 @@ def all_orders(request):
         return render_to_response('orders.html', {'orders': orders}, context_instance=RequestContext(request))
     except Order.DoesNotExist:
         return render_to_response('error.html', context_instance=RequestContext(request))
+
+
+def orders_by_customer(request, pk):
+    orders =  get_list_or_404(Order, customer = pk)
+    return render_to_response('orders.html', {'orders' : orders})
 
 
 def order_line_by_order(request, order_id):

@@ -23,5 +23,50 @@
         </div>
       </div>
     </div>
-    
+
+    <!-- <section class="container">
+        <h1>Welcome to Bocatapp!</h1>
+        <br/>
+        <div class="contact-main jumbotron">
+            <h2>Locales</h2>
+            <ul>
+
+                    {% if perms.bocatapp.customer %}
+                    <li><a href="{% url 'orders_by_customer' pk=request.user.id %}">Mis pedidos</a>
+                    {% endif %}
+                    <li><a href='seller/local'>Listado</a></li>
+
+
+                {% if perms.bocatapp.seller %}
+                    <li><a href='seller/local/new'>Insertar</a></li>
+                {% endif %}
+
+        </ul>
+
+        <h2>Tarjetas de credito</h2>
+        <ul>
+            <li><a href='administration/creditcard/new'>Registrar tarjeta</a></li>
+            <li><a href='administration/creditcard'>Listado</a></li>
+
+
+            </ul>
+        </div>
+                {% if perms.bocatapp.seller %}
+        <div class="contact-main jumbotron">
+            <h2>Productos</h2>
+            <ul>
+                <li><a href="seller/category/new">Registrar categoria</a></li>
+                <li><a href='seller/product/new'>Registrar producto</a></li>
+            </ul>
+        </div>
+                {% endif %}
+        <div class="contact-main jumbotron">
+            <h2>Usuarios</h2>
+            <ul>
+                <li><a href='customer/register'>Registrar Customer</a></li>
+                <li><a href='seller/register'>Registrar Seller</a></li>
+            </ul>
+        </div>
+
+    </section> -->
 {% endblock %}

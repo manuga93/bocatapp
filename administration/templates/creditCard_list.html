@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Locales{%endblock%}
+
+{% block content %}
+    <h1>Tarjetas de credito</h1>
+    {% for creditCard in creditCards %}
+        <div>
+            <h3>{{creditCard.brandName }}</h3>
+        </div>
+        <div>
+             <button class ='btn-primary' onclick="window.location.href='/administration/creditcard/delete/{{ creditCard.id }}/'" > DELETE </button>
+        </div>
+    {% endfor %}
+ {%endblock%}

@@ -3,7 +3,11 @@
 from django.core.management.base import BaseCommand
 from bocatapp.models import User
 from django.contrib.auth.models import Permission
+from administration.models import CreditCard
+
 from seller.models import Local, Product
+from customer.models import Order, CreditCard, OrderLine
+
 
 
 # Los archivos que se encuentren en el paquete commands, se podr�n llamar
@@ -100,7 +104,72 @@ class Command(BaseCommand):
 
         print ('Products...Ok!')
 
+         # ==============================================================================================================
+        
+        creditCard = CreditCard(
+            holderName='Paco Perez',
+            brandName='visa',
+            expireMonth = '12',
+            expireYear = '2020',
+            cvv = '123',
+            number = '4528348244106025',
+            user=customer1)
+        creditCard.save()
+
+        print('creditCard... Ok!')
+        
+         # ==============================================================================================================
+
+        order1 = Order(totalPrice=2.10, moment='2017-04-01 14:35:00',local=local1,
+                        comment="Sin salsas",customer=customer1,creditCard=creditCard,
+                        pickupMoment='2017-04-01 14:45:00')
+        order1.save()
+
+        order2 = Order(totalPrice=5.10, moment='2017-04-01 14:30:00', local=local1,
+                       comment="Mucho roquefort", customer=customer1, creditCard=creditCard,
+                       pickupMoment='2017-04-01 15:00:00')
+        order2.save()
+
+        order3 = Order(totalPrice=6.10, moment='2017-04-01 14:40:00', local=local2,
+                       comment="Lo quiero todo rapido", customer=customer2, creditCard=creditCard,
+                       pickupMoment='2017-04-01 14:55:00')
+        order3.save()
+        print("Orders... Ok!")
+
+         # ==============================================================================================================
+
+        order_line1 = OrderLine(quantity=1, name="Bocadillo de Pavo", price=2.10, order=order1)
+        order_line1.save()
+
+        order_line2 = OrderLine(quantity=1, name="Lomo con Roquefort", price=3.10, order=order2)
+        order_line2.save()
+
+        order_line3 = OrderLine(quantity=1, name="Donut chocolate", price=2.00, order=order2)
+        order_line3.save()
+
+        order_line4 = OrderLine(quantity=2, name="Bocadillo hipergigante", price=3.05, order=order3)
+        order_line4.save()
+
+        print("OrdersLine... Ok!")
+
+
         print ('Populated...Ok!')
+
+        # ==============================================================================================================
+
+        creditCard = CreditCard(
+            holderName='customer',
+            brandName='visa',
+            expireMonth = '12',
+            expireYear = '2020',
+            cvv = '123',
+            number = '4528348244106025',
+            user=seller1)
+
+        creditCard.save()
+        print('creditCard created...Ok')
+
+        # ==============================================================================================================
 
     def handle(self, *args, **options):
         self._migrate()
