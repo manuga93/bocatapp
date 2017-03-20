@@ -114,7 +114,7 @@ class Command(BaseCommand):
             expireYear = '2020',
             cvv = '123',
             number = '4528348244106025',
-            user=seller)
+            user=seller1)
 
         creditCard.save()
         print('creditCard created...Ok')

@@ -1,3 +1,6 @@
+from django.core.exceptions import ValidationError
+
+
 def get_cc_type(number):
     """
     Gets credit card type given number. Based on values from Wikipedia page
@@ -27,3 +30,15 @@ def get_cc_type(number):
         if number[0] == "4":
             return "Visa"
     return "Unknown"
+
+def luhn(input):
+    digits = [int(c) for c in input if c.isdigit()]
+    checksum = digits.pop()
+    digits.reverse()
+    doubled = [2*d for d in digits[0::2]]
+    total = sum(d-9 if d > 9 else d for d in doubled) + sum(digits[1::2])
+    if (total * 9) % 10 != checksum:
+        raise ValidationError(
+            ('%(input)s is not a correct Credit Card number'),
+            params={'input': input},
+        )
