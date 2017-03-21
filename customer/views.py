@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.http.response import HttpResponseRedirect
 from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine
 from seller.models import Product
+from django.db.models import Sum, F, FloatField
 
 # Create your views here.
 
@@ -38,8 +39,11 @@ def do_order_line(request, id1):
 def list_shoppingcart(request):
     current_user = request.user
     shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
+    total_price = (ShoppingCartLine.objects
+                    .filter(shoppingCart_id=shoppingcart.id)
+                    .aggregate(total=Sum(F('quantity')*F('product__price'), output_field=FloatField()))['total'])
     shoppingcart_line = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingcart.id)
-    return render(request, 'shoppingcart.html', {'shoppingcart_line': shoppingcart_line})
+    return render(request, 'shoppingcart.html', {'shoppingcart_line': shoppingcart_line, 'total_price': total_price})
 
 
 # Metodo para agregar un producto al carrito de compra

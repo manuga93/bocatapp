@@ -13,6 +13,7 @@
                         <th class="no-sort">Nombre</th>
                         <th class="no-sort">Ingredientes</th>
                         <th>Precio</th>
+                        <th>Cantidad</th>
                         <th class="no-sort"></th>
                     </tr>
                 </thead>
@@ -22,6 +23,7 @@
                         <td> {{line.product.name}} </td>
                         <td> Ingrediente1, ingrediente2, ingrediente3 y tomate</td>
                         <td> {{line.product.price}} €</td>
+                        <td> {{ line.quantity }}
                         <td>
                             <a href="#" class="button">
                                 <span class="glyphicon glyphicon-remove"></span>
@@ -31,6 +33,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <h3>Total: {{total_price}} €</h3>
            </div>
         </div>
 
