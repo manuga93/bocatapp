@@ -1,20 +1,53 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block title %}Bocatapp - Inicio{% endblock %}
 
 {% block content %}
 
-    <section class="container">
+    <div class="jumbotron jumbotron-fluid home-hero" style="background-image: url({% static "images/sandwich.jpg" %});">
+      <div class="container" style="text-align: center">
+        <h1 class="display-3">Don't wait queues anymore!</h1>
+        <p class="lead">Love eating. Enjoy no waiting.</p>
+      </div>
+      <div class="jumbotron jumbotron-fluid" style="background-color: rgba(0,0,0,.3); margin-top: 3%">
+        <div class="container" style="text-align: center">
+          <form class="form-inline" action ="/seller/search/" method="GET">
+            <p class="label-postcode">
+              Enter your postcode to find takeaways locals
+            </p>
+    				<div class ="form-group">
+    					<input type="text" class="form-control" placeholder="Enter postcode" name="postcode" id="cp">
+    				</div>
+    				<button onclick="#" class="form-control button">Search!</button>
+    			</form>
+        </div>
+      </div>
+    </div>
+
+    <!-- <section class="container">
         <h1>Welcome to Bocatapp!</h1>
         <br/>
         <div class="contact-main jumbotron">
             <h2>Locales</h2>
             <ul>
-                    <li><a href='seller/local'>Listado</a></li>       
+
+                    {% if perms.bocatapp.customer %}
+                    <li><a href="{% url 'orders_by_customer' pk=request.user.id %}">Mis pedidos</a>
+                    {% endif %}
+                    <li><a href='seller/local'>Listado</a></li>
+
 
                 {% if perms.bocatapp.seller %}
                     <li><a href='seller/local/new'>Insertar</a></li>
                 {% endif %}
+
+        </ul>
+
+        <h2>Tarjetas de credito</h2>
+        <ul>
+            <li><a href='administration/creditcard/new'>Registrar tarjeta</a></li>
+            <li><a href='administration/creditcard'>Listado</a></li>
+
 
             </ul>
         </div>
@@ -34,6 +67,6 @@
                 <li><a href='seller/register'>Registrar Seller</a></li>
             </ul>
         </div>
-    </section>
-{% endblock %}
 
+    </section> -->
+{% endblock %}
