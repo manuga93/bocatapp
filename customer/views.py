@@ -46,6 +46,8 @@ def list_shoppingcart(request):
     total_price = (ShoppingCartLine.objects
                     .filter(shoppingCart_id=shoppingcart.id)
                     .aggregate(total=Sum(F('quantity')*F('product__price'), output_field=FloatField()))['total'])
+    if not total_price:
+        total_price = 0.0
     shoppingcart_line = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingcart.id)
     return render(request, 'shoppingcart.html', {'shoppingcart_line': shoppingcart_line, 'total_price': total_price})
 
@@ -58,14 +60,14 @@ def add_shoppingcart(request, pk):
     shoppingcart_line_query = ShoppingCartLine.objects.filter(product_id=product.id)
 
     if shoppingcart_line_query:
-        shoppingcart_line_query.update(quantity = F('quantity')+1) 
+        shoppingcart_line_query.update(quantity = F('quantity')+1)
 
     else:
         shoppingcart_line = ShoppingCartLine(quantity=1,
                 product=product,
                 shoppingCart=shoppingcart)
         shoppingcart_line.save()
-    
+
     return redirect('customer.views.list_shoppingcart')
 
 
@@ -73,5 +75,5 @@ def add_shoppingcart(request, pk):
 def remove_shoppingcart(request, pk):
     product = get_object_or_404(ShoppingCartLine, pk=pk)
     product.delete()
-    
+
     return redirect('customer.views.list_shoppingcart')
