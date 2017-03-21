@@ -1,9 +1,10 @@
-from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, render
+from django.shortcuts import render_to_response, get_object_or_404, render, redirect, get_list_or_404, render
 from customer.services import OrderService
 from django.template import RequestContext
 from django.http.response import HttpResponseRedirect
-from customer.models import Order, OrderLine
-from seller.models import Local
+from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine
+from seller.models import Product, Local
+from django.db.models import Sum, F, FloatField
 
 # Create your views here.
 
@@ -37,3 +38,40 @@ def do_order_line(request, id1):
     order_line.save()
     OrderService.set_order_status(order_line.order_id)
     return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
+
+# Vista del carrito de compra actual del customer logueado
+def list_shoppingcart(request):
+    current_user = request.user
+    shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
+    total_price = (ShoppingCartLine.objects
+                    .filter(shoppingCart_id=shoppingcart.id)
+                    .aggregate(total=Sum(F('quantity')*F('product__price'), output_field=FloatField()))['total'])
+    shoppingcart_line = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingcart.id)
+    return render(request, 'shoppingcart.html', {'shoppingcart_line': shoppingcart_line, 'total_price': total_price})
+
+
+# Metodo para agregar un producto al carrito de compra
+def add_shoppingcart(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    current_user = request.user
+    shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
+    shoppingcart_line_query = ShoppingCartLine.objects.filter(product_id=product.id)
+
+    if shoppingcart_line_query:
+        shoppingcart_line_query.update(quantity = F('quantity')+1) 
+
+    else:
+        shoppingcart_line = ShoppingCartLine(quantity=1,
+                product=product,
+                shoppingCart=shoppingcart)
+        shoppingcart_line.save()
+    
+    return redirect('customer.views.list_shoppingcart')
+
+
+# Metodo para eliminar un producto del carrito
+def remove_shoppingcart(request, pk):
+    product = get_object_or_404(ShoppingCartLine, pk=pk)
+    product.delete()
+    
+    return redirect('customer.views.list_shoppingcart')

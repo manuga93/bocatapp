@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Carta de local{%endblock%}
+{% block title %}Carrito de Compra{%endblock%}
 
 {% block content %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <div class="container">
-        <h2>Carta de ÑamÑam</h2>
+        <h2><span class="glyphicon glyphicon-shopping-cart"></span> Carrito de Compra</h2>
          <div class="table-responsive">
             <table id="menu" class="table table-striped table-hover table-menu">
                 <thead>
@@ -13,29 +13,32 @@
                         <th class="no-sort">Nombre</th>
                         <th class="no-sort">Ingredientes</th>
                         <th>Precio</th>
-                        <th class="no-sort">Añadir</th>
+                        <th>Cantidad</th>
+                        <th class="no-sort"></th>
                     </tr>
                 </thead>
-                <tbody>º
-                    {% for p in productos %}
+                <tbody>
+                    {% for line in shoppingcart_line %}
                     <tr>
-                        <td> {{p.name}} </td>
+                        <td> {{line.product.name}} </td>
                         <td> Ingrediente1, ingrediente2, ingrediente3 y tomate</td>
-                        <td> {{p.price}} €</td>
+                        <td> {{line.product.price}} €</td>
+                        <td> {{ line.quantity }}
                         <td>
-                            <a href="{% url 'add_shoppingcart' pk=p.pk%}" class="button">
-                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                            <a href="{% url 'remove_shoppingcart' pk=line.pk%}" class="button">
+                                <span class="glyphicon glyphicon-remove"></span>
                             </a>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <h3>Total: {{total_price}} € <a class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Terminar y pagar</a></h3>
            </div>
         </div>
 
 
-
+    
  {%endblock%}
-
+    
 <html>

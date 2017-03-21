@@ -6,7 +6,7 @@ from django.contrib.auth.models import Permission
 from administration.models import CreditCard
 
 from seller.models import Local, Product
-from customer.models import Order, CreditCard, OrderLine
+from customer.models import Order, CreditCard, OrderLine, ShoppingCart
 
 
 
@@ -55,7 +55,7 @@ class Command(BaseCommand):
         customer2.set_password('customer2')
         customer2.save()
         customer2.user_permissions.add(Permission.objects.get(codename="customer"))
-        print('customer created...Ok')
+        print('Customer created...Ok')
 
         # ==============================================================================================================
 
@@ -97,9 +97,9 @@ class Command(BaseCommand):
         product2_local1 = Product(name='product2', price=1.0, local=local1)
         product2_local1.save()
 
-        product1_local2 = Product(name='product1', price=1.0, local=local2)
+        product1_local2 = Product(name='product3', price=1.0, local=local2)
         product1_local2.save()
-        product2_local2 = Product(name='product2', price=2.5, local=local2)
+        product2_local2 = Product(name='product4', price=2.5, local=local2)
         product2_local2.save()
 
         print ('Products...Ok!')
@@ -152,9 +152,6 @@ class Command(BaseCommand):
 
         print("OrdersLine... Ok!")
 
-
-        print ('Populated...Ok!')
-
         # ==============================================================================================================
 
         creditCard = CreditCard(
@@ -167,9 +164,24 @@ class Command(BaseCommand):
             user=seller1)
 
         creditCard.save()
-        print('creditCard created...Ok')
+        print('CreditCard created...Ok')
 
         # ==============================================================================================================
+
+        shoppingCart1 = ShoppingCart(
+            customer=customer1)
+
+        shoppingCart1.save()
+
+        shoppingCart2 = ShoppingCart(
+            customer=customer2)
+
+        shoppingCart2.save()
+        print('ShoppingCart created...Ok')
+
+        # ==============================================================================================================
+
+        print ('Populated...Ok!')
 
     def handle(self, *args, **options):
         self._migrate()
