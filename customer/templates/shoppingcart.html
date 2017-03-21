@@ -25,7 +25,7 @@
                         <td> {{line.product.price}} €</td>
                         <td> {{ line.quantity }}
                         <td>
-                            <a href="#" class="button">
+                            <a href="{% url 'remove_shoppingcart' pk=line.pk%}" class="button">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>
                         </td>
@@ -33,7 +33,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <h3>Total: {{total_price}} €</h3>
+            <h3>Total: {{total_price}} € <a class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Terminar y pagar</a></h3>
            </div>
         </div>
 

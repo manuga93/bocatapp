@@ -63,3 +63,11 @@ def add_shoppingcart(request, pk):
         shoppingcart_line.save()
     
     return redirect('customer.views.list_shoppingcart')
+
+
+# Metodo para eliminar un producto del carrito
+def remove_shoppingcart(request, pk):
+    product = get_object_or_404(ShoppingCartLine, pk=pk)
+    product.delete()
+    
+    return redirect('customer.views.list_shoppingcart')
