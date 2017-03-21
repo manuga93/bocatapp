@@ -13,7 +13,7 @@ from bocatapp.decorators import permission_required
 # Lista el menu de productos de un local
 def menu_list(request, pk):
     productos = get_list_or_404(Product, local = pk)
-    return render_to_response('carta.html',
+    return render(request, 'carta.html',
                                 {'productos': productos})
 
 # Vista para la creacion de una nueva categoria
