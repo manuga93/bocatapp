@@ -51,10 +51,15 @@ def add_shoppingcart(request, pk):
     product = get_object_or_404(Product, pk=pk)
     current_user = request.user
     shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
+    shoppingcart_line_query = ShoppingCartLine.objects.filter(product_id=product.id)
 
-    shoppingcart_line = ShoppingCartLine(quantity=1,
-               product=product,
-               shoppingCart=shoppingcart)
-    shoppingcart_line.save()
+    if shoppingcart_line_query:
+        shoppingcart_line_query.update(quantity = F('quantity')+1) 
+
+    else:
+        shoppingcart_line = ShoppingCartLine(quantity=1,
+                product=product,
+                shoppingCart=shoppingcart)
+        shoppingcart_line.save()
     
     return redirect('customer.views.list_shoppingcart')
