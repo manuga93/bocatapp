@@ -47,8 +47,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="hidden-xs">
-                            {%if user.profileinformation.profile_picture %}
-                              <img width="30" height="30" class="img-circle" alt="{{ user.get_full_name }}" src="{{MEDIA_URL}}{{user.profileinformation.profile_picture}}" alt="Thumb v3 avatar 1453299202">
+                            {%if user.profile.avatar %}
+                              <img width="30" height="30" class="img-circle" alt="{{ user.get_full_name }}" src="{{user.profile.avatar}}" alt="Thumb v3 avatar 1453299202">
                             {% else %}
                               <img width="30" height="30" class="img-circle" alt="{{ user.get_full_name }}" src="{% static "images/default-pic-profile.png" %}" alt="Profile image">
                             {%endif%}
@@ -58,7 +58,7 @@
                     </a>
                     <ul id="myaccount-dp" class="dropdown-menu box main-dp">
                         <li>
-                            <a href="/my-account"><strong class="hidden-xs block">{{ user.get_full_name }}</strong>
+                            <a href="/user/myAccount/"><strong class="hidden-xs block">{{ user.get_full_name }}</strong>
                             <span class="block">My account</span></a>
                         </li>
                         <li><a href="/logout">Logout</a></li>
