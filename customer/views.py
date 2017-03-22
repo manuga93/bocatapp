@@ -85,7 +85,7 @@ def remove_shoppingcart(request, pk):
 
 # Checkout view
 def checkout(request, form=CreditCardForm):
-    # Copy from @Hug0Ramos shopping cart, we have to do refactoring...
+    # TODO: Copy from @Hug0Ramos shopping cart, we have to do refactoring...
     if request.user.is_authenticated():
         current_user = request.user
         shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
@@ -104,7 +104,9 @@ def do_checkout(request):
     if request.user.is_authenticated():
         creditcard_opt = request.POST.get('creditcard', '')
         if creditcard_opt == 'new':
+            # New credit card
             values = request.POST.copy()
+            values['user'] = request.user.id
             expiration_date = request.POST.get('cardExpiry', '')
             # parse and split.
             if expiration_date and '/' in expiration_date:
@@ -115,10 +117,12 @@ def do_checkout(request):
             form = CreditCardForm(values)
             if not form.is_valid():
                 return checkout(request, form)
+            creditcard = form.save()
         else:
+            # Other credit card
             creditcard = CreditCard.objects.get(id=creditcard_opt)
         # ...
-        # Generate order from shoppingcart
+        # TODO: Generate order from shoppingcart
         # ...
         return render(request, 'thanks.html', {})
     return redirect(home.home)
