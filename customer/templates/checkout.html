@@ -15,79 +15,82 @@
               <h3 class="panel-title" > Payment method</h3>
             </div>
             <div class="panel-body">
-                <form role="form" id="payment-form" method="POST" action="javascript:void(0);">
+                <form role="form" id="payment-form" method="POST" action="{% url 'checkout_save' %}">
                     {% csrf_token %}
-                    {% if creditcards %}
+
                     <div class="row">
                       <div class="col-xs-12">
                         <h3>Pay with:</h3>
                         <ul class="list-group">
                           {%for creditcard in creditcards%}
-                            <div class="checkbox list-group-item">
-                              <label><input type="checkbox" value="">{% show_last_4 creditcard.number%}</label>
+                            <div class="radio list-group-item">
+                              <label><input type="radio" name="creditcard" value="{{creditcard.id}}">{% show_last_4 creditcard.number%}</label>
                             </div>
                           {%endfor%}
+                          <div class="radio list-group-item">
+                            <label><input type="radio" name="creditcard" value="new" checked="true">New credit card</label>
+                          </div>
                         </ul>
-
-                        <h3>or</h3>
                       </div>
                     </div>
-                    {%endif%}
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <label for="cardNumber">Credit card number</label>
-                                <div class="input-group">
-                                    <input
-                                        type="tel"
-                                        class="form-control"
-                                        name="cardNumber"
-                                        placeholder="Valid credit card number"
-                                        autocomplete="cc-number"
-                                        required
-                                    />
-                                    <span class="input-group-addon"><i class="fa fa-credit-c
 
-                                        ard"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-7 col-md-7">
-                            <div class="form-group">
-                                <label for="cardExpiry"><span class="hidden-xs">Expiration date</span><span class="visible-xs-inline">EXP</span></label>
-                                <input
-                                    type="tel"
-                                    class="form-control"
-                                    name="cardExpiry"
-                                    placeholder="MM / YY"
-                                    autocomplete="cc-exp"
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div class="col-xs-5 col-md-5 pull-right">
-                            <div class="form-group">
-                                <label for="cardCVC">CVC Code</label>
-                                <input
-                                    type="tel"
-                                    class="form-control"
-                                    name="cardCVC"
-                                    placeholder="CVC"
-                                    autocomplete="cc-csc"
-                                    required
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="display:none;">
-                        <div class="col-xs-12">
-                            <p class="payment-errors"></p>
-                        </div>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value="">Yes, I would to save my card into system for my next purchase</label>
+                    <div id="creditcard-new">
+                      <div class="row">
+                          <div class="col-xs-12">
+                              <div class="form-group">
+                                  <label for="cardNumber">Credit card number</label>
+                                  <div class="input-group">
+                                      <input
+                                          type="tel"
+                                          class="form-control"
+                                          name="cardNumber"
+                                          placeholder="Valid credit card number"
+                                          autocomplete="cc-number"
+                                          required
+                                      />
+                                      <span class="input-group-addon"><i class="fa fa-credit-c
+
+                                          ard"></i></span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-7 col-md-7">
+                              <div class="form-group">
+                                  <label for="cardExpiry"><span class="hidden-xs">Expiration date</span><span class="visible-xs-inline">EXP</span></label>
+                                  <input
+                                      type="tel"
+                                      class="form-control"
+                                      name="cardExpiry"
+                                      placeholder="MM / YY"
+                                      autocomplete="cc-exp"
+                                      required
+                                  />
+                              </div>
+                          </div>
+                          <div class="col-xs-5 col-md-5 pull-right">
+                              <div class="form-group">
+                                  <label for="cardCVC">CVC Code</label>
+                                  <input
+                                      type="tel"
+                                      class="form-control"
+                                      name="cardCVC"
+                                      placeholder="CVC"
+                                      autocomplete="cc-csc"
+                                      required
+                                  />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row" style="display:none;">
+                          <div class="col-xs-12">
+                              <p class="payment-errors"></p>
+                          </div>
+                      </div>
+                      <div class="checkbox">
+                        <label><input type="checkbox" value="">Yes, I would to save my card into system for my next purchase</label>
+                      </div>
                     </div>
                 </form>
                 <br />
@@ -169,7 +172,7 @@
   </div>
   <div class="row">
       <div class="col-md-4 col-md-offset-8">
-          <button class="savecard btn btn-success btn-lg btn-block" type="button">Checkout</button>
+          <button class="savecard btn btn-success btn-lg btn-block" onclick="$('#payment-form').submit();" type="button">Checkout</button>
       </div>
   </div>
 </div>
