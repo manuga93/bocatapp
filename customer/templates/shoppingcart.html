@@ -33,12 +33,12 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <h3>Total: {{total_price}} € <a class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Terminar y pagar</a></h3>
+            <h3>Total: {{total_price}} € <a class="btn btn-success" href="{% url 'checkout' %}"><span class="glyphicon glyphicon-ok"></span> Terminar y pagar</a></h3>
            </div>
         </div>
 
 
-    
+
  {%endblock%}
-    
+
 <html>

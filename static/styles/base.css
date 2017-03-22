@@ -44,7 +44,7 @@ button:focus {
 }
 
 .main-header {
-	background-color: #009688;
+	background-color: #63d297;
 }
 
 .white { background-color: white!important }
@@ -311,6 +311,30 @@ ul.errorlist li{
   flex-direction: column;
 }
 
+/* Checkout
+------------------------------------------------------------*/
+/* CSS for Credit Card Payment form */
+.credit-card-box .panel-title {
+    display: inline;
+    font-weight: bold;
+}
+.credit-card-box .form-control.error {
+    border-color: red;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
+}
+.credit-card-box label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.credit-card-box .payment-errors {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
 
 /* Footer
 ------------------------------------------------------------*/

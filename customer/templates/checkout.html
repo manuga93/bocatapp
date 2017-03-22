@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load multiply %}
+{% load show_last_4 %}
+{% block title %} Payment method {% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>My order</h2>
+  <div class="row">
+    <div class="col-md-8">
+        <!-- CREDIT CARD FORM STARTS HERE -->
+        <div class="panel panel-default credit-card-box">
+            <div class="panel-heading" >
+              <h3 class="panel-title" > Payment method</h3>
+            </div>
+            <div class="panel-body">
+                <form role="form" id="payment-form" method="POST" action="javascript:void(0);">
+                    {% csrf_token %}
+                    {% if creditcards %}
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <h3>Pay with:</h3>
+                        <ul class="list-group">
+                          {%for creditcard in creditcards%}
+                            <div class="checkbox list-group-item">
+                              <label><input type="checkbox" value="">{% show_last_4 creditcard.number%}</label>
+                            </div>
+                          {%endfor%}
+                        </ul>
+
+                        <h3>or</h3>
+                      </div>
+                    </div>
+                    {%endif%}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="cardNumber">Credit card number</label>
+                                <div class="input-group">
+                                    <input
+                                        type="tel"
+                                        class="form-control"
+                                        name="cardNumber"
+                                        placeholder="Valid credit card number"
+                                        autocomplete="cc-number"
+                                        required
+                                    />
+                                    <span class="input-group-addon"><i class="fa fa-credit-c
+
+                                        ard"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-7 col-md-7">
+                            <div class="form-group">
+                                <label for="cardExpiry"><span class="hidden-xs">Expiration date</span><span class="visible-xs-inline">EXP</span></label>
+                                <input
+                                    type="tel"
+                                    class="form-control"
+                                    name="cardExpiry"
+                                    placeholder="MM / YY"
+                                    autocomplete="cc-exp"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="col-xs-5 col-md-5 pull-right">
+                            <div class="form-group">
+                                <label for="cardCVC">CVC Code</label>
+                                <input
+                                    type="tel"
+                                    class="form-control"
+                                    name="cardCVC"
+                                    placeholder="CVC"
+                                    autocomplete="cc-csc"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="display:none;">
+                        <div class="col-xs-12">
+                            <p class="payment-errors"></p>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value="">Yes, I would to save my card into system for my next purchase</label>
+                    </div>
+                </form>
+                <br />
+            </div>
+        </div>
+        <!-- CREDIT CARD FORM ENDS HERE -->
+    </div>
+    <div class="col-md-4">
+      <div class="well white">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+              <address>
+                  <strong>Ñam Ñam S.L.</strong>
+                  <br>
+                  Av. Reina Mercedes 15
+                  <br>
+                  Sevilla, 41010
+                  <br>
+                  <abbr title="Phone">+34</abbr> 955 91 32 00
+              </address>
+          </div>
+        </div>
+        <div class="text-center">
+            <h3>Order details</h3>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>#</th>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for line in shoppingcart_line%}
+                    <tr>
+                        <td class="col-md-7"><em>{{line.product.name}}</em></h4></td>
+                        <td class="col-md-1" style="text-align: center">{{ line.quantity }}</td>
+                        <td class="col-md-2 text-center">{{line.product.price}}</td>
+                        <td class="col-md-2 text-center">{% multiply line.quantity line.product.price %}</td>
+                    </tr>
+                {%endfor%}
+                <tr>
+                    <td>   </td>
+                    <td colspan = "2" class="text-right">
+                    <p>
+                        <strong>Subtotal: </strong>
+                    </p>
+                    <p>
+                        <strong>Fees (5%): </strong>
+                    </p>
+                    <p>
+                        <strong>VAT (10%): </strong>
+                    </p>
+                  </td>
+                    <td class="text-center">
+                    <p>
+                        <strong>{% multiply total_price 0.85%}</strong>
+                    </p>
+                    <p>
+                        <strong>{% multiply total_price 0.05%}</strong>
+                    </p>
+                    <p>
+                        <strong>{% multiply total_price 0.1%}</strong>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td class="text-right"><h4><strong>Total:</strong></h4></td>
+                    <td class="text-center text-danger"><h4><strong>{{total_price}}€</strong></h4></td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-4 col-md-offset-8">
+          <button class="savecard btn btn-success btn-lg btn-block" type="button">Checkout</button>
+      </div>
+  </div>
+</div>
+
+{% endblock%}

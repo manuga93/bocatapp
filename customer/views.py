@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.http.response import HttpResponseRedirect
 from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine
 from seller.models import Product, Local
+from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
 
 # Create your views here.
@@ -77,3 +78,19 @@ def remove_shoppingcart(request, pk):
     product.delete()
 
     return redirect('customer.views.list_shoppingcart')
+
+
+# Checkout view
+def checkout(request):
+    if request.user:
+        current_user = request.user
+        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
+        total_price = (ShoppingCartLine.objects
+                        .filter(shoppingCart_id=shoppingcart.id)
+                        .aggregate(total=Sum(F('quantity')*F('product__price'), output_field=FloatField()))['total'])
+        if not total_price:
+            total_price = 0.0
+        shoppingcart_line = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingcart.id)
+        creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
+        return render(request, 'checkout.html', {'shoppingcart_line': shoppingcart_line, 'total_price': total_price, 'creditcards': creditcards})
+    return render(request, 'checkout.html', {})
