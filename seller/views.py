@@ -7,6 +7,7 @@ from forms.forms import LocalForm, CategoryForm, ProductForm
 
 from forms.forms import LocalForm
 from bocatapp.decorators import permission_required
+from customer.models import Order
 
 # Create your views here.
 
@@ -45,11 +46,21 @@ def product_new(request):
 
     return render(request, 'product_edit.html', {'form': form})
 
+#Listado de locales dado un seller
+def get_my_locals(request, pk):
+    locals = get_list_or_404(Local, seller=pk)
+    return render(request, 'local_list.html',
+                                {'locals': locals})
+
+
 # Vista para el lisstado de locales
 def local_list(request):
     locals = Local.objects.all()
     return render(request, 'local_list.html', {'locals': locals})
 
+def local_orders(request, pk):
+    orders = get_list_or_404(Order, local=pk)
+    return render(request, 'orders.html' ,{'orders': orders})
 
 # Vista para la creacion de un nuevo local
 @permission_required('bocatapp.seller', message='You are not a seller')
