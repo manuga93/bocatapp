@@ -19,6 +19,12 @@
     					<input type="text" class="form-control" placeholder="Enter postcode" name="postcode" id="cp">
     				</div>
     				<button onclick="#" class="form-control button">Search!</button>
+                    {% if perms.bocatapp.seller %}
+                    <a href="{% url 'locals_by_seller' pk=request.user.id %}">Mis locales</a>
+                    {% endif %}
+                    {% if perms.bocatapp.customer %}
+                    <li><a href="{% url 'orders_by_customer' pk=request.user.id %}">Mis pedidos</a>
+                    {% endif %}
     			</form>
         </div>
       </div>
