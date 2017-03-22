@@ -32,6 +32,11 @@ def get_cc_type(number):
     return "Unknown"
 
 def luhn(input):
+    if not input.isdigit():
+        raise ValidationError(
+            ('%(input)s is not a correct Credit Card number'),
+            params={'input': input},
+        )
     digits = [int(c) for c in input if c.isdigit()]
     checksum = digits.pop()
     digits.reverse()

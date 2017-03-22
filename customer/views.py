@@ -6,6 +6,9 @@ from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine
 from seller.models import Product, Local
 from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
+from administration.forms.forms import CreditCardForm
+from bocatapp.views import home
+
 
 # Create your views here.
 
@@ -81,8 +84,9 @@ def remove_shoppingcart(request, pk):
 
 
 # Checkout view
-def checkout(request):
-    if request.user:
+def checkout(request, form=CreditCardForm):
+    # Copy from @Hug0Ramos shopping cart, we have to do refactoring...
+    if request.user.is_authenticated():
         current_user = request.user
         shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
         total_price = (ShoppingCartLine.objects
@@ -92,5 +96,29 @@ def checkout(request):
             total_price = 0.0
         shoppingcart_line = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingcart.id)
         creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
-        return render(request, 'checkout.html', {'shoppingcart_line': shoppingcart_line, 'total_price': total_price, 'creditcards': creditcards})
-    return render(request, 'checkout.html', {})
+        return render(request, 'checkout.html', {'shoppingcart_line': shoppingcart_line, 'total_price': total_price, 'creditcards': creditcards, 'form': form})
+    return redirect(home.home)
+
+
+def do_checkout(request):
+    if request.user.is_authenticated():
+        creditcard_opt = request.POST.get('creditcard', '')
+        if creditcard_opt == 'new':
+            values = request.POST.copy()
+            expiration_date = request.POST.get('cardExpiry', '')
+            # parse and split.
+            if expiration_date and '/' in expiration_date:
+                expireMonth = expiration_date.split('/')[0]
+                expireYear = "20" + expiration_date.split('/')[1]
+                values['expireMonth'] = expireMonth
+                values['expireYear'] = expireYear
+            form = CreditCardForm(values)
+            if not form.is_valid():
+                return checkout(request, form)
+        else:
+            creditcard = CreditCard.objects.get(id=creditcard_opt)
+        # ...
+        # Generate order from shoppingcart
+        # ...
+        return render(request, 'thanks.html', {})
+    return redirect(home.home)
