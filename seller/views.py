@@ -17,6 +17,17 @@ def menu_list(request, pk):
     return render(request, 'carta.html',
                                 {'productos': productos})
 
+# Lista las categorias de un local
+def category_list(request, pk):
+    categories = get_list_or_404(Category, local=pk)
+    return render(request, 'category_list.html',
+                                {'categories': categories})
+
+def product_list_category(request, pk):
+    productos = get_list_or_404(Product, category = pk)
+    return render(request, 'carta.html',
+                                {'productos': productos})
+
 # Vista para la creacion de una nueva categoria
 
 def category_new(request):
@@ -30,6 +41,22 @@ def category_new(request):
         form = CategoryForm()
 
     return render(request, 'category_edit.html', {'form': form})
+
+# Editar una categoria
+@permission_required('bocatapp.seller', message='You are not a seller')
+def category_edit(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == "POST":
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+            return redirect('seller.views.category_list', pk=category.local.pk)
+    else:
+        form = LocalForm(instance=category)
+
+    return render(request, 'category_edit.html', {'form': form})
+
 
 # Vista para la creacion de un nuevo producto
 

@@ -4,33 +4,24 @@
 
 {% block content %}
     <h1>Categorias</h1>
-    {%for category in categorias%}
-        <h3>{{category.name}}</h3>
-            <div class="table-responsive">
-            <table id="menu" class="table table-striped table-hover table-menu">
-                <thead>
-                    <tr>
-                        <th class="no-sort">Nombre</th>
-                        <th class="no-sort">Ingredientes</th>
-                        <th>Precio</th>
-                        <th class="no-sort">Añadir</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for p in productos %}
-                    <tr>
-                        <td> {{p.name}} </td>
-                        <td> Pollo, pollo, polla, lechuga y salsa de mi nabo</td>
-                        <td> {{p.price}} €</td>
-                        <td>
-                            <a href="#" class="button">
-                                <span class="glyphicon glyphicon-shopping-cart"></span> Al carrito
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
+
+    {%for category in categories%}
+
+        <div>
+            <h3>{{category.name }}</h3>
+        </div>
+        <div>
+            <button class ='btn-primary' onclick="window.location.href='/seller/product/list/{{ category.id }}/'" > Ver productos </button>
+            {% if perms.bocatapp.seller %}
+                <button class ='btn-primary' onclick="window.location.href='/seller/category/edit/{{ category.id }}/'" > Editar </button>
+            {% endif %}
+        </div>
+
+    {% endfor %}
+    <!--
                 </tbody>
             </table>
             </div>
-
+-->
 {%endblock%}
+

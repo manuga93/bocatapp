@@ -30,7 +30,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=48)
     price = models.DecimalField(max_digits=4, decimal_places=2)
-    categories = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, )
     #local = models.CharField(max_length=48)
     local = models.ForeignKey(Local)
 

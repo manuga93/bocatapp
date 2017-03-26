@@ -113,7 +113,7 @@ class Command(BaseCommand):
 
         product1_local1 = Product(name='product1', price=1.5, local=local1)
         product1_local1.save()
-        product1_local1.categories.add(category1_local1, category2_local1)
+        product1_local1.category.add(category1_local1, category2_local1)
         product1_local1.save()
 
         product2_local1 = Product(name='product2', price=1.0, local=local1)
@@ -124,7 +124,7 @@ class Command(BaseCommand):
 
         product2_local2 = Product(name='product4', price=2.5, local=local2)
         product2_local2.save()
-        product2_local2.categories.add(category1_local2)
+        product2_local2.category.add(category1_local2)
         product2_local2.save()
 
         print ('Products...Ok!')
