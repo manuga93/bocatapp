@@ -5,7 +5,7 @@ from django.http.response import HttpResponseRedirect
 from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine
 from seller.models import Product, Local
 from django.db.models import Sum, F, FloatField
-
+from bocatapp.decorators import permission_required
 # Create your views here.
 
 # This method is for testing the funcionality
@@ -20,8 +20,8 @@ def all_orders(request):
 
 
 def orders_by_customer(request, pk):
-    orders =  get_list_or_404(Order, customer = pk)
-    return render_to_response('orders.html', {'orders' : orders})
+    orders = get_list_or_404(Order, customer=pk)
+    return render_to_response('orders.html', {'orders': orders})
 
 
 def order_line_by_order(request, order_id):
@@ -77,3 +77,17 @@ def remove_shoppingcart(request, pk):
     product.delete()
 
     return redirect('customer.views.list_shoppingcart')
+
+
+@permission_required('bocatapp.customer', message='You are not a customer')
+def customer_dashboard(request):
+    orders_pending = OrderService.pending_orders(request.user.id)
+    orders_complete = OrderService.complete_orders(request.user.id)
+
+    context = {
+        'orders_pending': orders_pending,
+        'orders_complete': orders_complete
+    }
+    return render_to_response('customerDashboard.html', context, context_instance=RequestContext(request))
+
+
