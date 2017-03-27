@@ -50,7 +50,7 @@ def category_edit(request, pk):
     category = get_object_or_404(Category, pk=pk)
     if request.method == "POST":
         form = CategoryForm(request.POST, instance=category)
-
+        #aqui se comprueba que el vendedor es el que esta logueado
         if form.is_valid() and category.local.seller == request.user:
             category = form.save(commit=False)
             category.save()
@@ -77,6 +77,7 @@ def product_new(request):
     return render(request, 'product_edit.html', {'form': form})
 
 #Listado de locales dado un seller
+
 def get_my_locals(request, pk):
     locals = get_list_or_404(Local, seller=pk)
     return render(request, 'local_list.html',
