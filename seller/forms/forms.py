@@ -13,7 +13,7 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ('name', 'description', 'local')
+        fields = ('name', 'description')
 
 
 class ProductForm(forms.ModelForm):

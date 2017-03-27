@@ -14,7 +14,7 @@
   <a  href="{% url 'local_edit' pk=local.pk %}">Editar</a>
   <hr/>
     {% if perms.bocatapp.seller %}
-        <a href="{% url 'category_new' %}">Nueva categoria</a>
+        <a href="{% url 'category_new' pk=local.pk%}">Nueva categoria</a>
     {% endif %}
 
   <hr/>
