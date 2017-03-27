@@ -30,9 +30,9 @@ class Product(models.Model):
     name = models.CharField(max_length=48)
     price = models.DecimalField(max_digits=4, decimal_places=2)
     category = models.ManyToManyField(Category)
-    # local = models.CharField(max_length=48)
     local = models.ForeignKey(Local)
     deleted = models.BooleanField(default=False)
+    photo = models.URLField(default='/static/images/No_image_available.png')
 
     def __unicode__(self):
         return self.name
@@ -51,6 +51,7 @@ class Pack(models.Model):
     initDate = models.DateField(auto_now=True)
     endDate = models.DateField()
     deleted = models.BooleanField(default=False)
+    photo = models.URLField(default='/static/images/No_image_available.png')
     # Relationships
     local = models.ForeignKey(Local)
 

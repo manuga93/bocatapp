@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Packs{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <br/>
+                <form class="form-inline well white" style="text-align:center;">
+                    <div class="form-group">
+                        <label style="font-weight: normal;" for="postcode">Results for </label>
+                        <input id="postcode" name="postcode" type="text" class="form-control input-md"
+                               value="{{ request.GET.postcode }}">
+                    </div>
+                    <button onclick="#" class="form-control">Search!</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div id="map"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>{{ pack.name }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="item-search well white">
+                        <div class="row">
+
+                            <div class="col-md-8 info-wrapper">
+                                <b>{{ pack.name }}</b>
+                                <p>
+                                    {{ pack.price }}€
+                                </p>
+
+
+                                {% for product_line in pack.productline_set.all %}
+                                    <div class="item-search well white">
+                                        <div class="row">
+                                            <div class="col-md-2 avatar-wrapper">
+
+                                                <img alt="" height="60px" width="60px" class="ride-item__avatar"
+                                                     src="{{ MEDIA_URL }}{{ product_line.product.photo }}">
+                                            </div>
+                                            <div class="col-md-8 info-wrapper">
+                                                <p>{{ product_line.product.name }} x {{ product_line.quantity }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                {% endfor %}
+                            </div>
+
+                            <div class="col-md-2 buttons-wrapper">
+                                <p class="brief-text">
+                                    Disponible hasta el {{ pack.endDate }}
+                                </p>
+
+                                <button onclick="#" class="form-control">Comprar</button>
+{#                                        location.replace('{% url 'pack_details' pk=pack.pk %}');" class="form-control">Detalles#}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

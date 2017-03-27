@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Packs{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <br/>
+                <form class="form-inline well white" style="text-align:center;">
+                    <div class="form-group">
+                        <label style="font-weight: normal;" for="postcode">Results for </label>
+                        <input id="postcode" name="postcode" type="text" class="form-control input-md"
+                               value="{{ request.GET.postcode }}">
+                    </div>
+                    <button onclick="#" class="form-control">Search!</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 search-filter" id="sidebar">
+                <div class="col-md-12 well white">
+                    <form action="" method="GET">
+                        <h4>List by</h4>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="list_by" onchange="this.form.submit();" value="0"
+                                       {% if request.GET.list_by == '0' %}checked{% endif %}>
+                                Best match
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="list_by" onchange="this.form.submit();" value="1"
+                                       {% if request.GET.list_by == '1' %}checked{% endif %}>
+                                New
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="list_by" onchange="this.form.submit();" value="2"
+                                       {% if request.GET.list_by == '2' %}checked{% endif %}>
+                                Avg. rating
+                            </label>
+                        </div>
+                        <hr/>
+                        <h4>Cuisine</h4>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="cuisine" onchange="this.form.submit();" value="pizza"
+                                       {% if request.GET.cuisine == 'pizza' %}checked{% endif %}>
+                                Pizza
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="cuisine" onchange="this.form.submit();" value="sandwiches"
+                                       {% if request.GET.cuisine == 'sandwiches' %}checked{% endif %}>
+                                Sandwiches
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="cuisine" onchange="this.form.submit();" value="kebab"
+                                       {% if request.GET.cuisine == 'kebab' %}checked{% endif %}>
+                                Kebab
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="cuisine" onchange="this.form.submit();" value="chineese"
+                                       {% if request.GET.cuisine == 'chineese' %}checked{% endif %}>
+                                Chineese
+                            </label>
+                        </div>
+                        <input type="hidden" name="postcode" value="{{ request.GET.postcode }}"/>
+                        <button onclick="#" class="form-control">Reload</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="map"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>{{ packs|length }} pack{% if packs|length != 1 %}s{% endif %} found in this zone.</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for pack in packs %}
+                            <div class="item-search well white">
+                                <div class="row">
+                                    <div class="col-md-2 avatar-wrapper">
+
+                                        <img alt="" height="60px" width="60px" class="ride-item__avatar"
+                                             src="{{ MEDIA_URL }}{{ pack.photo }}">
+                                    </div>
+                                    <div class="col-md-8 info-wrapper">
+                                        <b>{{ pack.name }}</b>
+                                        <p>
+                                            {{ pack.price }}€
+                                        </p>
+                                        <p>
+                                            {{ pack.local.name }}
+                                        </p>
+
+                                        <p class="brief-text bottom">
+                                            {% for product_line in pack.productline_set.all %}
+                                                {{ product_line.product.name }} x {{ product_line.quantity }}|
+
+                                            {% endfor %}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2 buttons-wrapper">
+                                        <button onclick="location.replace('{% url 'pack_details' pk=pack.pk %}');"
+                                                class="form-control">Detalles
+                                        </button>
+
+                                        <p class="brief-text">
+                                            Disponible hasta el {{ pack.endDate }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

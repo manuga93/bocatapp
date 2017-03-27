@@ -3,7 +3,7 @@ from django.contrib import admin
 from .decorators import anonymous_required, login_required
 from django.contrib.auth.views import login, logout
 from bocatapp.views import home, UserRegister, UserAccount
-
+from seller import views
 urlpatterns = [
     # Examples:
     url(r'^$', home.home, name='home'),
@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^seller/register/$', anonymous_required(UserRegister.RegistrationSellerView.as_view(),
                                                   message='You`ve already sign in!'), name='user_register'),
     url(r'^seller/', include('seller.urls')),
+    url(r'^pack/all/$', views.packs_list, name="packs_all"),
+
 
     # Customer ==================================================================
     url(r'^customer/', include('customer.urls')),
