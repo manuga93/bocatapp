@@ -169,6 +169,11 @@ class Command(BaseCommand):
                        comment="Lo quiero todo rapido", customer=customer2, creditCard=creditCard2,
                        pickupMoment='2017-04-01 14:55:00')
         order3.save()
+
+        order4 = Order(totalPrice=6.10, moment='2017-04-01 15:45:00', local=local2, customer=customer1 ,
+                       creditCard=creditCard1, status=True)
+        order4.save()
+
         print("Orders... Ok!")
 
         # OrderLine==============================================================================================================
@@ -184,6 +189,9 @@ class Command(BaseCommand):
 
         order_line4 = OrderLine(quantity=2, name="Bocadillo hipergigante", price=3.05, order=order3)
         order_line4.save()
+
+        order_line5 = OrderLine(quantity=2, name="Bocadillo hipergigante", price=3.05, order=order4)
+        order_line5.save()
 
         print("OrdersLine... Ok!")
         

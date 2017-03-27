@@ -61,10 +61,14 @@
                             <a href="/user/myAccount/"><strong class="hidden-xs block">{{ user.get_full_name }}</strong>
                             <span class="block">My account</span></a>
                         </li>
+
                         {% if perms.bocatapp.seller %}
                           <li><a href='seller/local/new'>Nuevo local</a></li>
                           <li><a href="seller/category/new">Nueva categoría</a></li>
                           <li><a href='seller/product/new'>Nuevo producto</a></li>
+                        {% endif %}
+                        {% if perms.bocatapp.customer %}
+                          <li><a href="/customer/dashboard/">Dashboard</a></li>
                         {% endif %}
                         <li><a href="/logout">Logout</a></li>
                     </ul>
