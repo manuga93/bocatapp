@@ -5,15 +5,54 @@
 {% block content %}
   <div class="container">
     <h1>Locales</h1>
-    {% for local in locals %}
-        <div>
-            <h3><a href="{% url 'seller.views.local_detail' pk=local.pk %}">{{ local.name }}</a></h3>
-            <p>{{ local.description|linebreaksbr }}</p>
-            {% if perms.bocatapp.seller and request.user.id = local.seller.pk %}
-                <a href="{% url 'local_orders' pk=local.pk %}"> Gestionar pedidos </a>
-            {% endif %}
-        </div>
-    {% endfor %}
+    <div class="row">
+      <div class="col-md-2 col-md-offset-10">
+        <button type="button" class="btn btn-default col-xs-12" onclick="location.replace('{% url 'seller.views.local_new' %}')"  style="margin-bottom: 15px">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Crear local
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+      {% for local in locals %}
+      <div class="item-search well white">
+          <div class="row">
+              <div class="col-md-2 avatar-wrapper">
+                  {%if local.photo %}
+                      <img alt="" height="60px" width="60px" class="ride-item__avatar" src="{{local.photo}}">
+                  {% else %}
+                      <img height="60px" width="60px"  class="ride-item__avatar" alt="foto de perfil" src="{% static "images/default-pic-profile.png" %}" alt="Profile image">
+                  {%endif%}
+                  <p class="stars">
+                      {%if not local.stars%}0/5{%endif%}
+                      {%if local.stars > 0 %}{{local.stars}}/5{%endif%}
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                  </p>
+              </div>
+              <div class="col-md-8 info-wrapper">
+                  <a href="{% url 'seller.views.local_detail' pk=local.pk %}"><b>{{ local.name }}</b></a>
+                  <p>
+                      {{ local.description|linebreaksbr }}
+                  </p>
+                  <p class="brief-text bottom">
+                      {%if local.opinions.length == 0 or not local.opinions %} No opinions{%endif%}
+                      {%if local.opinions.length == 1 %} 1 opinion {%endif%}
+                      {%if local.opinions.length > 1 %} {{local.opinions.length}} opinions {%endif%}
+                  </p>
+              </div>
+              <div class="col-md-2 buttons-wrapper">
+                {% if perms.bocatapp.seller and request.user.id = local.seller.pk %}
+                  <button onclick="location.replace('{% url 'local_orders' pk=local.pk %}');" class="form-control">Gestionar pedidos</button>
+                {% endif %}
+                  <p class="brief-text">
+                      <a href="{% url 'menu_list' pk=local.pk %}">Ver carta</a>
+                  </p>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+      </div>
+    </div>
   </div>
 
  {%endblock%}
