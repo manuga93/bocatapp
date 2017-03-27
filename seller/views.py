@@ -120,6 +120,13 @@ def packs_list(request):
                   {'packs': packs})
 
 
+def local_packs(request, local_pk):
+    packs = Local.objects.get(id=local_pk).pack_set.all()
+    local = Local.objects.get(id=local_pk)
+    return render(request, 'pack_list.html',
+                  {'packs': packs, 'local': local})
+
+
 def pack_details(request, pk):
     pack = get_object_or_404(Pack, id=pk)
     return render(request, 'pack_details.html',

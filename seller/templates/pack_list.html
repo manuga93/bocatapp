@@ -83,7 +83,14 @@
                 <div id="map"></div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>{{ packs|length }} pack{% if packs|length != 1 %}s{% endif %} found in this zone.</h4>
+                        {% if local %}
+                            <h4>Encontrados {{ packs|length }} pack{% if packs|length != 1 %}s{% endif %}
+                                from {{ local.name }}.</h4>
+                        {% else %}
+                            <h4>Encontrados {{ packs|length }} pack{% if packs|length != 1 %}s{% endif %} en esta
+                                zona.</h4>
+                        {% endif %}
+
                     </div>
                 </div>
                 <div class="row">
