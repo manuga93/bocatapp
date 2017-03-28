@@ -6,6 +6,7 @@
     <h1>Editar categoria</h1>
     <form method="POST" class="local-form">{% csrf_token%}
         {{form.as_p}}
+
         <button type="submit" class="save">Guardar</button>
     </form>
 {%endblock%}
