@@ -53,7 +53,7 @@ button:focus {
 ---------------------------------------------------------------*/
 .title {
 	font-family: 'Arial';
-	color: #00d395;
+	color: #009688;
 	font-size: 30pt;
 	display: inline;
 	font-weight: normal;
@@ -62,7 +62,7 @@ button:focus {
 
 a.title:hover{
   text-decoration: none;
-	color: #00d395;
+	color: #009688;
 }
 
 .right-area {

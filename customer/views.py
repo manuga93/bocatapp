@@ -8,7 +8,7 @@ from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
 from administration.forms.forms import CreditCardForm
 from bocatapp.views import home
-
+from bocatapp.decorators import permission_required
 
 # Create your views here.
 
@@ -24,8 +24,8 @@ def all_orders(request):
 
 
 def orders_by_customer(request, pk):
-    orders =  get_list_or_404(Order, customer = pk)
-    return render_to_response('orders.html', {'orders' : orders})
+    orders = get_list_or_404(Order, customer=pk)
+    return render_to_response('orders.html', {'orders': orders})
 
 
 def order_line_by_order(request, order_id):
@@ -126,3 +126,15 @@ def do_checkout(request):
         # ...
         return render(request, 'thanks.html', {})
     return redirect(home.home)
+
+
+@permission_required('bocatapp.customer', message='You are not a customer')
+def customer_dashboard(request):
+    orders_pending = OrderService.pending_orders(request.user.id)
+    orders_complete = OrderService.complete_orders(request.user.id)
+
+    context = {
+        'orders_pending': orders_pending,
+        'orders_complete': orders_complete
+    }
+    return render_to_response('customerDashboard.html', context, context_instance=RequestContext(request))
