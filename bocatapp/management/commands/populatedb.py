@@ -111,18 +111,18 @@ class Command(BaseCommand):
 
         # Products =====================================================================================================
 
-        product1_local1 = Product(name='product1', price=1.5, local=local1)
+        product1_local1 = Product(name='product1', price=1.5, local=local1, ingredients="Lentejas, garbanzos y lechuga", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product1_local1.save()
         product1_local1.category.add(category1_local1, category2_local1)
         product1_local1.save()
 
-        product2_local1 = Product(name='product2', price=1.0, local=local1)
+        product2_local1 = Product(name='product2', price=1.0, local=local1, ingredients="Lentejas, garbanzos y tomate", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product2_local1.save()
 
-        product1_local2 = Product(name='product3', price=1.0, local=local2)
+        product1_local2 = Product(name='product3', price=1.0, local=local2, ingredients="Lentejas, cominio y mayonesa", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product1_local2.save()
 
-        product2_local2 = Product(name='product4', price=2.5, local=local2)
+        product2_local2 = Product(name='product4', price=2.5, local=local2, ingredients="Ketchup, mostaza y mojo picon", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product2_local2.save()
         product2_local2.category.add(category1_local2)
         product2_local2.save()
