@@ -265,7 +265,6 @@ class Command(BaseCommand):
         product4_pack3.save()
         print ('Products line...Ok!')
 
-
         print ('Populated...Ok!')
 
     def handle(self, *args, **options):

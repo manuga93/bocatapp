@@ -55,6 +55,6 @@ class Pack(models.Model):
     # Relationships
     local = models.ForeignKey(Local)
 
-    def clean(self):
-        if self.initDate > self.endDate:
-            raise ValidationError('Start date is after end date')
+    # def clean(self):
+    #     if self.initDate > self.endDate:
+    #         raise ValidationError('Start date is after end date')

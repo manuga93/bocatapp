@@ -1,6 +1,9 @@
+from django.db import transaction
 from django.http import HttpResponse
+from django.views.generic import edit
 
-from seller.models import Product, Local, Category, Pack
+from seller.forms.packsForms import PackForm
+from seller.models import Product, Local, Category, Pack, ProductLine
 from django.shortcuts import get_list_or_404, render_to_response, render, redirect, get_object_or_404
 
 from forms.forms import LocalForm, CategoryForm, ProductForm
@@ -116,18 +119,73 @@ def search(request):
 # Packs--------------------------------------------------------------------------
 def packs_list(request):
     packs = get_list_or_404(Pack)
-    return render(request, 'pack_list.html',
+    return render(request, 'pack/list.html',
                   {'packs': packs})
 
 
 def local_packs(request, local_pk):
     packs = Local.objects.get(id=local_pk).pack_set.all()
     local = Local.objects.get(id=local_pk)
-    return render(request, 'pack_list.html',
+    return render(request, 'pack/list.html',
                   {'packs': packs, 'local': local})
 
 
 def pack_details(request, pk):
     pack = get_object_or_404(Pack, id=pk)
-    return render(request, 'pack_details.html',
+    return render(request, 'pack/details.html',
                   {'pack': pack})
+
+
+class EditPack(edit.View):
+    # @permission_required('bocatapp.seller', message='You are not a seller')
+    def get(self, request, local_pk):
+        pack_form = PackForm()
+        local_products = get_object_or_404(Local, id=local_pk).product_set.all()
+        context = {
+            'pack_form': pack_form,
+            'local_products': local_products,
+            'local_pk': local_pk
+        }
+        return render(request, 'pack/edit.html', context)
+
+        # @permission_required('bocatapp.seller', message='You are not a seller')
+
+    @transaction.atomic
+    def post(self, request, local_pk):
+        if request.user.is_authenticated():
+            pack_form = PackForm(data=request.POST)
+            local_products = get_object_or_404(Local, id=local_pk).product_set.all()
+            products = []
+
+
+            pack = pack_form.save(commit=False)
+            pack.save()
+
+
+            for product in local_products:
+                quantity = request.POST.get(product.id)
+                product = product
+                pack = pack
+                products.append(ProductLine(quantity=quantity, product=product, pack=pack))
+
+            if pack_form.is_valid():
+                pack = pack_form.save(commit=False)
+                pack.save()
+
+                return redirect(request, 'local_packs', local_pk=local_pk)
+            else:
+                message = ""
+                for field, errors in pack_form.errors.items():
+                    for error in errors:
+                        message += error
+                context = {
+                    'pack_form': pack_form
+                    , 'message': message
+                }
+                return render(request, 'pack/edit.html', context)
+
+        else:
+            return render(request, '../templates/forbidden.html')
+
+
+
