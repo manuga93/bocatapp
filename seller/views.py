@@ -14,8 +14,8 @@ from customer.models import Order
 # Lista el menu de productos de un local
 def menu_list(request, pk):
     productos = get_list_or_404(Product, local = pk)
-    return render(request, 'carta.html',
-                                {'productos': productos})
+    return render(request, 'menu.html',
+                  {'productos': productos})
 
 # Lista las categorias de un local
 def category_list(request, pk):
@@ -25,8 +25,8 @@ def category_list(request, pk):
 
 def product_list_category(request, pk):
     productos = get_list_or_404(Product, category = pk)
-    return render(request, 'carta.html',
-                                {'productos': productos})
+    return render(request, 'menu.html',
+                  {'productos': productos})
 
 # Vista para la creacion de una nueva categoria
 
