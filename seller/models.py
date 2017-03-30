@@ -17,6 +17,7 @@ class Local(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Category(models.Model):
     name = models.CharField(max_length=32)
     description = models.CharField(max_length=256)
@@ -24,6 +25,7 @@ class Category(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class Product(models.Model):
     name = models.CharField(max_length=48)
@@ -42,7 +44,7 @@ class ProductLine(models.Model):
     quantity = models.PositiveSmallIntegerField()
     # Relationships
     product = models.ForeignKey(Product)
-    pack = models.ForeignKey('Pack')
+    pack = models.ForeignKey('Pack', on_delete=models.CASCADE)
 
 
 class Pack(models.Model):
@@ -54,7 +56,3 @@ class Pack(models.Model):
     photo = models.URLField(default='/static/images/No_image_available.png')
     # Relationships
     local = models.ForeignKey(Local)
-
-    # def clean(self):
-    #     if self.initDate > self.endDate:
-    #         raise ValidationError('Start date is after end date')

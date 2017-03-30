@@ -15,11 +15,11 @@
 
         </div>
 
-        {% if error_msg %}
+        {% if message %}
             <div class="container alerts">
                 <div class="alert alert-danger alert-dismissable">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>{{ success_msg }}</strong>
+                    <strong>{{ message }}</strong>
                 </div>
             </div>
         {% endif %}
@@ -27,7 +27,7 @@
 
             <form method="POST" action="{% url "edit_pack" local_pk %}" class="local-form">
                 {% csrf_token %}
-                {{ pack_form.as_p }}
+                {{ pack_form.as_p}}
 
                 <div class="panel-group" id="panel-862636">
                     {% for product in local_products %}

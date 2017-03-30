@@ -1,5 +1,6 @@
 from django.db import transaction
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.views.generic import edit
 
 from seller.forms.packsForms import PackForm
@@ -17,20 +18,23 @@ from customer.models import Order
 
 # Lista el menu de productos de un local
 def menu_list(request, pk):
-    productos = get_list_or_404(Product, local = pk)
+    productos = get_list_or_404(Product, local=pk)
     return render(request, 'menu.html',
                   {'productos': productos})
+
 
 # Lista las categorias de un local
 def category_list(request, pk):
     categories = get_list_or_404(Category, local=pk)
     return render(request, 'category_list.html',
-                                {'categories': categories})
+                  {'categories': categories})
+
 
 def product_list_category(request, pk):
-    productos = get_list_or_404(Product, category = pk)
+    productos = get_list_or_404(Product, category=pk)
     return render(request, 'menu.html',
                   {'productos': productos})
+
 
 # Vista para la creacion de una nueva categoria
 
@@ -48,13 +52,14 @@ def category_new(request, pk):
 
     return render(request, 'category_edit.html', {'form': form})
 
+
 # Editar una categoria
 @permission_required('bocatapp.seller', message='You are not a seller')
 def category_edit(request, pk):
     category = get_object_or_404(Category, pk=pk)
     if request.method == "POST":
         form = CategoryForm(request.POST, instance=category)
-        #aqui se comprueba que el vendedor es el que esta logueado
+        # aqui se comprueba que el vendedor es el que esta logueado
         if form.is_valid() and category.local.seller == request.user:
             category = form.save(commit=False)
             category.save()
@@ -181,39 +186,26 @@ class EditPack(edit.View):
     @transaction.atomic
     def post(self, request, local_pk):
         if request.user.is_authenticated():
-            pack_form = PackForm(data=request.POST)
+            pack_form = PackForm(request.POST)
             local_products = get_object_or_404(Local, id=local_pk).product_set.all()
-            products = []
-
-
-            pack = pack_form.save(commit=False)
-            pack.save()
-
-
-            for product in local_products:
-                quantity = request.POST.get(product.id)
-                product = product
-                pack = pack
-                products.append(ProductLine(quantity=quantity, product=product, pack=pack))
-
             if pack_form.is_valid():
-                pack = pack_form.save(commit=False)
+                pack = pack_form.create(local_pk)
                 pack.save()
 
-                return redirect(request, 'local_packs', local_pk=local_pk)
+                for product in local_products:
+                    quantity = request.POST.get(str(product.id))
+                    if quantity and int(quantity) > 0:
+                        product_line = ProductLine(quantity=int(quantity), product=product, pack=pack)
+                        product_line.save()
+                return redirect('local_packs', local_pk=local_pk)
             else:
                 message = ""
                 for field, errors in pack_form.errors.items():
                     for error in errors:
                         message += error
-                context = {
-                    'pack_form': pack_form
-                    , 'message': message
-                }
-                return render(request, 'pack/edit.html', context)
+
+                return render(request, 'pack/edit.html', {
+                    'local_pk': local_pk, 'pack_form': pack_form, 'local_products': local_products, 'message': message})
 
         else:
             return render(request, '../templates/forbidden.html')
-
-
-

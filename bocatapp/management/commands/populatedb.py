@@ -5,7 +5,7 @@ from bocatapp.models import User, Profile
 from django.contrib.auth.models import Permission
 from administration.models import CreditCard
 
-from seller.models import Local, Product, Pack, ProductLineLocal, Category
+from seller.models import Local, Product, Pack, ProductLine, Local, Category
 from customer.models import Order, CreditCard, OrderLine, ShoppingCart
 
 
