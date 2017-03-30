@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404, render, redirect, get_list_or_404, render
 from customer.services import OrderService
 from django.template import RequestContext
@@ -9,6 +10,7 @@ from django.db.models import Sum, F, FloatField
 from administration.forms.forms import CreditCardForm
 from bocatapp.views import home
 from bocatapp.decorators import permission_required
+import datetime
 
 # Create your views here.
 
@@ -85,7 +87,7 @@ def remove_shoppingcart(request, pk):
 
 # Checkout view
 def checkout(request, form=CreditCardForm):
-    # TODO: Copy from @Hug0Ramos shopping cart, we have to do refactoring...
+    # TODO: Copy from @Hug0Ramos shopping cart, we should refactoring...
     if request.user.is_authenticated():
         current_user = request.user
         shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
@@ -102,6 +104,7 @@ def checkout(request, form=CreditCardForm):
 
 def do_checkout(request):
     if request.user.is_authenticated():
+        current_user = request.user
         creditcard_opt = request.POST.get('creditcard', '')
         if creditcard_opt == 'new':
             # New credit card
@@ -121,9 +124,28 @@ def do_checkout(request):
         else:
             # Other credit card
             creditcard = CreditCard.objects.get(id=creditcard_opt)
-        # ...
-        # TODO: Generate order from shoppingcart
-        # ...
+
+        # Get shopping cart
+        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
+        shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
+        local = shoppingcart_lines[0].product.local
+        # saving order
+        new_order = Order(
+            totalPrice=0.0,
+            moment=datetime.time(),
+            local=local,
+            comment="Añada su comentario aquí",
+            customer=current_user,
+            creditCard=creditcard,
+            pickupMoment=datetime.time())
+        new_order.save()
+        # loop shoppingcart_lines
+        for line in shoppingcart_lines:
+            new_order.orderline_set.create(
+                quantity=line.quantity,
+                name=line.product.name,
+                price=line.product.price
+            )
         return render(request, 'thanks.html', {})
     return redirect(home.home)
 
