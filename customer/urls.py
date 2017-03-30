@@ -10,4 +10,7 @@ urlpatterns = [
     url(r'^shoppingcart/$', 'customer.views.list_shoppingcart', name='list_shoppingcart'),
     url(r'^shoppingcart/(?P<pk>[0-9]+)/add/$', 'customer.views.add_shoppingcart', name='add_shoppingcart'),
     url(r'^shoppingcart/(?P<pk>[0-9]+)/remove/$', 'customer.views.remove_shoppingcart', name='remove_shoppingcart'),
+    url(r'^checkout/$', 'customer.views.checkout', name="checkout"),
+    url(r'^checkout/save/$', 'customer.views.do_checkout', name="do_checkout"),
+    url(r'^dashboard/$', 'customer.views.customer_dashboard', name='dashboard'),
 ]

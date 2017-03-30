@@ -42,6 +42,19 @@ def set_order_status(order_id):
         order.save()
 
 
+def complete_orders(customer_id):
+    try:
+        orders = Order.objects.filter(customer_id=customer_id).filter(status=True)
+    except Order.DoesNotExist:
+        orders = []
+    return orders
 
+
+def pending_orders(customer_id):
+    try:
+        orders = Order.objects.filter(customer_id=customer_id).exclude(status=True)
+    except Order.DoesNotExist:
+        orders = []
+    return orders
 
 

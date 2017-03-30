@@ -5,14 +5,6 @@ from bocatapp.models import User
 
 # Create your models here.
 
-class Category(models.Model):
-    name = models.CharField(max_length=32)
-    description = models.CharField(max_length=256)
-
-    def __unicode__(self):
-        return self.name
-
-
 class Local(models.Model):
     name = models.CharField(max_length=32)
     description = models.CharField(max_length=256)
@@ -25,14 +17,22 @@ class Local(models.Model):
     def __unicode__(self):
         return self.name
 
+class Category(models.Model):
+    name = models.CharField(max_length=32)
+    description = models.CharField(max_length=256)
+    local = models.ForeignKey(Local)
+
+    def __unicode__(self):
+        return self.name
 
 class Product(models.Model):
     name = models.CharField(max_length=48)
     price = models.DecimalField(max_digits=4, decimal_places=2)
+    ingredients = models.CharField(max_length=256, default="Ingrediente")
     category = models.ManyToManyField(Category)
     local = models.ForeignKey(Local)
     deleted = models.BooleanField(default=False)
-    photo = models.URLField(default='/static/images/No_image_available.png')
+    picture = models.URLField(default='/static/images/No_image_available.png')
 
     def __unicode__(self):
         return self.name

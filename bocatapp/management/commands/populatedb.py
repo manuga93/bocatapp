@@ -5,7 +5,7 @@ from bocatapp.models import User, Profile
 from django.contrib.auth.models import Permission
 from administration.models import CreditCard
 
-from seller.models import Local, Product, Pack, ProductLine
+from seller.models import Local, Product, Pack, ProductLineLocal, Category
 from customer.models import Order, CreditCard, OrderLine, ShoppingCart
 
 
@@ -30,6 +30,7 @@ class Command(BaseCommand):
         CreditCard.objects.all().delete()
         Pack.objects.all().delete()
         ProductLine.objects.all().delete()
+        Category.objects.all().delete()
 
         print('Populating database...')
 
@@ -97,23 +98,50 @@ class Command(BaseCommand):
         local2.save()
         print ('Locals...Ok!')
 
+        # Categories =====================================================================================================
+
+        category1_local1 = Category(name='Category 1', description='Description of Category 1', local=local1)
+        category1_local1.save()
+
+        category2_local1 = Category(name='Category 2', description='Description of Category 2', local=local1)
+        category2_local1.save()
+
+        category3_local1 = Category(name='Category 3', description='Description of Category 3', local=local1)
+        category3_local1.save()
+
+        category1_local2 = Category(name='Category 1', description='Description of Category 1', local=local2)
+        category1_local2.save()
+
+        print ('Categories...Ok!')
+
         # Products =====================================================================================================
 
-        product1_local1 = Product(name='product1', price=1.5, local=local1)
+        product1_local1 = Product(name='product1', price=1.5, local=local1, ingredients="Lentejas, garbanzos y lechuga", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product1_local1.save()
-        product2_local1 = Product(name='product2', price=1.0, local=local1)
+        product1_local1.category.add(category1_local1, category2_local1)
+        product1_local1.save()
+
+        product2_local1 = Product(name='product2', price=1.0, local=local1, ingredients="Lentejas, garbanzos y tomate", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product2_local1.save()
+
         product3_local1 = Product(name='product3', price=1.0, local=local1)
         product3_local1.save()
+
         product4_local1 = Product(name='product4', price=1.0, local=local1)
         product4_local1.save()
 
-        product1_local2 = Product(name='product3', price=1.0, local=local2)
+        product1_local2 = Product(name='product1', price=1.0, local=local2, ingredients="Lentejas, cominio y mayonesa", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product1_local2.save()
-        product2_local2 = Product(name='product4', price=2.5, local=local2)
+
+        product2_local2 = Product(name='product2', price=2.5, local=local2, ingredients="Ketchup, mostaza y mojo picon", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product2_local2.save()
+
+        product2_local2.category.add(category1_local2)
+        product2_local2.save()
+
         product3_local2 = Product(name='product3', price=1.0, local=local2)
         product3_local2.save()
+
         product4_local2 = Product(name='product4', price=1.0, local=local2)
         product4_local2.save()
 
@@ -181,6 +209,11 @@ class Command(BaseCommand):
                        comment="Lo quiero todo rapido", customer=customer2, creditCard=creditCard2,
                        pickupMoment='2017-04-01 14:55:00')
         order3.save()
+
+        order4 = Order(totalPrice=6.10, moment='2017-04-01 15:45:00', local=local2, customer=customer1 ,
+                       creditCard=creditCard1, status=True)
+        order4.save()
+
         print("Orders... Ok!")
 
         # OrderLine==============================================================================================================
@@ -196,6 +229,9 @@ class Command(BaseCommand):
 
         order_line4 = OrderLine(quantity=2, name="Bocadillo hipergigante", price=3.05, order=order3)
         order_line4.save()
+
+        order_line5 = OrderLine(quantity=2, name="Bocadillo hipergigante", price=3.05, order=order4)
+        order_line5.save()
 
         print("OrdersLine... Ok!")
 
@@ -268,4 +304,4 @@ class Command(BaseCommand):
         print ('Populated...Ok!')
 
     def handle(self, *args, **options):
-        self.migrate = self._migrate()
+        self._migrate()

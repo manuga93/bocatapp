@@ -12,6 +12,14 @@
   <a href="{% url 'menu_list' pk=local.pk %}">Ver carta</a>
   <hr/>
   <a  href="{% url 'local_edit' pk=local.pk %}">Editar</a>
+  <hr/>
+    {% if perms.bocatapp.seller %}
+        <a href="{% url 'category_new' pk=local.pk%}">Nueva categoria</a>
+    {% endif %}
+
+  <hr/>
+  <a href="{% url 'category_list' pk=local.pk %}">Ver categorias</a>
+
 </div>
 
  {%endblock%}

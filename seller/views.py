@@ -17,24 +17,52 @@ from customer.models import Order
 
 # Lista el menu de productos de un local
 def menu_list(request, pk):
-    productos = get_list_or_404(Product, local=pk)
-    return render(request, 'carta.html',
+    productos = get_list_or_404(Product, local = pk)
+    return render(request, 'menu.html',
                   {'productos': productos})
 
+# Lista las categorias de un local
+def category_list(request, pk):
+    categories = get_list_or_404(Category, local=pk)
+    return render(request, 'category_list.html',
+                                {'categories': categories})
+
+def product_list_category(request, pk):
+    productos = get_list_or_404(Product, category = pk)
+    return render(request, 'menu.html',
+                  {'productos': productos})
 
 # Vista para la creacion de una nueva categoria
 
-def category_new(request):
+def category_new(request, pk):
     if request.method == "POST":
         form = CategoryForm(request.POST)
+        local = get_object_or_404(Local, pk=pk)
         if form.is_valid():
             category = form.save(commit=False)
+            category.local = local
             category.save()
             return redirect('/')
     else:
         form = CategoryForm()
 
     return render(request, 'category_edit.html', {'form': form})
+
+# Editar una categoria
+@permission_required('bocatapp.seller', message='You are not a seller')
+def category_edit(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == "POST":
+        form = CategoryForm(request.POST, instance=category)
+        #aqui se comprueba que el vendedor es el que esta logueado
+        if form.is_valid() and category.local.seller == request.user:
+            category = form.save(commit=False)
+            category.save()
+            return redirect('seller.views.category_list', pk=category.local.pk)
+    else:
+        form = CategoryForm(instance=category)
+
+    return render(request, 'category_edit.html', {'form': form, 'locals': locals})
 
 
 # Vista para la creacion de un nuevo producto
