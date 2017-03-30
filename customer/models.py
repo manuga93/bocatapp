@@ -20,7 +20,6 @@ class Order(models.Model):
     creditCard = models.ForeignKey(CreditCard)
 
 
-
 class OrderLine(models.Model):
     quantity = models.IntegerField(validators=[MinValueValidator(1)])
     name = models.CharField(max_length=32)
@@ -35,6 +34,11 @@ class OrderLine(models.Model):
 
 class ShoppingCart(models.Model):
     customer = models.ForeignKey(User)
+
+    # Derivated property
+    @property
+    def total_price(self):
+        return sum([line.product.price*line.quantity for line in self.shoppingcartline_set.all()])
 
 
 class ShoppingCartLine(models.Model):
