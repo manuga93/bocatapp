@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for line in shoppingcart_line %}
+                    {% for line in shoppingcart.shoppingcartline_set.all %}
                     <tr>
                         <td> {{line.product.name}} </td>
                         <td> Ingrediente1, ingrediente2, ingrediente3 y tomate</td>
@@ -33,7 +33,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <h3>Total: {{total_price}} € <a class="btn btn-success" href="{% url 'checkout' %}"><span class="glyphicon glyphicon-ok"></span> Terminar y pagar</a></h3>
+            <h3>Total: {{shoppingcart.total_price}} € <a class="btn btn-success" href="{% url 'checkout' %}"><span class="glyphicon glyphicon-ok"></span> Terminar y pagar</a></h3>
            </div>
         </div>
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404, render, redirect, get_list_or_404, render
 from customer.services import OrderService
 from django.template import RequestContext
@@ -9,6 +10,7 @@ from django.db.models import Sum, F, FloatField
 from administration.forms.forms import CreditCardForm
 from bocatapp.views import home
 from bocatapp.decorators import permission_required
+import datetime
 
 # Create your views here.
 
@@ -46,15 +48,10 @@ def do_order_line(request, id1):
 # Vista del carrito de compra actual del customer logueado
 def list_shoppingcart(request):
     current_user = request.user
-    shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
-    total_price = (ShoppingCartLine.objects
-                    .filter(shoppingCart_id=shoppingcart.id)
-                    .aggregate(total=Sum(F('quantity')*F('product__price'), output_field=FloatField()))['total'])
-    if not total_price:
-        total_price = 0.0
-    shoppingcart_line = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingcart.id)
-    return render(request, 'shoppingcart.html', {'shoppingcart_line': shoppingcart_line, 'total_price': total_price})
-
+    if current_user.is_authenticated():
+        shoppingcart = ShoppingCart.objects.get(customer=current_user)
+        return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
+    return redirect(home.home)
 
 # Metodo para agregar un producto al carrito de compra
 def add_shoppingcart(request, pk):
@@ -85,23 +82,17 @@ def remove_shoppingcart(request, pk):
 
 # Checkout view
 def checkout(request, form=CreditCardForm):
-    # TODO: Copy from @Hug0Ramos shopping cart, we have to do refactoring...
-    if request.user.is_authenticated():
-        current_user = request.user
-        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
-        total_price = (ShoppingCartLine.objects
-                        .filter(shoppingCart_id=shoppingcart.id)
-                        .aggregate(total=Sum(F('quantity')*F('product__price'), output_field=FloatField()))['total'])
-        if not total_price:
-            total_price = 0.0
-        shoppingcart_line = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingcart.id)
+    current_user = request.user
+    if current_user.is_authenticated():
+        shoppingcart = ShoppingCart.objects.get(customer=current_user)
         creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
-        return render(request, 'checkout.html', {'shoppingcart_line': shoppingcart_line, 'total_price': total_price, 'creditcards': creditcards, 'form': form})
+        return render(request, 'checkout.html', {'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form})
     return redirect(home.home)
 
 
 def do_checkout(request):
     if request.user.is_authenticated():
+        current_user = request.user
         creditcard_opt = request.POST.get('creditcard', '')
         if creditcard_opt == 'new':
             # New credit card
@@ -121,9 +112,28 @@ def do_checkout(request):
         else:
             # Other credit card
             creditcard = CreditCard.objects.get(id=creditcard_opt)
-        # ...
-        # TODO: Generate order from shoppingcart
-        # ...
+
+        # Get shopping cart
+        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
+        shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
+        local = shoppingcart_lines[0].product.local # TODO: what's happened if exists some products of differents locals in ShoppingCart?
+        # saving order
+        new_order = Order(
+            totalPrice=shoppingcart.total_price,
+            moment=datetime.time(),
+            local=local,
+            comment="Añada su comentario aquí",
+            customer=current_user,
+            creditCard=creditcard,
+            pickupMoment=datetime.time())
+        new_order.save()
+        # loop shoppingcart_lines
+        for line in shoppingcart_lines:
+            new_order.orderline_set.create(
+                quantity=line.quantity,
+                name=line.product.name,
+                price=line.product.price
+            )
         return render(request, 'thanks.html', {})
     return redirect(home.home)
 

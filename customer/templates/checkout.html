@@ -152,7 +152,7 @@
                 </tr>
             </thead>
             <tbody>
-                {%for line in shoppingcart_line%}
+                {%for line in shoppingcart.shoppingcartline_set.all%}
                     <tr>
                         <td class="col-md-7"><em>{{line.product.name}}</em></h4></td>
                         <td class="col-md-1" style="text-align: center">{{ line.quantity }}</td>
@@ -175,13 +175,13 @@
                   </td>
                     <td class="text-center">
                     <p>
-                        <strong>{% multiply total_price 0.85%}</strong>
+                        <strong>{% multiply shoppingcart.total_price 0.85%}</strong>
                     </p>
                     <p>
-                        <strong>{% multiply total_price 0.05%}</strong>
+                        <strong>{% multiply shoppingcart.total_price 0.05%}</strong>
                     </p>
                     <p>
-                        <strong>{% multiply total_price 0.1%}</strong>
+                        <strong>{% multiply shoppingcart.total_price 0.1%}</strong>
                     </p>
                   </td>
                 </tr>
@@ -189,7 +189,7 @@
                     <td>   </td>
                     <td>   </td>
                     <td class="text-right"><h4><strong>Total:</strong></h4></td>
-                    <td class="text-center text-danger"><h4><strong>{{total_price}}€</strong></h4></td>
+                    <td class="text-center text-danger"><h4><strong>{{shoppingcart.total_price}}€</strong></h4></td>
                 </tr>
             </tbody>
         </table>
