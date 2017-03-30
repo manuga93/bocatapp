@@ -3,8 +3,6 @@
 {% block title %}Packs{% endblock %}
 
 {% block content %}
-    <script type="text/javascript" src="{% static "scripts/bootstrap-datepicker.min.js" %}"></script>
-    <link rel="stylesheet" media="screen" href="{% static "styles/bootstrap-datepicker3.min.css" %}"/>
     <div class="contact-wrapper well white">
         <div class="contact-main" style="text-align:center;">
             {% if edit %}
@@ -48,14 +46,5 @@
                 <input class="btn btn-primary" type="submit" value="Enviar">
             </form>
         </div>
-
-        <script>
-            $('.dateinput').datepicker({
-                format: "dd/mm/yyyy",
-                startView: 2,
-                clearBtn: true,
-                autoclose: true
-            });
-        </script>
     </div>
 {% endblock content %}
