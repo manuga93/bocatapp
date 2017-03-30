@@ -48,15 +48,10 @@ def do_order_line(request, id1):
 # Vista del carrito de compra actual del customer logueado
 def list_shoppingcart(request):
     current_user = request.user
-    shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
-    total_price = (ShoppingCartLine.objects
-                    .filter(shoppingCart_id=shoppingcart.id)
-                    .aggregate(total=Sum(F('quantity')*F('product__price'), output_field=FloatField()))['total'])
-    if not total_price:
-        total_price = 0.0
-    shoppingcart_line = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingcart.id)
-    return render(request, 'shoppingcart.html', {'shoppingcart_line': shoppingcart_line, 'total_price': total_price})
-
+    if current_user.is_authenticated():
+        shoppingcart = ShoppingCart.objects.get(customer=current_user)
+        return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
+    return redirect(home.home)
 
 # Metodo para agregar un producto al carrito de compra
 def add_shoppingcart(request, pk):
@@ -87,18 +82,11 @@ def remove_shoppingcart(request, pk):
 
 # Checkout view
 def checkout(request, form=CreditCardForm):
-    # TODO: Copy from @Hug0Ramos shopping cart, we should refactoring...
-    if request.user.is_authenticated():
-        current_user = request.user
-        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
-        total_price = (ShoppingCartLine.objects
-                        .filter(shoppingCart_id=shoppingcart.id)
-                        .aggregate(total=Sum(F('quantity')*F('product__price'), output_field=FloatField()))['total'])
-        if not total_price:
-            total_price = 0.0
-        shoppingcart_line = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingcart.id)
+    current_user = request.user
+    if current_user.is_authenticated():
+        shoppingcart = ShoppingCart.objects.get(customer=current_user)
         creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
-        return render(request, 'checkout.html', {'shoppingcart_line': shoppingcart_line, 'total_price': total_price, 'creditcards': creditcards, 'form': form})
+        return render(request, 'checkout.html', {'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form})
     return redirect(home.home)
 
 
@@ -128,10 +116,10 @@ def do_checkout(request):
         # Get shopping cart
         shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
         shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
-        local = shoppingcart_lines[0].product.local
+        local = shoppingcart_lines[0].product.local # TODO: what's happened if exists some products of differents locals in ShoppingCart?
         # saving order
         new_order = Order(
-            totalPrice=0.0,
+            totalPrice=shoppingcart.total_price,
             moment=datetime.time(),
             local=local,
             comment="Añada su comentario aquí",
