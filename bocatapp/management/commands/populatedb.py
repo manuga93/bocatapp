@@ -3,7 +3,7 @@
 from django.core.management.base import BaseCommand
 from bocatapp.models import User, Profile
 from django.contrib.auth.models import Permission
-from administration.models import CreditCard
+from administration.models import CreditCard, Allergen
 
 from seller.models import Local, Product, Category
 from customer.models import Order, CreditCard, OrderLine, ShoppingCart
@@ -108,6 +108,13 @@ class Command(BaseCommand):
         category1_local2.save()
 
         print ('Categories...Ok!')
+
+        # Allergens =====================================================================================================
+
+        allergen1 = Allergen(name='product1', icon="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg", description='Descripcion alergeno 1')
+        allergen1.save()
+
+        print ('Allergens...Ok!')
 
         # Products =====================================================================================================
 
