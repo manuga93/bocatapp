@@ -6,4 +6,13 @@ $(document).ready(function () {
       $('#creditcard-new').hide();
     }
   });
+
+  // Datepicker
+  $('.dateinput').datepicker({
+      format: "dd/mm/yyyy",
+      startView: 2,
+      clearBtn: true,
+      autoclose: true
+  });
+
 });

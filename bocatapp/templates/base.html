@@ -13,6 +13,7 @@
 <link href="{% static "styles/base.css" %}" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" media="screen" href="{% static "styles/bootstrap-datepicker3.min.css" %}">
 <!-- Estilos DataTable +info "https://datatables.net/" -->
 <link href="{% static "styles/jquery.datatables.css" %}" rel="stylesheet">
 <link href="{% static "styles/dataTables.css" %}" rel="stylesheet">
@@ -57,7 +58,7 @@
 {% block scripts %}
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+<script type="text/javascript" src="{% static "scripts/bootstrap-datepicker.min.js" %}"></script>
 <!-- Uso de plugin DataTable y traduccion, +info "https://datatables.net/" -->
 <script type="text/javascript" language="javascript" src="{% static "scripts/jQuery.dataTables.js"%}"></script>
 <script type="text/javascript" language="javascript" src="{% static "scripts/dataTables.js"%}"></script>
