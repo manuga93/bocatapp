@@ -5,7 +5,7 @@ from bocatapp.models import User, Profile
 from django.contrib.auth.models import Permission
 from administration.models import CreditCard
 
-from seller.models import Local, Product, Category
+from seller.models import Local, Product, Pack, ProductLine, Local, Category
 from customer.models import Order, CreditCard, OrderLine, ShoppingCart
 
 
@@ -27,6 +27,11 @@ class Command(BaseCommand):
         Order.objects.all().delete()
         OrderLine.objects.all().delete()
         Local.objects.all().delete()
+        CreditCard.objects.all().delete()
+        Pack.objects.all().delete()
+        ProductLine.objects.all().delete()
+        Category.objects.all().delete()
+
         print('Populating database...')
 
         # Admins =======================================================================================================
@@ -119,13 +124,26 @@ class Command(BaseCommand):
         product2_local1 = Product(name='product2', price=1.0, local=local1, ingredients="Lentejas, garbanzos y tomate", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product2_local1.save()
 
-        product1_local2 = Product(name='product3', price=1.0, local=local2, ingredients="Lentejas, cominio y mayonesa", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
+        product3_local1 = Product(name='product3', price=1.0, local=local1)
+        product3_local1.save()
+
+        product4_local1 = Product(name='product4', price=1.0, local=local1)
+        product4_local1.save()
+
+        product1_local2 = Product(name='product1', price=1.0, local=local2, ingredients="Lentejas, cominio y mayonesa", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product1_local2.save()
 
-        product2_local2 = Product(name='product4', price=2.5, local=local2, ingredients="Ketchup, mostaza y mojo picon", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
+        product2_local2 = Product(name='product2', price=2.5, local=local2, ingredients="Ketchup, mostaza y mojo picon", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
         product2_local2.save()
+
         product2_local2.category.add(category1_local2)
         product2_local2.save()
+
+        product3_local2 = Product(name='product3', price=1.0, local=local2)
+        product3_local2.save()
+
+        product4_local2 = Product(name='product4', price=1.0, local=local2)
+        product4_local2.save()
 
         print ('Products...Ok!')
 
@@ -216,16 +234,16 @@ class Command(BaseCommand):
         order_line5.save()
 
         print("OrdersLine... Ok!")
-        
+
         # ==============================================================================================================
 
         creditCard = CreditCard(
             holderName='customer',
             brandName='visa',
-            expireMonth = '12',
-            expireYear = '2020',
-            cvv = '123',
-            number = '4528348244106025',
+            expireMonth='12',
+            expireYear='2020',
+            cvv='123',
+            number='4528348244106025',
             user=seller1)
 
         creditCard.save()
@@ -245,6 +263,43 @@ class Command(BaseCommand):
         print('ShoppingCart created...Ok')
 
         # ==============================================================================================================
+        # Pack
+        # ==============================================================================================================
+        pack1 = Pack(name='Pack 1', price=3.5, endDate='2017-04-25', local=local1)
+        pack1.save()
+
+        pack2 = Pack(name='Pack 2', price=1.5, endDate='2017-09-25', local=local1)
+        pack2.save()
+
+        pack3 = Pack(name='Pack 3', price=5.0, endDate='2017-09-25', local=local1)
+        pack3.save()
+
+        print ('Packs...Ok!')
+
+        # ==============================================================================================================
+        # Product line
+        # ==============================================================================================================
+        product1_pack1 = ProductLine(quantity=2, product=product1_local1, pack=pack1)
+        product1_pack1.save()
+
+        product2_pack1 = ProductLine(quantity=2, product=product2_local1, pack=pack1)
+        product2_pack1.save()
+
+        product3_pack1 = ProductLine(quantity=1, product=product3_local1, pack=pack1)
+        product3_pack1.save()
+
+        product1_pack2 = ProductLine(quantity=1, product=product1_local1, pack=pack2)
+        product1_pack2.save()
+        product2_pack2 = ProductLine(quantity=1, product=product2_local1, pack=pack2)
+        product2_pack2.save()
+        product3_pack2 = ProductLine(quantity=1, product=product2_local1, pack=pack2)
+        product3_pack2.save()
+
+        product3_pack3 = ProductLine(quantity=1, product=product3_local1, pack=pack3)
+        product3_pack3.save()
+        product4_pack3 = ProductLine(quantity=1, product=product3_local1, pack=pack3)
+        product4_pack3.save()
+        print ('Products line...Ok!')
 
         print ('Populated...Ok!')
 

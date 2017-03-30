@@ -1,5 +1,6 @@
 from django.conf.urls import include, url
 from bocatapp.decorators import permission_required
+from views import pack_details, local_packs, EditPack
 
 urlpatterns = [
     # Users URLs
@@ -18,6 +19,12 @@ urlpatterns = [
     url(r'^local/(?P<pk>[0-9]+)/$', 'seller.views.local_detail'),
     url(r'^local/(?P<pk>[0-9]+)/edit/$', 'seller.views.local_edit', name='local_edit'),
     url(r'^search/$', 'seller.views.search', name="search"),
-    url(r'^local/getMine/(?P<pk>[0-9]+)$', 'seller.views.get_my_locals', name="locals_by_seller" ),
-    url(r'^local/getOrders/(?P<pk>[0-9]+)$', 'seller.views.local_orders', name="local_orders")
+    url(r'^local/getMine/(?P<pk>[0-9]+)$', 'seller.views.get_my_locals', name="locals_by_seller"),
+    url(r'^local/getOrders/(?P<pk>[0-9]+)$', 'seller.views.local_orders', name="local_orders"),
+
+    # Packs------------------------------------------------------------------------------------------------
+    url(r'^pack/(?P<pk>[0-9]+)$', pack_details, name="pack_details"),
+    url(r'^local/(?P<local_pk>[0-9]+)/packs/$', local_packs, name="local_packs"),
+    url(r'^local/(?P<local_pk>[0-9]+)/packs/new/$', EditPack.as_view(), name="edit_pack"),
+
 ]
