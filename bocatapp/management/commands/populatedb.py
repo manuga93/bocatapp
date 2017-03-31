@@ -111,8 +111,47 @@ class Command(BaseCommand):
 
         # Allergens =====================================================================================================
 
-        allergen1 = Allergen(name='product1', icon="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg", description='Descripcion alergeno 1')
+        allergen1 = Allergen(name='Huevos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-Huevos_43897.png", description='Contiene huevos')
         allergen1.save()
+
+        allergen2 = Allergen(name='Gluten', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-cereal-con-gluten_43908.png", description='Contiene gluten')
+        allergen2.save()
+
+        allergen3 = Allergen(name='Lacteos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-lacteos_43905.png", description='Contiene lacteos o derivados')
+        allergen3.save()
+
+        allergen4 = Allergen(name='Frutos secos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-frutos-secos_43906.png", description='Contiene frutos secos')
+        allergen4.save()
+
+        allergen5 = Allergen(name='Sulfitos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergenos-sulfitos_43907.png", description='Contiene sulfitos')
+        allergen5.save()
+
+        allergen6 = Allergen(name='Crustaceos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-crustaceos_43903.png", description='Contiene crustaceos')
+        allergen6.save()
+
+        allergen7 = Allergen(name='Pescado', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-pescado_43898.png", description='Contiene pescado')
+        allergen7.save()
+
+        allergen8 = Allergen(name='Moluscos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-moluscos_43909.png", description='Contiene Moluscos')
+        allergen8.save()
+
+        allergen9 = Allergen(name='Soja', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-soja_43896.png", description='Contiene soja')
+        allergen9.save()
+
+        allergen10 = Allergen(name='Sesamo', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-sesamo_43899.png", description='Contiene sesamo')
+        allergen10.save()
+
+        allergen11 = Allergen(name='Cacahuetes', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-cacahuetes_43904.png", description='Contiene cacahuetes')
+        allergen11.save()
+
+        allergen12 = Allergen(name='Mostaza', icon="http://icon-icons.com/icons2/463/PNG/128/alergeno_mostaza_43900.png", description='Contiene mostaza')
+        allergen12.save()
+
+        allergen13 = Allergen(name='Apio', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-apio_43902.png", description='Contiene apio')
+        allergen13.save()
+
+        allergen14 = Allergen(name='Altramuz', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-altramuz_43901.png", description='Contiene altramuz')
+        allergen14.save()
 
         print ('Allergens...Ok!')
 

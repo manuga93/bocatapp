@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Alergenos{%endblock%}
+
+{% block content %}
+    <h1>Alergenos</h1>
+
+    {% if perms.bocatapp.administration %}
+        <button class ='btn-primary' onclick="window.location.href='/administration/allergen/new/'" > Nuevo Alergeno </button>
+    {% endif %}
+     <hr/>
+
+    {%for allergen in allergens%}
+
+        <div>
+            <img height="60px" width="60px"  class="ride-item__avatar" alt="foto de perfil" src="{{allergen.icon}}" alt="Profile image">
+            <h3>{{allergen.name }}</h3>
+            <p>{{allergen.description}}</p>
+
+        </div>
+
+        <div>
+            {% if perms.bocatapp.administration %}
+                <button class ='btn-primary' onclick="window.location.href='/administration/allergen/edit/{{ allergen.id }}/'" > Editar </button>
+            {% endif %}
+        </div>
+
+        <hr/>
+
+    {% endfor %}
+
+    <!--
+                </tbody>
+            </table>
+            </div>
+-->
+{%endblock%}
