@@ -19,3 +19,10 @@ class CreditCard(models.Model):
     def __unicode__(self):
         return self.holderName
 
+class Allergen(models.Model):
+    name = models.CharField(max_length=32)
+    icon = models.URLField(default="#")
+    description = models.CharField(max_length=140)
+
+    def __unicode__(self):
+        return self.name
