@@ -45,7 +45,9 @@
                   <button onclick="location.replace('{% url 'local_orders' pk=local.pk %}');" class="form-control">Gestionar pedidos</button>
                 {% endif %}
                   <p class="brief-text">
-                      <a href="{% url 'menu_list' pk=local.pk %}">Ver carta</a>
+                      <a href="{% url 'menu_list' pk=local.pk %}">Ver carta</a><br/>
+                      <a href="{% url 'product_new' pk=local.pk %}">Nuevo producto</a><br/>
+                      <a href="{% url 'category_new' pk=local.pk %}">Nueva categoria</a>
                   </p>
               </div>
           </div>
