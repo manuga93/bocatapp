@@ -10,7 +10,7 @@ urlpatterns = [
 
     url(r'^menu/(?P<pk>[0-9]+)/$', 'seller.views.menu_list', name="menu_list"),
     url(r'^local/$', 'seller.views.local_list'),
-    url(r'^product/new/$', 'seller.views.product_new', name='product_new'),
+    url(r'^product/new/(?P<pk>[0-9]+)/$', 'seller.views.product_new', name='product_new'),
     url(r'^product/list/(?P<pk>[0-9]+)/$', 'seller.views.product_list_category', name='product_list_category'),
     url(r'^category/new/(?P<pk>[0-9]+)/$', 'seller.views.category_new', name='category_new'),
     url(r'^category/list/(?P<pk>[0-9]+)/$', 'seller.views.category_list', name='category_list'),

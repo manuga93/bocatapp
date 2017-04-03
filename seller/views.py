@@ -72,11 +72,13 @@ def category_edit(request, pk):
 
 # Vista para la creacion de un nuevo producto
 
-def product_new(request):
+def product_new(request, pk):
+    local = get_object_or_404(Local, pk=pk)
     if request.method == "POST":
         form = ProductForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and local.seller == request.user:
             product = form.save(commit=False)
+            product.local = local
             product.save()
             return redirect('menu_list', pk=product.local.id)
     else:
