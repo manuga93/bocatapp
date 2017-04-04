@@ -13,7 +13,9 @@
                         <th class="no-sort">Nombre</th>
                         <th class="no-sort">Ingredientes</th>
                         <th>Precio</th>
+                        {% if perms.bocatapp.customer %}
                         <th class="no-sort">Añadir</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -23,11 +25,13 @@
                         <td> {{p.name}} </td>
                         <td> {{ p.ingredients }}</td>
                         <td> {{p.price}} €</td>
+                        {% if perms.bocatapp.customer %}
                         <td>
                             <a href="{% url 'add_shoppingcart' pk=p.pk%}" class="button">
                                 <span class="glyphicon glyphicon-shopping-cart"></span>
                             </a>
                         </td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>
