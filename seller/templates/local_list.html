@@ -21,7 +21,7 @@
                   {%if local.photo %}
                       <img alt="" height="60px" width="60px" class="ride-item__avatar" src="{{local.photo}}">
                   {% else %}
-                      <img height="60px" width="60px"  class="ride-item__avatar" alt="foto de perfil" src="{% static "images/default-pic-profile.png" %}" alt="Profile image">
+                      <img height="60px" width="60px"  class="ride-item__avatar" alt="foto de perfil" src="{% static "images/No_image_available.png" %}" alt="Profile image">
                   {%endif%}
                   <p class="stars">
                       {%if not local.stars%}0/5{%endif%}

@@ -87,13 +87,11 @@ class Command(BaseCommand):
 
         # Locals =======================================================================================================
 
-        local1 = Local(name='local1', description='local1Description', address='local1Address', phone=123456789,
-                       photo='www.photo.com', seller=seller1)
+        local1 = Local(name='local1', description='local1Description', address='local1Address', phone=123456789, seller=seller1)
 
         local1.save()
 
-        local2 = Local(name='local2', description='local2Description', address='local2Address', phone=123456789,
-                       photo='www.photo.com', seller=seller2)
+        local2 = Local(name='local2', description='local2Description', address='local2Address', phone=123456789, seller=seller2)
 
         local2.save()
         print ('Locals...Ok!')
