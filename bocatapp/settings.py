@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'administration',
     'customer',
     'seller',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
