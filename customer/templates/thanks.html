@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %} Thanks {% endblock %}
+{% block title %} Gracias {% endblock %}
 
 {% block content %}
-<div class="container">
-  <h2>THANKS! Your order is being processed.</h2>
-  <p>
-    Don't forget pick your order on time!
-  </p>
-</div>
-{% endblock%}
+    <div class="container">
+        <img width="200" class="img-circle center-block"
+             src="https://www.shareicon.net/data/2016/08/20/817720_check_395x512.png"
+             alt="Thumb v3 avatar 1453299202">
+        <div class="text-center">
+            <h2>¡Gracias! Tu pedido está siendo procesado, te avisaremos cuando esté listo</h2>
+            <h4>¡No olvides recoger tu pedido a tiempo!</h4>
+        </div>
+    </div>
+{% endblock %}

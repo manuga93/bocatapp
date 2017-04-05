@@ -85,9 +85,9 @@
                       <div class="row">
                           <div class="col-xs-5 col-md-2 avatar-wrapper text-center">
                               {%if local.photo %}
-                                  <img alt="" height="60px" width="60px" class="ride-item__avatar" src="{{MEDIA_URL}}{{local.photo}}">
+                                  <img alt="" height="120px" width="120px" class="img-circle center-block" src="{{MEDIA_URL}}{{local.photo}}">
                               {% else %}
-                                  <img height="60px" width="60px"  class="ride-item__avatar" alt="foto de perfil" src="{% static "images/No_image_available.png" %}" alt="Profile image">
+                                  <img height="60px" width="60px"  class="img-circle" alt="foto de perfil" src="{% static "images/No_image_available.png" %}" alt="Profile image">
                               {%endif%}
                               <p class="stars">
                                   {%if not local.stars%}0/5{%endif%}

@@ -59,7 +59,6 @@
 
                         {% if perms.bocatapp.seller %}
                           <li><a href="{% url 'locals_by_seller' pk=request.user.id %}">Mis locales</a></li>
-                          <li><a href="/seller/product/new">Nuevo producto</a></li>
                         {% endif %}
                         {% if perms.bocatapp.customer %}
                           <li><a href="/customer/dashboard/">Panel</a></li>
