@@ -117,7 +117,7 @@ a.title:hover{
   	z-index: 1;
 }
 .buttons-wrapper button.form-control {
-	height: 100%;
+		height: auto;
 }
 
 /* Nav bar
