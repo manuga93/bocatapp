@@ -10,7 +10,7 @@ class Local(models.Model):
     description = models.CharField(max_length=256)
     address = models.CharField(max_length=55)
     phone = models.CharField(max_length=12)
-    photo = models.URLField()
+    photo = models.URLField(blank=True)
     isActive = models.BooleanField(default=True)
     seller = models.ForeignKey(User)
 
