@@ -8,33 +8,68 @@
          <div class="table-responsive">
             <table id="menu" class="table table-striped table-hover table-menu">
                 <thead>
-                    <tr>
-                        <th class="no-sort"></th>
-                        <th class="no-sort">Nombre</th>
-                        <th class="no-sort">Ingredientes</th>
-                        <th>Precio</th>
-                        {% if perms.bocatapp.customer %}
-                        <th class="no-sort">Añadir</th>
-                        {% endif %}
-                    </tr>
+                {% for c in category_list %}
+                    <tr><button class="accordion">{{ c.name }}</button></tr>
+                    <table class="panel table table-striped table-hover table-menu">
+                        <tr>
+
+                            <th class="no-sort">Nombre</th>
+                            <th class="no-sort">Ingredientes</th>
+                            <th>Precio</th>
+                            {% if perms.bocatapp.customer %}
+                            <th class="no-sort">Añadir</th>
+                            {% endif %}
+
+                            {% for p in c.product_set.all %}
+                                <tr>
+                                    <td>
+                                        {{ p.name }}
+                                    </td>
+                                    <td>
+                                        {{ p.name }}
+                                    </td>
+                                    <td>
+                                        {{ p.name }}
+                                    </td>
+
+
+                                </tr>
+                            {% endfor %}
+                        </tr>
+
+
+                    </table>
+                {% endfor %}
+
                 </thead>
-                <tbody>
-                    {% for p in productos %}
-                    <tr>
-                        <td style="text-align: center; width:150px"><img src="{{ p.picture }}" class="img-circle" style="max-height: 150px"/></td>
-                        <td> {{p.name}} </td>
-                        <td> {{ p.ingredients }}</td>
-                        <td> {{p.price}} €</td>
-                        {% if perms.bocatapp.customer %}
-                        <td>
-                            <a href="{% url 'add_shoppingcart' pk=p.pk%}" class="button">
-                                <span class="glyphicon glyphicon-shopping-cart"></span>
-                            </a>
-                        </td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
+{#                <thead>#}
+{#                    <tr>#}
+{#                        <th class="no-sort"></th>#}
+{#                        <th class="no-sort">Nombre</th>#}
+{#                        <th class="no-sort">Ingredientes</th>#}
+{#                        <th>Precio</th>#}
+{#                        {% if perms.bocatapp.customer %}#}
+{#                        <th class="no-sort">Añadir</th>#}
+{#                        {% endif %}#}
+{#                    </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                    {% for p in productos %}#}
+{#                    <tr>#}
+{#                        <td style="text-align: center; width:150px"><img src="{{ p.picture }}" class="img-circle" style="max-height: 150px"/></td>#}
+{#                        <td> {{p.name}} </td>#}
+{#                        <td> {{ p.ingredients }}</td>#}
+{#                        <td> {{p.price}} €</td>#}
+{#                        {% if perms.bocatapp.customer %}#}
+{#                        <td>#}
+{#                            <a href="{% url 'add_shoppingcart' pk=p.pk%}" class="button">#}
+{#                                <span class="glyphicon glyphicon-shopping-cart"></span>#}
+{#                            </a>#}
+{#                        </td>#}
+{#                        {% endif %}#}
+{#                    </tr>#}
+{#                    {% endfor %}#}
+{#                </tbody>#}
             </table>
            </div>
         </div>
