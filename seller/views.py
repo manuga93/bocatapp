@@ -19,9 +19,9 @@ from customer.models import Order
 # Lista el menu de productos de un local
 def menu_list(request, pk):
     local = get_list_or_404(Local, id=pk)[0]
-    productos = local.product_set.all()
+    category_list = local.category_set.all()
     return render(request, 'menu.html',
-                  {'productos': productos, 'local': local})
+                  {'category_list': category_list, 'local': local})
 
 
 # Lista las categorias de un local

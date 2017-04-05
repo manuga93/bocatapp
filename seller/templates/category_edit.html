@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load bootstrap3 %}
+
+{% bootstrap_messages %}
 {%block title%}Editar categoria{%endblock%}
 
 {% block content %}
   <div class="container">
     <h1>Editar categoria</h1>
     <form method="POST" class="local-form">{% csrf_token%}
-        {{form.as_p}}
-
-        <button type="submit" class="save">Guardar</button>
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button type="submit"  class="btn btn-primary">Guardar</button>
+        {% endbuttons %}
     </form>
   </div>
 {%endblock%}
