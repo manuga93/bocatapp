@@ -140,9 +140,6 @@ a.title:hover{
     opacity: 0.85;
 }
 
-#myaccount-dp.dropdown-menu > li > a {
-	color: #fff;
-}
 /* Custom dropdown
 -----------------------------------------------------------*/
 .main-dp {
@@ -286,8 +283,6 @@ ul.errorlist li{
 
 .item-search .bottom {position: absolute; bottom: 0}
 
-.buttons-wrapper,
-.avatar-wrapper,
 .ride-item__avatar {
 	margin: auto;
 	text-align: center;
@@ -365,14 +360,14 @@ footer {
         width: 100%;
     }
 
-    .dropdown-menu > li > a {
+    #myaccount-dp.dropdown-menu > li > a {
         line-height: 28px;
         background-color: transparent;
         color: #fff;
     }
 
-    .dropdown-menu > li > a:hover,
-    .dropdown-menu > li > a:focus {
+    #myaccount-dp.dropdown-menu > li > a:hover,
+    #myaccount-dp.dropdown-menu > li > a:focus {
         background-color: transparent;
         color: #fff;
         text-decoration: none;
@@ -391,4 +386,12 @@ footer {
         background-color: inherit;
         border-top:0 none;
     }
+
+		.item-search .brief-text {
+			position:relative;
+		}
+
+		.buttons-wrapper {
+			margin-top: 1em;
+		}
 }
