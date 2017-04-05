@@ -31,6 +31,7 @@ class Command(BaseCommand):
         Pack.objects.all().delete()
         ProductLine.objects.all().delete()
         Category.objects.all().delete()
+        Allergen.objects.all().delete()
 
         print('Populating database...')
 
@@ -44,6 +45,9 @@ class Command(BaseCommand):
         admin_admin.is_staff = True
         admin_admin.is_superuser = True
         admin_admin.save()
+        admin_admin.user_permissions.remove(Permission.objects.get(codename="customer"))
+        admin_admin.user_permissions.remove(Permission.objects.get(codename="seller"))
+
         print('Admin created...Ok')
 
         # Customers ====================================================================================================
@@ -87,118 +91,220 @@ class Command(BaseCommand):
 
         # Locals =======================================================================================================
 
-        local1 = Local(name='local1', description='local1Description', address='local1Address', phone=123456789,
-                       photo='www.photo.com', seller=seller1)
+        namnam = Local(name='ÑamÑam',
+                       description='Establecimiento espacialista en bocatas de pollo empañado y en cañas de chocolate',
+                       address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794,
+                       photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1)
 
-        local1.save()
+        namnam.save()
 
-        local2 = Local(name='local2', description='local2Description', address='local2Address', phone=123456789,
-                       photo='www.photo.com', seller=seller2)
+        ricorico = Local(name='Rico Rico', description='Tenemos las mejores ofertas para merendar!',
+                         address='Av. de la Reina Mercedes, 39, 41012 Sevilla', phone=622397165,
+                         photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1)
 
-        local2.save()
+        ricorico.save()
+
+        cienm = Local(name='100 Montaditos', description='Los miercoles todo a 1€!',
+                      address=' Av. de la Reina Mercedes, 43, 41012 Sevilla', phone=902197494,
+                      photo='http://www.asesoresinmobiliariosbv.es/wp-content/uploads/2015/10/100-montaditos.jpg',
+                      seller=seller2)
+
+        cienm.save()
         print ('Locals...Ok!')
 
         # Categories =====================================================================================================
 
-        category1_local1 = Category(name='Category 1', description='Description of Category 1', local=local1)
-        category1_local1.save()
+        especiales_namnam = Category(name='Especiales', description='Los bocatas más contundentes que encontrarás',
+                                     local=namnam)
+        especiales_namnam.save()
 
-        category2_local1 = Category(name='Category 2', description='Description of Category 2', local=local1)
-        category2_local1.save()
+        vegetales_namnam = Category(name='Vegetales', description='Nuestros mejores bocadillos saludables',
+                                    local=namnam)
+        vegetales_namnam.save()
 
-        category3_local1 = Category(name='Category 3', description='Description of Category 3', local=local1)
-        category3_local1.save()
+        bolleria_namnam = Category(name='Bollería', description='Todos nuestros surtido de dulces', local=namnam)
+        bolleria_namnam.save()
 
-        category1_local2 = Category(name='Category 1', description='Description of Category 1', local=local2)
-        category1_local2.save()
+        bolleria_ricorico = Category(name='Bollería', description='Todos nuestros surtido de dulces', local=ricorico)
+        bolleria_ricorico.save()
 
+        vegetales_ricorico = Category(name='Vegetales', description='Aquí nuestros productos sin carne', local=ricorico)
+        vegetales_ricorico.save()
+
+        especiales_ricorico = Category(name='Especiales', description='Los más grandes!', local=ricorico)
+        especiales_ricorico.save()
+
+        bebida1 = Category(name='Bebidas', description='Bebidas', local=ricorico)
+        bebida1.save()
+        bebida2 = Category(name='Bebidas', description='Bebidas', local=namnam)
+        bebida2.save()
+        bebida3 = Category(name='Bebidas', description='Bebidas', local=cienm)
+        bebida3.save()
         print ('Categories...Ok!')
 
         # Allergens =====================================================================================================
 
-        allergen1 = Allergen(name='Huevos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-Huevos_43897.png", description='Contiene huevos')
+        allergen1 = Allergen(name='Huevos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-Huevos_43897.png",
+                             description='Contiene huevos')
         allergen1.save()
 
-        allergen2 = Allergen(name='Gluten', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-cereal-con-gluten_43908.png", description='Contiene gluten')
+        allergen2 = Allergen(name='Gluten',
+                             icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-cereal-con-gluten_43908.png",
+                             description='Contiene gluten')
         allergen2.save()
 
-        allergen3 = Allergen(name='Lacteos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-lacteos_43905.png", description='Contiene lacteos o derivados')
+        allergen3 = Allergen(name='Lacteos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-lacteos_43905.png",
+                             description='Contiene lacteos o derivados')
         allergen3.save()
 
-        allergen4 = Allergen(name='Frutos secos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-frutos-secos_43906.png", description='Contiene frutos secos')
+        allergen4 = Allergen(name='Frutos secos',
+                             icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-frutos-secos_43906.png",
+                             description='Contiene frutos secos')
         allergen4.save()
 
-        allergen5 = Allergen(name='Sulfitos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergenos-sulfitos_43907.png", description='Contiene sulfitos')
+        allergen5 = Allergen(name='Sulfitos',
+                             icon="http://icon-icons.com/icons2/463/PNG/128/Alergenos-sulfitos_43907.png",
+                             description='Contiene sulfitos')
         allergen5.save()
 
-        allergen6 = Allergen(name='Crustaceos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-crustaceos_43903.png", description='Contiene crustaceos')
+        allergen6 = Allergen(name='Crustaceos',
+                             icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-crustaceos_43903.png",
+                             description='Contiene crustaceos')
         allergen6.save()
 
-        allergen7 = Allergen(name='Pescado', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-pescado_43898.png", description='Contiene pescado')
+        allergen7 = Allergen(name='Pescado', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-pescado_43898.png",
+                             description='Contiene pescado')
         allergen7.save()
 
-        allergen8 = Allergen(name='Moluscos', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-moluscos_43909.png", description='Contiene Moluscos')
+        allergen8 = Allergen(name='Moluscos',
+                             icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-moluscos_43909.png",
+                             description='Contiene Moluscos')
         allergen8.save()
 
-        allergen9 = Allergen(name='Soja', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-soja_43896.png", description='Contiene soja')
+        allergen9 = Allergen(name='Soja', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-soja_43896.png",
+                             description='Contiene soja')
         allergen9.save()
 
-        allergen10 = Allergen(name='Sesamo', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-sesamo_43899.png", description='Contiene sesamo')
+        allergen10 = Allergen(name='Sesamo', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-sesamo_43899.png",
+                              description='Contiene sesamo')
         allergen10.save()
 
-        allergen11 = Allergen(name='Cacahuetes', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-cacahuetes_43904.png", description='Contiene cacahuetes')
+        allergen11 = Allergen(name='Cacahuetes',
+                              icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-cacahuetes_43904.png",
+                              description='Contiene cacahuetes')
         allergen11.save()
 
-        allergen12 = Allergen(name='Mostaza', icon="http://icon-icons.com/icons2/463/PNG/128/alergeno_mostaza_43900.png", description='Contiene mostaza')
+        allergen12 = Allergen(name='Mostaza',
+                              icon="http://icon-icons.com/icons2/463/PNG/128/alergeno_mostaza_43900.png",
+                              description='Contiene mostaza')
         allergen12.save()
 
-        allergen13 = Allergen(name='Apio', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-apio_43902.png", description='Contiene apio')
+        allergen13 = Allergen(name='Apio', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-apio_43902.png",
+                              description='Contiene apio')
         allergen13.save()
 
-        allergen14 = Allergen(name='Altramuz', icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-altramuz_43901.png", description='Contiene altramuz')
+        allergen14 = Allergen(name='Altramuz',
+                              icon="http://icon-icons.com/icons2/463/PNG/128/Alergeno-altramuz_43901.png",
+                              description='Contiene altramuz')
         allergen14.save()
 
         print ('Allergens...Ok!')
 
         # Products =====================================================================================================
+        # RICORICO =====================================================================================================
 
-        product1_local1 = Product(name='product1', price=1.5, local=local1, ingredients="Lentejas, garbanzos y lechuga", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
-        product1_local1.save()
-        product1_local1.category.add(category1_local1, category2_local1)
-        product1_local1.save()
+        agua1 = Product(name='Agua', price=0.5, local=ricorico, ingredients="agua",
+                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png")
+        agua1.save()
+        agua1.category.add(bebida1)
+        agua1.save()
 
-        product2_local1 = Product(name='product2', price=1.0, local=local1, ingredients="Lentejas, garbanzos y tomate", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
-        product2_local1.save()
+        cafe = Product(name='cafe', price=1.0, local=ricorico, ingredients="Café",
+                       picture="http://granadagourmet.ideal.es/wp-content/uploads/2016/10/cafe-2.jpg")
+        cafe.save()
+        cafe.category.add(bebida1)
+        cafe.save()
 
-        product3_local1 = Product(name='product3', price=1.0, local=local1)
-        product3_local1.save()
+        product1_ricorico = Product(name='59', price=2.0, local=ricorico,
+                                    ingredients="Queso, lechuga, tomate, esparragos y salsa a elegir",
+                                    picture="http://www.gallinablanca.es/files/thumbs/1e200f28a1992c52838aa9990e0ffa8e5df30b9e_r900_480_2.jpg")
+        product1_ricorico.save()
+        product1_ricorico.category.add(especiales_ricorico)
+        product1_ricorico.save()
 
-        product4_local1 = Product(name='product4', price=1.0, local=local1)
-        product4_local1.save()
+        product2_ricorico = Product(name='60', price=2.6, local=ricorico,
+                                    ingredients="Pechuga de pollo, beicon, queso, lechuga y salsa a elegir",
+                                    picture="http://1.bp.blogspot.com/-bzEKiiB7hi8/UNmA4FmPz-I/AAAAAAAAFQY/QHcwNH2q4mA/s1600/bocadillo+de+pollo+(13).jpg")
+        product2_ricorico.save()
+        product2_ricorico.category.add(especiales_ricorico)
 
-        product1_local2 = Product(name='product1', price=1.0, local=local2, ingredients="Lentejas, cominio y mayonesa", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
-        product1_local2.save()
+        product2_ricorico.save()
 
-        product2_local2 = Product(name='product2', price=2.5, local=local2, ingredients="Ketchup, mostaza y mojo picon", picture="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bocadillo_Espa%C3%B1ol.jpg/240px-Bocadillo_Espa%C3%B1ol.jpg")
-        product2_local2.save()
+        canachoco_ricorico = Product(name='caña de cholocate', price=1.0, local=ricorico,
+                                     ingredients="chocolate, hojaldre y azúcar  glas",
+                                     picture="http://www.surpan.com/static_media/entidades/arena_surpan_panificadora/multimedia/elemento_customizable/78/698.jpg")
+        canachoco_ricorico.save()
+        canachoco_ricorico.category.add(bolleria_ricorico)
+        canachoco_ricorico.save()
 
-        product2_local2.category.add(category1_local2)
-        product2_local2.save()
+        napolitana_ricorico = Product(name='Napolitana de cholocate', price=1.0, local=ricorico,
+                                      ingredients="chocolate, hojaldre y virutas de chocolate",
+                                      picture="https://i.ytimg.com/vi/6zDr-BbV0rE/maxresdefault.jpg")
+        napolitana_ricorico.save()
+        napolitana_ricorico.category.add(bolleria_ricorico)
+        napolitana_ricorico.save()
 
-        product3_local2 = Product(name='product3', price=1.0, local=local2)
-        product3_local2.save()
+        # ÑAMÑAM =====================================================================================================
+        agua2 = Product(name='Agua', price=0.5, local=namnam, ingredients="agua",
+                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png")
+        agua2.save()
+        agua2.category.add(bebida2)
+        agua2.save()
 
-        product4_local2 = Product(name='product4', price=1.0, local=local2)
-        product4_local2.save()
+        cocacola = Product(name='Cocacola', price=0.80, local=namnam, ingredients="Cocacola",
+                           picture="https://www.corporativo.tia.com.ec/sites/almacenestia.com/files/productos/imagenescargadas/2014-10-18/247060.jpeg")
+        cocacola.save()
+        cocacola.category.add(bebida2)
+        cocacola.save()
+
+        casa_namnam = Product(name='De la casa', price=2.10, local=namnam,
+                              ingredients='Tortilla de patatas, lechuga, jamón serrano y mayonesa')
+        casa_namnam.save()
+        casa_namnam.category.add(especiales_namnam)
+        casa_namnam.save()
+
+        universitario_namnam = Product(name='Universitario', price=2.10, local=namnam,
+                                       ingredients='Palitos de cangrejo, jamón york, lechuga y salsa rosa')
+        universitario_namnam.save()
+        universitario_namnam.category.add(especiales_namnam)
+        universitario_namnam.save()
+
+        canachoco_namnam = Product(name='caña de cholocate', price=1.0, local=namnam,
+                                   ingredients="chocolate, hojaldre y azúcar  glas",
+                                   picture="http://www.surpan.com/static_media/entidades/arena_surpan_panificadora/multimedia/elemento_customizable/78/698.jpg")
+        canachoco_namnam.save()
+        canachoco_namnam.category.add(bolleria_namnam)
+        canachoco_namnam.save()
+
+        napolitana_namnam = Product(name='Napolitana de cholocate', price=1.0, local=namnam,
+                                    ingredients="chocolate, hojaldre y virutas de chocolate",
+                                    picture="https://i.ytimg.com/vi/6zDr-BbV0rE/maxresdefault.jpg")
+        napolitana_namnam.save()
+        napolitana_namnam.category.add(bolleria_namnam)
+        napolitana_namnam.save()
+
+        # 100m =====================================================================================================
+
+        cerveza = Product(name='Jarra de cerveza', price=1.5, local=cienm, ingredients="cebada, lúpulo",
+                          picture="http://www.aceitedearganweb.com/wp-content/uploads/2015/10/cerveza.jpg")
+        cerveza.save()
+        cerveza.category.add(bebida3)
+        cerveza.save()
 
         print ('Products...Ok!')
 
         # Profiles =====================================================================================================
 
-        # user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE)
-        # phone = models.CharField(max_length=14)
-        # birth_date = models.DateField(null=True, blank=True) YYYY-MM-DD
-        # avatar = models.URLField(default=default)
         profile_customer1 = Profile(user=customer1, phone=123456789, birth_date='1993-01-25',
                                     avatar='https://http2.mlstatic.com/mascara-v-de-venganza-pelicula-v-for-vendetta-D_NQ_NP_2613-MLM2719793745_052012-O.jpg')
         profile_customer1.save()
@@ -241,22 +347,22 @@ class Command(BaseCommand):
 
         # Order ==============================================================================================================
 
-        order1 = Order(totalPrice=2.10, moment='2017-04-01 14:35:00', local=local1,
+        order1 = Order(totalPrice=2.10, moment='2017-04-01 14:35:00', local=namnam,
                        comment="Sin salsas", customer=customer1, creditCard=creditCard1,
                        pickupMoment='2017-04-01 14:45:00')
         order1.save()
 
-        order2 = Order(totalPrice=5.10, moment='2017-04-01 14:30:00', local=local1,
+        order2 = Order(totalPrice=3.30, moment='2017-04-01 14:30:00', local=ricorico,
                        comment="Mucho roquefort", customer=customer1, creditCard=creditCard1,
-                       pickupMoment='2017-04-01 15:00:00')
+                       pickupMoment='2017-05-01 15:00:00')
         order2.save()
 
-        order3 = Order(totalPrice=6.10, moment='2017-04-01 14:40:00', local=local2,
-                       comment="Lo quiero todo rapido", customer=customer2, creditCard=creditCard2,
+        order3 = Order(totalPrice=6.10, moment='2017-04-01 14:40:00', local=ricorico,
+                       comment="Frios por favor", customer=customer2, creditCard=creditCard2,
                        pickupMoment='2017-04-01 14:55:00')
         order3.save()
 
-        order4 = Order(totalPrice=6.10, moment='2017-04-01 15:45:00', local=local2, customer=customer1 ,
+        order4 = Order(totalPrice=6.70, moment='2017-04-01 15:45:00', local=namnam, customer=customer2,
                        creditCard=creditCard1, status=True)
         order4.save()
 
@@ -264,36 +370,22 @@ class Command(BaseCommand):
 
         # OrderLine==============================================================================================================
 
-        order_line1 = OrderLine(quantity=1, name="Bocadillo de Pavo", price=2.10, order=order1)
+        order_line1 = OrderLine(quantity=1, name="De la casa", price=2.10, order=order1)
         order_line1.save()
 
-        order_line2 = OrderLine(quantity=1, name="Lomo con Roquefort", price=3.10, order=order2)
+        order_line2 = OrderLine(quantity=2, name="Caña de chocolate", price=2.20, order=order2)
         order_line2.save()
 
-        order_line3 = OrderLine(quantity=1, name="Donut chocolate", price=2.00, order=order2)
+        order_line3 = OrderLine(quantity=1, name="Napolitana de chocolate", price=1.10, order=order2)
         order_line3.save()
 
-        order_line4 = OrderLine(quantity=2, name="Bocadillo hipergigante", price=3.05, order=order3)
+        order_line4 = OrderLine(quantity=2, name="60", price=2.60, order=order3)
         order_line4.save()
 
-        order_line5 = OrderLine(quantity=2, name="Bocadillo hipergigante", price=3.05, order=order4)
+        order_line5 = OrderLine(quantity=2, name="Universitario", price=2.10, order=order4)
         order_line5.save()
 
         print("OrdersLine... Ok!")
-
-        # ==============================================================================================================
-
-        creditCard = CreditCard(
-            holderName='customer',
-            brandName='visa',
-            expireMonth='12',
-            expireYear='2020',
-            cvv='123',
-            number='4528348244106025',
-            user=seller1)
-
-        creditCard.save()
-        print('CreditCard created...Ok')
 
         # ==============================================================================================================
 
@@ -311,40 +403,43 @@ class Command(BaseCommand):
         # ==============================================================================================================
         # Pack
         # ==============================================================================================================
-        pack1 = Pack(name='Pack 1', price=3.5, endDate='2017-04-25', local=local1)
+        pack1 = Pack(name='Oferta diaria de la casa', price=2.5, endDate='2017-09-25', local=namnam)
         pack1.save()
 
-        pack2 = Pack(name='Pack 2', price=1.5, endDate='2017-09-25', local=local1)
+        pack2 = Pack(name='Oferta diaria universitario', price=2.5, endDate='2017-09-25', local=namnam)
         pack2.save()
 
-        pack3 = Pack(name='Pack 3', price=5.0, endDate='2017-09-25', local=local1)
+        pack3 = Pack(name='Oferta caña', price=1.5, endDate='2017-09-25', local=ricorico)
         pack3.save()
+
+        pack4 = Pack(name='Oferta napolitana', price=1.5, endDate='2017-09-25', local=ricorico)
+        pack4.save()
 
         print ('Packs...Ok!')
 
         # ==============================================================================================================
         # Product line
         # ==============================================================================================================
-        product1_pack1 = ProductLine(quantity=2, product=product1_local1, pack=pack1)
+        product1_pack1 = ProductLine(quantity=1, product=casa_namnam, pack=pack1)
         product1_pack1.save()
 
-        product2_pack1 = ProductLine(quantity=2, product=product2_local1, pack=pack1)
+        product2_pack1 = ProductLine(quantity=1, product=agua2, pack=pack1)
         product2_pack1.save()
 
-        product3_pack1 = ProductLine(quantity=1, product=product3_local1, pack=pack1)
-        product3_pack1.save()
-
-        product1_pack2 = ProductLine(quantity=1, product=product1_local1, pack=pack2)
+        product1_pack2 = ProductLine(quantity=1, product=universitario_namnam, pack=pack2)
         product1_pack2.save()
-        product2_pack2 = ProductLine(quantity=1, product=product2_local1, pack=pack2)
+        product2_pack2 = ProductLine(quantity=1, product=cocacola, pack=pack2)
         product2_pack2.save()
-        product3_pack2 = ProductLine(quantity=1, product=product2_local1, pack=pack2)
-        product3_pack2.save()
 
-        product3_pack3 = ProductLine(quantity=1, product=product3_local1, pack=pack3)
-        product3_pack3.save()
-        product4_pack3 = ProductLine(quantity=1, product=product3_local1, pack=pack3)
-        product4_pack3.save()
+        product1_pack3 = ProductLine(quantity=1, product=cafe, pack=pack3)
+        product1_pack3.save()
+        product2_pack3 = ProductLine(quantity=1, product=canachoco_namnam, pack=pack3)
+        product2_pack3.save()
+
+        product1_pack4 = ProductLine(quantity=1, product=agua1, pack=pack4)
+        product1_pack4.save()
+        product2_pack4 = ProductLine(quantity=1, product=napolitana_ricorico, pack=pack4)
+        product2_pack4.save()
         print ('Products line...Ok!')
 
         print ('Populated...Ok!')
