@@ -140,6 +140,9 @@ a.title:hover{
     opacity: 0.85;
 }
 
+#myaccount-dp.dropdown-menu > li > a {
+	color: #fff;
+}
 /* Custom dropdown
 -----------------------------------------------------------*/
 .main-dp {
