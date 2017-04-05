@@ -2,23 +2,23 @@
 {% load staticfiles %}
 {% load multiply %}
 {% load show_last_4 %}
-{% block title %} Payment method {% endblock %}
+{% block title %} Método de pago - Bocatapp.com {% endblock %}
 
 {% block content %}
 <div class="container">
-  <h2>My order</h2>
+  <h2>Mi pedido</h2>
   <div class="row">
     <div class="col-md-8">
         <!-- CREDIT CARD FORM STARTS HERE -->
         <div class="panel panel-default credit-card-box">
             <div class="panel-heading" >
-              <h3 class="panel-title" > Payment method</h3>
+              <h3 class="panel-title" > Método de pago</h3>
             </div>
             <div class="panel-body">
 
               {% if form.errors %}
               <div class="alert alert-danger">
-              	<p>The operation could not be performed because one or more error(s) occurred.<br />Please resubmit the form after making the following changes:</p>
+              	<p>La operación no se ha podido realizar debido a que uno o más errores han ocurrido.<br />Por favor, reenvie el formulario después de hacer los siguientes cambios:</p>
               	<!-- <ul>
               	{% for field in form %}
               	<li>{{ field.errors|striptags }}</li>
@@ -40,7 +40,7 @@
                             </div>
                           {%endfor%}
                           <div class="radio list-group-item">
-                            <label><input type="radio" name="creditcard" value="new" checked="true">New credit card</label>
+                            <label><input type="radio" name="creditcard" value="new" checked="true">Nueva tarjeta de crédito</label>
                           </div>
                         </ul>
                       </div>
@@ -55,7 +55,7 @@
                                       type="text"
                                       class="form-control"
                                       name="holderName"
-                                      placeholder="Holder name"
+                                      placeholder="Titular de la tarjeta"
                                       required
                                   />
                               </div>
@@ -70,7 +70,7 @@
                                           type="tel"
                                           class="form-control"
                                           name="number"
-                                          placeholder="Valid credit card number"
+                                          placeholder="Número de tarjeta válido"
                                           autocomplete="cc-number"
                                           required
                                       />
@@ -97,7 +97,7 @@
                           </div>
                           <div class="col-xs-5 col-md-5 pull-right">
                               <div class="form-group">
-                                  <label for="cvv">CVV</label>
+                                  <label for="cvv">CVC</label>
                                   <input
                                       type="tel"
                                       class="form-control"
@@ -140,14 +140,14 @@
           </div>
         </div>
         <div class="text-center">
-            <h3>Order details</h3>
+            <h3>Detalles del pedido</h3>
         </div>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Product</th>
+                    <th>Producto</th>
                     <th>#</th>
-                    <th class="text-center">Price</th>
+                    <th class="text-center">Precio</th>
                     <th class="text-center">Total</th>
                 </tr>
             </thead>
@@ -167,10 +167,10 @@
                         <strong>Subtotal: </strong>
                     </p>
                     <p>
-                        <strong>Fees (5%): </strong>
+                        <strong>Tasas (5%): </strong>
                     </p>
                     <p>
-                        <strong>VAT (10%): </strong>
+                        <strong>IVA (10%): </strong>
                     </p>
                   </td>
                     <td class="text-center">
@@ -199,6 +199,7 @@
   <div class="row">
       <div class="col-md-4 col-md-offset-8">
           <button class="savecard btn btn-success btn-lg btn-block" onclick="$('#payment-form').submit();" type="button">Realizar la reserva</button>
+      <br>
       </div>
   </div>
 </div>

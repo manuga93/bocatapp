@@ -28,7 +28,7 @@ def all_orders(request):
 
 def orders_by_customer(request, pk):
     orders = get_list_or_404(Order, customer=pk)
-    return render_to_response('orders.html', {'orders': orders})
+    return render_to_response('orders.html', {'orders': orders}, context_instance=RequestContext(request))
 
 
 def order_line_by_order(request, order_id):
