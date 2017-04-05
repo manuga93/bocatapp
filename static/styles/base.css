@@ -283,8 +283,6 @@ ul.errorlist li{
 
 .item-search .bottom {position: absolute; bottom: 0}
 
-.buttons-wrapper,
-.avatar-wrapper,
 .ride-item__avatar {
 	margin: auto;
 	text-align: center;
@@ -388,4 +386,12 @@ footer {
         background-color: inherit;
         border-top:0 none;
     }
+
+		.item-search .brief-text {
+			position:relative;
+		}
+
+		.buttons-wrapper {
+			margin-top: 1em;
+		}
 }
