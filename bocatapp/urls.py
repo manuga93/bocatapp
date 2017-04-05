@@ -25,7 +25,7 @@ urlpatterns = [
 
     # Seller ==================================================================
     url(r'^seller/register/$', anonymous_required(UserRegister.RegistrationSellerView.as_view(),
-                                                  message='You`ve already sign in!'), name='user_register'),
+                                                  message='You`ve already sign in!'), name='seller_register'),
     url(r'^seller/', include('seller.urls')),
     url(r'^pack/all/$', views.packs_list, name="packs_all"),
 
@@ -33,5 +33,5 @@ urlpatterns = [
     # Customer ==================================================================
     url(r'^customer/', include('customer.urls')),
     url(r'^customer/register/$', anonymous_required(UserRegister.RegistrationCustomerView.as_view(),
-                                                    message='You`ve already sign in!'), name='user_register'),
+                                                    message='You`ve already sign in!'), name='customer_register'),
 ]
