@@ -110,6 +110,9 @@ a.title:hover{
     padding: 15px 20px;
   	z-index: 1;
 }
+.buttons-wrapper button.form-control {
+	height: 100%;
+}
 
 /* Nav bar
 -----------------------------------------------------------*/
@@ -147,7 +150,6 @@ a.title:hover{
     overflow:hidden;
     background-color:rgba(255,255,255,.9);
 }
-
 /* My account dropdown
 -----------------------------------------------------------*/
 
