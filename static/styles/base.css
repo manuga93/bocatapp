@@ -3,21 +3,23 @@
 	src: url("../fonts/Honduro.otf") format("opentype");
 }*/
 
-div, .block {
-	display: block;
-}
-
-html, body {
-    height: 100%;
-}
-
-body, * {
+* {
 	font-family: 'Roboto', sans-serif;
+	margin: 0;
 	/*background-color: #d7f0f7;*/
 }
 
+.block { display: block; }
+
+html { height: 100% }
+
+body {
+	position: relative;
+  min-height: 100%;
+}
+
 body > .container {
-	padding-top: 40px;
+	padding-bottom: 60px;
 }
 
 h1,
@@ -345,9 +347,8 @@ ul.errorlist li{
 footer {
 	position: absolute;
 	bottom: 0;
-	height: 40px;
-	padding: 1%;
-  width: 100%;
+	padding: 10px;
+	width: 100%;
 	background-color: #63d297;
 	color: #fff
 }
@@ -359,10 +360,10 @@ footer p {
 footer a:focus,
 footer a:active,
 footer a {
-	color: #fff
+	color: #fff;
 }
 footer a:hover {
-	color: #000
+	color: #000;
 }
 /* Media Queries
 ------------------------------------------------------------*/
