@@ -17,11 +17,11 @@
       {% for local in locals %}
       <div class="item-search well white">
           <div class="row">
-              <div class="col-xs-5 col-md-2 avatar-wrapper text-center">
+              <div class="col-xs-6 col-md-2 avatar-wrapper text-center">
                   {%if local.photo %}
-                      <img alt="" height="60px" width="60px" class="ride-item__avatar" src="{{local.photo}}">
+                      <img alt="" height="100px" width="100px" class="img-circle center-block" src="{{local.photo}}">
                   {% else %}
-                      <img height="60px" width="60px"  class="ride-item__avatar" alt="foto de perfil" src="{% static "images/No_image_available.png" %}" alt="Profile image">
+                      <img height="100px" width="100px"  class="img-circle center-block" alt="foto de perfil" src="{% static "images/No_image_available.png" %}" alt="Profile image">
                   {%endif%}
                   <p class="stars">
                       {%if not local.stars%}0/5{%endif%}
@@ -29,7 +29,7 @@
                       <i class="fa fa-star" aria-hidden="true"></i>
                   </p>
               </div>
-              <div class="col-xs-7 col-md-8 info-wrapper">
+              <div class="col-xs-6 col-md-8 info-wrapper">
                   <a href="{% url 'seller.views.local_detail' pk=local.pk %}"><b>{{ local.name }}</b></a>
                   <p>
                       {{ local.description|linebreaksbr }}
