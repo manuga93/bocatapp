@@ -1,24 +1,37 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from .decorators import anonymous_required
+from .decorators import anonymous_required, login_required
 from django.contrib.auth.views import login, logout
-from bocatapp.views import RegistrationSellerView, RegistrationCustomerView
-
+from bocatapp.views import home, UserRegister, UserAccount
+from seller import views
 urlpatterns = [
     # Examples:
-    url(r'^$', 'bocatapp.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+    url(r'^$', home.home, name='home'),
+
+    # User ==================================================================
+    url(r'^user/myAccount/$', login_required(UserAccount.UserAccountView.as_view()), name='myAccount'),
+    url(r'^user/edit$', login_required(UserAccount.UserEdit.as_view()), name='editPassword'),
+    url(r'^user/myAccount/edit$', login_required(UserAccount.UserEdit.as_view()), name='editAccount'),
+
+    # session ==================================================================
+
     url(r'^login/$', anonymous_required(login,
-                                        message='You`ve already sign in!'),
-        {'template_name': 'auth/login.html'}),
+                                        message='You`ve already sign in!'), {'template_name': 'auth/login.html'}),
     url(r'^logout/$', logout, {'next_page': '/'}),
-    # url(r'^signup/$', views.signup),
+
+    # Admin ==================================================================
+    url(r'^administration/', include('administration.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^seller/register/$', anonymous_required(RegistrationSellerView.as_view(),
+
+    # Seller ==================================================================
+    url(r'^seller/register/$', anonymous_required(UserRegister.RegistrationSellerView.as_view(),
                                                   message='You`ve already sign in!'), name='user_register'),
     url(r'^seller/', include('seller.urls')),
-    url(r'^administration/', include('administration.urls')),
-    url(r'^customer/register/$', anonymous_required(RegistrationCustomerView.as_view(),
-                                                    message='You`ve already sign in!'), name='user_register'),
+    url(r'^pack/all/$', views.packs_list, name="packs_all"),
+
+
+    # Customer ==================================================================
     url(r'^customer/', include('customer.urls')),
+    url(r'^customer/register/$', anonymous_required(UserRegister.RegistrationCustomerView.as_view(),
+                                                    message='You`ve already sign in!'), name='user_register'),
 ]

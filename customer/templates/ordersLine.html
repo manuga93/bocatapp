@@ -27,7 +27,9 @@
                             <td>Hecho</td>
                         {% else %}
                             <td> No hecho &nbsp;
+                        {% if perms.bocatapp.seller and l.order.local.seller.pk = request.user.id %}
                             <button class ='btn-primary' onclick="window.location.href='/customer/do_order_line/{{ l.id }}'" > DO </button>
+                        {% endif %}
                         {% endif %}
                     </tr>
 

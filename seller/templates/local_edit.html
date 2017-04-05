@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load bootstrap3 %}
+
+{% bootstrap_messages %}
 {% block title %}Locales{%endblock%}
 
 {% block content %}
-    <h1>New Local</h1>
-    <form method="POST" class="local-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save">Save</button>
-    </form>
+<div class="container">
+  <h1>Crear local</h1>
+  <form method="POST" class="local-form">{% csrf_token %}
+      {% bootstrap_form form %}
+      {% buttons %}
+      <button type="submit"  class="btn btn-primary">Guardar</button>
+      {% endbuttons %}
+  </form>
+</div>
+
  {%endblock%}

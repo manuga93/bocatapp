@@ -2,16 +2,13 @@ from django.db import transaction
 from django.shortcuts import render
 from django.contrib.auth.models import Permission
 from bocatapp.models import User
+from customer.models import ShoppingCart
 from django.views.generic import FormView
-from forms import UserRegistrationForm
+from bocatapp.forms import UserRegistrationForm
 from django.http.response import HttpResponseRedirect
 
 
-def home(request):
-    return render(request, 'home.html')
-
-
-class RegistrationCustomerView(FormView):  # Vista de la Registracion basada en vistas de Django ( View )
+class RegistrationCustomerView(FormView):
 
     def get(self, request):
         if not request.user.is_authenticated():
@@ -32,6 +29,7 @@ class RegistrationCustomerView(FormView):  # Vista de la Registracion basada en 
                 password = form.cleaned_data.get('password')
                 user.set_password(password)
                 save_customer(user)
+                save_shoppingcart(user)
                 return HttpResponseRedirect("/")
             else:
                 message = ""
@@ -46,8 +44,7 @@ class RegistrationCustomerView(FormView):  # Vista de la Registracion basada en 
             return render(request, '../templates/forbidden.html')
 
 
-class RegistrationSellerView(FormView):  # Vista de la Registracion basada en vistas de Django ( View )
-
+class RegistrationSellerView(FormView):
     def get(self, request):
         if not request.user.is_authenticated():
             form = UserRegistrationForm()
@@ -97,3 +94,7 @@ def save_customer(user):
 def save_seller(user):
     user.save()
     user.user_permissions.add(Permission.objects.get(codename="seller"))
+
+def save_shoppingcart(user):
+    shoppingcart = ShoppingCart(customer=user)
+    shoppingcart.save()

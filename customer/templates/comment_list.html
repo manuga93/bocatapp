@@ -4,20 +4,27 @@
 
 {% block content %}
     <h1>Comentarios</h1>
-    <hr>
+    <hr/>
     {% for comment in comentarios %}
 
         <div class="comment">
             <p><strong>Valoracion: {{ comment.rating }}</strong></p>
             <p>{{ comment.description|linebreaks }}</p>
         </div>
-        <div class="comment">
-            <a href="{% url 'report_new' pk=comment.pk %}">Reportar</a>
+        {% if perms.bocatapp.customer %}
 
-        </div>
-        <div class="comment">
-            <a href="{% url 'report_list' pk=comment.pk %}">Reportes</a>
-        </div>
+            <div class="comment">
+                <a href="{% url 'report_new' pk=comment.pk %}">Reportar</a>
+
+            </div>
+        {% endif %}
+
+        {% if perms.bocatapp.administration %}
+
+            <div class="comment">
+                <a href="{% url 'report_list' pk=comment.pk %}">Reportes</a>
+            </div>
+        {% endif %}
 
         <hr/>
 
@@ -25,9 +32,10 @@
         <p>No hay comentarios sobre este local</p>
     {% endfor %}
 
+    {% if perms.bocatapp.customer %}
 
-    <hr/>
-    <a href="{% url 'comment_new' pk=local %}">Comentar</a>
+        <a href="{% url 'comment_new' pk=local %}">Comentar</a>
+    {% endif %}
 {% endblock %}
 
 

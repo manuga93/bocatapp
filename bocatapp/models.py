@@ -8,7 +8,14 @@ class User(AbstractUser):
         permissions = (('customer', 'Customer'), ('seller', 'Seller'))
 
 
+default = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
+
+
 class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=14)
-    photo = models.URLField()
-    user = models.OneToOneField(User)
+    birth_date = models.DateField(null=True, blank=True)
+    avatar = models.URLField(default=default)
+
+    def __unicode__(self):
+        return self.user.username

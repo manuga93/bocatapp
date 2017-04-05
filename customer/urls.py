@@ -11,6 +11,12 @@ urlpatterns = [
     url(r'^report/(?P<pk>[0-9]+)/$', 'customer.views.report_new', name="report_new"),
     url(r'^reports/(?P<pk>[0-9]+)/$', 'customer.views.report_list', name="report_list"),
     url(r'^report/accept/(?P<pk>[0-9]+)/$', 'customer.views.report_accept', name="report_accept"),
-    url(r'^report/decline/(?P<pk>[0-9]+)/$', 'customer.views.report_decline', name="report_decline")
-
+    url(r'^report/decline/(?P<pk>[0-9]+)/$', 'customer.views.report_decline', name="report_decline"),
+    url(r'^orders/(?P<pk>[0-9]+)/$', 'customer.views.orders_by_customer', name="orders_by_customer"),
+    url(r'^shoppingcart/$', 'customer.views.list_shoppingcart', name='list_shoppingcart'),
+    url(r'^shoppingcart/(?P<pk>[0-9]+)/add/$', 'customer.views.add_shoppingcart', name='add_shoppingcart'),
+    url(r'^shoppingcart/(?P<pk>[0-9]+)/remove/$', 'customer.views.remove_shoppingcart', name='remove_shoppingcart'),
+    url(r'^checkout/$', 'customer.views.checkout', name="checkout"),
+    url(r'^checkout/save/$', 'customer.views.do_checkout', name="do_checkout"),
+    url(r'^dashboard/$', 'customer.views.customer_dashboard', name='dashboard'),
 ]
