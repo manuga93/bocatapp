@@ -6,6 +6,7 @@ from django.contrib.auth.models import Permission
 from administration.models import CreditCard
 
 from seller.models import Local, Product
+from customer.models import Local, Comment, Report
 
 
 
@@ -103,7 +104,6 @@ class Command(BaseCommand):
 
         print ('Products...Ok!')
 
-        print ('Populated...Ok!')
 
         # ==============================================================================================================
 
@@ -121,5 +121,49 @@ class Command(BaseCommand):
 
         # ==============================================================================================================
 
+        comment = Comment(
+            description='Estaba muy bueno sobre todo con salsa braba!',
+            rating='4',
+            local = local1,
+            reported=0,
+            customer=customer1)
+
+        comment.save()
+        print('comments created...Ok')
+
+        report1 = Report(
+            reason='Brava se escribe con v tssss',
+            accepted=0,
+            decline=0,
+            comment=comment)
+
+        report1.save()
+
+        report2 = Report(
+            reason='Brava se escribe con v tssss',
+            accepted=0,
+            decline=0,
+            comment=comment)
+
+        report2.save()
+        report3 = Report(
+            reason='Brava se escribe con v tssss',
+            accepted=0,
+            decline=0,
+            comment=comment)
+
+        report3.save()
+        report4 = Report(
+            reason='Brava se escribe con v tssss',
+            accepted=0,
+            decline=0,
+            comment=comment)
+
+        report4.save()
+        print('reports created...Ok')
+
+        print ('Populated...Ok!')
+
+        # ==============================================================================================================
     def handle(self, *args, **options):
         self._migrate()

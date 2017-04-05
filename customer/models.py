@@ -2,7 +2,7 @@ from django.db import models
 from seller.models import Local
 from administration.models import CreditCard
 from bocatapp.models import User
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 # Create your models here.
@@ -37,3 +37,18 @@ class ShoppingCartLine(models.Model):
 class ShoppingCart(models.Model):
     customer = models.ForeignKey(User)
     shoppingCartLine = models.ForeignKey(ShoppingCartLine)
+
+
+class Comment(models.Model):
+    description = models.CharField(max_length=256)
+    rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    reported = models.BooleanField(default=False)
+    local = models.ForeignKey(Local)
+    customer = models.ForeignKey(User)
+
+
+class Report(models.Model):
+    reason = models.CharField(max_length=256)
+    accepted = models.BooleanField(default=False)
+    decline = models.BooleanField(default=False)
+    comment = models.ForeignKey(Comment)
