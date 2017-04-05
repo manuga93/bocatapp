@@ -16,6 +16,10 @@ body, * {
 	/*background-color: #d7f0f7;*/
 }
 
+body > .container {
+	padding-top: 40px;
+}
+
 h1,
 h2,
 h3,
@@ -339,7 +343,9 @@ ul.errorlist li{
 /* Footer
 ------------------------------------------------------------*/
 footer {
-	margin-top: 1%;
+	position: absolute;
+	bottom: 0;
+	height: 40px;
 	padding: 1%;
   width: 100%;
 	background-color: #63d297;
