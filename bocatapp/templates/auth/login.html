@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Bocatapp - Login{%endblock%}
+{% block title %}Bocatapp - Iniciar sesión{%endblock%}
 
 {% block content %}
 <div class="container">
     <div class="row">
     <div id="centered-form" class="col-sm-4 col-sm-offset-4">
-        <h2>Login</h2>
-        <div class="social-buttons">
-            <p><a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Connect with Facebook</a></p>
-            <p class="separator hr"><span>or</span></p>
-        </div>
+        <h2>Iniciar sesión</h2>
+{#        <div class="social-buttons">#}
+{#            <p><a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Connect with Facebook</a></p>#}
+{#            <p class="separator hr"><span>or</span></p>#}
+{#        </div>#}
             {% include "forms/login_form.html" %}
         <div class="bottom text-center">
-            Don't have an account? <a href="/signup"><b>Sign up</b></a>
+            ¿Todavía no tiene cuenta? <a href="{% url 'customer_register' %}"><b>¡Registrese!</b></a>
         </div>
     </div>
     </div>

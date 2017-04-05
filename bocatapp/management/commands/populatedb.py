@@ -100,7 +100,8 @@ class Command(BaseCommand):
 
         ricorico = Local(name='Rico Rico', description='Tenemos las mejores ofertas para merendar!',
                          address='Av. de la Reina Mercedes, 39, 41012 Sevilla', phone=622397165,
-                         photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1)
+                         photo='https://s3-media1.fl.yelpcdn.com/bphoto/QKiTaoNVWDuM1i-4Z3IJxA/168s.jpg',
+                         seller=seller1)
 
         ricorico.save()
 
@@ -220,21 +221,21 @@ class Command(BaseCommand):
         agua1.save()
 
         cafe = Product(name='cafe', price=1.0, local=ricorico, ingredients="Café",
-                       picture="http://granadagourmet.ideal.es/wp-content/uploads/2016/10/cafe-2.jpg")
+                       picture="http://estaticos.muyinteresante.es/uploads/images/article/55d31c013fafe8fa92bf40d6/cafe-colon_0.jpg")
         cafe.save()
         cafe.category.add(bebida1)
         cafe.save()
 
         product1_ricorico = Product(name='59', price=2.0, local=ricorico,
                                     ingredients="Queso, lechuga, tomate, esparragos y salsa a elegir",
-                                    picture="http://www.gallinablanca.es/files/thumbs/1e200f28a1992c52838aa9990e0ffa8e5df30b9e_r900_480_2.jpg")
+                                    picture="http://static.consumer.es/www/imgs/recetas/7/79014_g.jpg")
         product1_ricorico.save()
         product1_ricorico.category.add(especiales_ricorico)
         product1_ricorico.save()
 
         product2_ricorico = Product(name='60', price=2.6, local=ricorico,
                                     ingredients="Pechuga de pollo, beicon, queso, lechuga y salsa a elegir",
-                                    picture="http://1.bp.blogspot.com/-bzEKiiB7hi8/UNmA4FmPz-I/AAAAAAAAFQY/QHcwNH2q4mA/s1600/bocadillo+de+pollo+(13).jpg")
+                                    picture="http://www.menshealth.es/rcs/articles/812/imagenes/139-bocadillo-pollo.jpg")
         product2_ricorico.save()
         product2_ricorico.category.add(especiales_ricorico)
 
@@ -242,14 +243,14 @@ class Command(BaseCommand):
 
         canachoco_ricorico = Product(name='caña de cholocate', price=1.0, local=ricorico,
                                      ingredients="chocolate, hojaldre y azúcar  glas",
-                                     picture="http://www.surpan.com/static_media/entidades/arena_surpan_panificadora/multimedia/elemento_customizable/78/698.jpg")
+                                     picture="http://pasteleriatiamaria.es/wp-content/uploads/2015/06/5153-Ca%C3%B1a-de-chocolate-Pasteleria-Tia-Maria.png")
         canachoco_ricorico.save()
         canachoco_ricorico.category.add(bolleria_ricorico)
         canachoco_ricorico.save()
 
         napolitana_ricorico = Product(name='Napolitana de cholocate', price=1.0, local=ricorico,
                                       ingredients="chocolate, hojaldre y virutas de chocolate",
-                                      picture="https://i.ytimg.com/vi/6zDr-BbV0rE/maxresdefault.jpg")
+                                      picture="http://www.panaderiapulido.com/sites/default/files/bolleria_napolitana.jpg")
         napolitana_ricorico.save()
         napolitana_ricorico.category.add(bolleria_ricorico)
         napolitana_ricorico.save()
@@ -268,7 +269,8 @@ class Command(BaseCommand):
         cocacola.save()
 
         casa_namnam = Product(name='De la casa', price=2.10, local=namnam,
-                              ingredients='Tortilla de patatas, lechuga, jamón serrano y mayonesa')
+                              ingredients='Tortilla de patatas, lechuga, jamón serrano y mayonesa',
+                              picture='https://img.over-blog-kiwi.com/1/39/41/41/20170404/ob_cf201c_1-018.jpg')
         casa_namnam.save()
         casa_namnam.category.add(especiales_namnam)
         casa_namnam.save()
@@ -281,14 +283,14 @@ class Command(BaseCommand):
 
         canachoco_namnam = Product(name='caña de cholocate', price=1.0, local=namnam,
                                    ingredients="chocolate, hojaldre y azúcar  glas",
-                                   picture="http://www.surpan.com/static_media/entidades/arena_surpan_panificadora/multimedia/elemento_customizable/78/698.jpg")
+                                   picture="http://pasteleriatiamaria.es/wp-content/uploads/2015/06/5153-Ca%C3%B1a-de-chocolate-Pasteleria-Tia-Maria.png")
         canachoco_namnam.save()
         canachoco_namnam.category.add(bolleria_namnam)
         canachoco_namnam.save()
 
         napolitana_namnam = Product(name='Napolitana de cholocate', price=1.0, local=namnam,
                                     ingredients="chocolate, hojaldre y virutas de chocolate",
-                                    picture="https://i.ytimg.com/vi/6zDr-BbV0rE/maxresdefault.jpg")
+                                    picture="http://www.panaderiapulido.com/sites/default/files/bolleria_napolitana.jpg")
         napolitana_namnam.save()
         napolitana_namnam.category.add(bolleria_namnam)
         napolitana_namnam.save()

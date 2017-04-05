@@ -17,7 +17,7 @@
       {% for local in locals %}
       <div class="item-search well white">
           <div class="row">
-              <div class="col-md-2 avatar-wrapper">
+              <div class="col-xs-5 col-md-2 avatar-wrapper text-center">
                   {%if local.photo %}
                       <img alt="" height="60px" width="60px" class="ride-item__avatar" src="{{local.photo}}">
                   {% else %}
@@ -29,7 +29,7 @@
                       <i class="fa fa-star" aria-hidden="true"></i>
                   </p>
               </div>
-              <div class="col-md-8 info-wrapper">
+              <div class="col-xs-7 col-md-8 info-wrapper">
                   <a href="{% url 'seller.views.local_detail' pk=local.pk %}"><b>{{ local.name }}</b></a>
                   <p>
                       {{ local.description|linebreaksbr }}
@@ -40,7 +40,7 @@
                       {%if local.opinions.length > 1 %} {{local.opinions.length}} opiniones {%endif%}
                   </p>
               </div>
-              <div class="col-md-2 buttons-wrapper">
+              <div class="col-md-2 col-xs-12 buttons-wrapper text-center">
                 {% if perms.bocatapp.seller and request.user.id = local.seller.pk %}
                   <button onclick="location.replace('{% url 'local_orders' pk=local.pk %}');" class="form-control">Gestionar pedidos</button>
                 {% endif %}

@@ -3,17 +3,23 @@
 	src: url("../fonts/Honduro.otf") format("opentype");
 }*/
 
-div, .block {
-	display: block;
-}
-
-html, body {
-    height: 100%;
-}
-
-body, * {
+* {
 	font-family: 'Roboto', sans-serif;
+	margin: 0;
 	/*background-color: #d7f0f7;*/
+}
+
+.block { display: block; }
+
+html { height: 100% }
+
+body {
+	position: relative;
+  min-height: 100%;
+}
+
+body > .container {
+	padding-bottom: 60px;
 }
 
 h1,
@@ -110,6 +116,9 @@ a.title:hover{
     padding: 15px 20px;
   	z-index: 1;
 }
+.buttons-wrapper button.form-control {
+	height: 100%;
+}
 
 /* Nav bar
 -----------------------------------------------------------*/
@@ -147,7 +156,6 @@ a.title:hover{
     overflow:hidden;
     background-color:rgba(255,255,255,.9);
 }
-
 /* My account dropdown
 -----------------------------------------------------------*/
 
@@ -283,8 +291,6 @@ ul.errorlist li{
 
 .item-search .bottom {position: absolute; bottom: 0}
 
-.buttons-wrapper,
-.avatar-wrapper,
 .ride-item__avatar {
 	margin: auto;
 	text-align: center;
@@ -339,9 +345,26 @@ ul.errorlist li{
 /* Footer
 ------------------------------------------------------------*/
 footer {
-    width: 100%;
+	position: absolute;
+	bottom: 0;
+	padding: 10px;
+	width: 100%;
+	background-color: #63d297;
+	color: #fff
 }
 
+footer p {
+	margin: 0;
+}
+
+footer a:focus,
+footer a:active,
+footer a {
+	color: #fff;
+}
+footer a:hover {
+	color: #000;
+}
 /* Media Queries
 ------------------------------------------------------------*/
 
@@ -362,14 +385,14 @@ footer {
         width: 100%;
     }
 
-    .dropdown-menu > li > a {
+    #myaccount-dp.dropdown-menu > li > a {
         line-height: 28px;
         background-color: transparent;
         color: #fff;
     }
 
-    .dropdown-menu > li > a:hover,
-    .dropdown-menu > li > a:focus {
+    #myaccount-dp.dropdown-menu > li > a:hover,
+    #myaccount-dp.dropdown-menu > li > a:focus {
         background-color: transparent;
         color: #fff;
         text-decoration: none;
@@ -388,4 +411,12 @@ footer {
         background-color: inherit;
         border-top:0 none;
     }
+
+		.item-search .brief-text {
+			position:relative;
+		}
+
+		.buttons-wrapper {
+			margin-top: 1em;
+		}
 }
