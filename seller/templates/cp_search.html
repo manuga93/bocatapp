@@ -84,8 +84,8 @@
                   <div class="item-search well white">
                       <div class="row">
                           <div class="col-xs-5 col-md-2 avatar-wrapper text-center">
-                              {%if local.profile_picture %}
-                                  <img alt="" height="60px" width="60px" class="ride-item__avatar" src="{{MEDIA_URL}}{{local.profile_picture}}">
+                              {%if local.photo %}
+                                  <img alt="" height="60px" width="60px" class="ride-item__avatar" src="{{MEDIA_URL}}{{local.photo}}">
                               {% else %}
                                   <img height="60px" width="60px"  class="ride-item__avatar" alt="foto de perfil" src="{% static "images/No_image_available.png" %}" alt="Profile image">
                               {%endif%}

@@ -337,9 +337,25 @@ ul.errorlist li{
 /* Footer
 ------------------------------------------------------------*/
 footer {
-    width: 100%;
+	margin-top: 1%;
+	padding: 1%;
+  width: 100%;
+	background-color: #63d297;
+	color: #fff
 }
 
+footer p {
+	margin: 0;
+}
+
+footer a:focus,
+footer a:active,
+footer a {
+	color: #fff
+}
+footer a:hover {
+	color: #000
+}
 /* Media Queries
 ------------------------------------------------------------*/
 
