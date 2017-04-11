@@ -33,7 +33,8 @@ class OrderLine(models.Model):
 
 
 class ShoppingCart(models.Model):
-    customer = models.ForeignKey(User)
+    customer = models.ForeignKey(User, blank=True, null=True)
+    moment = models.DateTimeField(auto_now=True)
 
     # Derivated property
     @property

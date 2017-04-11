@@ -392,12 +392,12 @@ class Command(BaseCommand):
         # ==============================================================================================================
 
         shoppingCart1 = ShoppingCart(
-            customer=customer1)
+            customer=customer1, moment='2017-04-01 14:35:00')
 
         shoppingCart1.save()
 
         shoppingCart2 = ShoppingCart(
-            customer=customer2)
+            customer=customer2, moment='2017-04-01 14:35:00')
 
         shoppingCart2.save()
         print('ShoppingCart created...Ok')
