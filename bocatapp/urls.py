@@ -34,4 +34,7 @@ urlpatterns = [
     url(r'^customer/', include('customer.urls')),
     url(r'^customer/register/$', anonymous_required(UserRegister.RegistrationCustomerView.as_view(),
                                                     message='You`ve already sign in!'), name='customer_register'),
+
+    # ShoppingCart ==============================================================
+    
 ]

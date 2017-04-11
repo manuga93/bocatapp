@@ -70,3 +70,25 @@
 
     </section> -->
 {% endblock %}
+
+{% block scripts %}
+    {{block.super}}
+    <script type="text/javascript">
+        $(document).ready( function() {
+            if (document.cookie.indexOf("cookieCart=") >= 0) {
+                
+            }else{
+                /*document.cookie = "visited=yes; expires=" + expiry.toGMTString();
+                alert("this is your first time");*/
+
+                $.ajax({
+                    url: 'mi_url',
+                    type: "POST",
+                    success: function (response) {
+                    //lo que haces si es exitoso
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}
