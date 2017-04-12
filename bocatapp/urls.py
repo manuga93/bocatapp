@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from .decorators import anonymous_required, login_required
 from django.contrib.auth.views import login, logout
-from bocatapp.views import home, UserRegister, UserAccount
+from bocatapp.views import home, UserRegister, UserAccount, ShoppingCart
 from seller import views
 urlpatterns = [
     # Examples:
@@ -36,5 +36,5 @@ urlpatterns = [
                                                     message='You`ve already sign in!'), name='customer_register'),
 
     # ShoppingCart ==============================================================
-    
+    url(r'^shoppingCart/create/', ShoppingCart.createShoppingCart, name='create_shoppingcart'),
 ]
