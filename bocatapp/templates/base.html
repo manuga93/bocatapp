@@ -64,6 +64,7 @@
 <script type="text/javascript" language="javascript" src="{% static "scripts/jQuery.dataTables.js"%}"></script>
 <script type="text/javascript" language="javascript" src="{% static "scripts/dataTables.js"%}"></script>
 <script type="text/javascript" language="javascript" src="{% static "scripts/DjangoAjax.js"%}"></script>
+<script type="text/javascript" language="javascript" src="{% static "scripts/jquery.cookie.js"%}"></script>
 <script>
     $(document).ready( function () {
         $('#menu').DataTable({
@@ -87,8 +88,42 @@
 
             }
         } );
-    } );
+    }, comprobeCookieCart() );
 
+
+    function comprobeCookieCart() {
+        if (document.cookie.indexOf("cookieCart=") >= 0) {
+            alert($.cookie('cookieCart'));
+            UpdateBadge();
+            $.removeCookie('cookieCart');
+        }else{
+
+            $.ajax({
+                url: '{% url "create_shoppingcart" %}',
+                dataType: 'json',
+                success: function (data) {
+                    $.cookie('cookieCart', data.ShoppingCart+",data:"+data.now, { expires: 2, path: '/' });
+                    UpdateBadge();
+                }
+            });
+            
+        }
+
+        
+    }
+
+    function UpdateBadge(idCart) {
+        $.ajax({
+            url: '{% url "update_badge" %}',
+            data: {'idCart':idCart},
+            dataType: 'json',
+            success: function (data) {
+                if(data.count > 0){
+                    $("#numItems").text(data.count);
+                }
+            }
+        });
+    }
 
 </script>
 <!-- Bocatapp -->

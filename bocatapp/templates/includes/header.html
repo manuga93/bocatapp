@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
             {% if perms.bocatapp.customer or user.is_anonymous %}
-                <li><a href="{% url 'list_shoppingcart' %}"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+                <li><a href="{% url 'list_shoppingcart' %}"><span class="glyphicon glyphicon-shopping-cart"></span> <span id="numItems" class="badge"></span></a></li>
             {% endif %}
             <li><a href="#">Ayuda</a></li>
             {% if user.is_anonymous %}

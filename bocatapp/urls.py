@@ -37,4 +37,5 @@ urlpatterns = [
 
     # ShoppingCart ==============================================================
     url(r'^shoppingCart/create/', ShoppingCart.createShoppingCart, name='create_shoppingcart'),
+    url(r'^shoppingCart/update_badge/', ShoppingCart.updateBadge, name='update_badge'),
 ]

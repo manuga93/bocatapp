@@ -74,23 +74,6 @@
 {% block scripts %}
     {{block.super}}
     <script type="text/javascript">
-        $(document).ready( function() {
-            if (document.cookie.indexOf("cookieCart=") >= 0) {
-                
-            }else{
-                /*document.cookie = "visited=yes; expires=" + expiry.toGMTString();
-                alert("this is your first time");*/
-
-                $.ajax({
-                    url: '{% url "create_shoppingcart" %}',
-                    dataType: 'json',
-                    success: function (data) {
-                        alert(data.ShoppingCart);
-                    }
-                });
-
-                
-            }
-        });
+        
     </script>
 {% endblock %}
