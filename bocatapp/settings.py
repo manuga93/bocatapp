@@ -86,8 +86,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bocatappdb',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'USER': 'bocatapp-user',
+        'PASSWORD': 'W01wG*F5712&',
         'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
     }
 }
