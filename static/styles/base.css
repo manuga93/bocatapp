@@ -121,12 +121,13 @@ a.title:hover{
 }
 
 button.accordion {
-    background-color: #eee;
-    color: #444;
+    background-color: white;
+    /*color: #444;#4cae4c;*/
     cursor: pointer;
     padding: 18px;
     width: 100%;
-    border: none;
+    border: 0.25px solid #C3E4C3;
+    border-radius: 8px;
     text-align: left;
     outline: none;
     font-size: 15px;
@@ -143,6 +144,20 @@ div.panel {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+
+
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+.stylish-input-group .form-control{
+	border-right:0;
+	box-shadow:0 0 0;
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
 }
 
 .div-table{
