@@ -92,7 +92,7 @@ def product_new(request, pk):
 
 # Listado de locales dado un seller
 def get_my_locals(request, pk):
-    locals = get_list_or_404(Local, seller=pk)
+    locals = Local.objects.filter(seller=pk)
     return render(request, 'local_list.html',
                   {'locals': locals})
 
@@ -128,7 +128,8 @@ def local_new(request):
 # Vista para los detalles de un local
 def local_detail(request, pk):
     local = get_object_or_404(Local, pk=pk)
-    return render(request, 'local_detail.html', {'local': local})
+    category_form = CategoryForm()
+    return render(request, 'local_detail.html', {'local': local, 'form': category_form})
 
 
 # Vista para la creacedicion de un local

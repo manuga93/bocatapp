@@ -8,11 +8,6 @@
 {% block content %}
   <div class="container">
     <h1>Editar categoria</h1>
-    <form method="POST" class="local-form">{% csrf_token%}
-        {% bootstrap_form form %}
-        {% buttons %}
-        <button type="submit"  class="btn btn-primary">Guardar</button>
-        {% endbuttons %}
-    </form>
+        {% include "forms/category_form.html"%}
   </div>
 {%endblock%}
