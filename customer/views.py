@@ -189,14 +189,14 @@ def report_new(request, pk):
 def comment_list(request, pk):
     comentarios = Comment.objects.filter(local = pk, reported=0)
     return render_to_response('comment_list.html',
-                                {'comentarios': comentarios,'local':pk})
+                                {'comentarios': comentarios,'local':pk}, context_instance=RequestContext(request))
 
 # Lista los reportes de un comentario
 @permission_required('bocatapp.administrator', message='You are not an administrator')
 def report_list(request, pk):
     reports = Report.objects.filter(comment = pk, accepted=0,decline=0)
     return render_to_response('report_list.html',
-                                {'reports': reports})
+                                {'reports': reports}, context_instance=RequestContext(request))
 
 @permission_required('bocatapp.administrator', message='You are not an administrator')
 def report_accept(request, pk):

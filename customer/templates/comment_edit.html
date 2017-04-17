@@ -9,7 +9,6 @@
         <h1>Nuevo comentario</h1>
         <form method="POST" class="comment-form">{% csrf_token %}
             {% bootstrap_form form %}
-            {{ form.as_p }}
             {% buttons %}
 
                 <button type="submit" class="btn btn-primary">Guardar</button>
