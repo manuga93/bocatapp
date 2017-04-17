@@ -88,14 +88,14 @@
 
             }
         } );
-    }, comprobeCookieCart() );
+    }, comprobeCookieCart(), changeShoppingCart() );
 
 
     function comprobeCookieCart() {
         if (document.cookie.indexOf("cookieCart=") >= 0) {
-            alert($.cookie('cookieCart'));
+            //alert($.cookie('cookieCart'));
             UpdateBadge();
-            $.removeCookie('cookieCart');
+            //$.removeCookie('cookieCart');
         }else{
 
             $.ajax({
@@ -112,7 +112,8 @@
         
     }
 
-    function UpdateBadge(idCart) {
+    function UpdateBadge() {
+        var idCart = getIdCart();
         $.ajax({
             url: '{% url "update_badge" %}',
             data: {'idCart':idCart},
@@ -123,6 +124,18 @@
                 }
             }
         });
+    }
+
+    function getIdCart(){
+        var cookieContent = $.cookie('cookieCart');
+        var arrayCookie = cookieContent.split(",");
+        return arrayCookie[0];
+    }
+
+    function changeShoppingCart() {
+        var cartId = getIdCart();
+        var url_mask = "{% url 'list_shoppingcart' pk=12345 %}".replace(/12345/, cartId.toString());
+        document.getElementById("listSC").href=url_mask;
     }
 
 </script>

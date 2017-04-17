@@ -9,11 +9,11 @@
             <table id="menu" class="table table-striped table-hover table-menu">
                 <thead>
                     <tr>
-                        <th class="no-sort"></th>
                         <th class="no-sort">Nombre</th>
+                        <th class="no-sort">Ingredientes</th>
                         <th>Precio</th>
-                        {% if perms.bocatapp.customer %}
-                        <th class="no-sort">Añadir</th>
+                        {% if perms.bocatapp.customer or user.is_anonymous %}
+                        <th class="no-sort"></th>
                         {% endif %}
 {#                        <th class="no-sort">Ingredientes</th>#}
 
@@ -22,17 +22,18 @@
                 <tbody>
                     {% for p in productos %}
                     <tr>
-                        <td style="text-align: center; width:150px"><img src="{{ p.picture }}" class="img-circle" style="max-height: 150px"/></td>
                         <td> {{p.name}} </td>
+                        <td> {{p.ingredients}}
                         <td> {{p.price}} €</td>
-                        {% if perms.bocatapp.customer %}
+                        {% if perms.bocatapp.customer or user.is_anonymous %}
                         <td>
-                            <a href="{% url 'add_shoppingcart' pk=p.pk%}" class="button">
+                            <input type="hidden" value="{{p.id}}" id="productId" />
+                            <input type="number" value="1" id="quantity" min="1" max="10"/>
+                            <a href="#" class="btn btn-success" id="addsc">
                                 <span class="glyphicon glyphicon-shopping-cart"></span>
                             </a>
                         </td>
                         {% endif %}
-{#                        <td> {{ p.ingredients }}</td>#}
 
                     </tr>
                     {% endfor %}
@@ -41,3 +42,28 @@
            </div>
         </div>
 {%endblock%}
+
+{% block scripts %}
+    {{block.super}}
+    <script type="text/javascript">
+        $('#menu tbody').on( 'click', '#addsc', function () {
+            var td = $(this).parents('tr').children('td');
+            var quantity = td.children('input#quantity').val();
+            var id = td.children('input#productId').val();
+            var cartId = getIdCart();
+
+            $.ajax({
+                url: '{% url "add_product_cart" %}',
+                data: {
+                    'idCart': cartId, 
+                    'idProduct': id,
+                    'quantity': quantity
+                },
+                dataType: 'json',
+                success: function (data) {
+                    UpdateBadge();
+                }
+            });
+        } );
+    </script>
+{% endblock %}

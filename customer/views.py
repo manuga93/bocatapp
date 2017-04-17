@@ -45,14 +45,6 @@ def do_order_line(request, id1):
     OrderService.set_order_status(order_line.order_id)
     return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
 
-# Vista del carrito de compra actual del customer logueado
-def list_shoppingcart(request):
-    current_user = request.user
-    if current_user.is_authenticated():
-        shoppingcart = ShoppingCart.objects.get(customer=current_user)
-        return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
-    return redirect(home.home)
-
 # Metodo para agregar un producto al carrito de compra
 def add_shoppingcart(request, pk):
     product = get_object_or_404(Product, pk=pk)
