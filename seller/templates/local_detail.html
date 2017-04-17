@@ -35,6 +35,9 @@
             <hr/>
             <a href="{% url 'edit_pack' local_pk=local.pk %}"> Nuevo pack</a>
             <hr/>
+            <a  href="{% url 'comment_list' pk=local.pk %}">Comentarios</a>
+            <hr/>
+
         {% endif %}
         <a href="{% url 'packs_all' %}"> Packs</a>
     </div></div>

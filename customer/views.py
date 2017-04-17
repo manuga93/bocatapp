@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404, render, redirect, get_list_or_404, render
-from customer.services import OrderService
+from customer.services import OrderService, ReportService
 from django.template import RequestContext
 from django.http.response import HttpResponseRedirect
-from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine
+from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine, Comment, Report
 from seller.models import Product, Local
 from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
@@ -11,6 +11,7 @@ from administration.forms.forms import CreditCardForm
 from bocatapp.views import home
 from bocatapp.decorators import permission_required
 import datetime
+from forms.forms import CommentForm, ReportForm
 
 # Create your views here.
 
@@ -148,3 +149,63 @@ def customer_dashboard(request):
         'orders_complete': orders_complete
     }
     return render_to_response('customerDashboard.html', context, context_instance=RequestContext(request))
+
+
+@permission_required('bocatapp.customer', message='You are not a customer')
+def comment_new(request, pk):
+    local = get_object_or_404(Local, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.local = local
+            comment.customer = request.user
+
+            comment.save()
+            return redirect('seller.views.local_detail', pk=local.pk)
+    else:
+        form = CommentForm()
+
+    return render(request, 'comment_edit.html', {'form': form})
+
+@permission_required('bocatapp.customer', message='You are not a customer')
+def report_new(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.method == "POST":
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            report = form.save(commit=False)
+            report.comment = comment
+
+            report.save()
+            return redirect('seller.views.local_detail', pk=comment.local.pk)
+    else:
+        form = ReportForm()
+
+    return render(request, 'comment_edit.html', {'form': form})
+
+
+# Lista los comentarios de un local
+def comment_list(request, pk):
+    comentarios = Comment.objects.filter(local = pk, reported=0)
+    return render_to_response('comment_list.html',
+                                {'comentarios': comentarios,'local':pk})
+
+# Lista los reportes de un comentario
+@permission_required('bocatapp.administrator', message='You are not an administrator')
+def report_list(request, pk):
+    reports = Report.objects.filter(comment = pk, accepted=0,decline=0)
+    return render_to_response('report_list.html',
+                                {'reports': reports})
+
+@permission_required('bocatapp.administrator', message='You are not an administrator')
+def report_accept(request, pk):
+    ReportService.accept_report(pk)
+    report = get_object_or_404(Report, pk=pk)
+    return redirect('seller.views.local_detail', pk=report.comment.local.pk)
+
+@permission_required('bocatapp.administrator', message='You are not an administrator')
+def report_decline(request, pk):
+    ReportService.decline_report(pk)
+    report = get_object_or_404(Report, pk=pk)
+    return redirect('customer.views.report_list', pk=report.comment.pk)

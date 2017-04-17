@@ -101,9 +101,9 @@
                                   {{ local.description|linebreaksbr }}
                               </p>
                               <p class="brief-text bottom">
-                                  {%if local.opinions.length == 0 or not local.opinions %} Sin opiniones. ¡Escribe la tuya!{%endif%}
-                                  {%if local.opinions.length == 1 %} 1 opinión {%endif%}
-                                  {%if local.opinions.length > 1 %} {{local.opinions.length}} opiniones {%endif%}
+                                  {%if local.comments.length == 0 or not local.comments %} Sin opiniones. ¡Escribe la tuya!{%endif%}
+                                  {%if local.comments.length == 1 %} 1 opinión {%endif%}
+                                  {%if local.comments.length > 1 %} {{local.comments.length}} opiniones {%endif%}
                               </p>
                           </div>
                           <div class="col-md-2 col-xs-12 buttons-wrapper text-center">

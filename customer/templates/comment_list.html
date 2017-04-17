@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}comments{% endblock %}
+
+{% block content %}
+    <h1>Comentarios</h1>
+    <hr/>
+    {% for comment in comentarios %}
+
+        <div class="comment">
+            <p><strong>Valoracion: {{ comment.rating }}</strong></p>
+            <p>{{ comment.description|linebreaks }}</p>
+        </div>
+        {% if perms.bocatapp.customer %}
+
+            <div class="comment">
+                <a href="{% url 'report_new' pk=comment.pk %}">Reportar</a>
+
+            </div>
+        {% endif %}
+
+        {% if perms.bocatapp.administration %}
+
+            <div class="comment">
+                <a href="{% url 'report_list' pk=comment.pk %}">Reportes</a>
+            </div>
+        {% endif %}
+
+        <hr/>
+
+    {% empty %}
+        <p>No hay comentarios sobre este local</p>
+    {% endfor %}
+
+    {% if perms.bocatapp.customer %}
+
+        <a href="{% url 'comment_new' pk=local %}">Comentar</a>
+    {% endif %}
+{% endblock %}
+
+

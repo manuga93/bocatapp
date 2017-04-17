@@ -3,10 +3,9 @@
 from django.core.management.base import BaseCommand
 from bocatapp.models import User, Profile
 from django.contrib.auth.models import Permission
-from administration.models import CreditCard, Allergen
-
 from seller.models import Local, Product, Pack, ProductLine, Local, Category
-from customer.models import Order, CreditCard, OrderLine, ShoppingCart
+from customer.models import Order, CreditCard, OrderLine, ShoppingCart, Comment, Report
+from administration.models import CreditCard, Allergen
 
 
 # Los archivos que se encuentren en el paquete commands, se podr�n llamar
@@ -305,6 +304,7 @@ class Command(BaseCommand):
 
         print ('Products...Ok!')
 
+
         # Profiles =====================================================================================================
 
         profile_customer1 = Profile(user=customer1, phone=123456789, birth_date='1993-01-25',
@@ -389,6 +389,7 @@ class Command(BaseCommand):
 
         print("OrdersLine... Ok!")
 
+
         # ==============================================================================================================
 
         shoppingCart1 = ShoppingCart(
@@ -446,5 +447,28 @@ class Command(BaseCommand):
 
         print ('Populated...Ok!')
 
+        comment = Comment(
+            description='Este local es de los peores que he visto en mi vida',
+            rating='4',
+            local = namnam,
+            reported=0,
+            customer=customer1)
+
+        comment.save()
+        print('comments created...Ok')
+
+        report1 = Report(
+            reason='Este comentario no tiene fundamento',
+            accepted=0,
+            decline=0,
+            comment=comment)
+
+        report1.save()
+
+        print('reports created...Ok')
+
+        print ('Populated...Ok!')
+
+        # ==============================================================================================================
     def handle(self, *args, **options):
         self._migrate()
