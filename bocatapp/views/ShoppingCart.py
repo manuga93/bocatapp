@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from customer.models import ShoppingCart, ShoppingCartLine
+from seller.models import Product
 from django.http import JsonResponse
+from django.db.models import F
 import datetime
 from bocatapp.views import home
 
@@ -49,11 +51,43 @@ def listShoppingCart(request, pk):
     return redirect(home.home)
 
 
-def addProduct(request):
+def add_product(request):
     idShoppingCart = request.GET.get('idCart',None)
     idProduct = request.GET.get('idProduct',None)
     newQuantity = request.GET.get('quantity',None)
+    
+    productsInSC = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart)
+    newProduct = get_object_or_404(Product, pk=idProduct)
+    sameLocal = 1
+    res = False
+
+    data = {
+            'add': 'no',
+    }
+
+    if productsInSC.count() == 0:
+        res = add_to_shoppingcart_line(idShoppingCart, idProduct, newQuantity)
+    else:
+        for items in productsInSC:
+            item = get_object_or_404(Product, pk=items.product_id)
+            if newProduct.local_id != item.local_id:
+                sameLocal = 0    
+
+        if sameLocal == 1:
+            res = add_to_shoppingcart_line(idShoppingCart, idProduct, newQuantity)   
+
+    print(res)
+    if res:
+        data = {
+            'add': 'ok',
+        }
+
+    return JsonResponse(data)
+
+def add_to_shoppingcart_line(idShoppingCart, idProduct, newQuantity):
+    print("Llega")
     scLine = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
+    print(scLine)
     if scLine:
         scLine.update(quantity = F('quantity')+newQuantity)
     else:
@@ -63,11 +97,8 @@ def addProduct(request):
             shoppingCart_id=idShoppingCart)
         scLine.save()
 
-    data = {
-        'line': scLine.pk,
-    }
+    return scLine
 
-    return JsonResponse(data)
 
 
 def updateBadge(request):
