@@ -113,6 +113,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
+STATIC_ROOT = "/var/www/bocatapp.com/static/"
+
+
 # Deployment
 # STATIC_ROOT = '/var/www/bocatapp.com/static'
 
