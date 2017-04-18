@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_messages %}
+{% block title %}Comentarios{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Nuevo comentario</h1>
+        <form method="POST" class="comment-form">{% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            {% endbuttons %}
+
+        </form>
+
+    </div>
+{% endblock %}

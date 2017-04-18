@@ -2,64 +2,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>{% block title %}Bocatapp.com{% endblock %}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>{% block title %}Bocatapp.com{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-<!-- STYLES -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
-<link href="{% static "styles/bootstrap.css" %}" rel="stylesheet">
-<link href="{% static "styles/base.css" %}" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" media="screen" href="{% static "styles/bootstrap-datepicker3.min.css" %}">
-<!-- Estilos DataTable +info "https://datatables.net/" -->
-<link href="{% static "styles/jquery.datatables.css" %}" rel="stylesheet">
-<link href="{% static "styles/dataTables.css" %}" rel="stylesheet">
+    <!-- STYLES -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+    <link href="{% static "styles/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "styles/base.css" %}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="{% static "styles/bootstrap-datepicker3.min.css" %}">
+    <!-- Estilos DataTable +info "https://datatables.net/" -->
+    <link href="{% static "styles/jquery.datatables.css" %}" rel="stylesheet">
+    <link href="{% static "styles/dataTables.css" %}" rel="stylesheet">
+    <link href="{% static "styles/font-awesome.min.css" %}" rel="stylesheet">
 
 
-<!-- END STYLES -->
 
-<!--HTML5Shiv -->
-<!--[if lt IE 9]>
+    <!-- END STYLES -->
+
+    <!--HTML5Shiv -->
+    <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <![endif]-->
 </head>
 <body>
 <header class="main-header">
-	<div class="container">
-		{% block header %}
-			{% include "includes/header.html" %}
-		{%endblock%}
-	</div>
+    <div class="container">
+        {% block header %}
+            {% include "includes/header.html" %}
+        {% endblock %}
+    </div>
 </header>
 <!-- COMPONENT TO SHOW ERRORS AND SUCCESSFUL MESSAGES -->
 {% if messages %}
-<div id="message-list">
-    {% for message in messages %}
-        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} fade in alert-dismissible">
-            <button type="button" onclick="#" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-            <strong></strong> {{ message }}
-        </div>
-    {% endfor %}
-</div>
+    <div id="message-list">
+        {% for message in messages %}
+            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} fade in alert-dismissible">
+                <button type="button" onclick="#" class="close" data-dismiss="alert"><span
+                        aria-hidden="true">&times;</span></button>
+                <strong></strong> {{ message }}
+            </div>
+        {% endfor %}
+    </div>
 {% endif %}
 <!-- END -->
-{% block frontpage %}{%endblock%}
+{% block frontpage %}{% endblock %}
 {% block content %}{% endblock %}
 <footer class="">
-{% block footer %}
-{% include "includes/footer.html" %}
-{% endblock %}
+    {% block footer %}
+        {% include "includes/footer.html" %}
+    {% endblock %}
 </footer>
 
 <!-- SCRIPTS -->
 {% block scripts %}
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="{% static "scripts/bootstrap-datepicker.min.js" %}"></script>
+<script type="text/javascript" src="{% static "scripts/jquery-3.2.1.min.js" %}"></script>
 <!-- Uso de plugin DataTable y traduccion, +info "https://datatables.net/" -->
 <script type="text/javascript" language="javascript" src="{% static "scripts/jQuery.dataTables.js"%}"></script>
 <script type="text/javascript" language="javascript" src="{% static "scripts/dataTables.js"%}"></script>

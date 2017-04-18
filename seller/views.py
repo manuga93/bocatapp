@@ -19,10 +19,12 @@ from customer.models import Order
 # Lista el menu de productos de un local
 def menu_list(request, pk):
     local = get_list_or_404(Local, id=pk)[0]
-    productos = local.product_set.all()
+    categories = getLocalCategories(pk)
     return render(request, 'menu.html',
-                  {'productos': productos, 'local': local})
+                  {'categories': categories, 'local': local})
 
+def getLocalCategories(pk):
+    return Category.objects.filter(local=pk)
 
 # Lista las categorias de un local
 def category_list(request, pk):
@@ -90,7 +92,7 @@ def product_new(request, pk):
 
 # Listado de locales dado un seller
 def get_my_locals(request, pk):
-    locals = get_list_or_404(Local, seller=pk)
+    locals = Local.objects.filter(seller=pk)
     return render(request, 'local_list.html',
                   {'locals': locals})
 
@@ -126,7 +128,8 @@ def local_new(request):
 # Vista para los detalles de un local
 def local_detail(request, pk):
     local = get_object_or_404(Local, pk=pk)
-    return render(request, 'local_detail.html', {'local': local})
+    category_form = CategoryForm()
+    return render(request, 'local_detail.html', {'local': local, 'form': category_form})
 
 
 # Vista para la creacedicion de un local

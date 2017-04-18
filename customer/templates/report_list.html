@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}reports{% endblock %}
+
+{% block content %}
+    <h1>Reportes</h1>
+    <hr>
+    {% for report in reports %}
+        <div class="report">
+            <p>{{ report.reason|linebreaks }}</p>
+        </div>
+        <div>
+            <button class='btn-primary'
+                    onclick="window.location.href='/customer/report/accept/{{ report.pk }}/'"> Aceptar
+            </button>
+            <button class='btn-primary'
+                    onclick="window.location.href='/customer/report/decline/{{ report.pk }}/'"> Cancelar
+            </button>
+        </div>
+        <div>
+
+        </div>
+
+        <hr/>
+
+
+    {% empty %}
+        <p>No hay reportes sobre este comentario</p>
+    {% endfor %}
+
+
+    <hr/>
+{% endblock %}
+
+

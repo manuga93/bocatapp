@@ -1,46 +1,76 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}{{local.name}} - Carta {%endblock%}
-
 {% block content %}
-      <div class="container">
-        <h2>{{local.name}}</h2>
-         <div class="table-responsive">
-            <table id="menu" class="table table-striped table-hover table-menu">
-                <thead>
-                    <tr>
-                        <th class="no-sort">Nombre</th>
-                        <th class="no-sort">Ingredientes</th>
-                        <th>Precio</th>
-                        {% if perms.bocatapp.customer or user.is_anonymous %}
-                        <th class="no-sort"></th>
-                        {% endif %}
-{#                        <th class="no-sort">Ingredientes</th>#}
-
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for p in productos %}
-                    <tr>
-                        <td> {{p.name}} </td>
-                        <td> {{p.ingredients}}
-                        <td> {{p.price}} €</td>
-                        {% if perms.bocatapp.customer or user.is_anonymous %}
-                        <td>
-                            <input type="hidden" value="{{p.id}}" id="productId" />
-                            <input type="number" value="1" id="quantity" min="1" max="10"/>
-                            <a href="#" class="btn btn-success" id="addsc">
-                                <span class="glyphicon glyphicon-shopping-cart"></span>
-                            </a>
-                        </td>
-                        {% endif %}
-
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-           </div>
-        </div>
+<div class="container">
+   <h2>Carta de {{local.name}}</h2>
+   <br/>
+   <div class="input-group stylish-input-group">
+      <input type="text" class="form-control"  placeholder="Buscar" >
+      <span class="input-group-addon">
+      <button type="submit">
+      <span class="glyphicon glyphicon-search"></span>
+      </button>
+      </span>
+   </div>
+   <br/>
+   {% for c in categories %}
+   <button class="accordion">{{ c.name }} <i class="fa fa-chevron-down"></i></button>
+   <div class="panel">
+      <div class="row" style="padding-bottom: 1em">
+         <div class="col-xs-3">
+            <h4><b style="font-size: 0.85em;"><u>Nombre</u></b></h4>
+         </div>
+         <div class="col-xs-3">
+            <h4><b style="font-size: 0.85em;"><u>Ingrs.</u></b></h4>
+         </div>
+         <div class="col-xs-3">
+            <h4><b style="font-size: 0.85em;"><u>Precio</u></b></h4>
+         </div>
+         {% if perms.bocatapp.customer or user.is_anonymous %}
+         <div class="col-xs-3">
+            <h4><b style="font-size: 0.85em;"><u>Añadir</u></b></h4>
+         </div>
+         {% endif %}
+      </div>
+      {% for p in c.product_set.all %}
+      <div class="row" style="padding-bottom: 1em">
+         <div class="col-xs-3">{{ p.name }}</div>
+         <div class="col-xs-3">
+            <p style="font-size: 0.85em;">{{ p.ingredients }}</p>
+         </div>
+         <div class="col-xs-3">{{ p.price }} €</div>
+         {% if perms.bocatapp.customer or user.is_anonymous %}
+         <div class="col-xs-3">
+            <input type="hidden" value="{{p.id}}" id="productId" />
+            <input type="number" value="1" id="quantity" min="1" max="10"/>
+            <a class="btn btn-default" href="#" id="addsc">
+            <i class="fa fa-cart-plus fa-lg"></i> Añadir</a>
+            </a>
+         </div>
+         {% endif %}
+      </div>
+      <hr/>
+      {% endfor %}
+   </div>
+   {% endfor %}
+</div>
+<script>
+   var acc = document.getElementsByClassName("accordion");
+   var i;
+   
+   for (i = 0; i < acc.length; i++) {
+     acc[i].onclick = function() {
+       this.classList.toggle("active");
+       var panel = this.nextElementSibling;
+       if (panel.style.maxHeight){
+         panel.style.maxHeight = null;
+       } else {
+         panel.style.maxHeight = panel.scrollHeight + "px";
+       }
+     }
+   }
+</script>
 {%endblock%}
 
 {% block scripts %}
