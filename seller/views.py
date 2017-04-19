@@ -12,6 +12,7 @@ from forms.forms import LocalForm, CategoryForm, ProductForm
 from forms.forms import LocalForm
 from bocatapp.decorators import permission_required
 from customer.models import Order
+from customer.services import CommentService
 
 
 # Create your views here.
@@ -98,7 +99,13 @@ def get_my_locals(request, pk):
 # Vista para el lisstado de locales
 def local_list(request):
     locals = Local.objects.all()
-    return render(request, 'local_list.html', {'locals': locals})
+    ratings = []
+    for local in locals:
+        ratings.append(CommentService.get_stars(local.pk))
+
+    ratings.reverse()
+
+    return render(request, 'local_list.html', {'locals': locals,'ratings': ratings})
 
 
 def local_orders(request, pk):
@@ -149,7 +156,13 @@ def local_edit(request, pk):
 def search(request):
     # TODO: This is not finished!
     locals = Local.objects.all()
-    return render(request, 'cp_search.html', {'locals': locals})
+    ratings = []
+    for local in locals:
+        ratings.append(CommentService.get_stars(local.pk))
+
+    ratings.reverse()
+
+    return render(request, 'cp_search.html', {'locals': locals,'ratings': ratings})
 
 
 # Packs--------------------------------------------------------------------------
