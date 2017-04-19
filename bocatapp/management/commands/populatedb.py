@@ -40,7 +40,7 @@ class Command(BaseCommand):
             username='admin',
             email='admin@admin.com',
             first_name='admin')
-        admin_admin.set_password('admin')
+        admin_admin.set_password('@1b2c3d4')
         admin_admin.is_staff = True
         admin_admin.is_superuser = True
         admin_admin.save()
@@ -52,18 +52,18 @@ class Command(BaseCommand):
         # Customers ====================================================================================================
 
         customer1 = User(
-            username='customer1',
-            email='customer1@customer1.com',
-            first_name='customer1Firstname', last_name='customer1Lastname')
-        customer1.set_password('customer1')
+            username='julio44',
+            email='julio44@customer.com',
+            first_name='Julio', last_name='Parrales')
+        customer1.set_password('@customer')
         customer1.save()
         customer1.user_permissions.add(Permission.objects.get(codename="customer"))
 
         customer2 = User(
-            username='customer2',
-            email='customer2@customer2.com',
-            first_name='customer2')
-        customer2.set_password('customer2')
+            username='manuel',
+            email='manuel@customer.com',
+            first_name='Manuel')
+        customer2.set_password('@customer')
         customer2.save()
         customer2.user_permissions.add(Permission.objects.get(codename="customer"))
         print('Customer created...Ok')
@@ -71,18 +71,18 @@ class Command(BaseCommand):
         # Sellers ======================================================================================================
 
         seller1 = User(
-            username='seller1',
-            email='seller1@seller1.com',
-            first_name='seller1')
-        seller1.set_password('seller1')
+            username='jesusgar',
+            email='jesus@seller.com',
+            first_name='Jesus')
+        seller1.set_password('@seller')
         seller1.save()
         seller1.user_permissions.add(Permission.objects.get(codename="seller"))
 
         seller2 = User(
-            username='seller2',
-            email='seller2@selle2r.com',
-            first_name='seller2')
-        seller2.set_password('seller2')
+            username='pomelo',
+            email='pomelo@seller.com',
+            first_name='pomelo')
+        seller2.set_password('@seller')
         seller2.save()
         seller2.user_permissions.add(Permission.objects.get(codename="seller"))
 
@@ -324,7 +324,7 @@ class Command(BaseCommand):
         # CreditCard==============================================================================================================
 
         creditCard1 = CreditCard(
-            holderName='Customer1',
+            holderName='Julio',
             brandName='visa',
             expireMonth='12',
             expireYear='2020',
@@ -334,7 +334,7 @@ class Command(BaseCommand):
         creditCard1.save()
 
         creditCard2 = CreditCard(
-            holderName='customer2',
+            holderName='Jesus',
             brandName='visa',
             expireMonth='12',
             expireYear='2020',
