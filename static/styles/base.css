@@ -138,7 +138,7 @@ button.accordion.active, button.accordion:hover {
     background-color: #ddd;
 }
 
-div.panel {
+div.carta {
     padding: 0 18px;
     background-color: white;
     max-height: 0;
