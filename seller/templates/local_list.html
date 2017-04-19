@@ -72,6 +72,9 @@
                                         <button onclick="location.replace('{% url 'seller.views.local_detail' pk=local.pk %}');"
                                                 class="form-control"><i class="fa fa-cog"></i> Configuración
                                         </button>
+                                        <button onclick="location.replace('{% url 'seller.views.local_charts' pk=local.pk %}');"
+                                                class="form-control"><i class="fa fa-pie-chart"></i> Estadísticas
+                                        </button>
                                     {% endif %}
                                 </div>
                             </div>
