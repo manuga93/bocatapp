@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^local/new/$', 'seller.views.local_new', name='local_new'),
     url(r'^local/(?P<pk>[0-9]+)/$', 'seller.views.local_detail'),
     url(r'^local/(?P<pk>[0-9]+)/edit/$', 'seller.views.local_edit', name='local_edit'),
+    url(r'^local/(?P<pk>[0-9]+)/charts/$', 'seller.views.local_charts', name='local_charts'),
     url(r'^search/$', 'seller.views.search', name="search"),
     url(r'^local/getMine/(?P<pk>[0-9]+)$', 'seller.views.get_my_locals', name="locals_by_seller"),
     url(r'^local/getOrders/(?P<pk>[0-9]+)$', 'seller.views.local_orders', name="local_orders"),
