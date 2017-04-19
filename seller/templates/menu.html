@@ -1,43 +1,69 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}{{local.name}} - Carta {%endblock%}
-
 {% block content %}
-      <div class="container">
-        <h2>{{local.name}}</h2>
-         <div class="table-responsive">
-            <table id="menu" class="table table-striped table-hover table-menu">
-                <thead>
-                    <tr>
-                        <th class="no-sort"></th>
-                        <th class="no-sort">Nombre</th>
-                        <th>Precio</th>
-                        {% if perms.bocatapp.customer %}
-                        <th class="no-sort">Añadir</th>
-                        {% endif %}
-{#                        <th class="no-sort">Ingredientes</th>#}
-
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for p in productos %}
-                    <tr>
-                        <td style="text-align: center; width:150px"><img src="{{ p.picture }}" class="img-circle" style="max-height: 150px"/></td>
-                        <td> {{p.name}} </td>
-                        <td> {{p.price}} €</td>
-                        {% if perms.bocatapp.customer %}
-                        <td>
-                            <a href="{% url 'add_shoppingcart' pk=p.pk%}" class="button">
-                                <span class="glyphicon glyphicon-shopping-cart"></span>
-                            </a>
-                        </td>
-                        {% endif %}
-{#                        <td> {{ p.ingredients }}</td>#}
-
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-           </div>
-        </div>
+<div class="container">
+   <h2>Carta de {{local.name}}</h2>
+   <br/>
+   <div class="input-group stylish-input-group">
+      <input type="text" class="form-control"  placeholder="Buscar" >
+      <span class="input-group-addon">
+      <button type="submit">
+      <span class="glyphicon glyphicon-search"></span>
+      </button>
+      </span>
+   </div>
+   <br/>
+   {% for c in categories %}
+   <button class="accordion">{{ c.name }} <i class="fa fa-chevron-down"></i></button>
+   <div class="panel">
+      <div class="row" style="padding-bottom: 1em">
+         <div class="col-xs-3">
+            <h4><b style="font-size: 0.85em;"><u>Nombre</u></b></h4>
+         </div>
+         <div class="col-xs-3">
+            <h4><b style="font-size: 0.85em;"><u>Ingrs.</u></b></h4>
+         </div>
+         <div class="col-xs-3">
+            <h4><b style="font-size: 0.85em;"><u>Precio</u></b></h4>
+         </div>
+         <div class="col-xs-3">
+            <h4><b style="font-size: 0.85em;"><u>Añadir</u></b></h4>
+         </div>
+      </div>
+      {% for p in c.product_set.all %}
+      <div class="row" style="padding-bottom: 1em">
+         <div class="col-xs-3">{{ p.name }}</div>
+         <div class="col-xs-3">
+            <p style="font-size: 0.85em;">{{ p.ingredients }}</p>
+         </div>
+         <div class="col-xs-3">{{ p.price }} €</div>
+         <div class="col-xs-3">
+            <a class="btn btn-default" href="{% url 'add_shoppingcart' pk=p.id%}">
+            <i class="fa fa-cart-plus fa-lg"></i> Añadir</a>
+            </a>
+         </div>
+      </div>
+      <hr/>
+      {% endfor %}
+   </div>
+   {% endfor %}
+</div>
+<script>
+   var acc = document.getElementsByClassName("accordion");
+   var i;
+   
+   for (i = 0; i < acc.length; i++) {
+     acc[i].onclick = function() {
+       this.classList.toggle("active");
+       var panel = this.nextElementSibling;
+       if (panel.style.maxHeight){
+         panel.style.maxHeight = null;
+       } else {
+         panel.style.maxHeight = panel.scrollHeight + "px";
+       }
+     }
+   }
+</script>
 {%endblock%}
+
