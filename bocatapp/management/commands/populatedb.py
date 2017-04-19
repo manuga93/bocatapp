@@ -90,7 +90,7 @@ class Command(BaseCommand):
 
         # Locals =======================================================================================================
 
-        namnam = Local(name='ÑamÑam',
+        namnam = Local(name=u'ÑamÑam',
                        description='Establecimiento espacialista en bocatas de pollo empañado y en cañas de chocolate',
                        address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794,
                        photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1)
