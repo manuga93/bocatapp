@@ -145,6 +145,13 @@ def local_detail(request, pk):
     return render(request, 'local_detail.html', {'local': local, 'form': category_form})
 
 
+# Vista para los detalles de un local
+def local_charts(request, pk):
+    local = get_object_or_404(Local, pk=pk)
+    orders = get_list_or_404(Order, local=pk)
+    return render(request, 'local_charts.html', {'local': local, 'orders': orders})
+
+
 # Vista para la creacedicion de un local
 def local_edit(request, pk):
     local = get_object_or_404(Local, pk=pk)
