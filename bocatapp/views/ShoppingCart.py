@@ -76,7 +76,6 @@ def add_product(request):
         if sameLocal == 1:
             res = add_to_shoppingcart_line(idShoppingCart, idProduct, newQuantity)   
 
-    print(res)
     if res:
         data = {
             'add': 'ok',
@@ -85,9 +84,7 @@ def add_product(request):
     return JsonResponse(data)
 
 def add_to_shoppingcart_line(idShoppingCart, idProduct, newQuantity):
-    print("Llega")
     scLine = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
-    print(scLine)
     if scLine:
         scLine.update(quantity = F('quantity')+newQuantity)
     else:
