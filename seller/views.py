@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 from django.db import transaction
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.views.generic import edit
+from datetime import datetime, timedelta
+import itertools
 
 from seller.forms.packsForms import PackForm
 from seller.models import Product, Local, Category, Pack, ProductLine
@@ -149,7 +152,23 @@ def local_detail(request, pk):
 def local_charts(request, pk):
     local = get_object_or_404(Local, pk=pk)
     orders = get_list_or_404(Order, local=pk)
-    return render(request, 'local_charts.html', {'local': local, 'orders': orders})
+    # General
+    done_orders = sum([1 for order in orders if order.status is True])
+    pending_orders = len(orders) - done_orders
+    # Last week
+    label_dates = [(datetime.now()-timedelta(days=counter)).strftime('%d/%m') for counter in range(7)][::-1]
+    orders = Order.objects.filter(moment__gte=datetime.now()-timedelta(days=7))
+    grouped = itertools.groupby(orders, lambda record: record.moment.strftime("%d/%m"))
+    orders_by_day = {day: len(list(jobs_this_day)) for day, jobs_this_day in grouped}
+    #orders_by_day_result = [(date, orders_by_day.get(date, 0)) for date in label_dates]
+    orders_by_day_result = [orders_by_day.get(date, 0) for date in label_dates]
+
+    return render(request, 'local_charts.html',
+        {'local': local, 'orders': orders,
+         'pending_orders': pending_orders,
+         'done_orders': done_orders,
+         'label_dates': label_dates,
+         'orders_by_day': orders_by_day_result})
 
 
 # Vista para la creacedicion de un local
