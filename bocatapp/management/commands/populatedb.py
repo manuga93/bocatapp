@@ -351,21 +351,21 @@ class Command(BaseCommand):
 
         order1 = Order(totalPrice=2.10, moment='2017-04-01 14:35:00', local=namnam,
                        comment="Sin salsas", customer=customer1, creditCard=creditCard1,
-                       pickupMoment='2017-04-01 14:45:00')
+                       pickupMoment='2017-04-01 14:45:00', hour='14:45')
         order1.save()
 
         order2 = Order(totalPrice=3.30, moment='2017-04-01 14:30:00', local=ricorico,
                        comment="Mucho roquefort", customer=customer1, creditCard=creditCard1,
-                       pickupMoment='2017-05-01 15:00:00')
+                       pickupMoment='2017-05-01 15:00:00', hour='15:00')
         order2.save()
 
         order3 = Order(totalPrice=6.10, moment='2017-04-01 14:40:00', local=ricorico,
                        comment="Frios por favor", customer=customer2, creditCard=creditCard2,
-                       pickupMoment='2017-04-01 14:55:00')
+                       pickupMoment='2017-04-01 14:55:00', hour='14:55')
         order3.save()
 
         order4 = Order(totalPrice=6.70, moment='2017-04-01 15:45:00', local=namnam, customer=customer2,
-                       creditCard=creditCard1, status=True)
+                       creditCard=creditCard1, status=True, hour='15:45')
         order4.save()
 
         print("Orders... Ok!")
@@ -393,12 +393,12 @@ class Command(BaseCommand):
         # ==============================================================================================================
 
         shoppingCart1 = ShoppingCart(
-            customer=customer1, checkout=True)
+            customer=customer1, checkout=False)
 
         shoppingCart1.save()
 
         shoppingCart2 = ShoppingCart(
-            customer=customer2, checkout=True)
+            customer=customer2, checkout=False)
 
         shoppingCart2.save()
         print('ShoppingCart created...Ok')

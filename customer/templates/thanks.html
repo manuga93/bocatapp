@@ -13,3 +13,13 @@
         </div>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    {{block.super}}
+    <script type="text/javascript">
+        $(document).ready( function () {
+            $.removeCookie('cookieCart', { path: '/' });
+            comprobeCookieCart();
+        });
+    </script>
+{% endblock %}
