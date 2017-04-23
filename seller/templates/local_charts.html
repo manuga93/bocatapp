@@ -34,7 +34,7 @@
           ],
           datasets: [
           {
-              data: [300, 50],
+              data: [{{done_orders}}, {{pending_orders}}],
               backgroundColor: [
                   "#1E90FF",
                   "#FF0000"
@@ -54,10 +54,12 @@
       var barChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ["17/04", "18/04", "19/04", "20/04", "21/04", "22/04", "23/04"],
+          {% autoescape off %}
+          labels: {{label_dates}},
+          {% endautoescape %}
           datasets: [{
             label: 'Pedidos',
-            data: [5, 15, 2, 0, 0, 0, 0],
+            data: {{orders_by_day}},
             backgroundColor: "#1E90FF"
           }]
         }});
