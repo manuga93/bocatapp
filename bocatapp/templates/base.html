@@ -88,8 +88,6 @@
                     "previous": "Anterior",
                     "next": "Siguiente"
                 },
-
-
             }
         } );
     }, comprobeCookieCart(), changeShoppingCart() );
@@ -97,21 +95,40 @@
 
     function comprobeCookieCart() {
         if (document.cookie.indexOf("cookieCart=") >= 0) {
-            //alert($.cookie('cookieCart'));
-            UpdateBadge();
-            //$.removeCookie('cookieCart');
+            //$.removeCookie('cookieCart', { path: '/' });
+            //alert("cookie borrada");
+            //alert(getIdCart());
         }else{
 
             $.ajax({
                 url: '{% url "create_shoppingcart" %}',
                 dataType: 'json',
                 success: function (data) {
-                    $.cookie('cookieCart', data.ShoppingCart+",data:"+data.now, { expires: 2, path: '/' });
-                    UpdateBadge();
+                    $.cookie('cookieCart', data.ShoppingCart, { expires: 2, path: '/' });
                 }
             });
             
         }
+        updateCookie();
+    }
+
+    function updateCookie(){
+        var idCart = getIdCart();
+
+        $.ajax({
+            url: '{% url "update_cookie" %}',
+            data: {'idCart':idCart},
+            dataType: 'json',
+            success: function (data) {
+                if(data.cookie != idCart){
+                    $.removeCookie('cookieCart', { path: '/' });
+                    if(data.cookie != "None"){
+                        $.cookie('cookieCart', data.cookie, { expires: 2, path: '/' });
+                        UpdateBadge();
+                    }
+                }
+            }
+        });
 
         
     }
@@ -125,6 +142,8 @@
             success: function (data) {
                 if(data.count > 0){
                     $("#numItems").text(data.count);
+                }else{
+                    $("#numItems").text("");
                 }
             }
         });
@@ -132,8 +151,7 @@
 
     function getIdCart(){
         var cookieContent = $.cookie('cookieCart');
-        var arrayCookie = cookieContent.split(",");
-        return arrayCookie[0];
+        return cookieContent;
     }
 
     function changeShoppingCart() {

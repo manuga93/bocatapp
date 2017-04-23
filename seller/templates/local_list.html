@@ -3,6 +3,7 @@
 {% block title %}Locales{% endblock %}
 
 {% block content %}
+
     <div class="container">
         <h1>Locales</h1>
         <div class="row">
@@ -29,8 +30,8 @@
                                              alt="Profile image">
                                     {% endif %}
                                     <p class="stars">
-                                        {% if not local.stars %}0/5{% endif %}
-                                        {% if local.stars > 0 %}{{ local.stars }}/5{% endif %}
+                                        {{ ratings.pop }}/5
+
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </p>
                                 </div>
@@ -40,11 +41,27 @@
                                         {{ local.description|linebreaksbr }}
                                     </p>
                                     <p class="brief-text bottom">
-                                        {% if local.opinions.length == 0 or not local.opinions %} ¡Vaya! Este local no
-                                            tiene ninguna opinión {% endif %}
-                                        {% if local.opinions.length == 1 %} 1 opinión {% endif %}
-                                        {% if local.opinions.length > 1 %} {{ local.opinions.length }}
-                                            opiniones {% endif %}
+                                        {% if local.comment_set.count == 0 or not local.comment_set %} Sin opiniones.
+                                            ¡Escribe la tuya!
+                                            <button onclick="location.replace('{% url 'comment_new' pk=local.pk %}');"
+                                                    class="form-control">
+                                                Comentar
+                                            </button>
+
+                                        {% endif %}
+                                        {% if local.comment_set.count == 1 %} 1 opinión
+                                            <button onclick="location.replace('{% url 'comment_list' pk=local.pk %}');"
+                                                    class="form-control">
+                                                Comentarios
+                                            </button>
+                                        {% endif %}
+                                        {% if local.comment_set.count > 1 %} {{ local.comment_set.count }} opiniones
+                                            <button onclick="location.replace('{% url 'comment_list' pk=local.pk %}');"
+                                                    class="form-control">
+                                                Comentarios
+                                            </button>
+                                        {% endif %}
+
                                     </p>
                                 </div>
                                 <div class="col-md-2 col-xs-12 buttons-wrapper text-center">
@@ -54,6 +71,9 @@
                                         </button>
                                         <button onclick="location.replace('{% url 'seller.views.local_detail' pk=local.pk %}');"
                                                 class="form-control"><i class="fa fa-cog"></i> Configuración
+                                        </button>
+                                        <button onclick="location.replace('{% url 'seller.views.local_charts' pk=local.pk %}');"
+                                                class="form-control"><i class="fa fa-pie-chart"></i> Estadísticas
                                         </button>
                                     {% endif %}
                                 </div>

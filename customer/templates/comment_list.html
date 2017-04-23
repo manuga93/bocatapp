@@ -3,39 +3,62 @@
 {% block title %}comments{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <h1>Comentarios</h1>
-    <hr/>
-    {% for comment in comentarios %}
-        <div class="comment">
-            <p><strong>Valoracion: {{ comment.rating }}</strong></p>
-            <p>{{ comment.description|linebreaks }}</p>
+    <div class="container">
+        <h1>Comentarios</h1>
+        <hr/>
+        <div class="row">
+            <div class="col-md-12">
+                {% for comment in comentarios %}
+                    <div class="item-search well white">
+
+                        <div class="comment">
+                            <p><strong>Valoracion: {{ comment.rating }}</strong></p>
+                            <p>{{ comment.description|linebreaks }}</p>
+                        </div>
+                        {% if perms.bocatapp.customer %}
+
+                            <div class="comment">
+                                <a class="btn btn-danger"
+                                   onclick="location.replace('{% url 'report_new' pk=comment.pk %}')"><span
+                                        class="glyphicon glyphicon-remove"></span> Reportar </a></h3>
+
+
+                            </div>
+                        {% endif %}
+
+                        {% if perms.bocatapp.administration %}
+
+                            <div class="comment">
+                                <a href="{% url 'report_list' pk=comment.pk %}">Reportes</a>
+                                <button onclick="location.replace('{% url 'report_list' pk=comment.pk %}');"
+                                        class="form-control">
+                                    Reportar
+                                </button>
+
+                            </div>
+                        {% endif %}
+
+                        <hr/>
+
+
+                    </div>
+                {% empty %}
+                    <p>No hay comentarios sobre este local</p>
+
+                {% endfor %}
+
+            </div>
         </div>
         {% if perms.bocatapp.customer %}
 
-            <div class="comment">
-                <a href="{% url 'report_new' pk=comment.pk %}">Reportar</a>
 
-            </div>
+            <a class="btn btn-primary" onclick="location.replace('{% url 'comment_new' pk=local %}')"><span
+                    class="glyphicon glyphicon-comment"></span> Comentar </a></h3>
+
         {% endif %}
-
-        {% if perms.bocatapp.administration %}
-
-            <div class="comment">
-                <a href="{% url 'report_list' pk=comment.pk %}">Reportes</a>
-            </div>
-        {% endif %}
-
-        <hr/>
-
-    {% empty %}
-        <p>No hay comentarios sobre este local</p>
-    {% endfor %}
-
-    {% if perms.bocatapp.customer %}
-
-        <a href="{% url 'comment_new' pk=local %}">Comentar</a>
-    {% endif %}
-  </div>
+        <button class="btn btn-default" onclick=" window.history.back();"><span
+                class="glyphicon glyphicon-arrow-left"></span> Atrás
+        </button>
+    </div>
 
 {% endblock %}

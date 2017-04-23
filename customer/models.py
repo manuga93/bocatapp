@@ -34,7 +34,6 @@ class OrderLine(models.Model):
 
 class ShoppingCart(models.Model):
     customer = models.ForeignKey(User, blank=True, null=True)
-    moment = models.DateTimeField(auto_now=True)
     checkout = models.BooleanField(default=False)
 
     # Derivated property
