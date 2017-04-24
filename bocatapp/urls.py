@@ -16,7 +16,7 @@ urlpatterns = [
     # session ==================================================================
 
     url(r'^login/$', anonymous_required(login,
-                                        message='You`ve already sign in!'), {'template_name': 'auth/login.html'}),
+                                        message='You`ve already sign in!'), {'template_name': 'auth/login.html'}, name='login'),
     url(r'^logout/$', logout, {'next_page': '/'}),
 
     # Admin ==================================================================

@@ -8,7 +8,8 @@ from seller.models import Product, Local
 from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
 from administration.forms.forms import CreditCardForm
-from bocatapp.views import home
+from django.core.urlresolvers import reverse
+
 from bocatapp.decorators import permission_required
 import datetime
 from forms.forms import CommentForm, ReportForm
@@ -80,7 +81,7 @@ def checkout(request, form=CreditCardForm):
         shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
         creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
         return render(request, 'checkout.html', {'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form})
-    return redirect(home.home)
+    return redirect(reverse('login'))
 
 
 def do_checkout(request):
@@ -118,7 +119,7 @@ def do_checkout(request):
                 dd = date.split('/')[0]
                 mm = date.split('/')[1]
                 aaaa = date.split('/')[2]
-        
+
         # saving order
         new_order = Order(
             totalPrice=shoppingcart.total_price,
