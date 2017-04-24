@@ -60,43 +60,110 @@
 
 <!-- SCRIPTS -->
 {% block scripts %}
-    <script type="text/javascript" src="{% static "scripts/jquery-3.2.1.min.js" %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static "scripts/bootstrap-datepicker.min.js" %}"></script>
+<script type="text/javascript" src="{% static "scripts/jquery-3.2.1.min.js" %}"></script>
+<!-- Uso de plugin DataTable y traduccion, +info "https://datatables.net/" -->
+<script type="text/javascript" language="javascript" src="{% static "scripts/jQuery.dataTables.js"%}"></script>
+<script type="text/javascript" language="javascript" src="{% static "scripts/dataTables.js"%}"></script>
+<script type="text/javascript" language="javascript" src="{% static "scripts/DjangoAjax.js"%}"></script>
+<script type="text/javascript" language="javascript" src="{% static "scripts/jquery.cookie.js"%}"></script>
+<script type="text/javascript" language="javascript" src="{% static "scripts/bootstrap.js"%}"></script>
+<script>
+    $(document).ready( function () {
+        $('#menu').DataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": "no-sort" }
+            ],
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ resultados",
+                "search": "Buscar:",
+                "zeroRecords": "No se encontro ninguna coincidencia",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "infoEmpty": "No se encontraron resultados",
+                "infoFiltered": "(filtrados de _MAX_ resultados totales)",
+                "loadingRecords": "Cargando resultados...",
+                "emptyTable": "No hay nada para mostrar aqui",
+                paginate: {
+                    "previous": "Anterior",
+                    "next": "Siguiente"
+                },
+            }
+        } );
+    }, comprobeCookieCart(), changeShoppingCart() );
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{% static "scripts/bootstrap-datepicker.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "scripts/jquery-3.2.1.min.js" %}"></script>
-    <!-- Uso de plugin DataTable y traduccion, +info "https://datatables.net/" -->
-    <script type="text/javascript" language="javascript" src="{% static "scripts/jQuery.dataTables.js" %}"></script>
-    <script type="text/javascript" language="javascript" src="{% static "scripts/dataTables.js" %}"></script>
-    <script>
-        $(document).ready(function () {
-            $('#menu').DataTable({
-                "columnDefs": [
-                    {"orderable": false, "targets": "no-sort"}
-                ],
-                "language": {
-                    "lengthMenu": "Mostrar _MENU_ resultados",
-                    "search": "Buscar:",
-                    "zeroRecords": "No se encontro ninguna coincidencia",
-                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "infoEmpty": "No se encontraron resultados",
-                    "infoFiltered": "(filtrados de _MAX_ resultados totales)",
-                    "loadingRecords": "Cargando resultados...",
-                    "emptyTable": "No hay nada para mostrar aqui",
-                    paginate: {
-                        "previous": "Anterior",
-                        "next": "Siguiente"
-                    },
 
+    function comprobeCookieCart() {
+        if (document.cookie.indexOf("cookieCart=") >= 0) {
+            //$.removeCookie('cookieCart', { path: '/' });
+            //alert("cookie borrada");
+            //alert(getIdCart());
+        }else{
 
+            $.ajax({
+                url: '{% url "create_shoppingcart" %}',
+                dataType: 'json',
+                success: function (data) {
+                    $.cookie('cookieCart', data.ShoppingCart, { expires: 2, path: '/' });
                 }
             });
+            
+        }
+        updateCookie();
+        UpdateBadge();
+    }
+
+    function updateCookie(){
+        var idCart = getIdCart();
+
+        $.ajax({
+            url: '{% url "update_cookie" %}',
+            data: {'idCart':idCart},
+            dataType: 'json',
+            success: function (data) {
+                if(data.cookie != idCart){
+                    $.removeCookie('cookieCart', { path: '/' });
+                    if(data.cookie != "None"){
+                        $.cookie('cookieCart', data.cookie, { expires: 2, path: '/' });
+                        UpdateBadge();
+                    }
+                }
+            }
         });
-    </script>
-    <!-- Bocatapp -->
-    <script type="text/javascript" language="javascript" src="{% static "scripts/app.js" %}"></script>
+
+        
+    }
+
+    function UpdateBadge() {
+        var idCart = getIdCart();
+        $.ajax({
+            url: '{% url "update_badge" %}',
+            data: {'idCart':idCart},
+            dataType: 'json',
+            success: function (data) {
+                if(data.count > 0){
+                    $("#numItems").text(data.count);
+                }else{
+                    $("#numItems").text("");
+                }
+            }
+        });
+    }
+
+    function getIdCart(){
+        var cookieContent = $.cookie('cookieCart');
+        return cookieContent;
+    }
+
+    function changeShoppingCart() {
+        var cartId = getIdCart();
+        var url_mask = "{% url 'list_shoppingcart' pk=12345 %}".replace(/12345/, cartId.toString());
+        document.getElementById("listSC").href=url_mask;
+    }
+
+</script>
+<!-- Bocatapp -->
+<script type="text/javascript" language="javascript" src="{% static "scripts/app.js"%}"></script>
 {% endblock %}
 </body>
 </html>

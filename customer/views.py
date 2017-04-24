@@ -46,14 +46,6 @@ def do_order_line(request, id1):
     OrderService.set_order_status(order_line.order_id)
     return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
 
-# Vista del carrito de compra actual del customer logueado
-def list_shoppingcart(request):
-    current_user = request.user
-    if current_user.is_authenticated():
-        shoppingcart = ShoppingCart.objects.get(customer=current_user)
-        return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
-    return redirect(home.home)
-
 # Metodo para agregar un producto al carrito de compra
 def add_shoppingcart(request, pk):
     product = get_object_or_404(Product, pk=pk)
@@ -85,7 +77,7 @@ def remove_shoppingcart(request, pk):
 def checkout(request, form=CreditCardForm):
     current_user = request.user
     if current_user.is_authenticated():
-        shoppingcart = ShoppingCart.objects.get(customer=current_user)
+        shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
         creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
         return render(request, 'checkout.html', {'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form})
     return redirect(home.home)
@@ -115,9 +107,18 @@ def do_checkout(request):
             creditcard = CreditCard.objects.get(id=creditcard_opt)
 
         # Get shopping cart
-        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
+        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id, checkout=False)
+        print(shoppingcart)
+        ShoppingCart.objects.filter(customer_id=current_user.id, checkout=False).update(checkout=True)
         shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
-        local = shoppingcart_lines[0].product.local # TODO: what's happened if exists some products of differents locals in ShoppingCart?
+        local = shoppingcart_lines[0].product.local
+        date = request.POST.get('dateCheckout', '')
+        hour = request.POST.get('hourCheckout', '')
+        if date and '/' in date:
+                dd = date.split('/')[0]
+                mm = date.split('/')[1]
+                aaaa = date.split('/')[2]
+        
         # saving order
         new_order = Order(
             totalPrice=shoppingcart.total_price,
@@ -126,7 +127,8 @@ def do_checkout(request):
             comment="Añada su comentario aquí",
             customer=current_user,
             creditCard=creditcard,
-            pickupMoment=datetime.time())
+            pickupMoment=datetime.datetime(year=int(aaaa),month=int(mm),day=int(dd)),
+            hour=str(hour))
         new_order.save()
         # loop shoppingcart_lines
         for line in shoppingcart_lines:
