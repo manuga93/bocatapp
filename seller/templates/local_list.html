@@ -42,26 +42,14 @@
                                     </p>
                                     <p class="brief-text bottom">
                                         {% if local.comment_set.count == 0 or not local.comment_set %} Sin opiniones.
-                                            ¡Escribe la tuya!
-                                            <button onclick="location.replace('{% url 'comment_new' pk=local.pk %}');"
-                                                    class="form-control">
-                                                Comentar
-                                            </button>
-
+                                            ¡Escribe la tuya! - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
                                         {% endif %}
-                                        {% if local.comment_set.count == 1 %} 1 opinión
-                                            <button onclick="location.replace('{% url 'comment_list' pk=local.pk %}');"
-                                                    class="form-control">
-                                                Comentarios
-                                            </button>
+                                        {% if local.comment_set.count == 1 %}
+                                          <a href="{% url 'comment_list' pk=local.pk %}">1 opinión</a> - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
                                         {% endif %}
-                                        {% if local.comment_set.count > 1 %} {{ local.comment_set.count }} opiniones
-                                            <button onclick="location.replace('{% url 'comment_list' pk=local.pk %}');"
-                                                    class="form-control">
-                                                Comentarios
-                                            </button>
+                                        {% if local.comment_set.count > 1 %}
+                                          <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} opiniones</a> - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
                                         {% endif %}
-
                                     </p>
                                 </div>
                                 <div class="col-md-2 col-xs-12 buttons-wrapper text-center">
