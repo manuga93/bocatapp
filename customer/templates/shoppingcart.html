@@ -12,7 +12,7 @@
          <div class="col-xs-3">
             <h4><b style="font-size: 0.85em;"><u>Precio</u></b></h4>
          </div>
-         <div class="col-xs-3">
+         <div class="col-xs-6">
             <h4><b style="font-size: 0.85em;"><u>Añadir</u></b></h4>
          </div>
       </div>
@@ -20,7 +20,7 @@
       <div class="row" style="padding-bottom: 1em">
          <div class="col-xs-3">{{ line.product.name }}</div>
          <div class="col-xs-3">{{ line.product.price }} €</div>
-         <div class="col-xs-3">
+         <div class="col-xs-6">
             <input type="hidden" value="{{line.product.id}}" id="productId" />
             <input type="number" value="{{line.quantity}}" id="quantity" min="1" max="10"/>
             <a class="btn btn-warning" href="#" id="updatesc">
@@ -52,14 +52,14 @@
             $.ajax({
                 url: '{% url "update_product_cart" %}',
                 data: {
-                    'idCart': cartId, 
+                    'idCart': cartId,
                     'idProduct': id,
                     'quantity': quantity
                 },
                 dataType: 'json',
                 success: function (data) {
                     if (data.update == 'ok'){
-                        
+
                     }
                     UpdateBadge();
                     updateTotal();
@@ -75,7 +75,7 @@
             $.ajax({
                 url: '{% url "delete_product_cart" %}',
                 data: {
-                    'idCart': cartId, 
+                    'idCart': cartId,
                     'idProduct': id
                 },
                 dataType: 'json',
