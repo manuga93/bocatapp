@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 from django.db import transaction
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.views.generic import edit
+from datetime import datetime, timedelta
+import itertools
 
 from seller.forms.packsForms import PackForm
 from seller.models import Product, Local, Category, Pack, ProductLine
@@ -12,6 +15,7 @@ from forms.forms import LocalForm, CategoryForm, ProductForm
 from forms.forms import LocalForm
 from bocatapp.decorators import permission_required
 from customer.models import Order
+from customer.services import CommentService
 
 
 # Create your views here.
@@ -93,14 +97,26 @@ def product_new(request, pk):
 # Listado de locales dado un seller
 def get_my_locals(request, pk):
     locals = Local.objects.filter(seller=pk)
+    ratings = []
+    for local in locals:
+        ratings.append(CommentService.get_stars(local.pk))
+
+    ratings.reverse()
+
     return render(request, 'local_list.html',
-                  {'locals': locals})
+                  {'locals': locals,'ratings': ratings})
 
 
 # Vista para el lisstado de locales
 def local_list(request):
     locals = Local.objects.all()
-    return render(request, 'local_list.html', {'locals': locals})
+    ratings = []
+    for local in locals:
+        ratings.append(CommentService.get_stars(local.pk))
+
+    ratings.reverse()
+
+    return render(request, 'local_list.html', {'locals': locals,'ratings': ratings})
 
 
 def local_orders(request, pk):
@@ -132,6 +148,29 @@ def local_detail(request, pk):
     return render(request, 'local_detail.html', {'local': local, 'form': category_form})
 
 
+# Vista para los detalles de un local
+def local_charts(request, pk):
+    local = get_object_or_404(Local, pk=pk)
+    orders = get_list_or_404(Order, local=pk)
+    # General
+    done_orders = sum([1 for order in orders if order.status is True])
+    pending_orders = len(orders) - done_orders
+    # Last week
+    label_dates = [(datetime.now()-timedelta(days=counter)).strftime('%d/%m') for counter in range(7)][::-1]
+    orders = Order.objects.filter(moment__gte=datetime.now()-timedelta(days=7))
+    grouped = itertools.groupby(orders, lambda record: record.moment.strftime("%d/%m"))
+    orders_by_day = {day: len(list(jobs_this_day)) for day, jobs_this_day in grouped}
+    #orders_by_day_result = [(date, orders_by_day.get(date, 0)) for date in label_dates]
+    orders_by_day_result = [orders_by_day.get(date, 0) for date in label_dates]
+
+    return render(request, 'local_charts.html',
+        {'local': local, 'orders': orders,
+         'pending_orders': pending_orders,
+         'done_orders': done_orders,
+         'label_dates': label_dates,
+         'orders_by_day': orders_by_day_result})
+
+
 # Vista para la creacedicion de un local
 def local_edit(request, pk):
     local = get_object_or_404(Local, pk=pk)
@@ -152,7 +191,13 @@ def local_edit(request, pk):
 def search(request):
     # TODO: This is not finished!
     locals = Local.objects.all()
-    return render(request, 'cp_search.html', {'locals': locals})
+    ratings = []
+    for local in locals:
+        ratings.append(CommentService.get_stars(local.pk))
+
+    ratings.reverse()
+
+    return render(request, 'cp_search.html', {'locals': locals,'ratings': ratings})
 
 
 # Packs--------------------------------------------------------------------------

@@ -15,6 +15,7 @@ class Order(models.Model):
     comment = models.CharField(max_length=232)
     status = models.NullBooleanField(default=None)
     pickupMoment = models.DateTimeField(auto_now=True)
+    hour = models.CharField(max_length=5)
     local = models.ForeignKey(Local)
     customer = models.ForeignKey(User)
     creditCard = models.ForeignKey(CreditCard)
@@ -33,7 +34,9 @@ class OrderLine(models.Model):
 
 
 class ShoppingCart(models.Model):
-    customer = models.ForeignKey(User)
+    customer = models.ForeignKey(User, blank=True, null=True)
+    checkout = models.BooleanField(default=False)
+
     # Derivated property
     @property
     def total_price(self):

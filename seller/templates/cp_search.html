@@ -90,8 +90,9 @@
                                   <img height="100px" width="100px"  class="img-circle center-block" alt="foto de perfil" src="{% static "images/No_image_available.png" %}" alt="Profile image">
                               {%endif%}
                               <p class="stars">
-                                  {%if not local.stars%}0/5{%endif%}
-                                  {%if local.stars > 0 %}{{local.stars}}/5{%endif%}
+
+                                      {{ratings.pop}}/5
+
                                   <i class="fa fa-star" aria-hidden="true"></i>
                               </p>
                           </div>
@@ -101,9 +102,15 @@
                                   {{ local.description|linebreaksbr }}
                               </p>
                               <p class="brief-text bottom">
-                                  {%if local.comments.length == 0 or not local.comments %} Sin opiniones. ¡Escribe la tuya!{%endif%}
-                                  {%if local.comments.length == 1 %} 1 opinión {%endif%}
-                                  {%if local.comments.length > 1 %} {{local.comments.length}} opiniones {%endif%}
+                                  {% if local.comment_set.count == 0 or not local.comment_set %} Sin opiniones.
+                                      ¡Escribe la tuya! - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
+                                  {% endif %}
+                                  {% if local.comment_set.count == 1 %}
+                                    <a href="{% url 'comment_list' pk=local.pk %}">1 opinión</a> - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
+                                  {% endif %}
+                                  {% if local.comment_set.count > 1 %}
+                                    <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} opiniones</a> - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
+                                  {% endif %}
                               </p>
                           </div>
                           <div class="col-md-2 col-xs-12 buttons-wrapper text-center">

@@ -40,7 +40,7 @@ class Command(BaseCommand):
             username='admin',
             email='admin@admin.com',
             first_name='admin')
-        admin_admin.set_password('admin')
+        admin_admin.set_password('@1b2c3d4')
         admin_admin.is_staff = True
         admin_admin.is_superuser = True
         admin_admin.save()
@@ -52,18 +52,18 @@ class Command(BaseCommand):
         # Customers ====================================================================================================
 
         customer1 = User(
-            username='customer1',
-            email='customer1@customer1.com',
-            first_name='customer1Firstname', last_name='customer1Lastname')
-        customer1.set_password('customer1')
+            username='julio44',
+            email='julio44@customer.com',
+            first_name='Julio', last_name='Parrales')
+        customer1.set_password('@customer')
         customer1.save()
         customer1.user_permissions.add(Permission.objects.get(codename="customer"))
 
         customer2 = User(
-            username='customer2',
-            email='customer2@customer2.com',
-            first_name='customer2')
-        customer2.set_password('customer2')
+            username='manuel',
+            email='manuel@customer.com',
+            first_name='Manuel')
+        customer2.set_password('@customer')
         customer2.save()
         customer2.user_permissions.add(Permission.objects.get(codename="customer"))
         print('Customer created...Ok')
@@ -71,18 +71,18 @@ class Command(BaseCommand):
         # Sellers ======================================================================================================
 
         seller1 = User(
-            username='seller1',
-            email='seller1@seller1.com',
-            first_name='seller1')
-        seller1.set_password('seller1')
+            username='jesusgar',
+            email='jesus@seller.com',
+            first_name='Jesus')
+        seller1.set_password('@seller')
         seller1.save()
         seller1.user_permissions.add(Permission.objects.get(codename="seller"))
 
         seller2 = User(
-            username='seller2',
-            email='seller2@selle2r.com',
-            first_name='seller2')
-        seller2.set_password('seller2')
+            username='pomelo',
+            email='pomelo@seller.com',
+            first_name='pomelo')
+        seller2.set_password('@seller')
         seller2.save()
         seller2.user_permissions.add(Permission.objects.get(codename="seller"))
 
@@ -307,7 +307,7 @@ class Command(BaseCommand):
         # CreditCard==============================================================================================================
 
         creditCard1 = CreditCard(
-            holderName='Customer1',
+            holderName='Julio',
             brandName='visa',
             expireMonth='12',
             expireYear='2020',
@@ -317,7 +317,7 @@ class Command(BaseCommand):
         creditCard1.save()
 
         creditCard2 = CreditCard(
-            holderName='customer2',
+            holderName='Jesus',
             brandName='visa',
             expireMonth='12',
             expireYear='2020',
@@ -334,21 +334,21 @@ class Command(BaseCommand):
 
         order1 = Order(totalPrice=2.10, moment='2017-04-01 14:35:00', local=namnam,
                        comment="Sin salsas", customer=customer1, creditCard=creditCard1,
-                       pickupMoment='2017-04-01 14:45:00')
+                       pickupMoment='2017-04-01 14:45:00', hour='14:45')
         order1.save()
 
         order2 = Order(totalPrice=3.30, moment='2017-04-01 14:30:00', local=ricorico,
                        comment="Mucho roquefort", customer=customer1, creditCard=creditCard1,
-                       pickupMoment='2017-05-01 15:00:00')
+                       pickupMoment='2017-05-01 15:00:00', hour='15:00')
         order2.save()
 
         order3 = Order(totalPrice=6.10, moment='2017-04-01 14:40:00', local=ricorico,
                        comment="Frios por favor", customer=customer2, creditCard=creditCard2,
-                       pickupMoment='2017-04-01 14:55:00')
+                       pickupMoment='2017-04-01 14:55:00', hour='14:55')
         order3.save()
 
         order4 = Order(totalPrice=6.70, moment='2017-04-01 15:45:00', local=namnam, customer=customer2,
-                       creditCard=creditCard1, status=True)
+                       creditCard=creditCard1, status=True, hour='15:45')
         order4.save()
 
         print("Orders... Ok!")
@@ -376,12 +376,12 @@ class Command(BaseCommand):
         # ==============================================================================================================
 
         shoppingCart1 = ShoppingCart(
-            customer=customer1)
+            customer=customer1, checkout=False)
 
         shoppingCart1.save()
 
         shoppingCart2 = ShoppingCart(
-            customer=customer2)
+            customer=customer2, checkout=False)
 
         shoppingCart2.save()
         print('ShoppingCart created...Ok')

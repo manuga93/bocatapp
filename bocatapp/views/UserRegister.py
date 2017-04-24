@@ -2,7 +2,6 @@ from django.db import transaction
 from django.shortcuts import render
 from django.contrib.auth.models import Permission
 from bocatapp.models import User
-from customer.models import ShoppingCart
 from django.views.generic import FormView
 from bocatapp.forms import UserRegistrationForm
 from django.http.response import HttpResponseRedirect
@@ -29,7 +28,6 @@ class RegistrationCustomerView(FormView):
                 password = form.cleaned_data.get('password')
                 user.set_password(password)
                 save_customer(user)
-                save_shoppingcart(user)
                 return HttpResponseRedirect("/")
             else:
                 message = ""
@@ -94,7 +92,3 @@ def save_customer(user):
 def save_seller(user):
     user.save()
     user.user_permissions.add(Permission.objects.get(codename="seller"))
-
-def save_shoppingcart(user):
-    shoppingcart = ShoppingCart(customer=user)
-    shoppingcart.save()
