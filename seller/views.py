@@ -19,7 +19,7 @@ from customer.models import Order
 # Lista el menu de productos de un local
 def menu_list(request, pk):
     local = get_list_or_404(Local, id=pk)[0]
-    categories = getLocalCategories(pk)
+    categories = {c: c.product_set.all() for c in getLocalCategories(pk)}
     return render(request, 'menu.html',
                   {'categories': categories, 'local': local})
 

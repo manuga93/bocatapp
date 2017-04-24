@@ -31,7 +31,7 @@ class Product(models.Model):
     name = models.CharField(max_length=48)
     price = models.DecimalField(max_digits=4, decimal_places=2)
     ingredients = models.CharField(max_length=256, default="Ingrediente")
-    category = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category, null=True)
     local = models.ForeignKey(Local)
     deleted = models.BooleanField(default=False)
     picture = models.URLField(default='/static/images/No_image_available.png')

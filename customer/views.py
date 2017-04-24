@@ -4,7 +4,7 @@ from customer.services import OrderService, ReportService
 from django.template import RequestContext
 from django.http.response import HttpResponseRedirect
 from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine, Comment, Report
-from seller.models import Product, Local
+from seller.models import Product, Local, Category
 from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
 from administration.forms.forms import CreditCardForm
@@ -12,6 +12,7 @@ from bocatapp.views import home
 from bocatapp.decorators import permission_required
 import datetime
 from forms.forms import CommentForm, ReportForm
+import itertools
 
 # Create your views here.
 
@@ -82,33 +83,24 @@ def remove_shoppingcart(request, pk):
 
 # Busqueda de productos
 def search_product(request, local_id):
+    #Input de busqueda
     search = request.GET.get('search_input', None)
+    #Local de busqueda
     local = Local.objects.get(pk=local_id)
-    # result = Query a BD para encontrar los resultantes
-    result = Product.objects.filter(name__icontains=unicode(search))
-    # categories = Guardamos las categorias de los productos q nos haya devuelto la query (metodo a parte)
-    categories = getAllCategoriesFiltered(result)
+    #Resultado de la busqueda de productos
+    products = Product.objects.filter(name__icontains=unicode(search), local_id=local_id)
+
+    #local_categories = Category.objects.filter(local_id=local_id)
+    # categories = Diccionario {Categoria: Productos resultantes de la busqueda en esta categoria, ...}
+    grouped = itertools.groupby(products, lambda product: product.category)
+    categories = {c: p for c, p in grouped}
+
     # devolvemos la pantalla de carta con la nueva lista de categorias
     return render(request, 'menu.html',
                   {'categories': categories, 'local': local})
 
-def getAllCategoriesFiltered(products):
-    #Dada una lista de productos devuelve las categorias a las que pertenecen con solo esos productos
-    categories = []
-    for p in products:
-        #Si no se ha encontrado ya la categoria
-        if not categories.__contains__(p.category):
-            cat = p.category
-            # Limpia la categoria de productos
-            for e in cat.model.product_set:
-                if e != p:
-                    del e
-            categories.append(cat)
-        #Si la categoria ya se ha encontrado añade ese producto a la categoria
-        else:
-            categories.__getitem__(p.category).append(p)
-
-    return categories
+def objectsInCategory(cat):
+    return cat.model.product_set
 
 # Checkout view
 def checkout(request, form=CreditCardForm):
