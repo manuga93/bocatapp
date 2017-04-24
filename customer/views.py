@@ -4,7 +4,7 @@ from customer.services import OrderService, ReportService
 from django.template import RequestContext
 from django.http.response import HttpResponseRedirect
 from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine, Comment, Report
-from seller.models import Product, Local
+from seller.models import Product, Local, Category
 from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
 from administration.forms.forms import CreditCardForm
@@ -13,6 +13,7 @@ from django.core.urlresolvers import reverse
 from bocatapp.decorators import permission_required
 import datetime
 from forms.forms import CommentForm, ReportForm
+import itertools
 
 # Create your views here.
 
@@ -73,6 +74,26 @@ def remove_shoppingcart(request, pk):
 
     return redirect('customer.views.list_shoppingcart')
 
+# Busqueda de productos
+def search_product(request, local_id):
+    #Input de busqueda
+    search = request.GET.get('search_input', None)
+    #Local de busqueda
+    local = Local.objects.get(pk=local_id)
+    #Resultado de la busqueda de productos
+    products = Product.objects.filter(name__icontains=unicode(search), local_id=local_id)
+
+    #local_categories = Category.objects.filter(local_id=local_id)
+    # categories = Diccionario {Categoria: Productos resultantes de la busqueda en esta categoria, ...}
+    grouped = itertools.groupby(products, lambda product: product.category)
+    categories = {c: p for c, p in grouped}
+
+    # devolvemos la pantalla de carta con la nueva lista de categorias
+    return render(request, 'menu.html',
+                  {'categories': categories, 'local': local})
+
+def objectsInCategory(cat):
+    return cat.model.product_set
 
 # Checkout view
 def checkout(request, form=CreditCardForm):

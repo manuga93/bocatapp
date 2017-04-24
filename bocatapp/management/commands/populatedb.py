@@ -90,7 +90,7 @@ class Command(BaseCommand):
 
         # Locals =======================================================================================================
 
-        namnam = Local(name='ÑamÑam',
+        namnam = Local(name=u'ÑamÑam',
                        description='Establecimiento espacialista en bocatas de pollo empañado y en cañas de chocolate',
                        address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794,
                        photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1)
@@ -214,92 +214,75 @@ class Command(BaseCommand):
         # RICORICO =====================================================================================================
 
         agua1 = Product(name='Agua', price=0.5, local=ricorico, ingredients="agua",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png")
-        agua1.save()
-        agua1.category.add(bebida1)
+                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                        category=bebida1)
         agua1.save()
 
         cafe = Product(name='cafe', price=1.0, local=ricorico, ingredients="Café",
-                       picture="http://estaticos.muyinteresante.es/uploads/images/article/55d31c013fafe8fa92bf40d6/cafe-colon_0.jpg")
-        cafe.save()
-        cafe.category.add(bebida1)
+                       picture="http://estaticos.muyinteresante.es/uploads/images/article/55d31c013fafe8fa92bf40d6/cafe-colon_0.jpg",
+                       category=bebida1)
         cafe.save()
 
         product1_ricorico = Product(name='59', price=2.0, local=ricorico,
                                     ingredients="Queso, lechuga, tomate, esparragos y salsa a elegir",
-                                    picture="http://static.consumer.es/www/imgs/recetas/7/79014_g.jpg")
-        product1_ricorico.save()
-        product1_ricorico.category.add(especiales_ricorico)
+                                    picture="http://static.consumer.es/www/imgs/recetas/7/79014_g.jpg", category=especiales_ricorico)
         product1_ricorico.save()
 
         product2_ricorico = Product(name='60', price=2.6, local=ricorico,
                                     ingredients="Pechuga de pollo, beicon, queso, lechuga y salsa a elegir",
-                                    picture="http://www.menshealth.es/rcs/articles/812/imagenes/139-bocadillo-pollo.jpg")
-        product2_ricorico.save()
-        product2_ricorico.category.add(especiales_ricorico)
-
+                                    picture="http://www.menshealth.es/rcs/articles/812/imagenes/139-bocadillo-pollo.jpg",
+                                    category=especiales_ricorico)
         product2_ricorico.save()
 
         canachoco_ricorico = Product(name='caña de cholocate', price=1.0, local=ricorico,
                                      ingredients="chocolate, hojaldre y azúcar  glas",
-                                     picture="http://pasteleriatiamaria.es/wp-content/uploads/2015/06/5153-Ca%C3%B1a-de-chocolate-Pasteleria-Tia-Maria.png")
-        canachoco_ricorico.save()
-        canachoco_ricorico.category.add(bolleria_ricorico)
+                                     picture="http://pasteleriatiamaria.es/wp-content/uploads/2015/06/5153-Ca%C3%B1a-de-chocolate-Pasteleria-Tia-Maria.png",
+                                     category=bolleria_ricorico)
         canachoco_ricorico.save()
 
         napolitana_ricorico = Product(name='Napolitana de cholocate', price=1.0, local=ricorico,
                                       ingredients="chocolate, hojaldre y virutas de chocolate",
-                                      picture="http://www.panaderiapulido.com/sites/default/files/bolleria_napolitana.jpg")
-        napolitana_ricorico.save()
-        napolitana_ricorico.category.add(bolleria_ricorico)
+                                      picture="http://www.panaderiapulido.com/sites/default/files/bolleria_napolitana.jpg",
+                                      category=bolleria_ricorico)
         napolitana_ricorico.save()
 
         # ÑAMÑAM =====================================================================================================
         agua2 = Product(name='Agua', price=0.5, local=namnam, ingredients="agua",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png")
-        agua2.save()
-        agua2.category.add(bebida2)
+                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                        category=bebida2)
         agua2.save()
 
         cocacola = Product(name='Cocacola', price=0.80, local=namnam, ingredients="Cocacola",
-                           picture="https://www.corporativo.tia.com.ec/sites/almacenestia.com/files/productos/imagenescargadas/2014-10-18/247060.jpeg")
-        cocacola.save()
-        cocacola.category.add(bebida2)
+                           picture="https://www.corporativo.tia.com.ec/sites/almacenestia.com/files/productos/imagenescargadas/2014-10-18/247060.jpeg",
+                           category=bebida2)
         cocacola.save()
 
         casa_namnam = Product(name='De la casa', price=2.10, local=namnam,
                               ingredients='Tortilla de patatas, lechuga, jamón serrano y mayonesa',
-                              picture='https://img.over-blog-kiwi.com/1/39/41/41/20170404/ob_cf201c_1-018.jpg')
-        casa_namnam.save()
-        casa_namnam.category.add(especiales_namnam)
+                              picture='https://img.over-blog-kiwi.com/1/39/41/41/20170404/ob_cf201c_1-018.jpg', category=especiales_namnam)
         casa_namnam.save()
 
         universitario_namnam = Product(name='Universitario', price=2.10, local=namnam,
-                                       ingredients='Palitos de cangrejo, jamón york, lechuga y salsa rosa')
-        universitario_namnam.save()
-        universitario_namnam.category.add(especiales_namnam)
+                                       ingredients='Palitos de cangrejo, jamón york, lechuga y salsa rosa', category=especiales_namnam)
         universitario_namnam.save()
 
         canachoco_namnam = Product(name='caña de cholocate', price=1.0, local=namnam,
                                    ingredients="chocolate, hojaldre y azúcar  glas",
-                                   picture="http://pasteleriatiamaria.es/wp-content/uploads/2015/06/5153-Ca%C3%B1a-de-chocolate-Pasteleria-Tia-Maria.png")
-        canachoco_namnam.save()
-        canachoco_namnam.category.add(bolleria_namnam)
+                                   picture="http://pasteleriatiamaria.es/wp-content/uploads/2015/06/5153-Ca%C3%B1a-de-chocolate-Pasteleria-Tia-Maria.png",
+                                   category=bolleria_namnam)
         canachoco_namnam.save()
 
         napolitana_namnam = Product(name='Napolitana de cholocate', price=1.0, local=namnam,
                                     ingredients="chocolate, hojaldre y virutas de chocolate",
-                                    picture="http://www.panaderiapulido.com/sites/default/files/bolleria_napolitana.jpg")
-        napolitana_namnam.save()
-        napolitana_namnam.category.add(bolleria_namnam)
+                                    picture="http://www.panaderiapulido.com/sites/default/files/bolleria_napolitana.jpg",
+                                    category=bolleria_namnam)
         napolitana_namnam.save()
 
         # 100m =====================================================================================================
 
         cerveza = Product(name='Jarra de cerveza', price=1.5, local=cienm, ingredients="cebada, lúpulo",
-                          picture="http://www.aceitedearganweb.com/wp-content/uploads/2015/10/cerveza.jpg")
-        cerveza.save()
-        cerveza.category.add(bebida3)
+                          picture="http://www.aceitedearganweb.com/wp-content/uploads/2015/10/cerveza.jpg"
+                          ,category=bebida3)
         cerveza.save()
 
         print ('Products...Ok!')

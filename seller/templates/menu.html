@@ -5,17 +5,20 @@
 <div class="container">
    <h2>Carta de {{local.name}}</h2>
    <br/>
-   <div class="input-group stylish-input-group">
-      <input type="text" class="form-control"  placeholder="Buscar" >
+    <form id="search_form" method="GET" action="{% url 'search_product' local_id=local.id %}">
+    <div class="input-group stylish-input-group" >
+      <input name="search_input" type="text" class="form-control"  placeholder="Buscar">
       <span class="input-group-addon">
-      <button type="submit">
+      <button id="search_button" type="submit">
       <span class="glyphicon glyphicon-search"></span>
       </button>
       </span>
-   </div>
+    </div>
+    </form>
+
    <br/>
-   {% for c in categories %}
-   <button class="accordion">{{ c.name }} <i class="fa fa-chevron-down"></i></button>
+   {% for k,v in categories.items %}
+   <button class="accordion">{{ k.name }} <i class="fa fa-chevron-down"></i></button>
    <div class="carta">
       <div class="row" style="padding-bottom: 1em">
          <div class="col-xs-3">
@@ -33,7 +36,7 @@
          </div>
          {% endif %}
       </div>
-      {% for p in c.product_set.all %}
+      {% for p in v %}
       <div class="row" style="padding-bottom: 1em">
          <div class="col-xs-3">{{ p.name }}</div>
          <div class="col-xs-3">
@@ -78,6 +81,8 @@
        }
      }
    }
+
+
 </script>
 {%endblock%}
 
