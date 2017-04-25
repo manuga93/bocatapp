@@ -54,7 +54,7 @@ class Command(BaseCommand):
         customer1 = User(
             username='julio44',
             email='julio44@customer.com',
-            first_name='Julio', last_name='Parrales')
+            first_name='Julio', last_name='Parrales', amount_money=10.0)
         customer1.set_password('@customer')
         customer1.save()
         customer1.user_permissions.add(Permission.objects.get(codename="customer"))
@@ -62,7 +62,7 @@ class Command(BaseCommand):
         customer2 = User(
             username='manuel',
             email='manuel@customer.com',
-            first_name='Manuel')
+            first_name='Manuel', amount_money=5.0)
         customer2.set_password('@customer')
         customer2.save()
         customer2.user_permissions.add(Permission.objects.get(codename="customer"))
@@ -263,7 +263,7 @@ class Command(BaseCommand):
         palmerafr = Product(name='Palmera Casera', price=1.1, local=frankyb, ingredients="Palmera de Huevo",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bolleria_frank)
-        
+
         palmerachocofr = Product(name='Palmera Morenita', price=1.1, local=frankyb, ingredients="Palmera de Chocolate",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bolleria_frank)
