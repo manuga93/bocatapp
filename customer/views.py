@@ -11,7 +11,7 @@ from administration.forms.forms import CreditCardForm
 from django.core.urlresolvers import reverse
 
 from bocatapp.decorators import permission_required
-import datetime
+from datetime import datetime, timedelta
 from forms.forms import CommentForm, ReportForm
 import itertools
 
@@ -85,7 +85,7 @@ def checkout(request, form=CreditCardForm):
     if current_user.is_authenticated():
         shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
         creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
-        return render(request, 'checkout.html', {'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form})
+        return render(request, 'checkout.html', {'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=10)})
     return redirect(reverse('login'))
 
 

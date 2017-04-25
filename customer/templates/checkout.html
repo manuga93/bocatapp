@@ -198,7 +198,7 @@
                 <div class="form-group">
                     <label for="dateCheckout">Fecha de Recogida</label>
                     <div class="input-group date" data-provide="datepicker">
-                        <input type="text" name="dateCheckout" class="form-control" placeholder="dd/mm/aaaa" required>
+                        <input type="text" name="dateCheckout" class="form-control" placeholder="dd/mm/aaaa" value="{{ datetime|date:"m/d/Y" }}" required>
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
@@ -214,6 +214,7 @@
                         name="hourCheckout"
                         placeholder="HH:mm"
                         required
+                        value="{{ datetime|date:"G:i" }}"
                     />
                 </div>
             </div>
