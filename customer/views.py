@@ -28,17 +28,24 @@ def all_orders(request):
         return render_to_response('error.html', context_instance=RequestContext(request))
 
 
-def orders_by_customer(request, pk):
-    orders = get_list_or_404(Order, customer=pk)
-    return render_to_response('orders.html', {'orders': orders}, context_instance=RequestContext(request))
+@permission_required('bocatapp.customer', message='You are not a customer')
+def orders_by_customer(request):
+        orders = Order.objects.filter(customer=request.user.pk)
+        return render_to_response('orders.html', {'orders': orders}, context_instance=RequestContext(request))
 
 
+@permission_required('bocatapp.customer', message='You are not a customer')
 def order_line_by_order(request, order_id):
-    try:
-        orders_line = OrderService.find_order_line_by_order(order_id)
-        return render_to_response('ordersLine.html', {'lines': orders_line}, context_instance=RequestContext(request))
-    except OrderLine.DoesNotExist:
-        return render_to_response('error.html', context_instance=RequestContext(request))
+    order = get_object_or_404(Order, pk=order_id)
+
+    if order.customer.pk == request.user.pk:
+        try:
+            orders_line = OrderService.find_order_line_by_order(order_id)
+            return render_to_response('ordersLine.html', {'lines': orders_line}, context_instance=RequestContext(request))
+        except OrderLine.DoesNotExist:
+            return render_to_response('error.html', context_instance=RequestContext(request))
+    else:
+        return redirect("/")
 
 
 def do_order_line(request, id1):
@@ -48,31 +55,6 @@ def do_order_line(request, id1):
     OrderService.set_order_status(order_line.order_id)
     return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
 
-# Metodo para agregar un producto al carrito de compra
-def add_shoppingcart(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    current_user = request.user
-    shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id)
-    shoppingcart_line_query = ShoppingCartLine.objects.filter(product_id=product.id)
-
-    if shoppingcart_line_query:
-        shoppingcart_line_query.update(quantity = F('quantity')+1)
-
-    else:
-        shoppingcart_line = ShoppingCartLine(quantity=1,
-                product=product,
-                shoppingCart=shoppingcart)
-        shoppingcart_line.save()
-
-    return redirect('customer.views.list_shoppingcart')
-
-
-# Metodo para eliminar un producto del carrito
-def remove_shoppingcart(request, pk):
-    product = get_object_or_404(ShoppingCartLine, pk=pk)
-    product.delete()
-
-    return redirect('customer.views.list_shoppingcart')
 
 # Busqueda de productos
 def search_product(request, local_id):
@@ -83,14 +65,16 @@ def search_product(request, local_id):
     #Resultado de la busqueda de productos
     products = Product.objects.filter(name__icontains=unicode(search), local_id=local_id)
 
-    #local_categories = Category.objects.filter(local_id=local_id)
-    # categories = Diccionario {Categoria: Productos resultantes de la busqueda en esta categoria, ...}
-    grouped = itertools.groupby(products, lambda product: product.category)
-    categories = {c: p for c, p in grouped}
+    #categories = Diccionario {Categoria: Productos resultantes de la busqueda en esta categoria, ...}
+    if search:
+        grouped = itertools.groupby(products, lambda product: product.category)
+        categories = {c: p for c, p in grouped}
 
-    # devolvemos la pantalla de carta con la nueva lista de categorias
-    return render(request, 'menu.html',
-                  {'categories': categories, 'local': local})
+        #Devolvemos la pantalla de carta con la nueva lista de categorias
+        return render(request, 'menu.html',
+                      {'categories': categories, 'local': local})
+    else:
+        return redirect('seller.views.menu_list', pk=local.pk)
 
 def objectsInCategory(cat):
     return cat.model.product_set
