@@ -83,14 +83,16 @@ def search_product(request, local_id):
     #Resultado de la busqueda de productos
     products = Product.objects.filter(name__icontains=unicode(search), local_id=local_id)
 
-    #local_categories = Category.objects.filter(local_id=local_id)
-    # categories = Diccionario {Categoria: Productos resultantes de la busqueda en esta categoria, ...}
-    grouped = itertools.groupby(products, lambda product: product.category)
-    categories = {c: p for c, p in grouped}
+    #categories = Diccionario {Categoria: Productos resultantes de la busqueda en esta categoria, ...}
+    if search:
+        grouped = itertools.groupby(products, lambda product: product.category)
+        categories = {c: p for c, p in grouped}
 
-    # devolvemos la pantalla de carta con la nueva lista de categorias
-    return render(request, 'menu.html',
-                  {'categories': categories, 'local': local})
+        #Devolvemos la pantalla de carta con la nueva lista de categorias
+        return render(request, 'menu.html',
+                      {'categories': categories, 'local': local})
+    else:
+        return redirect('seller.views.menu_list', pk=local.pk)
 
 def objectsInCategory(cat):
     return cat.model.product_set
