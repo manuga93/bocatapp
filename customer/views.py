@@ -37,7 +37,6 @@ def orders_by_customer(request):
 @permission_required('bocatapp.customer', message='You are not a customer')
 def order_line_by_order(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
-
     if order.customer.pk == request.user.pk:
         try:
             orders_line = OrderService.find_order_line_by_order(order_id)
@@ -48,12 +47,12 @@ def order_line_by_order(request, order_id):
         return redirect("/")
 
 
-def do_order_line(request, id1):
-    order_line = get_object_or_404(OrderLine, pk=id1)
-    order_line.status = True
-    order_line.save()
-    OrderService.set_order_status(order_line.order_id)
-    return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
+def do_order(request, id1):
+    #Obtenemos la order a raiz de su id
+    order = get_object_or_404(Order, pk=id1)
+    #Cambiamos el estado de la misma usando el metodo
+    OrderService.set_order_status(order.order_id)
+    return HttpResponseRedirect("/customer/orders/")
 
 
 # Busqueda de productos
