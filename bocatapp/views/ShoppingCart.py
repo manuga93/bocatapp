@@ -69,13 +69,13 @@ def update_cookie(request):
     return JsonResponse(data)
     
 
-
 # Vista del carrito de compra actual del customer logueado
 def list_shopping_cart(request, pk):
     if request.user.is_authenticated():
-        if request.user.has_perm('bocatapp.customer'):  
+        if request.user.has_perm('bocatapp.customer'):
             shoppingcart = get_object_or_404(ShoppingCart, pk=pk)
-            return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
+            if shoppingcart.customer.pk == request.user.pk:
+                return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
     else:
         shoppingcart = get_object_or_404(ShoppingCart, pk=pk)
         return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
@@ -144,9 +144,10 @@ def update_product(request):
 
 def delete_product(request):
     idShoppingCart = request.GET.get('idCart',None)
+    print(idShoppingCart)
     idProduct = request.GET.get('idProduct',None)
-
-    scLine = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
+    print(idProduct)
+    scLine = Shoppi1ngCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
     scLine.delete()
     
     data = {

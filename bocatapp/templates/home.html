@@ -32,7 +32,7 @@
             <ul>
 
                     {% if perms.bocatapp.customer %}
-                    <li><a href="{% url 'orders_by_customer' pk=request.user.id %}">Mis pedidos</a>
+                    <li><a href="{% url 'orders_by_customer' %}">Mis pedidos</a>
                     {% endif %}
                     <li><a href='seller/local'>Listado</a></li>
 

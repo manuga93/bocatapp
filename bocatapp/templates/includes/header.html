@@ -65,7 +65,7 @@
                         {% endif %}
                         {% if perms.bocatapp.customer %}
                           <li><a href="/customer/dashboard/">Panel</a></li>
-                          <li><a href="{% url 'orders_by_customer' pk=request.user.id %}">Mis pedidos</a></li>
+                          <li><a href="{% url 'orders_by_customer'%}">Mis pedidos</a></li>
                         {% endif %}
                         <li><a href="/logout">Desconectar</a></li>
                     </ul>
