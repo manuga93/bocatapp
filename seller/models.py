@@ -12,6 +12,7 @@ class Local(models.Model):
     phone = models.CharField(max_length=12)
     photo = models.URLField(blank=True)
     isActive = models.BooleanField(default=True)
+    postalCode = models.PositiveIntegerField()
     seller = models.ForeignKey(User)
 
     def __unicode__(self):

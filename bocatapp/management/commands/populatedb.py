@@ -92,20 +92,20 @@ class Command(BaseCommand):
 
         namnam = Local(name=u'ÑamÑam',
                        description='Establecimiento espacialista en bocatas de pollo empañado y en cañas de chocolate',
-                       address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794,
+                       address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794,postalCode="41012",
                        photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1)
 
         namnam.save()
 
         ricorico = Local(name='Rico Rico', description='Tenemos las mejores ofertas para merendar!',
-                         address='Av. de la Reina Mercedes, 39, 41012 Sevilla', phone=622397165,
+                         address='Av. de la Reina Mercedes, 39, 41012 Sevilla', phone=622397165, postalCode="41012",
                          photo='https://s3-media1.fl.yelpcdn.com/bphoto/QKiTaoNVWDuM1i-4Z3IJxA/168s.jpg',
                          seller=seller1)
 
         ricorico.save()
 
         cienm = Local(name='100 Montaditos', description='Los miercoles todo a 1€!',
-                      address=' Av. de la Reina Mercedes, 43, 41012 Sevilla', phone=902197494,
+                      address=' Av. de la Reina Mercedes, 43, 41012 Sevilla', phone=902197494,postalCode="41012",
                       photo='http://www.asesoresinmobiliariosbv.es/wp-content/uploads/2015/10/100-montaditos.jpg',
                       seller=seller2)
 
