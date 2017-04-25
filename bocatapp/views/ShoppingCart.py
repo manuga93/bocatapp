@@ -145,9 +145,9 @@ def update_product(request):
 def delete_product(request):
     idShoppingCart = request.GET.get('idCart',None)
     idProduct = request.GET.get('idProduct',None)
-    
+
     scLine = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
-    scLine.delete()   
+    scLine.delete()
     
     data = {
         'delete': 'ok',

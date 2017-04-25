@@ -44,7 +44,7 @@
     {{block.super}}
     <script type="text/javascript">
         $('.container').on( 'click', '#updatesc', function () {
-            var td = $(this).parent('.col-xs-3');
+            var td = $(this).parent('.col-xs-6');
             var quantity = td.children('input#quantity').val();
             var id = td.children('input#productId').val();
             var cartId = getIdCart();
@@ -68,7 +68,7 @@
         } );
 
         $('.container').on( 'click', '#removesc', function () {
-            var td = $(this).parent('.col-xs-3');
+            var td = $(this).parent('.col-xs-6');
             var id = td.children('input#productId').val();
             var cartId = getIdCart();
 
