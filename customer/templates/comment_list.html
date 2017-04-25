@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="container">
-        <h1>Comentarios</h1>
+        <h1>Comentarios de {{ local.name }}</h1>
         <hr/>
         <div class="row">
             <div class="col-md-12">
@@ -52,7 +52,7 @@
         {% if perms.bocatapp.customer %}
 
 
-            <a class="btn btn-primary" onclick="location.replace('{% url 'comment_new' pk=local %}')"><span
+            <a class="btn btn-primary" onclick="location.replace('{% url 'comment_new' pk=local.pk %}')"><span
                     class="glyphicon glyphicon-comment"></span> Comentar </a></h3>
 
         {% endif %}
