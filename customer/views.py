@@ -170,7 +170,7 @@ def comment_new(request, pk):
             comment.customer = request.user
 
             comment.save()
-            return redirect('seller.views.local_detail', pk=local.pk)
+            return redirect('customer.views.comment_list', pk=local.pk)
     else:
         form = CommentForm()
 
@@ -195,9 +195,10 @@ def report_new(request, pk):
 
 # Lista los comentarios de un local
 def comment_list(request, pk):
+    local = Local.objects.get(pk=pk)
     comentarios = Comment.objects.filter(local = pk, reported=0)
     return render_to_response('comment_list.html',
-                                {'comentarios': comentarios,'local':pk}, context_instance=RequestContext(request))
+                                {'comentarios': comentarios, 'local': local}, context_instance=RequestContext(request))
 
 # Lista los reportes de un comentario
 @permission_required('bocatapp.administrator', message='You are not an administrator')
