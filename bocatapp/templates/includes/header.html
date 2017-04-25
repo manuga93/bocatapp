@@ -61,7 +61,7 @@
                         </li>
 
                         {% if perms.bocatapp.seller %}
-                          <li><a href="{% url 'locals_by_seller' pk=request.user.id %}">Mis locales</a></li>
+                          <li><a href="{% url 'locals_by_seller' %}">Mis locales</a></li>
                         {% endif %}
                         {% if perms.bocatapp.customer %}
                           <li><a href="/customer/dashboard/">Panel</a></li>
