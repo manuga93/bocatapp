@@ -49,7 +49,7 @@ def update_cookie(request):
                 if productsActualShoppingCart and productsActualShoppingCart.count() > 0:
                     if int(idShoppingCart) != int(shoppingCart[0].pk):
                         shoppingCart[0].delete()
-                        actualShoppingCart[0].update(customer=customer)
+                        actualShoppingCart[0].update(customer=customer[0])
                 else:
                     if int(idShoppingCart) != int(shoppingCart[0].pk):
                         if actualShoppingCart:
@@ -144,10 +144,10 @@ def update_product(request):
 
 def delete_product(request):
     idShoppingCart = request.GET.get('idCart',None)
-    print(idShoppingCart)
     idProduct = request.GET.get('idProduct',None)
-    print(idProduct)
-    scLine = Shoppi1ngCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
+
+    scLine = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
+
     scLine.delete()
     
     data = {
