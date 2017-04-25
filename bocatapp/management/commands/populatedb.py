@@ -121,7 +121,7 @@ class Command(BaseCommand):
 
         frankyb = Local(name='Bocatería Frankys', description='¿Quieres un Bocata? Pues ven a comerte el mejor!',
                       address=' Av. de la Reina Mercedes, 45, 41012 Sevilla', phone=902197494,
-                      photo='http://subefotos.com/ver/?7b9bc1c91b4ba708f179ee6d79d2ac6fo.jpg',
+                      photo='http://fotos.subefotos.com/7b9bc1c91b4ba708f179ee6d79d2ac6fo.jpg',
                       seller=seller3)
 
         frankyb.save()
@@ -244,41 +244,54 @@ class Command(BaseCommand):
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bocadillos_frank)
 
+        cochinito.save()
+
         tortilla = Product(name='Tortilla', price=1, local=frankyb, ingredients="Tortilla",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bocadillos_frank)
 
+        tortilla.save()
+
         jamon_serrano = Product(name='Jamón Serrano', price=1.5, local=frankyb, ingredients="Jamón Serrano",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bocadillos_frank)
+        jamon_serrano.save()
+
 
         bocapizza1 = Product(name='El 1', price=1.5, local=frankyb, ingredients="Tomate + Queso + Bacon + Cochinito",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bocapizza_frank)
+        bocapizza1.save()
 
         bocapizza2 = Product(name='El 2', price=1.5, local=frankyb, ingredients="Tomate + Queso + Bacon + Salchicha",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bocapizza_frank)
+        bocapizza2.save()
 
         palmerafr = Product(name='Palmera Casera', price=1.1, local=frankyb, ingredients="Palmera de Huevo",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bolleria_frank)
-        
+        palmerafr.save()
+
         palmerachocofr = Product(name='Palmera Morenita', price=1.1, local=frankyb, ingredients="Palmera de Chocolate",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bolleria_frank)
+        palmerachocofr.save()
 
         aguafr = Product(name='Agua', price=0.8, local=frankyb, ingredients="Agua",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bebidas_frank)
+        aguafr.save()
 
         fantalimonfr = Product(name='Fanta Naranja', price=0.8, local=frankyb, ingredients="Fanta Naranja",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bebidas_frank)
+        fantalimonfr.save()
 
         fantanaranjafr = Product(name='Fanta Limón', price=0.8, local=frankyb, ingredients="Fanta Limón",
                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
                         category=bebidas_frank)
+        fantanaranjafr.save()
 
         # RICORICO =====================================================================================================
 
