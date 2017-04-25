@@ -22,6 +22,13 @@
                     </a>
                 </li>
             {% endif %}
+            {% if perms.bocatapp.customer %}
+            <li>
+              <a href="#">
+                Saldo: {{user.amount_money}} €
+              </a>
+            </li>
+            {% endif %}
             <li><a href="#">Ayuda</a></li>
             {% if user.is_anonymous %}
                 <li class="dropdown">
