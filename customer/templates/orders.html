@@ -3,68 +3,57 @@
 {% block title %}Pedidos {% endblock %}
 {% block content %}
     <div class="container">
-        <h2>Pendientes</h2>
-        <br/>
-        {% if orders_pending %}
-            {% for k,v in orders_pending.items %}
-                <button class="accordion">
-                    <b style="..."><u>Usuario</u>: </b>
-                    {{ k.customer.username }}
-                    <br/>
-                    <b style="..."><u>Recogida</u>: </b>
-                    {{ k.pickupMoment|date:'d/m/Y H:i' }}
-                    <br/>
-                    <b style="..."><u>Precio</u>: </b>
-                    {{ k.totalPrice }} €
-                    <i class="fa fa-chevron-down"></i>
-                </button>
-                <div class="carta">
-                    <div class="row" style="...">
-                        <div class="col-xs-3">
-                            <h5><b style="..."><u>Producto</u></b></h5>
-                        </div>
-                        <div class="col-xs-3">
-                            <h5><b style="..."><u>Precio</u></b></h5>
-                        </div>
-                        <div class="col-xs-3">
-                            <h5><b style="..."><u>Unds</u></b></h5>
-                        </div>
-                    </div>
-                    {% for ol in v %}
-                        <div class="row" style="...">
-                            <div class="col-xs-3">{{ ol.name }}</div>
-                            <div class="col-xs-3">{{ ol.price }} €</div>
-                            <div class="col-xs-3">{{ ol.quantity }}</div>
-
-                            <hr/>
-                        </div>
-
-                    {% endfor %}
-
-                    <br/>
-                    {% if not perms.bocatapp.customer %}
-                        <div class="col-xs-3" style="float: left"><a class="btn btn-success"
-                                                                     href="{% url "local_do_order" pk=k.id %}"
-                                                                     id="doOrder">
-                            <i class="fa fa-check fa-lg"></i>
-                            Marcar como hecho
-                        </a>
-
-                        </div>
-
-                    {% endif %}
-                </div>
-
+    <h2>Pendientes</h2>
+    <br/>
+    {% if orders_pending %}
+        {% for k,v in orders_pending.items %}
+            <button class="accordion">
+                <b style="..."><u>Usuario</u>: </b>
+                {{ k.customer.username }}
                 <br/>
-
-
+                <b style="..."><u>Recogida</u>: </b>
+                {{ k.pickupMoment|date:'d/m/Y H:i' }}
+                <br/>
+                <b style="..."><u>Precio</u>: </b>
+                {{ k.totalPrice }} €
+                <i class="fa fa-chevron-down"></i>
+            </button>
+            <div class="carta">
+            <div class="row" style="...">
+                <div class="col-xs-3">
+                    <h5><b style="..."><u>Producto</u></b></h5>
+                </div>
+                <div class="col-xs-3">
+                    <h5><b style="..."><u>Precio</u></b></h5>
+                </div>
+                <div class="col-xs-3">
+                    <h5><b style="..."><u>Unds</u></b></h5>
+                </div>
+            </div>
+            {% for ol in v %}
+                <div class="row" style="...">
+                <div class="col-xs-3">{{ ol.name }}</div>
+                <div class="col-xs-3">{{ ol.price }} €</div>
+                <div class="col-xs-3">{{ ol.quantity }}</div>
+                <hr/>
             {% endfor %}
-        {% else %}
-            <h3>No hay pedidos pendientes =)</h3>
-        {% endif %}
+        </div>
+            <br/>
+            {% if not perms.bocatapp.customer %}
+            <div class="col-xs-3" style="float: left"><a class="btn btn-success" href="{% url "local_do_order" pk=k.id %}" id="doOrder">
+                <i class="fa fa-check fa-lg"></i>
+                Marcar como hecho
+                </a>
+            </div>
+            {% endif %}
+
+        {% endfor %}
+    {% else %}
+        <h3>No hay pedidos pendientes =)</h3>
+    {% endif %}
 
 
-    </div>
+</div>
     <div class="container">
         <h2>Hechos</h2>
         <br/>
@@ -102,9 +91,6 @@
                         <hr/>
                     {% endfor %}
                 </div>
-
-                <br/>
-
             {% endfor %}
         {% else %}
             <h3>No hay pedidos hechos =)</h3>
