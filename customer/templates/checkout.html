@@ -118,7 +118,6 @@
                         <label><input type="checkbox" value="">Si, me gustaria guardar mi tarjeta de credito en el sistema</label>
                       </div>
                     </div>
-                </form>
                 <br />
             </div>
         </div>
@@ -194,6 +193,42 @@
             </tbody>
         </table>
       </div>
+      <div class="row">
+            {% if messages %}
+                <div class="row">
+                {% for message in messages %}
+                    <div class="alert alert-danger">
+                        {{ message|safe }}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label for="dateCheckout">Fecha de Recogida</label>
+                    <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                        <input type="text" name="dateCheckout" class="form-control dateinput" data-date-format="dd/mm/yyyy" value="{{ datetime|date:"d/m/Y" }}" required>
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label for="hourCheckout">Hora de recogida</label>
+                    <input
+                        type="tel"
+                        class="form-control"
+                        name="hourCheckout"
+                        placeholder="HH:mm"
+                        required
+                        value="{{ datetime|date:"G:i" }}"
+                    />
+                </div>
+            </div>
+        </div>
+        </form>
     </div>
   </div>
   <div class="row">

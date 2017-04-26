@@ -13,8 +13,9 @@ class Order(models.Model):
     totalPrice = models.DecimalField(max_digits=4, decimal_places=2)
     moment = models.DateTimeField(auto_now=True)
     comment = models.CharField(max_length=232)
-    status = models.NullBooleanField(default=None)
+    status = models.BooleanField(default=False)
     pickupMoment = models.DateTimeField(auto_now=True)
+    hour = models.CharField(max_length=5)
     local = models.ForeignKey(Local)
     customer = models.ForeignKey(User)
     creditCard = models.ForeignKey(CreditCard)
@@ -24,16 +25,16 @@ class OrderLine(models.Model):
     quantity = models.IntegerField(validators=[MinValueValidator(1)])
     name = models.CharField(max_length=32)
     price = models.DecimalField(max_digits=4, decimal_places=2)
-    status = models.BooleanField(default=False)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-
 
     def __unicode__(self):
         return self.name
 
 
 class ShoppingCart(models.Model):
-    customer = models.ForeignKey(User)
+    customer = models.ForeignKey(User, blank=True, null=True)
+    checkout = models.BooleanField(default=False)
+
     # Derivated property
     @property
     def total_price(self):
@@ -48,7 +49,7 @@ class ShoppingCartLine(models.Model):
 
 class Comment(models.Model):
     description = models.CharField(max_length=256)
-    rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    rating = models.CharField(max_length=1)
     reported = models.BooleanField(default=False)
     local = models.ForeignKey(Local)
     customer = models.ForeignKey(User)

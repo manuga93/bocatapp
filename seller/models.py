@@ -2,8 +2,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from bocatapp.models import User
 
-
 # Create your models here.
+
 
 class Local(models.Model):
     name = models.CharField(max_length=32)
@@ -13,6 +13,7 @@ class Local(models.Model):
     photo = models.URLField(blank=True)
     isActive = models.BooleanField(default=True)
     seller = models.ForeignKey(User)
+    avg_rating = models.DecimalField(max_digits=3 , decimal_places=2, default=0.)
 
     def __unicode__(self):
         return self.name
@@ -31,7 +32,7 @@ class Product(models.Model):
     name = models.CharField(max_length=48)
     price = models.DecimalField(max_digits=4, decimal_places=2)
     ingredients = models.CharField(max_length=256, default="Ingrediente")
-    category = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category, null=True)
     local = models.ForeignKey(Local)
     deleted = models.BooleanField(default=False)
     picture = models.URLField(default='/static/images/No_image_available.png')

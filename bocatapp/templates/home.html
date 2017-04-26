@@ -16,7 +16,7 @@
               Introduce tu código postal para encontrar locales cerca de ti
             </p>
     				<div class ="form-group">
-    					<input type="text" class="form-control text-center" placeholder="41011" name="postcode" id="cp">
+    					<input type="text" class="form-control text-center" placeholder="41012" name="postcode" id="cp">
     				</div>
     				<button onclick="#" class="form-control button">¡Buscar!</button>
     			</form>
@@ -32,7 +32,7 @@
             <ul>
 
                     {% if perms.bocatapp.customer %}
-                    <li><a href="{% url 'orders_by_customer' pk=request.user.id %}">Mis pedidos</a>
+                    <li><a href="{% url 'orders_by_customer' %}">Mis pedidos</a>
                     {% endif %}
                     <li><a href='seller/local'>Listado</a></li>
 
