@@ -53,17 +53,18 @@
 
             </div>
         </div>
-        {% if perms.bocatapp.customer %}
 
-
-            <a class="btn btn-primary" style="margin-right: 10px" onclick="location.replace('{% url 'comment_new' pk=local.pk %}')"><span
-                    class="glyphicon glyphicon-comment"></span> Comentar </a></h3>
-
-        {% endif %}
         <button class="btn btn-default" onclick=" window.history.back();"><span
                 class="glyphicon glyphicon-arrow-left"></span> Atrás
         </button>
 
+        {% if perms.bocatapp.customer %}
+
+
+            <a class="btn btn-primary" style="float: right;" onclick="location.replace('{% url 'comment_new' pk=local.pk %}')"><span
+                    class="glyphicon glyphicon-comment"></span> Comentar </a></h3>
+
+        {% endif %}
     </div>
 <br/>
 {% endblock %}

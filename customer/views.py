@@ -9,7 +9,7 @@ from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
 from administration.forms.forms import CreditCardForm
 from django.core.urlresolvers import reverse
-
+from customer.services import CommentService
 from bocatapp.decorators import permission_required
 from datetime import datetime, timedelta
 from forms.forms import CommentForm, ReportForm
@@ -158,7 +158,7 @@ def customer_dashboard(request):
     }
     return render_to_response('customerDashboard.html', context, context_instance=RequestContext(request))
 
-
+# ACTUALIZAR EL CAMPO AVG RATING Y A PARTIR DE ESE ORDENAR SI SE PASA UNA PRODPIEDAD AUX
 @permission_required('bocatapp.customer', message='You are not a customer')
 def comment_new(request, pk):
     local = get_object_or_404(Local, pk=pk)
@@ -169,11 +169,19 @@ def comment_new(request, pk):
             comment.local = local
             comment.customer = request.user
             comment.save()
+            update_avg_rating(local.pk)
             return redirect('customer.views.comment_list', pk=local.pk)
     else:
         form = CommentForm()
 
     return render(request, 'comment_edit.html', {'form': form, "local": local})
+
+
+def update_avg_rating(local_id):
+    local = get_object_or_404(Local, pk=local_id)
+    aux = float(CommentService.get_stars(local.pk))
+    local.avg_rating = aux
+    local.save()
 
 @permission_required('bocatapp.customer', message='You are not a customer')
 def report_new(request, pk):
@@ -183,7 +191,6 @@ def report_new(request, pk):
         if form.is_valid():
             report = form.save(commit=False)
             report.comment = comment
-
             report.save()
             return redirect('seller.views.local_detail', pk=comment.local.pk)
     else:
