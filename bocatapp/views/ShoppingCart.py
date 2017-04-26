@@ -38,22 +38,34 @@ def update_cookie(request):
             customer = User.objects.filter(pk=request.user.id)
             shoppingCart = ShoppingCart.objects.filter(customer_id=request.user.id, checkout=False)
             actualShoppingCart = ShoppingCart.objects.filter(pk=idShoppingCart)
-            if not shoppingCart:
-                actualShoppingCart.update(customer=customer[0])
-            else:
-                productsShoppingCart = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingCart[0].id)
-                productsActualShoppingCart = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart)
-
-                if productsActualShoppingCart and productsActualShoppingCart.count() > 0:
-                    if int(idShoppingCart) != int(shoppingCart[0].pk):
-                        shoppingCart[0].delete()
-                        actualShoppingCart[0].update(customer=customer[0])
+            if not shoppingCart and not actualShoppingCart:
+                if request.user.is_authenticated():
+                    if request.user.has_perm('bocatapp.customer'):
+                        new_shoppingcart = ShoppingCart(
+                            customer=request.user,
+                            checkout=False)
                 else:
-                    if int(idShoppingCart) != int(shoppingCart[0].pk):
-                        if actualShoppingCart:
-                            actualShoppingCart[0].delete()
-                        
-                        idShoppingCart = shoppingCart[0].pk
+                    new_shoppingcart = ShoppingCart(
+                        checkout=False)
+                new_shoppingcart.save()
+                idShoppingCart = new_shoppingcart.pk
+            else:
+                if not shoppingCart:
+                    actualShoppingCart.update(customer=customer[0])
+                else:
+                    productsShoppingCart = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingCart[0].id)
+                    productsActualShoppingCart = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart)
+
+                    if productsActualShoppingCart and productsActualShoppingCart.count() > 0:
+                        if int(idShoppingCart) != int(shoppingCart[0].pk):
+                            shoppingCart[0].delete()
+                            actualShoppingCart[0].update(customer=customer[0])
+                    else:
+                        if int(idShoppingCart) != int(shoppingCart[0].pk):
+                            if actualShoppingCart:
+                                actualShoppingCart[0].delete()
+                            
+                            idShoppingCart = shoppingCart[0].pk
         else:
             actualShoppingCart = ShoppingCart.objects.filter(pk=idShoppingCart)
             actualShoppingCart.delete()
