@@ -10,6 +10,7 @@ from django.db.models import Sum, F, FloatField
 from django.contrib import messages
 from administration.forms.forms import CreditCardForm
 from django.core.urlresolvers import reverse
+from customer.services import CommentService
 from bocatapp.decorators import permission_required
 from datetime import datetime, timedelta, time
 from bocatapp.views import home
@@ -39,7 +40,6 @@ def orders_by_customer(request):
 @permission_required('bocatapp.customer', message='You are not a customer')
 def order_line_by_order(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
-
     if order.customer.pk == request.user.pk:
         try:
             orders_line = OrderService.find_order_line_by_order(order_id)
@@ -48,14 +48,6 @@ def order_line_by_order(request, order_id):
             return render_to_response('error.html', context_instance=RequestContext(request))
     else:
         return redirect("/")
-
-
-def do_order_line(request, id1):
-    order_line = get_object_or_404(OrderLine, pk=id1)
-    order_line.status = True
-    order_line.save()
-    OrderService.set_order_status(order_line.order_id)
-    return HttpResponseRedirect("/customer/ordersLine/" + str(order_line.order_id))
 
 
 # Busqueda de productos
@@ -166,7 +158,7 @@ def customer_dashboard(request):
     }
     return render_to_response('customerDashboard.html', context, context_instance=RequestContext(request))
 
-
+# ACTUALIZAR EL CAMPO AVG RATING Y A PARTIR DE ESE ORDENAR SI SE PASA UNA PRODPIEDAD AUX
 @permission_required('bocatapp.customer', message='You are not a customer')
 def comment_new(request, pk):
     local = get_object_or_404(Local, pk=pk)
@@ -176,13 +168,20 @@ def comment_new(request, pk):
             comment = form.save(commit=False)
             comment.local = local
             comment.customer = request.user
-
             comment.save()
-            return redirect('seller.views.local_detail', pk=local.pk)
+            update_avg_rating(local.pk)
+            return redirect('customer.views.comment_list', pk=local.pk)
     else:
         form = CommentForm()
 
-    return render(request, 'comment_edit.html', {'form': form})
+    return render(request, 'comment_edit.html', {'form': form, "local": local})
+
+
+def update_avg_rating(local_id):
+    local = get_object_or_404(Local, pk=local_id)
+    aux = float(CommentService.get_stars(local.pk))
+    local.avg_rating = aux
+    local.save()
 
 @permission_required('bocatapp.customer', message='You are not a customer')
 def report_new(request, pk):
@@ -192,20 +191,20 @@ def report_new(request, pk):
         if form.is_valid():
             report = form.save(commit=False)
             report.comment = comment
-
             report.save()
             return redirect('seller.views.local_detail', pk=comment.local.pk)
     else:
         form = ReportForm()
 
-    return render(request, 'comment_edit.html', {'form': form})
+    return render(request, 'report_edit.html', {'form': form})
 
 
 # Lista los comentarios de un local
 def comment_list(request, pk):
+    local = Local.objects.get(pk=pk)
     comentarios = Comment.objects.filter(local = pk, reported=0)
     return render_to_response('comment_list.html',
-                                {'comentarios': comentarios,'local':pk}, context_instance=RequestContext(request))
+                                {'comentarios': comentarios, 'local': local}, context_instance=RequestContext(request))
 
 # Lista los reportes de un comentario
 @permission_required('bocatapp.administrator', message='You are not an administrator')

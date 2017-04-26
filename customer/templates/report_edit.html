@@ -2,16 +2,16 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 {% bootstrap_messages %}
-{% block title %}Comentarios{% endblock %}
+{% block title %}Reportar{% endblock %}
 
 {% block content %}
     <div class="container">
         <h1>Nuevo Reporte</h1>
+        <hr/>
         <form method="POST" class="report-form">{% csrf_token %}
             {% bootstrap_form form %}
-            {{ form.as_p }}
             {% buttons %}
-                <button type="submit" class="save">Guardar</button>
+                <button type="submit" class="btn btn-danger">Enviar</button>
             {% endbuttons %}
 
         </form>

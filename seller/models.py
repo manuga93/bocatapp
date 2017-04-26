@@ -2,8 +2,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from bocatapp.models import User
 
-
 # Create your models here.
+
 
 class Local(models.Model):
     name = models.CharField(max_length=32)
@@ -14,6 +14,7 @@ class Local(models.Model):
     isActive = models.BooleanField(default=True)
     postalCode = models.PositiveIntegerField()
     seller = models.ForeignKey(User)
+    avg_rating = models.DecimalField(max_digits=3 , decimal_places=2, default=0.)
 
     def __unicode__(self):
         return self.name
