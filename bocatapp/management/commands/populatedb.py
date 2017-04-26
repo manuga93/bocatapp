@@ -100,27 +100,27 @@ class Command(BaseCommand):
 
         namnam = Local(name=u'ÑemÑem',
                        description='Establecimiento espacialista en bocatas de pollo empañado y en cañas de chocolate',
-                       address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794,
-                       photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', avg_rating=4.0 ,seller=seller1)
+                       address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794,postalCode="41012",
+                       photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1)
 
         namnam.save()
 
         ricorico = Local(name='Rica Rica', description='Tenemos las mejores ofertas para merendar!',
-                         address='Av. de la Reina Mercedes, 39, 41012 Sevilla', phone=622397165,
+                         address='Av. de la Reina Mercedes, 39, 41012 Sevilla', phone=622397165, postalCode="41012",
                          photo='https://s3-media1.fl.yelpcdn.com/bphoto/QKiTaoNVWDuM1i-4Z3IJxA/168s.jpg',
                          seller=seller1)
 
         ricorico.save()
 
         cienm = Local(name='1000 Montaditos', description='Los miercoles todo a 1€!',
-                      address=' Av. de la Reina Mercedes, 43, 41012 Sevilla', phone=902197494,
+                      address=' Av. de la Reina Mercedes, 43, 41012 Sevilla', phone=902197494,postalCode="41012",
                       photo='http://www.asesoresinmobiliariosbv.es/wp-content/uploads/2015/10/100-montaditos.jpg',
                       seller=seller2)
 
         cienm.save()
 
         frankyb = Local(name='Bocatería Frankys', description='¿Quieres un Bocata? Pues ven a comerte el mejor!',
-                      address=' Av. de la Reina Mercedes, 45, 41012 Sevilla', phone=902197494,
+                      address=' Av. de la Reina Mercedes, 45, 41012 Sevilla', phone=902197494, postalCode="41012",
                       photo='http://fotos.subefotos.com/7b9bc1c91b4ba708f179ee6d79d2ac6fo.jpg',
                       seller=seller3)
 

@@ -42,8 +42,11 @@ def category_list(request, pk):
 
 def product_list_category(request, pk):
     productos = get_list_or_404(Product, category=pk)
+    category = get_list_or_404(Category, pk=pk)[0]
+    local = get_list_or_404(Local, id=pk)[0]
+    categories = {category: productos}
     return render(request, 'menu.html',
-                  {'productos': productos})
+                  {'categories': categories, 'local': local})
 
 
 # Vista para la creacion de una nueva categoria
@@ -62,7 +65,7 @@ def category_new(request, pk):
         else:
             form = CategoryForm()
 
-        return render(request, 'category_edit.html', {'form': form})
+        return render(request, 'category_edit.html', {'form': form, 'local': local})
     else:
         return redirect('/')
 
@@ -233,13 +236,19 @@ def local_edit(request, pk):
 
 
 def search(request):
-    # TODO: This is not finished!
-    locals = Local.objects.all()
-    aux = request.GET.get('list_by')
-    if aux == u'1':
-        locals = Local.objects.all().order_by("avg_rating")
-    elif aux == u'0':
-        locals = Local.objects.all().order_by("-avg_rating")
+    input_search = request.GET.get("postcode")
+    if input_search and input_search.isdigit():
+        locals = Local.objects.all().filter(postalCode=input_search)
+        aux = request.GET.get('list_by')
+        if aux == u'1':
+            locals = Local.objects.all().order_by("avg_rating")
+        elif aux == u'0':
+            locals = Local.objects.all().order_by("-avg_rating")
+    elif not isinstance(input_search, int):
+        locals = []
+    else:
+        locals = Local.objects.all()
+
     return render(request, 'cp_search.html', {'locals': locals})
 
 
