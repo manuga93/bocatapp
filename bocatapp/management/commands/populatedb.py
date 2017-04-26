@@ -101,28 +101,29 @@ class Command(BaseCommand):
         namnam = Local(name=u'ÑemÑem',
                        description='Establecimiento espacialista en bocatas de pollo empañado y en cañas de chocolate',
                        address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794,postalCode="41012",
-                       photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1)
+                       photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1,
+                       avg_rating=4.00)
 
         namnam.save()
 
         ricorico = Local(name='Rica Rica', description='Tenemos las mejores ofertas para merendar!',
                          address='Av. de la Reina Mercedes, 39, 41012 Sevilla', phone=622397165, postalCode="41012",
                          photo='https://s3-media1.fl.yelpcdn.com/bphoto/QKiTaoNVWDuM1i-4Z3IJxA/168s.jpg',
-                         seller=seller1)
+                         seller=seller1, avg_rating=4.00)
 
         ricorico.save()
 
         cienm = Local(name='1000 Montaditos', description='Los miercoles todo a 1€!',
                       address=' Av. de la Reina Mercedes, 43, 41012 Sevilla', phone=902197494,postalCode="41012",
                       photo='http://www.asesoresinmobiliariosbv.es/wp-content/uploads/2015/10/100-montaditos.jpg',
-                      seller=seller2)
+                      seller=seller2, avg_rating=3.50)
 
         cienm.save()
 
         frankyb = Local(name='Bocatería Frankys', description='¿Quieres un Bocata? Pues ven a comerte el mejor!',
                       address=' Av. de la Reina Mercedes, 45, 41012 Sevilla', phone=902197494, postalCode="41012",
                       photo='http://fotos.subefotos.com/7b9bc1c91b4ba708f179ee6d79d2ac6fo.jpg',
-                      seller=seller3)
+                      seller=seller3, avg_rating=5)
 
         frankyb.save()
         print ('Locals...Ok!')
@@ -516,21 +517,76 @@ class Command(BaseCommand):
 
         print ('Populated...Ok!')
 
-        comment = Comment(
-            description='Este local es de los peores que he visto en mi vida',
-            rating='4',
-            local = namnam,
+        comment1 = Comment(
+            description='Todo rapido y perfecto',
+            rating='5',
+            local = frankyb,
             reported=0,
             customer=customer1)
 
-        comment.save()
+        comment1.save()
+
+        comment2 = Comment(
+            description='No esta mal, aunque mucha verdura y poco pollo',
+            rating='3',
+            local=namnam,
+            reported=0,
+            customer=customer2)
+
+        comment2.save()
+
+        comment3 = Comment(
+            description='Me encanta, el ñem-ñem no falla!',
+            rating='5',
+            local=namnam,
+            reported=0,
+            customer=customer1)
+
+        comment3.save()
+
+        comment4 = Comment(
+            description='Siempre entra una cerveza mas!',
+            rating='5',
+            local= cienm,
+            reported=0,
+            customer=customer1)
+
+        comment4.save()
+
+        comment5 = Comment(
+            description='Echamos de menos los miercoles la cerveza a un euro!',
+            rating='2',
+            local=cienm,
+            reported=0,
+            customer=customer2)
+
+        comment5.save()
+
+        comment6 = Comment(
+            description='Los mejores bocapizzas de RM, un saludito pa el Dani!',
+            rating='5',
+            local=frankyb,
+            reported=0,
+            customer=customer2)
+
+        comment6.save()
+
+        comment7 = Comment(
+            description='Rica Rica siempre en nuestros corazones, pero con la caña+batido 0,80 molabais mas que con los papelitos',
+            rating='4',
+            local=ricorico,
+            reported=0,
+            customer=customer2)
+
+        comment7.save()
+
         print('comments created...Ok')
 
         report1 = Report(
             reason='Este comentario no tiene fundamento',
             accepted=0,
             decline=0,
-            comment=comment)
+            comment=comment1)
 
         report1.save()
 
