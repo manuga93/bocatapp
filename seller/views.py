@@ -233,13 +233,19 @@ def local_edit(request, pk):
 
 
 def search(request):
-    # TODO: This is not finished!
-    locals = Local.objects.all()
-    aux = request.GET.get('list_by')
-    if aux == u'1':
-        locals = Local.objects.all().order_by("avg_rating")
-    elif aux == u'0':
-        locals = Local.objects.all().order_by("-avg_rating")
+    input_search = request.GET.get("postcode")
+    if input_search and input_search.isdigit():
+        locals = Local.objects.all().filter(postalCode=input_search)
+        aux = request.GET.get('list_by')
+        if aux == u'1':
+            locals = Local.objects.all().order_by("avg_rating")
+        elif aux == u'0':
+            locals = Local.objects.all().order_by("-avg_rating")
+    elif not isinstance(input_search, int):
+        locals = []
+    else:
+        locals = Local.objects.all()
+
     return render(request, 'cp_search.html', {'locals': locals})
 
 
