@@ -193,17 +193,11 @@
             </tbody>
         </table>
       </div>
-      <script>
-        // Datepicker
-        $('.dateinput').datepicker({
-            format: "dd/mm/yyyy"
-        });
-      </script>
       <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="form-group">
                     <label for="dateCheckout">Fecha de Recogida</label>
-                    <div class="input-group date" data-provide="datepicker">
+                    <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
                         <input type="text" name="dateCheckout" class="form-control dateinput" data-date-format="dd/mm/yyyy" value="{{ datetime|date:"d/m/Y" }}" required>
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
