@@ -33,8 +33,13 @@ def all_orders(request):
 
 @permission_required('bocatapp.customer', message='You are not a customer')
 def orders_by_customer(request):
-        orders = Order.objects.filter(customer=request.user.pk)
-        return render_to_response('orders.html', {'orders': orders}, context_instance=RequestContext(request))
+        # Pending orders
+        orders_not_do = request.user.order_set.all().filter(status=False)
+        orders_pending = {o: o.orderline_set.all() for o in orders_not_do}
+        # Done orders
+        orders_do = request.user.order_set.all().filter(status=True)
+        orders_done = {o: o.orderline_set.all() for o in orders_do}
+        return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done})
 
 
 @permission_required('bocatapp.customer', message='You are not a customer')

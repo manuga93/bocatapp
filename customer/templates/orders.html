@@ -39,13 +39,14 @@
             {% endfor %}
         </div>
             <br/>
-            <div class="col-xs-3" style="float: left"><a class="btn btn-success" href="{% url "local_do_order" pk=k.id %}"
-                                                         id="doOrder">
-                <i class="fa fa-check fa-lg"></i>
-                Marcar como hecho
-            </a>
-            </div>
-
+            {% if not perms.bocatapp.customer %}
+                <div class="col-xs-3" style="float: left"><a class="btn btn-success" href="{% url "local_do_order" pk=k.id %}"
+                                                             id="doOrder">
+                    <i class="fa fa-check fa-lg"></i>
+                    Marcar como hecho
+                </a>
+                </div>
+            {% endif %}
         {% endfor %}
     {% else %}
         <h3>No hay pedidos pendientes =)</h3>
