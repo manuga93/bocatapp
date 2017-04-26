@@ -19,6 +19,7 @@ class LocalForm(forms.ModelForm):
 
 class CategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
+
         super(CategoryForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Nombre"
         self.fields['description'].label = "Descripcion"

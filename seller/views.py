@@ -59,7 +59,7 @@ def category_new(request, pk):
         else:
             form = CategoryForm()
 
-        return render(request, 'category_edit.html', {'form': form})
+        return render(request, 'category_edit.html', {'form': form, 'local': local})
     else:
         return redirect('/')
 

@@ -120,7 +120,7 @@ class Command(BaseCommand):
         cienm.save()
 
         frankyb = Local(name='Bocatería Frankys', description='¿Quieres un Bocata? Pues ven a comerte el mejor!',
-                      address=' Av. de la Reina Mercedes, 45, 41012 Sevilla', phone=902197494,
+                      address=' Av. de la Reina Mercedes, 45, 41012 Sevilla', phone=902197494, postalCode="41012",
                       photo='http://fotos.subefotos.com/7b9bc1c91b4ba708f179ee6d79d2ac6fo.jpg',
                       seller=seller3)
 
