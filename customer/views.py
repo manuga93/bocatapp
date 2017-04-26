@@ -7,13 +7,16 @@ from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine, Co
 from seller.models import Product, Local, Category
 from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
+from django.contrib import messages
 from administration.forms.forms import CreditCardForm
 from django.core.urlresolvers import reverse
-
+from customer.services import CommentService
 from bocatapp.decorators import permission_required
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
+from bocatapp.views import home
 from forms.forms import CommentForm, ReportForm
 import itertools
+import re
 
 # Create your views here.
 
@@ -105,36 +108,42 @@ def do_checkout(request):
 
         # Get shopping cart
         shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id, checkout=False)
-        print(shoppingcart)
-        ShoppingCart.objects.filter(customer_id=current_user.id, checkout=False).update(checkout=True)
         shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
         local = shoppingcart_lines[0].product.local
         date = request.POST.get('dateCheckout', '')
         hour = request.POST.get('hourCheckout', '')
-        if date and '/' in date:
+        matchDate = re.match('(\d{2})[/.-](\d{2})[/.-](\d{4})$', date)
+        matchHour = re.match('([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$', hour)
+
+        if matchDate is not None and matchHour is not None:
+            if date and '/' in date:
                 dd = date.split('/')[0]
                 mm = date.split('/')[1]
                 aaaa = date.split('/')[2]
+                # saving order
+                new_order = Order(
+                    totalPrice=shoppingcart.total_price,
+                    moment=time(),
+                    local=local,
+                    comment="Añada su comentario aquí",
+                    customer=current_user,
+                    creditCard=creditcard,
+                    pickupMoment=datetime(year=int(aaaa),month=int(mm),day=int(dd)),
+                    hour=str(hour))
+                new_order.save()
+                # loop shoppingcart_lines
+                for line in shoppingcart_lines:
+                    new_order.orderline_set.create(
+                        quantity=line.quantity,
+                        name=line.product.name,
+                        price=line.product.price
+                    )
 
-        # saving order
-        new_order = Order(
-            totalPrice=shoppingcart.total_price,
-            moment=datetime.time(),
-            local=local,
-            comment="Añada su comentario aquí",
-            customer=current_user,
-            creditCard=creditcard,
-            pickupMoment=datetime.datetime(year=int(aaaa),month=int(mm),day=int(dd)),
-            hour=str(hour))
-        new_order.save()
-        # loop shoppingcart_lines
-        for line in shoppingcart_lines:
-            new_order.orderline_set.create(
-                quantity=line.quantity,
-                name=line.product.name,
-                price=line.product.price
-            )
-        return render(request, 'thanks.html', {})
+                ShoppingCart.objects.filter(customer_id=current_user.id, checkout=False).update(checkout=True)
+            return render(request, 'thanks.html', {})
+        else:
+            messages.error(request, 'La fecha o la hora no son correctas')
+            return redirect('customer.views.checkout')
     return redirect(home.home)
 
 
@@ -149,7 +158,7 @@ def customer_dashboard(request):
     }
     return render_to_response('customerDashboard.html', context, context_instance=RequestContext(request))
 
-
+# ACTUALIZAR EL CAMPO AVG RATING Y A PARTIR DE ESE ORDENAR SI SE PASA UNA PRODPIEDAD AUX
 @permission_required('bocatapp.customer', message='You are not a customer')
 def comment_new(request, pk):
     local = get_object_or_404(Local, pk=pk)
@@ -159,13 +168,20 @@ def comment_new(request, pk):
             comment = form.save(commit=False)
             comment.local = local
             comment.customer = request.user
-
             comment.save()
-            return redirect('seller.views.local_detail', pk=local.pk)
+            update_avg_rating(local.pk)
+            return redirect('customer.views.comment_list', pk=local.pk)
     else:
         form = CommentForm()
 
-    return render(request, 'comment_edit.html', {'form': form})
+    return render(request, 'comment_edit.html', {'form': form, "local": local})
+
+
+def update_avg_rating(local_id):
+    local = get_object_or_404(Local, pk=local_id)
+    aux = float(CommentService.get_stars(local.pk))
+    local.avg_rating = aux
+    local.save()
 
 @permission_required('bocatapp.customer', message='You are not a customer')
 def report_new(request, pk):
@@ -175,20 +191,20 @@ def report_new(request, pk):
         if form.is_valid():
             report = form.save(commit=False)
             report.comment = comment
-
             report.save()
             return redirect('seller.views.local_detail', pk=comment.local.pk)
     else:
         form = ReportForm()
 
-    return render(request, 'comment_edit.html', {'form': form})
+    return render(request, 'report_edit.html', {'form': form})
 
 
 # Lista los comentarios de un local
 def comment_list(request, pk):
+    local = Local.objects.get(pk=pk)
     comentarios = Comment.objects.filter(local = pk, reported=0)
     return render_to_response('comment_list.html',
-                                {'comentarios': comentarios,'local':pk}, context_instance=RequestContext(request))
+                                {'comentarios': comentarios, 'local': local}, context_instance=RequestContext(request))
 
 # Lista los reportes de un comentario
 @permission_required('bocatapp.administrator', message='You are not an administrator')

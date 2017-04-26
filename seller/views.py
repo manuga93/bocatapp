@@ -127,13 +127,11 @@ def get_my_locals(request):
 # Vista para el lisstado de locales
 def local_list(request):
     locals = Local.objects.all()
-    ratings = []
-    for local in locals:
-        ratings.append(CommentService.get_stars(local.pk))
-
-    ratings.reverse()
-
-    return render(request, 'local_list.html', {'locals': locals, 'ratings': ratings})
+    if request.GET.get('list_by') == 0:
+        locals = Local.objects.all().order_by("avg_rating")
+    if request.GET.get("list_by") == 1:
+        locals = Local.objects.all().order_by("-avg_rating")
+    return render(request, 'local_list.html', {'locals': locals})
 
 
 # Vista para las orders de un local
@@ -237,13 +235,12 @@ def local_edit(request, pk):
 def search(request):
     # TODO: This is not finished!
     locals = Local.objects.all()
-    ratings = []
-    for local in locals:
-        ratings.append(CommentService.get_stars(local.pk))
-
-    ratings.reverse()
-
-    return render(request, 'cp_search.html', {'locals': locals, 'ratings': ratings})
+    aux = request.GET.get('list_by')
+    if aux == u'1':
+        locals = Local.objects.all().order_by("avg_rating")
+    elif aux == u'0':
+        locals = Local.objects.all().order_by("-avg_rating")
+    return render(request, 'cp_search.html', {'locals': locals})
 
 
 # Packs--------------------------------------------------------------------------

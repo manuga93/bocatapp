@@ -101,7 +101,7 @@ class Command(BaseCommand):
         namnam = Local(name=u'ÑemÑem',
                        description='Establecimiento espacialista en bocatas de pollo empañado y en cañas de chocolate',
                        address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794,
-                       photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1)
+                       photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', avg_rating=4.0 ,seller=seller1)
 
         namnam.save()
 

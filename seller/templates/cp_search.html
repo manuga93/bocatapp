@@ -20,24 +20,18 @@
     <div class="row">
       <div class="col-md-3 search-filter" id="sidebar">
           <div class="col-md-12 well white">
-            <form action="" method="GET" >
+            <form action="{% url "search" %}" method="GET" >
               <h4>Ordenar por</h4>
               <div class="radio">
                 <label>
                   <input type="radio" name="list_by" onchange="this.form.submit();" value="0" {%if request.GET.list_by == '0'%}checked{%endif%}>
-                  Mejor puntuación
+                  Mejor puntuación media
                 </label>
               </div>
               <div class="radio">
                 <label>
                   <input type="radio" name="list_by" onchange="this.form.submit();" value="1" {%if request.GET.list_by == '1'%}checked{%endif%}>
                   Nuevo
-                </label>
-              </div>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="list_by" onchange="this.form.submit();" value="2" {%if request.GET.list_by == '2'%}checked{%endif%}>
-                  Puntuación media
                 </label>
               </div>
               <hr />
@@ -90,9 +84,7 @@
                                   <img height="100px" width="100px"  class="img-circle center-block" alt="foto de perfil" src="{% static "images/No_image_available.png" %}" alt="Profile image">
                               {%endif%}
                               <p class="stars">
-
-                                      {{ratings.pop}}/5
-
+                                      {{ local.avg_rating }}/5
                                   <i class="fa fa-star" aria-hidden="true"></i>
                               </p>
                           </div>

@@ -1,95 +1,96 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}{{local.name}} - Carta {%endblock%}
+{% block title %}{{ local.name }} - Carta {% endblock %}
 {% block content %}
-<div class="container">
-   <h2>Carta de {{local.name}}</h2>
-   <br/>
-    <form id="search_form" method="GET" action="{% url 'search_product' local_id=local.id %}">
-    <div class="input-group stylish-input-group" >
-      <input name="search_input" type="text" class="form-control"  placeholder="Buscar">
-      <span class="input-group-addon">
+    <div class="container">
+        <h2>Carta de {{ local.name }}</h2>
+        <br/>
+        <form id="search_form" method="GET" action="{% url 'search_product' local_id=local.id %}">
+            <div class="input-group stylish-input-group">
+                <input name="search_input" type="text" class="form-control" placeholder="Buscar">
+                <span class="input-group-addon">
       <button id="search_button" type="submit">
       <span class="glyphicon glyphicon-search"></span>
       </button>
       </span>
+            </div>
+        </form>
+
+        <br/>
+        {% for k,v in categories.items %}
+            <button class="accordion">{{ k.name }} <i class="fa fa-chevron-down"></i></button>
+            <div class="carta">
+                <div class="row" style="padding-bottom: 1em">
+                    <div class="col-xs-3">
+                        <h4><b style="font-size: 0.85em;"><u>Nombre</u></b></h4>
+                    </div>
+                    <div class="col-xs-3">
+                        <h4><b style="font-size: 0.85em;"><u>Ingrs.</u></b></h4>
+                    </div>
+                    <div class="col-xs-3">
+                        <h4><b style="font-size: 0.85em;"><u>Precio</u></b></h4>
+                    </div>
+                    {% if perms.bocatapp.customer or user.is_anonymous %}
+                        <div class="col-xs-3">
+                            <h4><b style="font-size: 0.85em;"><u>Añadir</u></b></h4>
+                        </div>
+                    {% endif %}
+                </div>
+                {% for p in v %}
+                    <div class="row" style="padding-bottom: 1em">
+                        <div class="col-xs-3">{{ p.name }}</div>
+                        <div class="col-xs-3">
+                            <p style="font-size: 0.85em;">{{ p.ingredients }}</p>
+                        </div>
+                        <div class="col-xs-3">{{ p.price }} €</div>
+                        {% if perms.bocatapp.customer or user.is_anonymous %}
+                            <div class="col-xs-3">
+                                <input type="hidden" value="{{ p.id }}" id="productId"/>
+                                <input type="number" value="1" id="quantity" min="1" max="10"/>
+                                <a class="btn btn-success" href="#" id="addsc">
+                                    <i class="fa fa-cart-plus fa-lg"></i> Añadir
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <hr/>
+                {% endfor %}
+            </div>
+        {% endfor %}
     </div>
-    </form>
-
-   <br/>
-   {% for k,v in categories.items %}
-   <button class="accordion">{{ k.name }} <i class="fa fa-chevron-down"></i></button>
-   <div class="carta">
-      <div class="row" style="padding-bottom: 1em">
-         <div class="col-xs-3">
-            <h4><b style="font-size: 0.85em;"><u>Nombre</u></b></h4>
-         </div>
-         <div class="col-xs-3">
-            <h4><b style="font-size: 0.85em;"><u>Ingrs.</u></b></h4>
-         </div>
-         <div class="col-xs-3">
-            <h4><b style="font-size: 0.85em;"><u>Precio</u></b></h4>
-         </div>
-         {% if perms.bocatapp.customer or user.is_anonymous %}
-         <div class="col-xs-3">
-            <h4><b style="font-size: 0.85em;"><u>Añadir</u></b></h4>
-         </div>
-         {% endif %}
-      </div>
-      {% for p in v %}
-      <div class="row" style="padding-bottom: 1em">
-         <div class="col-xs-3">{{ p.name }}</div>
-         <div class="col-xs-3">
-            <p style="font-size: 0.85em;">{{ p.ingredients }}</p>
-         </div>
-         <div class="col-xs-3">{{ p.price }} €</div>
-         {% if perms.bocatapp.customer or user.is_anonymous %}
-         <div class="col-xs-3">
-            <input type="hidden" value="{{p.id}}" id="productId" />
-            <input type="number" value="1" id="quantity" min="1" max="10"/>
-            <a class="btn btn-success" href="#" id="addsc">
-            <i class="fa fa-cart-plus fa-lg"></i> Añadir
-            </a>
-         </div>
-         {% endif %}
-      </div>
-      <hr/>
-      {% endfor %}
-   </div>
-   {% endfor %}
-</div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="alert alert-danger">
-        No se pueden agregar productos de distintos locales. 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-     </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="alert alert-danger">
+                No se pueden agregar productos de distintos locales.
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
     </div>
-  </div>
-<script>
-   var acc = document.getElementsByClassName("accordion");
-   var i;
-   
-   for (i = 0; i < acc.length; i++) {
-     acc[i].onclick = function() {
-       this.classList.toggle("active");
-       var panel = this.nextElementSibling;
-       if (panel.style.maxHeight){
-         panel.style.maxHeight = null;
-       } else {
-         panel.style.maxHeight = panel.scrollHeight + "px";
-       }
-     }
-   }
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            }
+        }
 
 
-</script>
-{%endblock%}
+    </script>
+{% endblock %}
 
 {% block scripts %}
-    {{block.super}}
+    {{ block.super }}
     <script type="text/javascript">
-        $('.carta').on( 'click', '#addsc', function () {
+        $('.carta').on('click', '#addsc', function () {
             var td = $(this).parent('.col-xs-3');
             var quantity = td.children('input#quantity').val();
             var id = td.children('input#productId').val();
@@ -98,20 +99,20 @@
             $.ajax({
                 url: '{% url "add_product_cart" %}',
                 data: {
-                    'idCart': cartId, 
+                    'idCart': cartId,
                     'idProduct': id,
                     'quantity': quantity
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data.add != 'ok'){
+                    if (data.add != 'ok') {
                         $('#myModal').modal('show');
-                    } else{
-                        
+                    } else {
+
                     }
                     UpdateBadge();
                 }
             });
-        } );
+        });
     </script>
 {% endblock %}
