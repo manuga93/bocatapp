@@ -8,6 +8,7 @@ import itertools
 
 from seller.forms.packsForms import PackForm
 from seller.models import Product, Local, Category, Pack, ProductLine
+from customer.models import Order, OrderLine
 from django.shortcuts import get_list_or_404, render_to_response, render, redirect, get_object_or_404
 
 from forms.forms import LocalForm, CategoryForm, ProductForm
@@ -16,6 +17,7 @@ from forms.forms import LocalForm
 from bocatapp.decorators import permission_required
 from customer.models import Order
 from customer.services import CommentService
+
 
 # Create your views here.
 
@@ -41,7 +43,8 @@ def category_list(request, pk):
 def product_list_category(request, pk):
     productos = get_list_or_404(Product, category=pk)
     return render(request, 'menu.html',
-                    {'productos': productos})
+                  {'productos': productos})
+
 
 # Vista para la creacion de una nueva categoria
 @permission_required('bocatapp.seller', message='You are not a seller')
@@ -118,7 +121,7 @@ def get_my_locals(request):
     ratings.reverse()
 
     return render(request, 'local_list.html',
-                  {'locals': locals,'ratings': ratings})
+                  {'locals': locals, 'ratings': ratings})
 
 
 # Vista para el lisstado de locales
@@ -130,19 +133,30 @@ def local_list(request):
 
     ratings.reverse()
 
-    return render(request, 'local_list.html', {'locals': locals,'ratings': ratings})
+    return render(request, 'local_list.html', {'locals': locals, 'ratings': ratings})
 
 
 # Vista para las orders de un local
 @permission_required('bocatapp.seller', message='You are not a seller')
 def local_orders(request, pk):
     local = get_object_or_404(Local, pk=pk)
-
     if local.seller.pk == request.user.pk:
-        orders = get_list_or_404(Order, local=local.pk)
-        return render(request, 'orders.html', {'orders': orders})
+        # Pending orders
+        orders_not_do = local.order_set.all().filter(status=False)
+        orders_pending = {o: o.orderline_set.all() for o in orders_not_do}
+        # Done orders
+        orders_do = local.order_set.all().filter(status=True)
+        orders_done = {o: o.orderline_set.all() for o in orders_do}
+        return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done})
     else:
         return redirect("/")
+
+@permission_required('bocatapp.seller', message='You are not a seller')
+def do_order(request, pk):
+    order = Order.objects.get(id=pk)
+    order.status = True
+    order.save()
+    return redirect('local_orders', pk=order.local_id)
 
 
 # Vista para la creacion de un nuevo local
@@ -185,21 +199,22 @@ def local_charts(request, pk):
         done_orders = sum([1 for order in orders if order.status is True])
         pending_orders = len(orders) - done_orders
         # Last week
-        label_dates = [(datetime.now()-timedelta(days=counter)).strftime('%d/%m') for counter in range(7)][::-1]
-        orders = Order.objects.filter(moment__gte=datetime.now()-timedelta(days=7))
+        label_dates = [(datetime.now() - timedelta(days=counter)).strftime('%d/%m') for counter in range(7)][::-1]
+        orders = Order.objects.filter(moment__gte=datetime.now() - timedelta(days=7))
         grouped = itertools.groupby(orders, lambda record: record.moment.strftime("%d/%m"))
         orders_by_day = {day: len(list(jobs_this_day)) for day, jobs_this_day in grouped}
-        #orders_by_day_result = [(date, orders_by_day.get(date, 0)) for date in label_dates]
+        # orders_by_day_result = [(date, orders_by_day.get(date, 0)) for date in label_dates]
         orders_by_day_result = [orders_by_day.get(date, 0) for date in label_dates]
 
         return render(request, 'local_charts.html',
-            {'local': local, 'orders': orders,
-             'pending_orders': pending_orders,
-             'done_orders': done_orders,
-             'label_dates': label_dates,
-             'orders_by_day': orders_by_day_result})
+                      {'local': local, 'orders': orders,
+                       'pending_orders': pending_orders,
+                       'done_orders': done_orders,
+                       'label_dates': label_dates,
+                       'orders_by_day': orders_by_day_result})
     else:
         return redirect("/")
+
 
 # Vista para la creacion de un local
 @permission_required('bocatapp.seller', message='You are not a seller')
@@ -228,7 +243,7 @@ def search(request):
 
     ratings.reverse()
 
-    return render(request, 'cp_search.html', {'locals': locals,'ratings': ratings})
+    return render(request, 'cp_search.html', {'locals': locals, 'ratings': ratings})
 
 
 # Packs--------------------------------------------------------------------------

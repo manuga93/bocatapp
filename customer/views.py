@@ -47,14 +47,6 @@ def order_line_by_order(request, order_id):
         return redirect("/")
 
 
-def do_order(request, id1):
-    #Obtenemos la order a raiz de su id
-    order = get_object_or_404(Order, pk=id1)
-    #Cambiamos el estado de la misma usando el metodo
-    OrderService.set_order_status(order.order_id)
-    return HttpResponseRedirect("/customer/orders/")
-
-
 # Busqueda de productos
 def search_product(request, local_id):
     #Input de busqueda
