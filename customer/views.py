@@ -11,7 +11,7 @@ from administration.forms.forms import CreditCardForm
 from django.core.urlresolvers import reverse
 
 from bocatapp.decorators import permission_required
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 from forms.forms import CommentForm, ReportForm
 import itertools
 
@@ -128,12 +128,12 @@ def do_checkout(request):
         # saving order
         new_order = Order(
             totalPrice=shoppingcart.total_price,
-            moment=datetime.time(),
+            moment=time(),
             local=local,
             comment="Añada su comentario aquí",
             customer=current_user,
             creditCard=creditcard,
-            pickupMoment=datetime.datetime(year=int(aaaa),month=int(mm),day=int(dd)),
+            pickupMoment=datetime(year=int(aaaa),month=int(mm),day=int(dd)),
             hour=str(hour))
         new_order.save()
         # loop shoppingcart_lines
