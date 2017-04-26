@@ -33,8 +33,8 @@
       </div>
       <hr/>
       {% endfor %}
-    <h3>Total: <span id="totalCart">{{ shoppingcart.total_price }}</span> € <a id="checkoutSC" class="btn btn-success" href="{% url 'checkout' %}"><span
-            class="glyphicon glyphicon-ok"></span> Terminar y pagar</a></h3>
+    <h3>Total: <span id="totalCart">{{ shoppingcart.total_price }}</span> € {% if shoppingcart.total_price != 0 %}<a id="checkoutSC" class="btn btn-success" href="{% url 'checkout' %}"><span
+            class="glyphicon glyphicon-ok"></span> Terminar y pagar</a>{% endif %}</h3>
     <button class="btn btn-default" onclick=" window.history.back();"><span
             class="glyphicon glyphicon-arrow-left"></span> Atrás</button>
 </div>

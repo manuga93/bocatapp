@@ -29,12 +29,10 @@ def create_shopping_cart(request):
         data = {
             'ShoppingCart': 0
         }
-    
     return JsonResponse(data)
 
 def update_cookie(request):
     idShoppingCart = request.GET.get('idCart',None)
-
     if request.user.is_authenticated():
         if request.user.has_perm('bocatapp.customer'):
             customer = User.objects.filter(pk=request.user.id)

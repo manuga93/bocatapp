@@ -194,6 +194,15 @@
         </table>
       </div>
       <div class="row">
+            {% if messages %}
+                <div class="row">
+                {% for message in messages %}
+                    <div class="alert alert-danger">
+                        {{ message|safe }}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
             <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="form-group">
                     <label for="dateCheckout">Fecha de Recogida</label>

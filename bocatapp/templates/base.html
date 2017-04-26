@@ -90,11 +90,12 @@
                 },
             }
         } );
-    }, comprobeCookieCart(), changeShoppingCart(), updateCookie() );
+    }, comprobeCookieCart(), changeShoppingCart(), UpdateBadge());
 
 
     function comprobeCookieCart() {
-        if (document.cookie.indexOf("cookieCart=") >= 0) {
+        var idCart = getIdCart();
+        if (idCart != undefined) {
             //$.removeCookie('cookieCart', { path: '/' });
             //alert("cookie borrada");
             //alert(getIdCart());
@@ -104,13 +105,14 @@
                 url: '{% url "create_shoppingcart" %}',
                 dataType: 'json',
                 success: function (data) {
-                    $.cookie('cookieCart', data.ShoppingCart, { expires: 2, path: '/' });
+                    createCookieCart(data.ShoppingCart);
+                },
+                complete: function(){
+                    updateCookie();
                 }
             });
             
         }
-        updateCookie();
-        UpdateBadge();
     }
 
     function updateCookie(){
@@ -122,16 +124,27 @@
             dataType: 'json',
             success: function (data) {
                 if(data.cookie != idCart){
-                    $.removeCookie('cookieCart', { path: '/' });
+                    removeCookieCart();
                     if(data.cookie != "None"){
-                        $.cookie('cookieCart', data.cookie, { expires: 2, path: '/' });
-                        UpdateBadge();
+                        createCookieCart(data.cookie);
                     }
                 }
+            },
+            complete: function(){
+                UpdateBadge();
+                changeShoppingCart();
             }
         });
 
         
+    }
+
+    function createCookieCart(id){
+         $.cookie('cookieCart', id, { expires: 2, path: '/' });
+    }
+
+    function removeCookieCart(){
+        $.removeCookie('cookieCart', { path: '/' });
     }
 
     function UpdateBadge() {
