@@ -116,3 +116,11 @@ ENV/
 
 # End of https://www.gitignore.io/api/linux,django,python
 
+
+# Migrations
+
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+
+.idea/

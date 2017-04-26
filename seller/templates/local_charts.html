@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% bootstrap_messages %}
+{% block title %}Estadisticas de {{local.name}}{%endblock%}
+
+{% block content %}
+<div class="container">
+  <h1>Estadísticas de {{local.name}}</h1>
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Pedidos última semana</h2>
+      <canvas id="barChart"></canvas>
+    </div>
+    <div class="col-md-4">
+      <h2>Estado actual</h2>
+      <canvas id="doughnut"></canvas>
+    </div>
+  </div>
+</div>
+{%endblock%}
+
+{% block scripts %}
+  {{ block.super }}
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+  <script>
+    $( document ).ready(function() {
+      var ctx = document.getElementById("doughnut");
+      var data = {
+          labels: [
+              "Preparados",
+              "Pendientes"
+          ],
+          datasets: [
+          {
+              data: [{{done_orders}}, {{pending_orders}}],
+              backgroundColor: [
+                  "#1E90FF",
+                  "#FF0000"
+
+              ],
+              hoverBackgroundColor: [
+                  "#1E90FF",
+                  "#FF0000"
+              ]
+          }]
+      };
+      var myDoughnutChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: data
+      });
+      var ctx = document.getElementById("barChart").getContext("2d");
+      var barChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          {% autoescape off %}
+          labels: {{label_dates}},
+          {% endautoescape %}
+          datasets: [{
+            label: 'Pedidos',
+            data: {{orders_by_day}},
+            backgroundColor: "#1E90FF"
+          }]
+        }});
+    });
+  </script>
+{%endblock%}

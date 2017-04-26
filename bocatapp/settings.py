@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -37,6 +35,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bocatapp',
+    'administration',
+    'customer',
+    'seller',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,11 +54,17 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'bocatapp.urls'
+AUTH_USER_MODEL = 'bocatapp.User'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'bocatapp', 'templates'),
+            os.path.join(BASE_DIR, 'administration', 'templates'),
+            os.path.join(BASE_DIR, 'customer', 'templates'),
+            os.path.join(BASE_DIR, 'seller', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,20 +79,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bocatapp.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bocatappdb',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'USER': 'bocatapp-user',
+        'PASSWORD': 'W01wG*F5712&',
+        'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
     }
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -98,8 +105,22 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+STATIC_ROOT = "/var/www/bocatapp.com/static/"
+
+
+# Deployment
+# STATIC_ROOT = '/var/www/bocatapp.com/static'
+
+# User files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+LOGIN_URL = '/login/'

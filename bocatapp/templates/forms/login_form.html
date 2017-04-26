@@ -1,0 +1,24 @@
+{% if next %}
+<form  class="form" role="form" action="/login/?next={{next}}" method="post" accept-charset="UTF-8" id="login-nav">
+{%else%}
+<form  class="form" role="form" action="/login/?next=/" method="post" accept-charset="UTF-8" id="login-nav">
+{% endif %}
+        {% csrf_token %}
+        <div class="form-group">
+             <label class="sr-only" for="email">Username</label>
+             <input type="text" class="form-control" name="username" id="username" placeholder="Usuario" required>
+        </div>
+        <div class="form-group">
+             <label class="sr-only" for="password">Contraseña</label>
+             <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
+             <div class="help-block text-right"><a href="">¿Olvidó su contraseña?</a></div>
+        </div>
+        <div class="form-group">
+             <button type="submit" class="button btn-login btn-block">Iniciar sesión</button>
+        </div>
+        <div class="checkbox">
+             <label>
+             <input type="checkbox"> Recordar contraseña
+             </label>
+        </div>
+ </form>

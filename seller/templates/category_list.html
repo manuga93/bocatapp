@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Categorias{%endblock%}
+
+{% block content %}
+    <h1>Categorias</h1>
+
+    {%for category in categories%}
+
+        <div>
+            <h3>{{category.name }}</h3>
+        </div>
+        <div>
+            <button class ='btn-primary' onclick="window.location.href='/seller/product/list/{{ category.id }}/'" > Ver productos </button>
+            {% if perms.bocatapp.seller %}
+                <button class ='btn-primary' onclick="window.location.href='/seller/category/edit/{{ category.id }}/'" > Editar </button>
+            {% endif %}
+        </div>
+
+    {% endfor %}
+    <!--
+                </tbody>
+            </table>
+            </div>
+-->
+{%endblock%}
+

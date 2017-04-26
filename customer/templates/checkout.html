@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load multiply %}
+{% load show_last_4 %}
+{% block title %} Método de pago - Bocatapp.com {% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>Mi pedido</h2>
+  <div class="row">
+    <div class="col-md-8">
+        <!-- CREDIT CARD FORM STARTS HERE -->
+        <div class="panel panel-default credit-card-box">
+            <div class="panel-heading" >
+              <h3 class="panel-title" > Método de pago</h3>
+            </div>
+            <div class="panel-body">
+
+              {% if form.errors %}
+              <div class="alert alert-danger">
+              	<p>La operación no se ha podido realizar debido a que uno o más errores han ocurrido.<br />Por favor, reenvie el formulario después de hacer los siguientes cambios:</p>
+              	<!-- <ul>
+              	{% for field in form %}
+              	<li>{{ field.errors|striptags }}</li>
+              	{% endfor %}
+              	</ul> -->
+              </div>
+              {% endif %}
+
+                <form role="form" id="payment-form" method="POST" action="{% url 'do_checkout' %}">
+                    {% csrf_token %}
+
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <h3>Pagar con:</h3>
+                        <ul class="list-group">
+                          {%for creditcard in creditcards%}
+                            <div class="radio list-group-item">
+                              <label><input type="radio" name="creditcard" value="{{creditcard.id}}">{% show_last_4 creditcard.number%}</label>
+                            </div>
+                          {%endfor%}
+                          <div class="radio list-group-item">
+                            <label><input type="radio" name="creditcard" value="new" checked="true">Nueva tarjeta de crédito</label>
+                          </div>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div id="creditcard-new">
+                      <div class="row">
+                          <div class="col-xs-12">
+                              <div class="form-group">
+                                  <label for="holdername">Nombre</label>
+                                  <input
+                                      type="text"
+                                      class="form-control"
+                                      name="holderName"
+                                      placeholder="Titular de la tarjeta"
+                                      required
+                                  />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-12">
+                              <div class="form-group">
+                                  <label for="number">Numero de tarjeta</label>
+                                  <div class="input-group">
+                                      <input
+                                          type="tel"
+                                          class="form-control"
+                                          name="number"
+                                          placeholder="Número de tarjeta válido"
+                                          autocomplete="cc-number"
+                                          required
+                                      />
+                                      <span class="input-group-addon"><i class="fa fa-credit-c
+
+                                          ard"></i></span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-7 col-md-7">
+                              <div class="form-group">
+                                  <label for="cardExpiry"><span class="hidden-xs">Fecha de caducidad</span><span class="visible-xs-inline">EXP</span></label>
+                                  <input
+                                      type="tel"
+                                      class="form-control"
+                                      name="cardExpiry"
+                                      placeholder="MM / YY"
+                                      autocomplete="cc-exp"
+                                      required
+                                  />
+                              </div>
+                          </div>
+                          <div class="col-xs-5 col-md-5 pull-right">
+                              <div class="form-group">
+                                  <label for="cvv">CVC</label>
+                                  <input
+                                      type="tel"
+                                      class="form-control"
+                                      name="cvv"
+                                      placeholder="CVC"
+                                      autocomplete="cc-csc"
+                                      required
+                                  />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row" style="display:none;">
+                          <div class="col-xs-12">
+                              <p class="payment-errors"></p>
+                          </div>
+                      </div>
+                      <div class="checkbox">
+                        <label><input type="checkbox" value="">Si, me gustaria guardar mi tarjeta de credito en el sistema</label>
+                      </div>
+                    </div>
+                <br />
+            </div>
+        </div>
+        <!-- CREDIT CARD FORM ENDS HERE -->
+    </div>
+    <div class="col-md-4">
+      <div class="well white">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+              <address>
+                  <strong>Ñam Ñam S.L.</strong>
+                  <br>
+                  Av. Reina Mercedes 15
+                  <br>
+                  Sevilla, 41010
+                  <br>
+                  <abbr title="Phone">+34</abbr> 955 91 32 00
+              </address>
+          </div>
+        </div>
+        <div class="text-center">
+            <h3>Detalles del pedido</h3>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>#</th>
+                    <th class="text-center">Precio</th>
+                    <th class="text-center">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for line in shoppingcart.shoppingcartline_set.all%}
+                    <tr>
+                        <td class="col-md-7"><em>{{line.product.name}}</em></h4></td>
+                        <td class="col-md-1" style="text-align: center">{{ line.quantity }}</td>
+                        <td class="col-md-2 text-center">{{line.product.price}}</td>
+                        <td class="col-md-2 text-center">{% multiply line.quantity line.product.price %}</td>
+                    </tr>
+                {%endfor%}
+                <tr>
+                    <td>   </td>
+                    <td colspan = "2" class="text-right">
+                    <p>
+                        <strong>Subtotal: </strong>
+                    </p>
+                    <p>
+                        <strong>Tasas (5%): </strong>
+                    </p>
+                    <p>
+                        <strong>IVA (10%): </strong>
+                    </p>
+                  </td>
+                    <td class="text-center">
+                    <p>
+                        <strong>{% multiply shoppingcart.total_price 0.85%}</strong>
+                    </p>
+                    <p>
+                        <strong>{% multiply shoppingcart.total_price 0.05%}</strong>
+                    </p>
+                    <p>
+                        <strong>{% multiply shoppingcart.total_price 0.1%}</strong>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td class="text-right"><h4><strong>Total:</strong></h4></td>
+                    <td class="text-center text-danger"><h4><strong>{{shoppingcart.total_price}}€</strong></h4></td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      <div class="row">
+            {% if messages %}
+                <div class="row">
+                {% for message in messages %}
+                    <div class="alert alert-danger">
+                        {{ message|safe }}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label for="dateCheckout">Fecha de Recogida</label>
+                    <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                        <input type="text" name="dateCheckout" class="form-control dateinput" data-date-format="dd/mm/yyyy" value="{{ datetime|date:"d/m/Y" }}" required>
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label for="hourCheckout">Hora de recogida</label>
+                    <input
+                        type="tel"
+                        class="form-control"
+                        name="hourCheckout"
+                        placeholder="HH:mm"
+                        required
+                        value="{{ datetime|date:"G:i" }}"
+                    />
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-4 col-md-offset-8">
+          <button class="savecard btn btn-success btn-lg btn-block" onclick="$('#payment-form').submit();" type="button">Realizar la reserva</button>
+      <br>
+      </div>
+  </div>
+</div>
+
+{% endblock%}

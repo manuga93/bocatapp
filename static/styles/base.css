@@ -1,0 +1,481 @@
+/*@font-face {
+	font-family: Honduro;
+	src: url("../fonts/Honduro.otf") format("opentype");
+}*/
+
+* {
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	/*background-color: #d7f0f7;*/
+}
+
+.block { display: block; }
+
+html { height: 100% }
+
+body {
+	position: relative;
+  min-height: 100%;
+}
+
+body > .container {
+	padding-bottom: 60px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: 'Lato', sans-serif !important;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+button, select {
+    text-transform: none;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+button:focus {
+  outline: none;
+}
+
+.clean {
+	clear:both;
+}
+
+.main-header {
+	background-color: #63d297;
+}
+
+.white { background-color: white!important }
+
+/* Header
+---------------------------------------------------------------*/
+.title {
+	font-family: 'Arial';
+	color: #009688;
+	font-size: 30pt;
+	display: inline;
+	font-weight: normal;
+	margin: 0;
+}
+
+a.title:hover{
+  text-decoration: none;
+	color: #009688;
+}
+
+.right-area {
+	float: right;
+}
+
+.page-title {
+    margin-bottom: 25px;
+}
+
+/* Containers
+---------------------------------------------------------------*/
+.main {
+    padding-top: 30px;
+    padding-bottom: 20px;
+    min-height: 550px;
+    -webkit-flex: 1;
+    flex: 1 0 auto;
+}
+
+/* Buttons
+---------------------------------------------------------------*/
+.button {
+	background-color: white;
+	color: black;
+	border: 2px solid #009688; /* Green */
+    border-radius: 6px;
+    padding: 2px;
+
+}
+
+.button:hover {
+    background-color: #fff;
+    color: #009688;
+}
+
+.button:active {
+	background-color: #d7f0f7;
+}
+
+.box {
+    border: 1px double #335389;
+    border-radius: 11px;
+    background-color: rgba(0,195,203,0.388457);
+    padding: 15px 20px;
+  	z-index: 1;
+}
+.buttons-wrapper button.form-control {
+		height: auto;
+}
+
+button.accordion {
+    background-color: white;
+    /*color: #444;#4cae4c;*/
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: 0.25px solid #C3E4C3;
+    border-radius: 8px;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+div.carta {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+.stylish-input-group .form-control{
+	border-right:0;
+	box-shadow:0 0 0;
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+.div-table{
+  display:table;
+  width:auto;
+  background-color:#eee;
+  border:1px solid  #666666;
+  border-spacing:5px;/*cellspacing:poor IE support for  this*/
+}
+.div-table-row{
+  display:table-row;
+  width:auto;
+  clear:both;
+}
+.div-table-col{
+  float:left;/*fix for  buggy browsers*/
+  display:table-column;
+  width:200px;
+  background-color:#ccc;
+}
+
+/* Nav bar
+-----------------------------------------------------------*/
+/* Resposive menu */
+.navbar-custom .navbar-toggle {
+    border-color: #fff;
+}
+
+.navbar-custom .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+
+.navbar-custom .nav > li > a,
+.navbar-custom .nav .open > a {
+    line-height: 28px;
+    font-weight: bold;
+    background-color: transparent;
+    color: #fff;
+}
+
+.navbar-custom .nav > li > a:hover,
+.navbar-custom .nav > li > a:focus,
+.navbar-custom .nav .open > a:hover,
+.navbar-custom .nav .open > a:focus {
+    background-color: transparent;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.85;
+}
+
+/* Custom dropdown
+-----------------------------------------------------------*/
+.main-dp {
+    padding: 0 10px;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.9);
+}
+/* My account dropdown
+-----------------------------------------------------------*/
+
+/* Login dropdown
+------------------------------------------------------------*/
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+}
+#login-dp .help-block{
+    font-size:12px
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0
+}
+#login-dp .social-buttons a{
+    width: 100%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc;
+}
+
+/* Content
+-----------------------------------------------------------*/
+.form-signup {
+    max-width: 767px;
+    margin: auto;
+    padding: 25px 10px;
+}
+
+.help-text, .help-legend {
+    font-size: 9pt;
+    color: #999;
+}
+
+
+.social-buttons {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.separator.hr {
+    margin: 15px 0;
+    background: url('../images/separator.gif') repeat-x 0 50%;
+}
+
+.separator.hr span {
+    padding: 0 15px;
+    background-color: white;  /*background*/
+}
+
+.separator {
+    height: auto;
+    margin: 7px 0;
+    border: 0;
+    background: none;
+    text-align: center;
+}
+
+ul.errorlist {
+    padding-left: 10px;
+}
+
+ul.errorlist li{
+    list-style-type: none;
+}
+
+#message-list {
+    left: 30%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 40%;
+    z-index:9999;
+    max-width: 800px;
+}
+
+/* Home
+------------------------------------------------------------*/
+.home-hero{
+		background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+		height: 800px;
+}
+
+.jumbotron p.label-postcode {
+	font-size: 22px;
+  line-height: 27px;
+	color: #fff;
+  text-align: center;
+  font-weight: 500;
+}
+
+.home-hero .form-inline input,
+.home-hero .form-inline button {
+	height: 50px;
+}
+
+/* Search
+------------------------------------------------------------*/
+.search-filter h4 {font-size: 9pt}
+.search-filter label {
+	font-size: 8pt;
+	line-height: 2em;
+}
+
+.avatar-wrapper .stars,
+.stars .fa-star {
+	color: #d6b00d;
+	margin-top: 5px;
+	margin-bottom: 0;
+}
+
+.item-search .brief-text {
+	font-size:11px;
+	margin-bottom:0;
+}
+
+.item-search .bottom {position: absolute; bottom: 0}
+
+.ride-item__avatar {
+	margin: auto;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.buttons-wrapper button	{
+	margin-bottom: 5px;
+}
+
+.item-search:hover {
+	border-color: #737373;
+}
+
+.item-search .row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+.item-search .row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Checkout
+------------------------------------------------------------*/
+/* CSS for Credit Card Payment form */
+.credit-card-box .panel-title {
+    display: inline;
+    font-weight: bold;
+}
+.credit-card-box .form-control.error {
+    border-color: red;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
+}
+.credit-card-box label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.credit-card-box .payment-errors {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+
+/* Footer
+------------------------------------------------------------*/
+footer {
+	position: absolute;
+	bottom: 0;
+	padding: 10px;
+	width: 100%;
+	background-color: #63d297;
+	color: #fff
+}
+
+footer p {
+	margin: 0;
+}
+
+footer a:focus,
+footer a:active,
+footer a {
+	color: #fff;
+}
+footer a:hover {
+	color: #000;
+}
+/* Media Queries
+------------------------------------------------------------*/
+
+@media (max-width: 1200px){
+
+}
+
+@media (max-width: 960px){
+
+}
+
+@media (max-width: 767px){
+    h2, h3 {
+        text-align: center;
+    }
+
+    .form-signup .btn{
+        width: 100%;
+    }
+
+    #myaccount-dp.dropdown-menu > li > a {
+        line-height: 28px;
+        background-color: transparent;
+        color: #fff;
+    }
+
+    #myaccount-dp.dropdown-menu > li > a:hover,
+    #myaccount-dp.dropdown-menu > li > a:focus {
+        background-color: transparent;
+        color: #fff;
+        text-decoration: none;
+        opacity: 0.85;
+    }
+
+		.title {
+			font-size: 25pt;
+		}
+
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+
+		.item-search .brief-text {
+			position:relative;
+		}
+
+		.buttons-wrapper {
+			margin-top: 1em;
+		}
+}

@@ -1,0 +1,84 @@
+{% load staticfiles %}
+<div class="navbar-custom" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="title" href="/"> <img src="{% static "images/logo2.png" %}" height="45px" /></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            {% if perms.bocatapp.customer or user.is_anonymous %}
+                <li>
+                    <a id="listSC" href="#">
+                        <span class="glyphicon glyphicon-shopping-cart"></span> <span id="numItems" class="badge"></span>
+                    </a>
+                </li>
+            {% endif %}
+            {% if perms.bocatapp.customer %}
+            <li>
+              <a href="#">
+                Saldo: {{user.amount_money}} €
+              </a>
+            </li>
+            {% endif %}
+            <li><a href="#">Ayuda</a></li>
+            {% if user.is_anonymous %}
+                <li class="dropdown">
+                    <a href="#" class="hidden-sm hidden-md hidden-lg" data-toggle="dropdown">Iniciar sesión
+                    <span class="caret hidden-sm hidden-md hidden-lg"></span></a>
+                    <a class="hidden-xs" data-toggle="dropdown" href="#">Iniciar sesión</a>
+                    <ul id="login-dp" class="dropdown-menu box main-dp">
+                        <li>
+                             <div class="row">
+                                    <div class="col-md-12">
+                                        {% include "forms/login_form.html" %}
+                                    </div>
+                                    <div class="bottom text-center">
+                                        ¿Todavía no tiene cuenta? <a href="{% url 'customer_register' %}"><b>¡Registrese!</b></a>
+                                    </div>
+                             </div>
+                        </li>
+                    </ul>
+                </li>
+            {%else%}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="hidden-xs">
+                            {%if user.profile.avatar %}
+                              <img width="30" height="30" class="img-circle" alt="{{ user.get_full_name }}" src="{{user.profile.avatar}}" alt="Thumb v3 avatar 1453299202">
+                            {% else %}
+                              <img width="30" height="30" class="img-circle" alt="{{ user.get_full_name }}" src="{% static "images/default-pic-profile.png" %}" alt="Profile image">
+                            {%endif%}
+                        </span>
+                        <span class="hidden-sm hidden-md hidden-lg">{{ user.get_full_name }}</span>
+                        <span class="caret hidden-sm hidden-md hidden-lg"></span>
+                    </a>
+                    <ul id="myaccount-dp" class="dropdown-menu box main-dp">
+                        <li>
+                            <a href="/user/myAccount/"><strong class="hidden-xs block">{{ user.get_full_name }}</strong>
+                            <span class="block">Mi cuenta</span></a>
+                        </li>
+
+                        {% if perms.bocatapp.seller %}
+                          <li><a href="{% url 'locals_by_seller' %}">Mis locales</a></li>
+                        {% endif %}
+                        {% if perms.bocatapp.customer %}
+                          <li><a href="/customer/dashboard/">Panel</a></li>
+                          <li><a href="{% url 'orders_by_customer'%}">Mis pedidos</a></li>
+                        {% endif %}
+                        <li><a href="/logout">Desconectar</a></li>
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+        </div>
+    </div>
+</div>

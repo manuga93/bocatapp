@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} Gracias {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <img width="200" class="img-circle center-block"
+             src="https://www.shareicon.net/data/2016/08/20/817720_check_395x512.png"
+             alt="Thumb v3 avatar 1453299202">
+        <div class="text-center">
+            <h2>¡Gracias! Tu pedido está siendo procesado, te avisaremos cuando esté listo</h2>
+            <h4>¡No olvides recoger tu pedido a tiempo!</h4>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{block.super}}
+    <script type="text/javascript">
+        $(document).ready( function () {
+            removeCookieCart(), comprobeCookieCart();
+        });
+    </script>
+{% endblock %}
