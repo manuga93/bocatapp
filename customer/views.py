@@ -168,13 +168,12 @@ def comment_new(request, pk):
             comment = form.save(commit=False)
             comment.local = local
             comment.customer = request.user
-
             comment.save()
             return redirect('customer.views.comment_list', pk=local.pk)
     else:
         form = CommentForm()
 
-    return render(request, 'comment_edit.html', {'form': form})
+    return render(request, 'comment_edit.html', {'form': form, "local": local})
 
 @permission_required('bocatapp.customer', message='You are not a customer')
 def report_new(request, pk):
@@ -190,7 +189,7 @@ def report_new(request, pk):
     else:
         form = ReportForm()
 
-    return render(request, 'comment_edit.html', {'form': form})
+    return render(request, 'report_edit.html', {'form': form})
 
 
 # Lista los comentarios de un local
