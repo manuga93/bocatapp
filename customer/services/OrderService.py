@@ -21,25 +21,10 @@ def find_order_line_by_order(order):
     return orders_line
 
 
-def set_order_line_status(order_line_id):
-    order_line = OrderLine.objects.get(id=order_line_id)
-    order_line.set_status(True)
-    order_line.save()
-
-
 def set_order_status(order_id):
     order = Order.objects.get(id=order_id)
-    orders_line = OrderLine.objects.all().filter(order_id=order_id)
-
-    # The order is completed if all order line are done
-    if all(line.status is True for line in orders_line):
-        order.status = True
-        order.save()
-
-    # The order is doing if any order line is done
-    elif any(line.status is True for line in orders_line):
-        order.status = False
-        order.save()
+    order.set_status(True)
+    order.save()
 
 
 def complete_orders(customer_id):
@@ -52,7 +37,7 @@ def complete_orders(customer_id):
 
 def pending_orders(customer_id):
     try:
-        orders = Order.objects.filter(customer_id=customer_id).exclude(status=True)
+        orders = Order.objects.filter(customer_id=customer_id).filter(status=False)
     except Order.DoesNotExist:
         orders = []
     return orders
