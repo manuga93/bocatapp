@@ -37,7 +37,12 @@ def update_cookie(request):
         if request.user.has_perm('bocatapp.customer'):
             customer = User.objects.filter(pk=request.user.id)
             shoppingCart = ShoppingCart.objects.filter(customer_id=request.user.id, checkout=False)
-            actualShoppingCart = ShoppingCart.objects.filter(pk=idShoppingCart)
+
+            try:
+                actualShoppingCart = ShoppingCart.objects.get(pk=idShoppingCart)
+            except ShoppingCart.DoesNotExist:
+                actualShoppingCart = None
+
             if not shoppingCart and not actualShoppingCart:
                 if request.user.is_authenticated():
                     if request.user.has_perm('bocatapp.customer'):
@@ -59,17 +64,25 @@ def update_cookie(request):
                     if productsActualShoppingCart and productsActualShoppingCart.count() > 0:
                         if int(idShoppingCart) != int(shoppingCart[0].pk):
                             shoppingCart[0].delete()
-                            actualShoppingCart[0].update(customer=customer[0])
+                            ShoppingCart.objects.filter(pk=idShoppingCart).update(customer=customer[0])
                     else:
                         if int(idShoppingCart) != int(shoppingCart[0].pk):
                             if actualShoppingCart:
-                                actualShoppingCart[0].delete()
+                                actualShoppingCart.delete()
                             
                             idShoppingCart = shoppingCart[0].pk
         else:
             actualShoppingCart = ShoppingCart.objects.filter(pk=idShoppingCart)
             actualShoppingCart.delete()
             idShoppingCart = "None"
+    else:
+        actualShoppingCart = ShoppingCart.objects.filter(pk=idShoppingCart)
+        if not actualShoppingCart:
+            new_shoppingcart = ShoppingCart(
+                        checkout=False)
+            new_shoppingcart.save()
+            idShoppingCart = new_shoppingcart.pk
+            
 
 
     data = {
@@ -83,11 +96,11 @@ def update_cookie(request):
 def list_shopping_cart(request, pk):
     if request.user.is_authenticated():
         if request.user.has_perm('bocatapp.customer'):
-            shoppingcart = get_object_or_404(ShoppingCart, pk=pk)
+            shoppingcart = ShoppingCart.objects.get(pk=pk)
             if shoppingcart.customer.pk == request.user.pk:
                 return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
     else:
-        shoppingcart = get_object_or_404(ShoppingCart, pk=pk)
+        shoppingcart = ShoppingCart.objects.get(pk=pk)
         return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
         
     return redirect(home.home)

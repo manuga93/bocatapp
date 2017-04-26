@@ -89,7 +89,7 @@
                 },
             }
         } );
-    }, comprobeCookieCart(), changeShoppingCart(), UpdateBadge());
+    }, comprobeCookieCart());
 
 
     function comprobeCookieCart() {
@@ -98,6 +98,7 @@
             //$.removeCookie('cookieCart', { path: '/' });
             //alert("cookie borrada");
             //alert(getIdCart());
+            updateCookie();
         }else{
 
             $.ajax({
