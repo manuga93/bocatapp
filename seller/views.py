@@ -42,8 +42,11 @@ def category_list(request, pk):
 
 def product_list_category(request, pk):
     productos = get_list_or_404(Product, category=pk)
+    category = get_list_or_404(Category, pk=pk)[0]
+    local = get_list_or_404(Local, id=pk)[0]
+    categories = {category: productos}
     return render(request, 'menu.html',
-                  {'productos': productos})
+                  {'categories': categories, 'local': local})
 
 
 # Vista para la creacion de una nueva categoria
