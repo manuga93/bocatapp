@@ -11,14 +11,14 @@
       </div>
       <div class="jumbotron jumbotron-fluid" style="background-color: rgba(0,0,0,.3); margin-top: 3%">
         <div class="container" style="text-align: center">
-          <form class="form-inline" action ="/seller/search/" method="GET">
+          <form class="form-inline" action ="{% url "search" %}" method="GET">
             <p class="label-postcode">
               Introduce tu código postal para encontrar locales cerca de ti
             </p>
     				<div class ="form-group">
     					<input type="text" class="form-control text-center" placeholder="41012" name="postcode" id="cp">
     				</div>
-    				<button onclick="#" class="form-control button">¡Buscar!</button>
+    				<button type="submit" class="form-control button">¡Buscar!</button>
     			</form>
         </div>
       </div>

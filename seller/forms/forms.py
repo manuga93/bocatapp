@@ -9,15 +9,17 @@ class LocalForm(forms.ModelForm):
         self.fields['description'].label = "Descripcion"
         self.fields['address'].label = "Direccion"
         self.fields['phone'].label = "Telefono"
+        self.fields['postalCode'].label = "Codigo Postal"
         self.fields['photo'].label = "Foto"
 
     class Meta:
         model = Local
-        fields = ('name', 'description', 'address', 'phone', 'photo')
+        fields = ('name', 'description', 'address', 'phone', 'postalCode', 'photo')
 
 
 class CategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
+
         super(CategoryForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Nombre"
         self.fields['description'].label = "Descripcion"
