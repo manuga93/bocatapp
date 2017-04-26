@@ -18,8 +18,7 @@
     {{block.super}}
     <script type="text/javascript">
         $(document).ready( function () {
-            $.removeCookie('cookieCart', { path: '/' });
-            comprobeCookieCart();
+            removeCookieCart(), comprobeCookieCart();
         });
     </script>
 {% endblock %}
