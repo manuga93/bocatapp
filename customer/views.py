@@ -7,13 +7,14 @@ from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine, Co
 from seller.models import Product, Local, Category
 from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
+from django.contrib import messages
 from administration.forms.forms import CreditCardForm
 from django.core.urlresolvers import reverse
-
 from bocatapp.decorators import permission_required
 from datetime import datetime, timedelta
 from forms.forms import CommentForm, ReportForm
 import itertools
+import re
 
 # Create your views here.
 
@@ -114,36 +115,43 @@ def do_checkout(request):
 
         # Get shopping cart
         shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id, checkout=False)
-        print(shoppingcart)
-        ShoppingCart.objects.filter(customer_id=current_user.id, checkout=False).update(checkout=True)
         shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
         local = shoppingcart_lines[0].product.local
         date = request.POST.get('dateCheckout', '')
         hour = request.POST.get('hourCheckout', '')
-        if date and '/' in date:
+        matchDate = re.match('(\d{2})[/.-](\d{2})[/.-](\d{4})$', date)
+        matchHour = re.match('([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$', hour)
+
+        if matchDate is not None and matchHour is not None:
+            if date and '/' in date:
                 dd = date.split('/')[0]
                 mm = date.split('/')[1]
                 aaaa = date.split('/')[2]
 
-        # saving order
-        new_order = Order(
-            totalPrice=shoppingcart.total_price,
-            moment=datetime.time(),
-            local=local,
-            comment="Añada su comentario aquí",
-            customer=current_user,
-            creditCard=creditcard,
-            pickupMoment=datetime.datetime(year=int(aaaa),month=int(mm),day=int(dd)),
-            hour=str(hour))
-        new_order.save()
-        # loop shoppingcart_lines
-        for line in shoppingcart_lines:
-            new_order.orderline_set.create(
-                quantity=line.quantity,
-                name=line.product.name,
-                price=line.product.price
-            )
-        return render(request, 'thanks.html', {})
+                # saving order
+                new_order = Order(
+                    totalPrice=shoppingcart.total_price,
+                    moment=datetime.time(),
+                    local=local,
+                    comment="Añada su comentario aquí",
+                    customer=current_user,
+                    creditCard=creditcard,
+                    pickupMoment=datetime.datetime(year=int(aaaa),month=int(mm),day=int(dd)),
+                    hour=str(hour))
+                new_order.save()
+                # loop shoppingcart_lines
+                for line in shoppingcart_lines:
+                    new_order.orderline_set.create(
+                        quantity=line.quantity,
+                        name=line.product.name,
+                        price=line.product.price
+                    )
+
+                ShoppingCart.objects.filter(customer_id=current_user.id, checkout=False).update(checkout=True)
+            return render(request, 'thanks.html', {})
+        else:
+            messages.error(request, 'La fecha o la hora no son correctas')
+            return redirect('customer.views.checkout')
     return redirect(home.home)
 
 
