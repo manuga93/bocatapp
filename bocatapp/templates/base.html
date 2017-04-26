@@ -60,9 +60,9 @@
 
 <!-- SCRIPTS -->
 {% block scripts %}
+<script type="text/javascript" src="{% static "scripts/jquery-3.2.1.min.js" %}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="{% static "scripts/bootstrap-datepicker.min.js" %}"></script>
-<script type="text/javascript" src="{% static "scripts/jquery-3.2.1.min.js" %}"></script>
 <!-- Uso de plugin DataTable y traduccion, +info "https://datatables.net/" -->
 <script type="text/javascript" language="javascript" src="{% static "scripts/jQuery.dataTables.js"%}"></script>
 <script type="text/javascript" language="javascript" src="{% static "scripts/dataTables.js"%}"></script>
@@ -111,7 +111,7 @@
                     updateCookie();
                 }
             });
-            
+
         }
     }
 
@@ -136,7 +136,7 @@
             }
         });
 
-        
+
     }
 
     function createCookieCart(id){
