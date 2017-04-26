@@ -115,7 +115,6 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = "/var/www/bocatapp.com/static/"
 
-
 # Deployment
 # STATIC_ROOT = '/var/www/bocatapp.com/static'
 
