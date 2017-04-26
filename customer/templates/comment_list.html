@@ -2,17 +2,24 @@
 {% load staticfiles %}
 {% block title %}comments{% endblock %}
 
+
 {% block content %}
+    <link href="{% static "styles/stars.css" %}" rel="stylesheet">
+
     <div class="container">
-        <h1>Comentarios de {{ local.name }}</h1>
+        <h3>Comentarios de {{ local.name }}</h3>
         <hr/>
         <div class="row">
             <div class="col-md-12">
                 {% for comment in comentarios %}
                     <div class="item-search well white">
-
                         <div class="comment">
-                            <p><strong>Valoracion: {{ comment.rating }}</strong></p>
+                        <p>Escrito por: <strong>{{ comment.customer.username }}</strong></p>
+
+                            <p>Valoracion:
+                            {% for i in "x"|ljust:comment.rating %}
+                                <i class="fa fa-star"></i>
+                            {% endfor %}
                             <p>{{ comment.description|linebreaks }}</p>
                         </div>
                         {% if perms.bocatapp.customer %}
@@ -38,9 +45,6 @@
                             </div>
                         {% endif %}
 
-                        <hr/>
-
-
                     </div>
                 {% empty %}
                     <p>No hay comentarios sobre este local</p>
@@ -49,16 +53,18 @@
 
             </div>
         </div>
-        {% if perms.bocatapp.customer %}
 
-
-            <a class="btn btn-primary" onclick="location.replace('{% url 'comment_new' pk=local.pk %}')"><span
-                    class="glyphicon glyphicon-comment"></span> Comentar </a></h3>
-
-        {% endif %}
         <button class="btn btn-default" onclick=" window.history.back();"><span
                 class="glyphicon glyphicon-arrow-left"></span> Atrás
         </button>
-    </div>
 
+        {% if perms.bocatapp.customer %}
+
+
+            <a class="btn btn-primary" style="float: right;" onclick="location.replace('{% url 'comment_new' pk=local.pk %}')"><span
+                    class="glyphicon glyphicon-comment"></span> Comentar </a></h3>
+
+        {% endif %}
+    </div>
+<br/>
 {% endblock %}

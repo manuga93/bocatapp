@@ -51,7 +51,7 @@ class ShoppingCartLine(models.Model):
 
 class Comment(models.Model):
     description = models.CharField(max_length=256)
-    rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    rating = models.CharField(max_length=1)
     reported = models.BooleanField(default=False)
     local = models.ForeignKey(Local)
     customer = models.ForeignKey(User)
