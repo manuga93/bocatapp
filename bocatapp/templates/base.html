@@ -13,7 +13,7 @@
     <link href="{% static "styles/bootstrap.css" %}" rel="stylesheet">
     <link href="{% static "styles/base.css" %}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <link rel="stylesheet" media="screen" href="{% static "styles/bootstrap-datepicker3.min.css" %}">
     <!-- Estilos DataTable +info "https://datatables.net/" -->
     <link href="{% static "styles/jquery.datatables.css" %}" rel="stylesheet">
@@ -52,7 +52,15 @@
 <!-- END -->
 {% block frontpage %}{% endblock %}
 {% block content %}{% endblock %}
-<footer class="">
+
+<div id="avisoCookies" class="cookiebanner text-center hide"  >
+
+        <p class="text-center"> <span style="color:white" >Esta página utiliza cookies propias y de terceros con el fin de mejorar el servicio. Si continuas navegando, aceptas su uso.
+        <br>Puedes informarte sobre cómo cambiar la configuración de tu navegador u obtener más información sobre la ley de cookies <a href="http://politicadecookies.com/" rel="nofollow">siguiendo este enlace</a>.</span>
+        </p><p><a class="font-white uppercase bold text-center margin-top-20" id="aceptarCookies">Acepto</a></p>
+    </div>
+
+<footer class="footer">
     {% block footer %}
         {% include "includes/footer.html" %}
     {% endblock %}
@@ -91,7 +99,20 @@
         } );
     }, comprobeCookieCart());
 
-
+    function checkCookieLaw()
+        {
+            if ( window.localStorage.getItem('cookieLawKeyMiWeb') )
+            {
+                $('#avisoCookies').hide();
+            }else{
+            $('#avisoCookies').removeClass('hide');
+        }
+        }
+        checkCookieLaw();
+        $('#aceptarCookies').on( "click", function(){
+            window.localStorage.setItem('cookieLawKeyMiWeb', true);
+            $('#avisoCookies').hide();
+        });
     function comprobeCookieCart() {
         var idCart = getIdCart();
         if (idCart != undefined) {
