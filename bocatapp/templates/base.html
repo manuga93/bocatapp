@@ -19,7 +19,7 @@
     <link href="{% static "styles/jquery.datatables.css" %}" rel="stylesheet">
     <link href="{% static "styles/dataTables.css" %}" rel="stylesheet">
     <link href="{% static "styles/font-awesome.min.css" %}" rel="stylesheet">
-    <script type="text/javascript" src="{% static "scripts/jquery-3.2.1.min.js" %}"></script>
+
 
 
     <!-- END STYLES -->
@@ -54,30 +54,12 @@
 {% block content %}{% endblock %}
 
 <div id="avisoCookies" class="cookiebanner text-center hide"  >
-        <a href="#" target="_blank" > Política de Privacidad y Condiciones Generales de Uso</a>
+
         <p class="text-center"> <span style="color:white" >Esta página utiliza cookies propias y de terceros con el fin de mejorar el servicio. Si continuas navegando, aceptas su uso.
-        <br>Puedes informarte sobre cómo cambiar la configuración de tu navegador u obtener más información sobre la ley de cookies <a class="font-green" href="http://politicadecookies.com/" rel="nofollow">siguiendo este enlace</a>.</span>
+        <br>Puedes informarte sobre cómo cambiar la configuración de tu navegador u obtener más información sobre la ley de cookies <a href="http://politicadecookies.com/" rel="nofollow">siguiendo este enlace</a>.</span>
         </p><p><a class="font-white uppercase bold text-center margin-top-20" id="aceptarCookies">Acepto</a></p>
     </div>
 
-
-
-    <script>
-        function checkCookieLaw()
-        {
-            if ( window.localStorage.getItem('cookieLawKeyMiWeb') )
-            {
-                $('#avisoCookies').hide();
-            }else{
-            $('#avisoCookies').removeClass('hide');
-        }
-        }
-        checkCookieLaw();
-        $('#aceptarCookies').on( "click", function(){
-            window.localStorage.setItem('cookieLawKeyMiWeb', true);
-            $('#avisoCookies').hide();
-        });
-    </script>
 <footer class="footer">
     {% block footer %}
         {% include "includes/footer.html" %}
@@ -86,7 +68,7 @@
 
 <!-- SCRIPTS -->
 {% block scripts %}
-
+<script type="text/javascript" src="{% static "scripts/jquery-3.2.1.min.js" %}"></script>
 <script type="text/javascript" language="javascript" src="{% static "scripts/bootstrap.js"%}"></script>
 <script type="text/javascript" src="{% static "scripts/bootstrap-datepicker.min.js" %}"></script>
 <!-- Uso de plugin DataTable y traduccion, +info "https://datatables.net/" -->
@@ -117,7 +99,20 @@
         } );
     }, comprobeCookieCart());
 
-
+    function checkCookieLaw()
+        {
+            if ( window.localStorage.getItem('cookieLawKeyMiWeb') )
+            {
+                $('#avisoCookies').hide();
+            }else{
+            $('#avisoCookies').removeClass('hide');
+        }
+        }
+        checkCookieLaw();
+        $('#aceptarCookies').on( "click", function(){
+            window.localStorage.setItem('cookieLawKeyMiWeb', true);
+            $('#avisoCookies').hide();
+        });
     function comprobeCookieCart() {
         var idCart = getIdCart();
         if (idCart != undefined) {
