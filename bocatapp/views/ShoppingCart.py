@@ -56,7 +56,7 @@ def update_cookie(request):
                 idShoppingCart = new_shoppingcart.pk
             else:
                 if not shoppingCart:
-                    actualShoppingCart.update(customer=customer[0])
+                    ShoppingCart.objects.filter(pk=idShoppingCart).update(customer=customer[0])
                 else:
                     productsShoppingCart = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingCart[0].id)
                     productsActualShoppingCart = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart)
