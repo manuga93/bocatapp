@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.views.generic import detail, edit
 from django.shortcuts import render
-from bocatapp.forms import UserForm, UserProfileForm
+from bocatapp.forms import UserForm
 
 
 class UserAccountView(detail.DetailView):
@@ -16,11 +16,9 @@ class UserAccountView(detail.DetailView):
 class UserEdit(edit.BaseUpdateView):
     def get(self, request):
         user_form = UserForm(instance=request.user, prefix='user')
-        profile_form = UserProfileForm(instance=request.user.profile, prefix='profile')
         context = {
-            'type':'Editar perfil',
-            'user_form': user_form,
-            'profile_form': profile_form
+            'type': 'Editar perfil',
+            'user_form': user_form
         }
         return render(request, '../templates/forms/user_edit.html', context)
 
@@ -28,21 +26,18 @@ class UserEdit(edit.BaseUpdateView):
     def post(self, request):
         if request.user.is_authenticated():
             user_form = UserForm(data=request.POST, instance=request.user, prefix='user')
-            profile_form = UserProfileForm(data=request.POST, instance=request.user.profile, prefix='profile')
-            if user_form.is_valid() and profile_form.is_valid():
+            if user_form.is_valid():
                 user = user_form.save(commit=False)
                 user.save()
-                profile = profile_form.save(commit=False)
-                profile.save()
                 return render(request, '../templates/myaccount.html')
             else:
                 message = ""
-                for field, errors in zip(user_form.errors.items(), profile_form.errors.items()):
+                for field, errors in (user_form.errors.items()):
                     for error in errors:
                         message += error
                 context = {
                     'user_form': user_form,
-                    'profile_form': profile_form, 'message': message
+                    'message': message
                 }
                 return render(request, '../templates/forms/user_edit.html', context)
         else:

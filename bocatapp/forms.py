@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from models import User, Profile
+from models import User
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -9,6 +9,9 @@ class UserRegistrationForm(forms.ModelForm):
     username = forms.CharField()
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
+    phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
+                             error_message=(
+                                 "Debe tener formato 999999999"))
 
     def __init__(self, *args, **kwargs):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
@@ -17,47 +20,45 @@ class UserRegistrationForm(forms.ModelForm):
         self.fields['last_name'].label = "Apellidos"
         self.fields['email'].label = "Correo"
         self.fields['password'].label = "Contraseña"
+        self.fields['phone'].label = "Teléfono"
 
     def create_user(self):
-        res = User(first_name=self.cleaned_data['username'],
-                   email=self.cleaned_data['first_name'],
-                   username=self.cleaned_data['last_name'],
-                   password=self.cleaned_data['email'],
-                   last_name=self.cleaned_data['password'])
+        res = User(first_name=self.cleaned_data['first_name'],
+                   email=self.cleaned_data['email'],
+                   username=self.cleaned_data['username'],
+                   password=self.cleaned_data['password'],
+                   last_name=self.cleaned_data['last_name'],
+                   phone=self.cleaned_data['phone'])
         return res
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'phone']
 
 
 class UserForm(forms.ModelForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
+    phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
+                             error_message=(
+                                 "Debe tener formato 999999999"))
+    birth_date = forms.DateInput()
+    avatar = forms.URLField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['first_name'].label = "Nombre"
         self.fields['last_name'].label = "Apellidos"
         self.fields['email'].label = "Correo"
+        self.fields['phone'].label = "Teléfono"
+        self.fields['birth_date'].label = "Cumpleaños (dd/mm/aaaa)"
+        self.fields['avatar'].label = "Avatar (URL)"
 
     class Meta:
         model = User
-        fields = [ 'first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'email', 'phone', 'birth_date', 'avatar']
 
-
-class UserProfileForm(forms.ModelForm):
-    phone = forms.PhoneField()
-    birth_date = forms.CharField(required=False)
-    avatar = forms.URLField(required=False)
-
-    def __init__(self, *args, **kwargs):
-        super(UserProfileForm, self).__init__(*args, **kwargs)
-        self.fields['phone'].label = "Teléfono"
-        self.fields['birth_date'].label = "Cumpleaños"
-        self.fields['avatar'].label = "Avatar"
-
-    class Meta:
-        model = Profile
-        fields = ['phone', 'birth_date', 'avatar']
+        help_texts = {
+            'birth_date': 'dd/mm/yyyy',
+        }

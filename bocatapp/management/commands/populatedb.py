@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.management.base import BaseCommand
-from bocatapp.models import User, Profile
+from bocatapp.models import User
 from django.contrib.auth.models import Permission
 from seller.models import Local, Product, Pack, ProductLine, Local, Category
 from customer.models import Order, CreditCard, OrderLine, ShoppingCart, Comment, Report
@@ -54,7 +54,12 @@ class Command(BaseCommand):
         customer1 = User(
             username='julio44',
             email='julio44@customer.com',
-            first_name='Julio', last_name='Parrales', amount_money=10.0)
+            first_name='Julio',
+            last_name='Parrales',
+            amount_money=10.0,
+            phone=123456789,
+            birth_date='1993-01-25',
+            avatar='https://http2.mlstatic.com/mascara-v-de-venganza-pelicula-v-for-vendetta-D_NQ_NP_2613-MLM2719793745_052012-O.jpg')
         customer1.set_password('@customer')
         customer1.save()
         customer1.user_permissions.add(Permission.objects.get(codename="customer"))
@@ -62,7 +67,10 @@ class Command(BaseCommand):
         customer2 = User(
             username='manuel',
             email='manuel@customer.com',
-            first_name='Manuel', amount_money=5.0)
+            first_name='Manuel',
+            amount_money=5.0,
+            phone=123456789,
+            birth_date='1993-01-25')
         customer2.set_password('@customer')
         customer2.save()
         customer2.user_permissions.add(Permission.objects.get(codename="customer"))
@@ -73,7 +81,9 @@ class Command(BaseCommand):
         seller1 = User(
             username='jesusgar',
             email='jesus@seller.com',
-            first_name='Jesus')
+            first_name='Jesus',
+            phone=123456789,
+            birth_date='1993-01-25')
         seller1.set_password('@seller')
         seller1.save()
         seller1.user_permissions.add(Permission.objects.get(codename="seller"))
@@ -81,7 +91,9 @@ class Command(BaseCommand):
         seller2 = User(
             username='pomelo',
             email='pomelo@seller.com',
-            first_name='pomelo')
+            first_name='pomelo',
+            phone=123456789,
+            birth_date='1993-01-25')
         seller2.set_password('@seller')
         seller2.save()
         seller2.user_permissions.add(Permission.objects.get(codename="seller"))
@@ -89,7 +101,9 @@ class Command(BaseCommand):
         seller3 = User(
             username='franky',
             email='franky@gmail.com',
-            first_name='Francisco')
+            first_name='Francisco',
+            phone=123456789,
+            birth_date='1987-06-14')
         seller3.set_password('franky987')
         seller3.save()
         seller3.user_permissions.add(Permission.objects.get(codename="seller"))
@@ -100,7 +114,7 @@ class Command(BaseCommand):
 
         namnam = Local(name=u'ÑemÑem',
                        description='Establecimiento espacialista en bocatas de pollo empañado y en cañas de chocolate',
-                       address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794,postalCode="41012",
+                       address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794, postalCode="41012",
                        photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1,
                        avg_rating=4.00)
 
@@ -114,16 +128,16 @@ class Command(BaseCommand):
         ricorico.save()
 
         cienm = Local(name='1000 Montaditos', description='Los miercoles todo a 1€!',
-                      address=' Av. de la Reina Mercedes, 43, 41012 Sevilla', phone=902197494,postalCode="41012",
+                      address=' Av. de la Reina Mercedes, 43, 41012 Sevilla', phone=902197494, postalCode="41012",
                       photo='http://www.asesoresinmobiliariosbv.es/wp-content/uploads/2015/10/100-montaditos.jpg',
                       seller=seller2, avg_rating=3.50)
 
         cienm.save()
 
         frankyb = Local(name='Bocatería Frankys', description='¿Quieres un Bocata? Pues ven a comerte el mejor!',
-                      address=' Av. de la Reina Mercedes, 45, 41012 Sevilla', phone=902197494, postalCode="41012",
-                      photo='http://fotos.subefotos.com/7b9bc1c91b4ba708f179ee6d79d2ac6fo.jpg',
-                      seller=seller3, avg_rating=5)
+                        address=' Av. de la Reina Mercedes, 45, 41012 Sevilla', phone=902197494, postalCode="41012",
+                        photo='http://fotos.subefotos.com/7b9bc1c91b4ba708f179ee6d79d2ac6fo.jpg',
+                        seller=seller3, avg_rating=5)
 
         frankyb.save()
         print ('Locals...Ok!')
@@ -242,57 +256,55 @@ class Command(BaseCommand):
         # Bocateria Franky's ===========================================================================================
         #  bocadillos_frank bocapizza_frank bolleria_frank bebidas_frank
         cochinito = Product(name='Cochinito', price=1, local=frankyb, ingredients="Cochinito",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
-                        category=bocadillos_frank)
+                            picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                            category=bocadillos_frank)
 
         cochinito.save()
 
         tortilla = Product(name='Tortilla', price=1, local=frankyb, ingredients="Tortilla",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
-                        category=bocadillos_frank)
+                           picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                           category=bocadillos_frank)
 
         tortilla.save()
 
         jamon_serrano = Product(name='Jamón Serrano', price=1.5, local=frankyb, ingredients="Jamón Serrano",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
-                        category=bocadillos_frank)
+                                picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                                category=bocadillos_frank)
         jamon_serrano.save()
 
-
         bocapizza1 = Product(name='El 1', price=1.5, local=frankyb, ingredients="Tomate + Queso + Bacon + Cochinito",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
-                        category=bocapizza_frank)
+                             picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                             category=bocapizza_frank)
         bocapizza1.save()
 
         bocapizza2 = Product(name='El 2', price=1.5, local=frankyb, ingredients="Tomate + Queso + Bacon + Salchicha",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
-                        category=bocapizza_frank)
+                             picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                             category=bocapizza_frank)
         bocapizza2.save()
 
         palmerafr = Product(name='Palmera Casera', price=1.1, local=frankyb, ingredients="Palmera de Huevo",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
-                        category=bolleria_frank)
+                            picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                            category=bolleria_frank)
         palmerafr.save()
 
-
         palmerachocofr = Product(name='Palmera Morenita', price=1.1, local=frankyb, ingredients="Palmera de Chocolate",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
-                        category=bolleria_frank)
+                                 picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                                 category=bolleria_frank)
         palmerachocofr.save()
 
         aguafr = Product(name='Agua', price=0.8, local=frankyb, ingredients="Agua",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
-                        category=bebidas_frank)
+                         picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                         category=bebidas_frank)
         aguafr.save()
 
         fantalimonfr = Product(name='Fanta Naranja', price=0.8, local=frankyb, ingredients="Fanta Naranja",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
-                        category=bebidas_frank)
+                               picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                               category=bebidas_frank)
         fantalimonfr.save()
 
         fantanaranjafr = Product(name='Fanta Limón', price=0.8, local=frankyb, ingredients="Fanta Limón",
-                        picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
-                        category=bebidas_frank)
+                                 picture="https://www.tiptoprestaurantes.com/content/images/thumbs/0000184_agua-botella_480.png",
+                                 category=bebidas_frank)
         fantanaranjafr.save()
 
         # RICORICO =====================================================================================================
@@ -309,7 +321,8 @@ class Command(BaseCommand):
 
         product1_ricorico = Product(name='59', price=2.0, local=ricorico,
                                     ingredients="Queso, lechuga, tomate, esparragos y salsa a elegir",
-                                    picture="http://static.consumer.es/www/imgs/recetas/7/79014_g.jpg", category=especiales_ricorico)
+                                    picture="http://static.consumer.es/www/imgs/recetas/7/79014_g.jpg",
+                                    category=especiales_ricorico)
         product1_ricorico.save()
 
         product2_ricorico = Product(name='60', price=2.6, local=ricorico,
@@ -343,11 +356,13 @@ class Command(BaseCommand):
 
         casa_namnam = Product(name='De la casa', price=2.10, local=namnam,
                               ingredients='Tortilla de patatas, lechuga, jamón serrano y mayonesa',
-                              picture='https://img.over-blog-kiwi.com/1/39/41/41/20170404/ob_cf201c_1-018.jpg', category=especiales_namnam)
+                              picture='https://img.over-blog-kiwi.com/1/39/41/41/20170404/ob_cf201c_1-018.jpg',
+                              category=especiales_namnam)
         casa_namnam.save()
 
         universitario_namnam = Product(name='Universitario', price=2.10, local=namnam,
-                                       ingredients='Palitos de cangrejo, jamón york, lechuga y salsa rosa', category=especiales_namnam)
+                                       ingredients='Palitos de cangrejo, jamón york, lechuga y salsa rosa',
+                                       category=especiales_namnam)
         universitario_namnam.save()
 
         canachoco_namnam = Product(name='caña de cholocate', price=1.0, local=namnam,
@@ -366,31 +381,11 @@ class Command(BaseCommand):
 
         cerveza = Product(name='Jarra de cerveza', price=1.5, local=cienm, ingredients="cebada, lúpulo",
                           picture="http://www.aceitedearganweb.com/wp-content/uploads/2015/10/cerveza.jpg"
-                          ,category=bebida3)
+                          , category=bebida3)
         cerveza.save()
 
         print ('Products...Ok!')
 
-
-        # Profiles =====================================================================================================
-
-        profile_customer1 = Profile(user=customer1, phone=123456789, birth_date='1993-01-25',
-                                    avatar='https://http2.mlstatic.com/mascara-v-de-venganza-pelicula-v-for-vendetta-D_NQ_NP_2613-MLM2719793745_052012-O.jpg')
-        profile_customer1.save()
-
-        profile_customer2 = Profile(user=customer2, phone=123456789, birth_date='1993-01-25')
-        profile_customer2.save()
-
-        profile_seller1 = Profile(user=seller1, phone=123456789, birth_date='1993-01-25')
-        profile_seller1.save()
-
-        profile_seller2 = Profile(user=seller2, phone=123456789, birth_date='1993-01-25')
-        profile_seller2.save()
-
-        profile_seller3 = Profile(user=seller3, phone=123456789, birth_date='1987-06-14')
-        profile_seller3.save()
-
-        print ('Profiles...Ok!')
         # CreditCard==============================================================================================================
 
         creditCard1 = CreditCard(
@@ -459,7 +454,6 @@ class Command(BaseCommand):
 
         print("OrdersLine... Ok!")
 
-
         # ==============================================================================================================
 
         shoppingCart1 = ShoppingCart(
@@ -520,7 +514,7 @@ class Command(BaseCommand):
         comment1 = Comment(
             description='Todo rapido y perfecto',
             rating='5',
-            local = frankyb,
+            local=frankyb,
             reported=0,
             customer=customer1)
 
@@ -547,7 +541,7 @@ class Command(BaseCommand):
         comment4 = Comment(
             description='Siempre entra una cerveza mas!',
             rating='5',
-            local= cienm,
+            local=cienm,
             reported=0,
             customer=customer1)
 
@@ -595,5 +589,6 @@ class Command(BaseCommand):
         print ('Populated...Ok!')
 
         # ==============================================================================================================
+
     def handle(self, *args, **options):
         self._migrate()
