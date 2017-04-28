@@ -120,6 +120,7 @@ def add_product(request):
             'add': 'no',
     }
 
+    
     if productsInSC.count() == 0:
         res = add_to_shoppingcart_line(idShoppingCart, idProduct, newQuantity)
     else:
@@ -140,14 +141,18 @@ def add_product(request):
 
 def add_to_shoppingcart_line(idShoppingCart, idProduct, newQuantity):
     scLine = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
-    if scLine:
-        scLine.update(quantity = F('quantity')+newQuantity)
+
+    if int(newQuantity) > 0:
+        if scLine:
+            scLine.update(quantity = F('quantity')+newQuantity)
+        else:
+            scLine = ShoppingCartLine(
+                quantity=newQuantity,
+                product_id=idProduct,
+                shoppingCart_id=idShoppingCart)
+            scLine.save()
     else:
-        scLine = ShoppingCartLine(
-            quantity=newQuantity,
-            product_id=idProduct,
-            shoppingCart_id=idShoppingCart)
-        scLine.save()
+        scLine = 1
 
     return scLine
 
@@ -157,7 +162,8 @@ def update_product(request):
     newQuantity = request.GET.get('quantity',None)
     
     scLine = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
-    scLine.update(quantity = newQuantity)   
+    if int(newQuantity) > 0:
+        scLine.update(quantity = newQuantity)   
     
     data = {
         'update': 'ok',
