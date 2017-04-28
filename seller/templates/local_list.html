@@ -41,13 +41,15 @@
                                     </p>
                                     <p class="brief-text bottom">
                                         {% if local.comment_set.count == 0 or not local.comment_set %} Sin opiniones.
+                                            {% if perms.bocatapp.customer %}
                                             ¡Escribe la tuya! - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
+                                            {% endif %}
                                         {% endif %}
                                         {% if local.comment_set.count == 1 %}
-                                          <a href="{% url 'comment_list' pk=local.pk %}">1 opinión</a> - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
+                                          <a href="{% url 'comment_list' pk=local.pk %}">1 opinión</a>{% if perms.bocatapp.customer %} -  <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a> {% endif %}
                                         {% endif %}
                                         {% if local.comment_set.count > 1 %}
-                                          <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} opiniones</a> - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
+                                          <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} opiniones</a>{% if perms.bocatapp.customer %} - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a> {% endif %}
                                         {% endif %}
                                     </p>
                                 </div>
@@ -56,13 +58,14 @@
                                   <ul class="nav navbar-nav">
 
                                         <button  onclick="location.replace('{% url 'local_orders' pk=local.pk %}');"
-                                                class="form-control"><i class="fa fa-tasks"></i> Gestionar pedidos
+                                                class="form-control text-left"><i class="fa fa-tasks"></i> Gestionar pedidos
                                         </button>
                                         <button onclick="location.replace('{% url 'local_charts' pk=local.pk %}');"
-                                                class="form-control align-left"><i class="fa fa-pie-chart"></i> Estadisticas
+                                                class="form-control text-left"><i class="fa fa-pie-chart"></i> Estadisticas
                                         </button>
+                                        <div class="btn-group btn-block">
                                         <li class="dropdown">
-                                          <button href="#" class="dropdown-toggle form-control btn-block" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> Configuracion </button>
+                                          <button href="#" class="dropdown-toggle form-control text-left btn-block" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> Configuracion </button>
                                           <ul class="dropdown-menu">
                                             <li><a href='{% url 'local_edit' pk=local.pk %}'>Editar local</a></li>
                                             <li><a href='{% url 'menu_list' pk=local.pk %}'>Menu</a></li>
@@ -73,6 +76,7 @@
                                               <li><a href='{% url 'local_packs' local_pk=local.pk %}'>Packs</a></li>
                                           </ul>
                                         </li>
+                                        </div>
 
                                       </ul>
                                     {% endif %}
