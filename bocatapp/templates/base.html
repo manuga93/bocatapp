@@ -116,9 +116,6 @@
     function comprobeCookieCart() {
         var idCart = getIdCart();
         if (idCart != undefined) {
-            //$.removeCookie('cookieCart', { path: '/' });
-            //alert("cookie borrada");
-            //alert(getIdCart());
             updateCookie();
         }else{
 
@@ -194,6 +191,10 @@
         var url_mask = "{% url 'list_shoppingcart' pk=12345 %}".replace(/12345/, cartId.toString());
         document.getElementById("listSC").href=url_mask;
     }
+
+    $('#logoutButton').click(function(){
+        removeCookieCart();
+    });
 
 </script>
 <!-- Bocatapp -->
