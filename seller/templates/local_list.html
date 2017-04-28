@@ -55,14 +55,14 @@
                                     {% if perms.bocatapp.seller and request.user.id == local.seller.pk %}
                                   <ul class="nav navbar-nav">
 
-                                        <button onclick="location.replace('{% url 'local_orders' pk=local.pk %}');"
+                                        <button  onclick="location.replace('{% url 'local_orders' pk=local.pk %}');"
                                                 class="form-control"><i class="fa fa-tasks"></i> Gestionar pedidos
                                         </button>
-                                        <button onclick="location.replace('{% url 'local_orders' pk=local.pk %}');"
-                                                class="form-control"><i class="fa fa-pie-chart"></i> Estadisticas
+                                        <button onclick="location.replace('{% url 'local_charts' pk=local.pk %}');"
+                                                class="form-control align-left"><i class="fa fa-pie-chart"></i> Estadisticas
                                         </button>
                                         <li class="dropdown">
-                                          <button href="#" class="dropdown-toggle form-control" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> Configuracion </button>
+                                          <button href="#" class="dropdown-toggle form-control btn-block" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> Configuracion </button>
                                           <ul class="dropdown-menu">
                                             <li><a href='{% url 'local_edit' pk=local.pk %}'>Editar local</a></li>
                                             <li><a href='{% url 'menu_list' pk=local.pk %}'>Menu</a></li>
