@@ -1,7 +1,6 @@
 from django.db import transaction
-from django.http import HttpResponseRedirect
 from django.views.generic import detail, edit
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from bocatapp.forms import UserForm, UserProfileForm
 
 
@@ -19,6 +18,7 @@ class UserEdit(edit.BaseUpdateView):
         user_form = UserForm(instance=request.user, prefix='user')
         profile_form = UserProfileForm(instance=request.user.profile, prefix='profile')
         context = {
+            'type':'Editar perfil',
             'user_form': user_form,
             'profile_form': profile_form
         }
@@ -33,7 +33,6 @@ class UserEdit(edit.BaseUpdateView):
                 user = user_form.save(commit=False)
                 user.save()
                 profile = profile_form.save(commit=False)
-                profile.user = user
                 profile.save()
                 return render(request, '../templates/myaccount.html')
             else:

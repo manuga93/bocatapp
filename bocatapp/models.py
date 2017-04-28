@@ -14,7 +14,7 @@ default = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=14)
+    phone = models.CharField(max_length=14, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     avatar = models.URLField(default=default)
 

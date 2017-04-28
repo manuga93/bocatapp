@@ -10,8 +10,8 @@ urlpatterns = [
 
     # User ==================================================================
     url(r'^user/myAccount/$', login_required(UserAccount.UserAccountView.as_view()), name='myAccount'),
-    url(r'^user/edit$', login_required(UserAccount.UserEdit.as_view()), name='editPassword'),
-    url(r'^user/myAccount/edit$', login_required(UserAccount.UserEdit.as_view()), name='editAccount'),
+    url(r'^user/edit$', login_required(UserAccount.UserEdit.as_view()), name='edit_password'),
+    url(r'^user/myAccount/edit$', UserAccount.UserEdit.as_view(), name='edit_profile'),
 
     # session ==================================================================
 
