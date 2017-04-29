@@ -52,13 +52,10 @@ class UserForm(forms.ModelForm):
         self.fields['last_name'].label = "Apellidos"
         self.fields['email'].label = "Correo"
         self.fields['phone'].label = "Teléfono"
-        self.fields['birth_date'].label = "Cumpleaños (dd/mm/aaaa)"
+        self.fields['birth_date'].label = "Cumpleaños"
+        self.fields['birth_date'].widget.attrs['class'] = 'dateinput'
         self.fields['avatar'].label = "Avatar (URL)"
 
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'phone', 'birth_date', 'avatar']
-
-        help_texts = {
-            'birth_date': 'dd/mm/yyyy',
-        }

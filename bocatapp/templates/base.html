@@ -21,7 +21,6 @@
     <link href="{% static "styles/font-awesome.min.css" %}" rel="stylesheet">
 
 
-
     <!-- END STYLES -->
 
     <!--HTML5Shiv -->
@@ -53,12 +52,14 @@
 {% block frontpage %}{% endblock %}
 {% block content %}{% endblock %}
 
-<div id="avisoCookies" class="cookiebanner text-center hide"  >
+<div id="avisoCookies" class="cookiebanner text-center hide">
 
-        <p class="text-center"> <span style="color:white" >Esta página utiliza cookies propias y de terceros con el fin de mejorar el servicio. Si continuas navegando, aceptas su uso.
-        <br>Puedes informarte sobre cómo cambiar la configuración de tu navegador u obtener más información sobre la ley de cookies <a href="http://politicadecookies.com/" rel="nofollow">siguiendo este enlace</a>.</span>
-        </p><p><a class="font-white uppercase bold text-center margin-top-20" id="aceptarCookies">Acepto</a></p>
-    </div>
+    <p class="text-center"> <span style="color:white">Esta página utiliza cookies propias y de terceros con el fin de mejorar el servicio. Si continuas navegando, aceptas su uso.
+        <br>Puedes informarte sobre cómo cambiar la configuración de tu navegador u obtener más información sobre la ley de cookies <a
+                href="http://politicadecookies.com/" rel="nofollow">siguiendo este enlace</a>.</span>
+    </p>
+    <p><a class="font-white uppercase bold text-center margin-top-20" id="aceptarCookies">Acepto</a></p>
+</div>
 
 <footer class="footer">
     {% block footer %}
@@ -68,136 +69,144 @@
 
 <!-- SCRIPTS -->
 {% block scripts %}
-<script type="text/javascript" src="{% static "scripts/jquery-3.2.1.min.js" %}"></script>
-<script type="text/javascript" language="javascript" src="{% static "scripts/bootstrap.js"%}"></script>
-<script type="text/javascript" src="{% static "scripts/bootstrap-datepicker.min.js" %}"></script>
-<!-- Uso de plugin DataTable y traduccion, +info "https://datatables.net/" -->
-<script type="text/javascript" language="javascript" src="{% static "scripts/jQuery.dataTables.js"%}"></script>
-<script type="text/javascript" language="javascript" src="{% static "scripts/dataTables.js"%}"></script>
-<script type="text/javascript" language="javascript" src="{% static "scripts/DjangoAjax.js"%}"></script>
-<script type="text/javascript" language="javascript" src="{% static "scripts/jquery.cookie.js"%}"></script>
-<script>
-    $(document).ready( function () {
-        $('#menu').DataTable({
-            "columnDefs": [
-                { "orderable": false, "targets": "no-sort" }
-            ],
-            "language": {
-                "lengthMenu": "Mostrar _MENU_ resultados",
-                "search": "Buscar:",
-                "zeroRecords": "No se encontro ninguna coincidencia",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "infoEmpty": "No se encontraron resultados",
-                "infoFiltered": "(filtrados de _MAX_ resultados totales)",
-                "loadingRecords": "Cargando resultados...",
-                "emptyTable": "No hay nada para mostrar aqui",
-                paginate: {
-                    "previous": "Anterior",
-                    "next": "Siguiente"
-                },
-            }
-        } );
-    }, comprobeCookieCart());
+    <script type="text/javascript" src="{% static "scripts/jquery-3.2.1.min.js" %}"></script>
+    <script type="text/javascript" language="javascript" src="{% static "scripts/bootstrap.js" %}"></script>
+    <script type="text/javascript" src="{% static "scripts/bootstrap-datepicker.min.js" %}"></script>
+    <!-- Uso de plugin DataTable y traduccion, +info "https://datatables.net/" -->
+    <script type="text/javascript" language="javascript" src="{% static "scripts/jQuery.dataTables.js" %}"></script>
+    <script type="text/javascript" language="javascript" src="{% static "scripts/dataTables.js" %}"></script>
+    <script type="text/javascript" language="javascript" src="{% static "scripts/DjangoAjax.js" %}"></script>
+    <script type="text/javascript" language="javascript" src="{% static "scripts/jquery.cookie.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#menu').DataTable({
+                "columnDefs": [
+                    {"orderable": false, "targets": "no-sort"}
+                ],
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ resultados",
+                    "search": "Buscar:",
+                    "zeroRecords": "No se encontro ninguna coincidencia",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "infoEmpty": "No se encontraron resultados",
+                    "infoFiltered": "(filtrados de _MAX_ resultados totales)",
+                    "loadingRecords": "Cargando resultados...",
+                    "emptyTable": "No hay nada para mostrar aqui",
+                    paginate: {
+                        "previous": "Anterior",
+                        "next": "Siguiente"
+                    },
+                }
+            });
+        }, comprobeCookieCart());
 
-    function checkCookieLaw()
-        {
-            if ( window.localStorage.getItem('cookieLawKeyMiWeb') )
-            {
+        function checkCookieLaw() {
+            if (window.localStorage.getItem('cookieLawKeyMiWeb')) {
                 $('#avisoCookies').hide();
-            }else{
-            $('#avisoCookies').removeClass('hide');
-        }
+            } else {
+                $('#avisoCookies').removeClass('hide');
+            }
         }
         checkCookieLaw();
-        $('#aceptarCookies').on( "click", function(){
+        $('#aceptarCookies').on("click", function () {
             window.localStorage.setItem('cookieLawKeyMiWeb', true);
             $('#avisoCookies').hide();
         });
-    function comprobeCookieCart() {
-        var idCart = getIdCart();
-        if (idCart != undefined) {
-            //$.removeCookie('cookieCart', { path: '/' });
-            //alert("cookie borrada");
-            //alert(getIdCart());
-            updateCookie();
-        }else{
+        function comprobeCookieCart() {
+            var idCart = getIdCart();
+            if (idCart != undefined) {
+                //$.removeCookie('cookieCart', { path: '/' });
+                //alert("cookie borrada");
+                //alert(getIdCart());
+                updateCookie();
+            } else {
+
+                $.ajax({
+                    url: '{% url "create_shoppingcart" %}',
+                    dataType: 'json',
+                    success: function (data) {
+                        createCookieCart(data.ShoppingCart);
+                    },
+                    complete: function () {
+                        updateCookie();
+                    }
+                });
+
+            }
+        }
+
+        function updateCookie() {
+            var idCart = getIdCart();
 
             $.ajax({
-                url: '{% url "create_shoppingcart" %}',
+                url: '{% url "update_cookie" %}',
+                data: {'idCart': idCart},
                 dataType: 'json',
                 success: function (data) {
-                    createCookieCart(data.ShoppingCart);
+                    if (data.cookie != idCart) {
+                        removeCookieCart();
+                        if (data.cookie != "None") {
+                            createCookieCart(data.cookie);
+                        }
+                    }
                 },
-                complete: function(){
-                    updateCookie();
+                complete: function () {
+                    UpdateBadge();
+                    changeShoppingCart();
                 }
             });
 
+
         }
-    }
 
-    function updateCookie(){
-        var idCart = getIdCart();
+        function createCookieCart(id) {
+            $.cookie('cookieCart', id, {expires: 2, path: '/'});
+        }
 
-        $.ajax({
-            url: '{% url "update_cookie" %}',
-            data: {'idCart':idCart},
-            dataType: 'json',
-            success: function (data) {
-                if(data.cookie != idCart){
-                    removeCookieCart();
-                    if(data.cookie != "None"){
-                        createCookieCart(data.cookie);
+        function removeCookieCart() {
+            $.removeCookie('cookieCart', {path: '/'});
+        }
+
+        function UpdateBadge() {
+            var idCart = getIdCart();
+            $.ajax({
+                url: '{% url "update_badge" %}',
+                data: {'idCart': idCart},
+                dataType: 'json',
+                success: function (data) {
+                    if (data.count > 0) {
+                        $("#numItems").text(data.count);
+                    } else {
+                        $("#numItems").text("");
                     }
                 }
-            },
-            complete: function(){
-                UpdateBadge();
-                changeShoppingCart();
-            }
+            });
+        }
+
+        function getIdCart() {
+            var cookieContent = $.cookie('cookieCart');
+            return cookieContent;
+        }
+
+        function changeShoppingCart() {
+            var cartId = getIdCart();
+            var url_mask = "{% url 'list_shoppingcart' pk=12345 %}".replace(/12345/, cartId.toString());
+            document.getElementById("listSC").href = url_mask;
+        }
+
+        $(document).ready(function () {
+            // Datepicker
+            $('.dateinput').datepicker({
+                format: "dd/mm/yyyy",
+                startView: 2,
+                clearBtn: true,
+                autoclose: true
+            });
         });
 
-
-    }
-
-    function createCookieCart(id){
-         $.cookie('cookieCart', id, { expires: 2, path: '/' });
-    }
-
-    function removeCookieCart(){
-        $.removeCookie('cookieCart', { path: '/' });
-    }
-
-    function UpdateBadge() {
-        var idCart = getIdCart();
-        $.ajax({
-            url: '{% url "update_badge" %}',
-            data: {'idCart':idCart},
-            dataType: 'json',
-            success: function (data) {
-                if(data.count > 0){
-                    $("#numItems").text(data.count);
-                }else{
-                    $("#numItems").text("");
-                }
-            }
-        });
-    }
-
-    function getIdCart(){
-        var cookieContent = $.cookie('cookieCart');
-        return cookieContent;
-    }
-
-    function changeShoppingCart() {
-        var cartId = getIdCart();
-        var url_mask = "{% url 'list_shoppingcart' pk=12345 %}".replace(/12345/, cartId.toString());
-        document.getElementById("listSC").href=url_mask;
-    }
-
-</script>
-<!-- Bocatapp -->
-<script type="text/javascript" language="javascript" src="{% static "scripts/app.js"%}"></script>
+    </script>
+    <!-- Bocatapp -->
+    <script type="text/javascript" language="javascript" src="{% static "scripts/app.js" %}"></script>
 {% endblock %}
 </body>
 </html>
