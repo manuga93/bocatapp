@@ -7,11 +7,5 @@ $(document).ready(function () {
     }
   });
 
-  // Datepicker
-  $('.dateinput').datepicker({
-      format: "dd/mm/yyyy",
-      startView: 2,
-      clearBtn: true,
-      autoclose: true
-  });
+
 });
