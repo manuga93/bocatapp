@@ -1,41 +1,31 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Register{% endblock %}
+{% load bootstrap3 %}
+
+{% block title %}{{ type }}{% endblock %}
 
 {% block content %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <div class="container">
-
         <h1>  {{ type }}</h1>
 
-        <div class="contact-main jumbotron">
+        <div class="contact-main well white">
             <form method="post">
                 {% csrf_token %}
                 {% for field in user_form %}
                     <div class="form-group">
-                        {{ field.label_tag }}
-                        {{ field }}
+                        {{ field.label_tag }}<br>
                         {% if field.errors %}
                             {% for error in field.errors %}
-                                <p class="field-error">{{ error }}</p>
+                                <p class="alert alert-danger">{{ error }}</p>
                             {% endfor %}
                         {% endif %}
-                    </div>
-                {% endfor %}
-                {% for field in profile_form %}
-                    <div class="form-group">
-                        {{ field.label_tag }}
                         {{ field }}
-                        {% if field.errors %}
-                            {% for error in field.errors %}
-                                <p class="field-error">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
                     </div>
                 {% endfor %}
                 <br>
-                <button type="submit" class="btn btn-primary">register</button>
+                <button type="submit" class="form-control">register</button>
             </form>
         </div>
     </div>

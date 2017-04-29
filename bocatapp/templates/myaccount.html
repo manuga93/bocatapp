@@ -2,52 +2,59 @@
 {% block title %}Profile{% endblock %}
 {% block content %}
 
-<section class="container">
-    <div class="contact-main jumbotron">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">
-                    <img alt="Bootstrap Image Preview" src="{{ user.profile.avatar }}" class="img-thumbnail"/>
-                </div>
-                <div class="col-md-4">
-                    <h3>
-                        <span class="glyphicon glyphicon-user"></span>  {{ user.username }}
-                    </h3>
-                    <h3>
-                        <span class="glyphicon glyphicon-user"></span>  {{ user.first_name }}
-                    </h3>
-                    <h3>
-                        <span class="glyphicon glyphicon-user"></span>  {{ user.last_name }}
-                    </h3>
-                </div>
-                <div class="col-md-4">
-                    <h3>
-                        <span class="glyphicon glyphicon-gift"></span>  {{ user.profile.birth_date }}
-                    </h3>
-                    <h3>
-                        <span class="glyphicon glyphicon-envelope"></span>  {{ user.email }}
-                    </h3>
-                    <h3>
-                        <span class="glyphicon glyphicon-earphone"></span>  {{ user.profile.phone }}
-                    </h3>
-                    <br/>
-                    <br/>
-                </div>
-                <div class="col-md-4 text-left">
-                    <div class="previous">
-                        <button type="button" class="btn btn-block btn-primary" href="edit">Editar perfil</button>
-                        <div class="visible-xs"><br/></div>
+    <section class="container">
+        <br>
+        <div class="contact-main well white">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        <img alt="Bootstrap Image Preview" src="{{ user.avatar }}" class="img-thumbnail"/>
                     </div>
-                </div>
-                <div class="col-md-4 text-right">
-                    <div class="next">
-                        <button type="button" class="btn btn-block btn-primary" href="/editPassword">Cambiar contraseña</button>
+                    <div class="col-md-4">
+                        <h3>
+                            <i class="fa fa-user-circle" aria-hidden="true"></i> {{ user.username }}
+                        </h3>
+                        <h3>
+                            <i class="fa fa-user" aria-hidden="true"></i> {{ user.first_name }}
+                        </h3>
+                        <h3>
+                            <i class="fa fa-user" aria-hidden="true"></i> {{ user.last_name }}
+                        </h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>
+                            <i class="fa fa-birthday-cake" aria-hidden="true"></i> {{ user.birth_date }}
+                        </h3>
+                        <h3>
+                            <i class="fa fa-envelope" aria-hidden="true"></i> {{ user.email }}
+                        </h3>
+                        <h3>
+                            <i class="fa fa-phone" aria-hidden="true"></i> {{ user.phone }}
+                        </h3>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div class="col-md-4 text-left">
+                        <div class="previous">
+                            <button onclick="location.replace('{% url 'edit_profile' %}');"
+                                    class="form-control">Editar perfil
+                            </button>
+
+
+                            <br/>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <div class="next">
+                            <button onclick="location.replace('{% url 'edit_password' %}');"
+                                    class="form-control">Editar contraseña
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 {% endblock %}
 
