@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from ..models import Local, Category, Product
 
@@ -6,10 +7,10 @@ class LocalForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(LocalForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Nombre"
-        self.fields['description'].label = "Descripcion"
-        self.fields['address'].label = "Direccion"
-        self.fields['phone'].label = "Telefono"
-        self.fields['postalCode'].label = "Codigo Postal"
+        self.fields['description'].label = u"Descripción"
+        self.fields['address'].label = u"Dirección"
+        self.fields['phone'].label = u"Teléfono"
+        self.fields['postalCode'].label = u"Código Postal"
         self.fields['photo'].label = "Foto"
 
     class Meta:
@@ -22,7 +23,7 @@ class CategoryForm(forms.ModelForm):
 
         super(CategoryForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Nombre"
-        self.fields['description'].label = "Descripcion"
+        self.fields['description'].label = u"Descripción"
 
     class Meta:
         model = Category
