@@ -3,12 +3,12 @@
 {% load bootstrap3 %}
 
 {% bootstrap_messages %}
-{%block title%}Editar Categor&iacute;a{%endblock%}
+{%block title%}Nueva Categor&iacute;a{%endblock%}
 
 {% block content %}
   <div class="container">
-    <h1>Editar Categor&iacute;a</h1>
-        <form method="POST" class="local-form" action="{% url 'category_edit' pk=category_id %}">
+    <h1>Nueva Categor&iacute;a</h1>
+        <form method="POST" class="local-form" action="{% url 'category_new' pk=local.id%}">
         {% include "forms/category_form.html"%}
   </div>
 {%endblock%}

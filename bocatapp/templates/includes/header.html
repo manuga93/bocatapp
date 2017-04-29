@@ -71,7 +71,6 @@
                           <li><a href="{% url 'locals_by_seller' %}">Mis locales</a></li>
                         {% endif %}
                         {% if perms.bocatapp.customer %}
-                          <li><a href="/customer/dashboard/">Panel</a></li>
                           <li><a href="{% url 'orders_by_customer'%}">Mis pedidos</a></li>
                         {% endif %}
                         <li><a id= "logoutButton" href="/logout">Desconectar</a></li>
