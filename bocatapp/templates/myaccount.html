@@ -8,7 +8,14 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3 text-center">
-                        <img alt="Bootstrap Image Preview" src="{{ user.avatar }}" class="img-thumbnail"/>
+                        {% if user.avatar %}
+                            <img alt="{{ user.username }}" src="{{ user.avatar }}" class="img-thumbnail"/>
+                        {% else %}
+                            <img alt="{{ user.username }}"
+                                 src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
+                                 class="img-thumbnail"/>
+                        {% endif %}
+
                     </div>
                     <div class="col-md-4">
                         <h3>
