@@ -197,7 +197,7 @@ def report_new(request, pk):
             report = form.save(commit=False)
             report.comment = comment
             report.save()
-            return redirect('seller.views.local_detail', pk=comment.local.pk)
+            return redirect('comment_list', pk=comment.local.pk)
     else:
         form = ReportForm()
 
