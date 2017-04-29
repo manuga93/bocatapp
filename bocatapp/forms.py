@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.contrib.auth.hashers import make_password, check_password
+from django.core.exceptions import ValidationError
+
 from models import User
 
 
@@ -59,3 +62,29 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'phone', 'birth_date', 'avatar']
+
+
+class PasswordForm(forms.ModelForm):
+    old_password = forms.CharField(required=True, widget=forms.PasswordInput)
+    new_password = forms.CharField(required=True, widget=forms.PasswordInput)
+    password = forms.CharField(required=True, widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(PasswordForm, self).__init__(*args, **kwargs)
+        self.fields['old_password'].label = "Antigua contraseña"
+        self.fields['new_password'].label = "Nueva contraseña"
+        self.fields['password'].label = "Repetir contraseña"
+        self.non_field_errors()
+
+    class Meta:
+        model = User
+        fields = ['old_password', 'new_password', 'password']
+
+    def clean(self):
+        old_password = self.cleaned_data.get('old_password')
+        if not check_password(old_password, self.user.password):
+            self.add_error(None, 'La contraseña antigua no coincide')
+        if self.cleaned_data.get('password') != self.cleaned_data.get('new_password'):
+            self.add_error(None, 'Las nuevas contraseñas no coinciden')
+        return self.cleaned_data
