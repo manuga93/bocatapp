@@ -10,7 +10,7 @@
             <div class="col-md-2 col-md-offset-10">
                 <button type="button" class="btn btn-default col-xs-12"
                         onclick="location.replace('{% url 'seller.views.local_new' %}')" style="margin-bottom: 15px">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Crear local
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Local
                 </button>
             </div>
         </div>
@@ -49,7 +49,7 @@
                                           <a href="{% url 'comment_list' pk=local.pk %}">1 opinión</a>{% if perms.bocatapp.customer %} -  <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a> {% endif %}
                                         {% endif %}
                                         {% if local.comment_set.count > 1 %}
-                                          <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} opiniones</a>{% if perms.bocatapp.customer %} - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a> {% endif %}
+                                          <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} Opiniones</a>{% if perms.bocatapp.customer %} - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a> {% endif %}
                                         {% endif %}
                                     </p>
                                 </div>
@@ -58,21 +58,20 @@
                                   <ul class="nav navbar-nav">
 
                                         <button  onclick="location.replace('{% url 'local_orders' pk=local.pk %}');"
-                                                class="form-control text-left"><i class="fa fa-tasks"></i> Gestionar pedidos
+                                                class="form-control text-left"><i class="fa fa-tasks"></i> Gestionar Pedidos
                                         </button>
                                         <button onclick="location.replace('{% url 'local_charts' pk=local.pk %}');"
-                                                class="form-control text-left"><i class="fa fa-pie-chart"></i> Estadisticas
+                                                class="form-control text-left"><i class="fa fa-pie-chart"></i> Estad&iacute;sticas
                                         </button>
                                         <div class="btn-group btn-block">
                                         <li class="dropdown">
-                                          <button href="#" class="dropdown-toggle form-control text-left btn-block" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> Configuracion </button>
+                                          <button href="#" class="dropdown-toggle form-control text-left btn-block" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> Configuraci&oacute;n </button>
                                           <ul class="dropdown-menu">
                                             <li><a href='{% url 'local_edit' pk=local.pk %}'>Editar local</a></li>
-                                            <li><a href='{% url 'menu_list' pk=local.pk %}'>Menu</a></li>
-                                            <li><a href='{% url 'category_list' pk=local.pk %}'>Categorias</a></li>
-                                            <li><a href='{% url 'product_new' pk=local.pk %}'>Nuevo producto</a></li>
-                                            <li><a href='{% url 'category_new' pk=local.pk %}'>Nueva categoria</a></li>
-                                            <li><a href='{% url 'edit_pack' local_pk=local.pk %}'>Nuevo pack</a></li>
+                                            <li><a href='{% url 'menu_list' pk=local.pk %}'>Men&uacute;</a></li>
+                                            <li><a href='{% url 'category_list' pk=local.pk %}'>Categor&iacute;as</a></li>
+                                            <li><a href='{% url 'product_new' pk=local.pk %}'>Nuevo Producto</a></li>
+                                            <li><a href='{% url 'edit_pack' local_pk=local.pk %}'>Nuevo Pack</a></li>
                                               <li><a href='{% url 'local_packs' local_pk=local.pk %}'>Packs</a></li>
                                           </ul>
                                         </li>

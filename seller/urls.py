@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^category/new/(?P<pk>[0-9]+)/$', 'seller.views.category_new', name='category_new'),
     url(r'^category/list/(?P<pk>[0-9]+)/$', 'seller.views.category_list', name='category_list'),
     url(r'^category/edit/(?P<pk>[0-9]+)/$', 'seller.views.category_edit', name='category_edit'),
+    url(r'^category/delete/(?P<pk>[0-9]+)/$', 'seller.views.category_delete', name='category_delete'),
     url(r'^local/new/$', 'seller.views.local_new', name='local_new'),
     url(r'^local/(?P<pk>[0-9]+)/$', 'seller.views.local_detail'),
     url(r'^local/(?P<pk>[0-9]+)/edit/$', 'seller.views.local_edit', name='local_edit'),
