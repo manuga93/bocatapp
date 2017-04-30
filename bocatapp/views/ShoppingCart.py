@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404, redirect
 from customer.models import ShoppingCart, ShoppingCartLine
 from bocatapp.models import User
 from seller.models import Product
 from django.http import JsonResponse
+from django.contrib import messages
 from django.db.models import F
 import datetime
 from bocatapp.views import home
@@ -135,6 +137,7 @@ def add_product(request):
     if res:
         data = {
             'add': 'ok',
+            'message': u'El producto se ha añadido correctamente al carrito.',
         }
 
     return JsonResponse(data)
@@ -167,6 +170,7 @@ def update_product(request):
     
     data = {
         'update': 'ok',
+        'message': u'El producto se ha actualizado correctamente.',
     }
 
     return JsonResponse(data)
@@ -181,6 +185,7 @@ def delete_product(request):
     
     data = {
         'delete': 'ok',
+        'message': u'El producto se ha eliminado del carrito.',
     }
 
     return JsonResponse(data)

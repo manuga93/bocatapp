@@ -38,17 +38,17 @@
     </div>
 </header>
 <!-- COMPONENT TO SHOW ERRORS AND SUCCESSFUL MESSAGES -->
+<div id="message-list">
 {% if messages %}
-    <div id="message-list">
-        {% for message in messages %}
-            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} fade in alert-dismissible">
-                <button type="button" onclick="#" class="close" data-dismiss="alert"><span
-                        aria-hidden="true">&times;</span></button>
-                <strong></strong> {{ message }}
-            </div>
-        {% endfor %}
-    </div>
+    {% for message in messages %}
+        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} fade in alert-dismissible">
+            <button type="button" onclick="#" class="close" data-dismiss="alert"><span
+                    aria-hidden="true">&times;</span></button>
+            <strong></strong> {{ message }}
+        </div>
+    {% endfor %}
 {% endif %}
+</div>
 <!-- END -->
 {% block frontpage %}{% endblock %}
 {% block content %}{% endblock %}
