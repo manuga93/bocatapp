@@ -91,6 +91,8 @@ def checkout(request, form=CreditCardForm):
 def do_checkout(request):
     if request.user.is_authenticated():
         current_user = request.user
+        # Get shopping cart
+        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id, checkout=False)
         creditcard_opt = request.POST.get('creditcard', '')
         if creditcard_opt == 'new':
             # New credit card
@@ -107,12 +109,18 @@ def do_checkout(request):
             if not form.is_valid():
                 return checkout(request, form)
             creditcard = form.save()
-        else:
+        elif creditcard_opt == 'balance':
             # Other credit card
+            if current_user.amount_money < shoppingcart.total_price:
+                messages.add_message(request, messages.WARNING, 'Elige otro método de pago, ¡no tienes suficiente saldo!')
+                return checkout(request)
+            else:
+                request.user.amount_money -= shoppingcart.total_price
+                request.user.save()
+                creditcard = None
+        else:
             creditcard = CreditCard.objects.get(id=creditcard_opt)
 
-        # Get shopping cart
-        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id, checkout=False)
         shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
         local = shoppingcart_lines[0].product.local
         date = request.POST.get('dateCheckout', '')
