@@ -38,4 +38,3 @@ class PackForm(forms.ModelForm):
         else:
             if int(self.data['precio']) <= 0:
                 raise ValidationError('Demasiado barato!')
-
