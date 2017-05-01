@@ -401,10 +401,21 @@ ul.errorlist li{
   margin-top: 2px;
 }
 
+/* Cookies
+------------------------------------------------------------*/
+.cookiebanner{
+    background:rgba(0,0,0,0.7);
+    position: fixed;
+    z-index: 999999;
+    width:100%;
+    bottom: 0px;
+
+}
+
 /* Footer
 ------------------------------------------------------------*/
 footer {
-	position: absolute;
+	position: relative;
 	bottom: 0;
 	padding: 10px;
 	width: 100%;
