@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404, redirect
 from customer.models import ShoppingCart, ShoppingCartLine
 from bocatapp.models import User
 from seller.models import Product
 from django.http import JsonResponse
+from django.contrib import messages
 from django.db.models import F
 import datetime
 from bocatapp.views import home
@@ -120,6 +122,7 @@ def add_product(request):
             'add': 'no',
     }
 
+    
     if productsInSC.count() == 0:
         res = add_to_shoppingcart_line(idShoppingCart, idProduct, newQuantity)
     else:
@@ -134,20 +137,25 @@ def add_product(request):
     if res:
         data = {
             'add': 'ok',
+            'message': u'El producto se ha añadido correctamente al carrito.',
         }
 
     return JsonResponse(data)
 
 def add_to_shoppingcart_line(idShoppingCart, idProduct, newQuantity):
     scLine = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
-    if scLine:
-        scLine.update(quantity = F('quantity')+newQuantity)
+
+    if int(newQuantity) > 0:
+        if scLine:
+            scLine.update(quantity = F('quantity')+newQuantity)
+        else:
+            scLine = ShoppingCartLine(
+                quantity=newQuantity,
+                product_id=idProduct,
+                shoppingCart_id=idShoppingCart)
+            scLine.save()
     else:
-        scLine = ShoppingCartLine(
-            quantity=newQuantity,
-            product_id=idProduct,
-            shoppingCart_id=idShoppingCart)
-        scLine.save()
+        scLine = 1
 
     return scLine
 
@@ -157,10 +165,12 @@ def update_product(request):
     newQuantity = request.GET.get('quantity',None)
     
     scLine = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
-    scLine.update(quantity = newQuantity)   
+    if int(newQuantity) > 0:
+        scLine.update(quantity = newQuantity)   
     
     data = {
         'update': 'ok',
+        'message': u'El producto se ha actualizado correctamente.',
     }
 
     return JsonResponse(data)
@@ -175,6 +185,7 @@ def delete_product(request):
     
     data = {
         'delete': 'ok',
+        'message': u'El producto se ha eliminado del carrito.',
     }
 
     return JsonResponse(data)

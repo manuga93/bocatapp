@@ -13,6 +13,5 @@ urlpatterns = [
     url(r'^orders/$', 'customer.views.orders_by_customer', name="orders_by_customer"),
     url(r'^checkout/$', 'customer.views.checkout', name="checkout"),
     url(r'^checkout/save/$', 'customer.views.do_checkout', name="do_checkout"),
-    url(r'^dashboard/$', 'customer.views.customer_dashboard', name='dashboard'),
     url(r'^search/(?P<local_id>[0-9]+)/$', 'customer.views.search_product', name="search_product")
 ]

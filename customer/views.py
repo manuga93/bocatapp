@@ -91,6 +91,8 @@ def checkout(request, form=CreditCardForm):
 def do_checkout(request):
     if request.user.is_authenticated():
         current_user = request.user
+        # Get shopping cart
+        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id, checkout=False)
         creditcard_opt = request.POST.get('creditcard', '')
         if creditcard_opt == 'new':
             # New credit card
@@ -107,12 +109,18 @@ def do_checkout(request):
             if not form.is_valid():
                 return checkout(request, form)
             creditcard = form.save()
-        else:
+        elif creditcard_opt == 'balance':
             # Other credit card
+            if current_user.amount_money < shoppingcart.total_price:
+                messages.add_message(request, messages.WARNING, 'Elige otro método de pago, ¡no tienes suficiente saldo!')
+                return checkout(request)
+            else:
+                request.user.amount_money -= shoppingcart.total_price
+                request.user.save()
+                creditcard = None
+        else:
             creditcard = CreditCard.objects.get(id=creditcard_opt)
 
-        # Get shopping cart
-        shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id, checkout=False)
         shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
         local = shoppingcart_lines[0].product.local
         date = request.POST.get('dateCheckout', '')
@@ -152,17 +160,6 @@ def do_checkout(request):
     return redirect(home.home)
 
 
-@permission_required('bocatapp.customer', message='You are not a customer')
-def customer_dashboard(request):
-    orders_pending = OrderService.pending_orders(request.user.id)
-    orders_complete = OrderService.complete_orders(request.user.id)
-
-    context = {
-        'orders_pending': orders_pending,
-        'orders_complete': orders_complete
-    }
-    return render_to_response('customerDashboard.html', context, context_instance=RequestContext(request))
-
 # ACTUALIZAR EL CAMPO AVG RATING Y A PARTIR DE ESE ORDENAR SI SE PASA UNA PRODPIEDAD AUX
 @permission_required('bocatapp.customer', message='You are not a customer')
 def comment_new(request, pk):
@@ -197,7 +194,7 @@ def report_new(request, pk):
             report = form.save(commit=False)
             report.comment = comment
             report.save()
-            return redirect('seller.views.local_detail', pk=comment.local.pk)
+            return redirect('comment_list', pk=comment.local.pk)
     else:
         form = ReportForm()
 

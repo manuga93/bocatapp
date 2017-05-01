@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Bocatapp - Preguntas frecuentes{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>FAQs -  Preguntas frecuentes</h1>
+    <div class="panel-group" id="faq-container">
+        <div class="faqHeader">Preguntas generales</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">¿Qué es BocatApp? </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                  BocatApp es una plataforma especializada en la compra-venta de comida en los establecimientos cercanos a : zonas empresariales,campus universitarios o institutos.
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">¿Es necesario crear una cuenta?</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    Las cuentas con necesarias para solicitar pedidos y para gestionar tu negocio.
+                    Si sólo deseas consultar los establecimientos en tu código postal o sus cartas no necesitas crear una cuenta.
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">¿Cual es la divisa utilizada en todas las transacciones?</a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Todos los precios incluidos en BocatApp son en <strong>EUR</strong>.
+                </div>
+            </div>
+        </div>
+
+        <div class="faqHeader">Vendedores</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">¿Quién puede vender productos?</a>
+                </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+                <div class="panel-body">
+                  Cualquier negocio de compra-venta de comida que quiera mejorar su gestión y facilitar las reservas online a sus clientes.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">¿Por qué vender desde BocatApp?</a>
+                </h4>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse">
+                <div class="panel-body">
+                  La principal ventaja que tendrás si vendes tus productos desde BocatApp es facilitar la gestión de pedidos, ya que podrás saber el momento de recogida de dichos pedidos.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">¿Y si un cliente no recoge su pedido?</a>
+                </h4>
+            </div>
+            <div id="collapseSix" class="panel-collapse collapse">
+                <div class="panel-body">
+                  En BocatApp queremos proteger a nuestros negocios por ello, los clientes de sus establecimientos deben hacer el pago en el momento de la compra.
+                  Si el cliente no recoge el pedido, el establecimiento tendrá cubierta la venta y no tendrá pérdidas.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">¿Puedo hacer ofertas personalizadas combinando diferentes productos?</a>
+                </h4>
+            </div>
+            <div id="collapseSeven" class="panel-collapse collapse">
+                <div class="panel-body">
+                  Sí, en BocatApp hemos implementado los <strong>Packs</strong> que facilita a nuestros vendedores la creación de ofertas personalizadas combinando varios productos.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">¿Cómo recibo los pagos de las ventas a través de BocatApp?</a>
+                </h4>
+            </div>
+            <div id="collapseEight" class="panel-collapse collapse">
+                <div class="panel-body">
+                  Los pagos se realizarán de forma semanal. Al final de la semana la cuantía acumulada será transferida a la cuenta bancaria de su negocio.
+                  El mínimo a transferir es de <strong>50 EUR</strong>.
+                </div>
+            </div>
+        </div>
+
+        <div class="faqHeader">Compradores</div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">¿Que beneficios tengo frente a hacer el pedido en el propio local?</a>
+                </h4>
+            </div>
+            <div id="collapseNine" class="panel-collapse collapse">
+                <div class="panel-body">
+                  La principal ventaja será tu comodidad. Como usuario podrás realizar un pedido en cualquier momento y desde cualquier sitio, elegirás el día y hora de recogida y no tendrás que esperar colas ni preocuparte de si llevas el dinero encima.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">Soy alérgico a determinados ingredientes, ¿cómo puedo informarme del contenido de los productos?</a>
+                </h4>
+            </div>
+            <div id="collapseTen" class="panel-collapse collapse">
+                <div class="panel-body">
+                  En el menú de cada establecimiento se listan los productos junto a la lista de alérgenos de los mismos.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">En un mismo pedido, ¿puedo introducir productos de diferentes locales?</a>
+                </h4>
+            </div>
+            <div id="collapseEleven" class="panel-collapse collapse">
+                <div class="panel-body">
+                  No, con el sistema actual es necesario hacer los pedidos de cada local de forma independiente.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve">¿Puedo cancelar un pedido?</a>
+                </h4>
+            </div>
+            <div id="collapseTwelve" class="panel-collapse collapse">
+                <div class="panel-body">
+                  Sí, podrás cancelar el pedido hasta 2h antes de la entrega.
+                </div>
+            </div>
+        </div>
+        <div style="margin-top:25px;">
+          Para más información contacta a través de <a href="mailto:info@bocatapp.com">info@bocatapp.com</a>.
+        </div>
+    </div>
+</div>
+{% endblock %}

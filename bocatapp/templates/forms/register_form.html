@@ -9,22 +9,23 @@
 
         <h1>  {{ type }}</h1>
 
-        <div class="contact-main jumbotron">
+        <div class="contact-main well white">
             <form method="post">
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="form-group">
-                        {{ field.label_tag }}
-                        {{ field }}
+                        {{ field.label_tag }}<br>
                         {% if field.errors %}
                             {% for error in field.errors %}
-                                <p class="field-error">{{ error }}</p>
+                                <p class="alert alert-danger">{{ error }}</p>
                             {% endfor %}
                         {% endif %}
+                        {{ field }}
+
                     </div>
                 {% endfor %}
                 <br>
-                <button type="submit" class="btn btn-primary">register</button>
+                <button type="submit" class="form-control">register</button>
             </form>
         </div>
     </div>

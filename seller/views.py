@@ -2,6 +2,7 @@
 from django.db import transaction
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.views.generic import edit
 from datetime import datetime, timedelta
 import itertools
@@ -37,22 +38,22 @@ def getLocalCategories(pk):
 def category_list(request, pk):
     categories = get_list_or_404(Category, local=pk)
     return render(request, 'category_list.html',
-                  {'categories': categories})
+                  {'categories': categories, 'local_pk': pk})
 
 
 def product_list_category(request, pk):
-    productos = get_list_or_404(Product, category=pk)
-    category = get_list_or_404(Category, pk=pk)[0]
-    local = get_list_or_404(Local, id=pk)[0]
+    productos = Product.objects.filter(category=pk)
+    category = Category.objects.get(pk=pk)
+    local = Local.objects.get(pk=category.local.pk)
     categories = {category: productos}
     return render(request, 'menu.html',
                   {'categories': categories, 'local': local})
 
 
 # Vista para la creacion de una nueva categoria
-@permission_required('bocatapp.seller', message='You are not a seller')
+@permission_required('bocatapp.seller', message='No eres un vendedor')
 def category_new(request, pk):
-    local = get_object_or_404(Local, pk=pk)
+    local = Local.objects.get(pk=pk)
 
     if local.seller.pk == request.user.pk:
         if request.method == "POST":
@@ -61,19 +62,21 @@ def category_new(request, pk):
                 category = form.save(commit=False)
                 category.local = local
                 category.save()
-                return redirect('/')
+                messages.error(request, 'Categoría creada correctamente.')
+                return redirect('category_list', pk=local.pk)
         else:
             form = CategoryForm()
 
-        return render(request, 'category_edit.html', {'form': form, 'local': local})
+        return render(request, 'category_new.html', {'form': form, 'local': local})
     else:
+        messages.warning(request, u'La categoría no se ha creado porque no le pertenece.')
         return redirect('/')
 
 
 # Editar una categoria
-@permission_required('bocatapp.seller', message='You are not a seller')
+@permission_required('bocatapp.seller', message='No eres un vendedor')
 def category_edit(request, pk):
-    category = get_object_or_404(Category, pk=pk)
+    category = Category.objects.get(pk=pk)
     local = category.local
 
     if local.seller.pk == request.user.pk:
@@ -83,12 +86,27 @@ def category_edit(request, pk):
             if form.is_valid() and category.local.seller == request.user:
                 category = form.save(commit=False)
                 category.save()
-                return redirect('seller.views.category_list', pk=category.local.pk)
+                messages.success(request, u'Categoría editada correctamente.')
+                return redirect('category_list', pk=category.local.pk)
         else:
             form = CategoryForm(instance=category)
 
-        return render(request, 'category_edit.html', {'form': form, 'locals': locals})
+        return render(request, 'category_edit.html', {'category_id':category.pk, 'form': form, 'local': local})
     else:
+        messages.warning(request, u'La categoría no se ha editado porque no le pertenece.')
+        return redirect('/')
+
+@permission_required('bocatapp.seller', message='No eres un vendedor')
+def category_delete(request, pk):
+    category = Category.objects.get(pk=pk)
+    local = category.local
+
+    if local.seller.pk == request.user.pk:
+        category.delete()
+        messages.success(request, u'Categoría eliminada correctamente.')
+        return redirect('category_list', pk=local.pk)
+    else:
+        messages.warning(request, u'La categoría no se ha eliminado porque no le pertenece.')
         return redirect('/')
 
 
