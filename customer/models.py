@@ -18,7 +18,7 @@ class Order(models.Model):
     hour = models.CharField(max_length=5)
     local = models.ForeignKey(Local)
     customer = models.ForeignKey(User)
-    creditCard = models.ForeignKey(CreditCard)
+    creditCard = models.ForeignKey(CreditCard, null=True)
 
 
 class OrderLine(models.Model):
