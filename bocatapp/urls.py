@@ -48,4 +48,7 @@ urlpatterns = [
 
     # OTHERS ==================================================================
     url(r'^faq/', TemplateView.as_view(template_name="faq.html"), name='faq'),
+    url(r'^terms/', TemplateView.as_view(template_name="terms.html"), name='terms'),
+    url(r'^cookies/', TemplateView.as_view(template_name="cookies.html"), name='cookies'),
+
 ]

@@ -447,7 +447,7 @@ ul.errorlist li{
 /* Footer
 ------------------------------------------------------------*/
 footer {
-	position: relative;
+	position: absolute;
 	bottom: 0;
 	padding: 10px;
 	width: 100%;

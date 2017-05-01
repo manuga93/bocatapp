@@ -54,10 +54,8 @@
 {% block content %}{% endblock %}
 
 <div id="avisoCookies" class="cookiebanner text-center hide">
-
     <p class="text-center"> <span style="color:white" >Esta página utiliza cookies propias y de terceros con el fin de mejorar el servicio. Si continuas navegando, aceptas su uso.</span></p>
-    <p><a class="font-white uppercase bold text-center margin-top-20" id="aceptarCookies">Acepto</a>   |   <a href="http://politicadecookies.com/" class="font-white uppercase bold text-center margin-top-20" id="leerMas">             Leer mas</a></p>
-
+    <p><a class="font-white uppercase bold text-center margin-top-20" id="aceptarCookies">Acepto</a>   |   <a href="{% url 'cookies' %}" class="font-white uppercase bold text-center margin-top-20" id="leerMas">             Leer mas</a></p>
 </div>
 
 <footer class="footer">
