@@ -53,12 +53,10 @@
 {% block frontpage %}{% endblock %}
 {% block content %}{% endblock %}
 
-<div id="avisoCookies" class="cookiebanner text-center hide"  >
-
-        <p class="text-center"> <span style="color:white" >Esta página utiliza cookies propias y de terceros con el fin de mejorar el servicio. Si continuas navegando, aceptas su uso.
-        <br>Puedes informarte sobre cómo cambiar la configuración de tu navegador u obtener más información sobre la ley de cookies <a href="http://politicadecookies.com/" rel="nofollow">siguiendo este enlace</a>.</span>
-        </p><p><a class="font-white uppercase bold text-center margin-top-20" id="aceptarCookies">Acepto</a></p>
-    </div>
+<div id="avisoCookies" class="cookiebanner text-center hide">
+    <p class="text-center"> <span style="color:white" >Esta página utiliza cookies propias y de terceros con el fin de mejorar el servicio. Si continuas navegando, aceptas su uso.</span></p>
+    <p><a class="font-white uppercase bold text-center margin-top-20" id="aceptarCookies">Acepto</a>   |   <a href="{% url 'cookies' %}" class="font-white uppercase bold text-center margin-top-20" id="leerMas">             Leer mas</a></p>
+</div>
 
 <footer class="footer">
     {% block footer %}

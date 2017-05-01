@@ -401,6 +401,17 @@ ul.errorlist li{
   margin-top: 2px;
 }
 
+/* Cookies
+------------------------------------------------------------*/
+.cookiebanner{
+    background:rgba(0,0,0,0.7);
+    position: fixed;
+    z-index: 999999;
+    width:100%;
+    bottom: 0px;
+
+}
+
 /* FAQ
 ------------------------------------------------------------*/
 .faqHeader {
