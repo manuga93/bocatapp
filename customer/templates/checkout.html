@@ -40,6 +40,9 @@
                             </div>
                           {%endfor%}
                           <div class="radio list-group-item">
+                            <label><input type="radio" name="creditcard" value="balance"{% if user.amount_money < shoppingcart.total_price %} disabled {%endif%}>Saldo: {{user.amount_money}} € {% if user.amount_money < shoppingcart.total_price %} <span class="text-danger">¡No tienes saldo suficiente!</span> {% endif %}</label>
+                          </div>
+                          <div class="radio list-group-item">
                             <label><input type="radio" name="creditcard" value="new" checked="true">Nueva tarjeta de crédito</label>
                           </div>
                         </ul>
