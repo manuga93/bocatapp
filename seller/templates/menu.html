@@ -6,7 +6,7 @@
         <h2>Carta de {{ local.name }}</h2>
         <br/>
         <form id="search_form" method="GET" action="{% url 'search_product' local_id=local.id %}">
-            <div class="input-group stylish-input-group">
+            <div class="input-group stylish-input-group" style="z-index: 0">
                 <input name="search_input" type="text" class="form-control" placeholder="Buscar">
                 <span class="input-group-addon">
       <button id="search_button" type="submit">
