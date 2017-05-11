@@ -29,9 +29,11 @@
                         </h3>
                     </div>
                     <div class="col-md-4">
+                        {% if user.birth_date != null %}
                         <h3>
                             <i class="fa fa-birthday-cake" aria-hidden="true"></i> {{ user.birth_date }}
                         </h3>
+                        {% endif %}
                         <h3>
                             <i class="fa fa-envelope" aria-hidden="true"></i> {{ user.email }}
                         </h3>
