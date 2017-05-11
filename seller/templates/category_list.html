@@ -1,23 +1,64 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Categorias{%endblock%}
+{% block title %}Categor&iacute;as{%endblock%}
 
 {% block content %}
-    <h1>Categorias</h1>
 
-    {%for category in categories%}
-
-        <div>
-            <h3>{{category.name }}</h3>
+    <div class="container">
+        <h1>Categor&iacute;as</h1>
+        <div class="row">
+            <div class"btn-group">
+                <a class="col-md-2 col-md-offset-10" href="{% url 'category_new' pk=local_pk %}">
+                    <button type="button" class="btn btn-success col-xs-12" style="margin-bottom: 15px">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Categor&iacute;a
+                    </button>
+                </a>
+            </div>
         </div>
-        <div>
-            <button class ='btn-primary' onclick="window.location.href='/seller/product/list/{{ category.id }}/'" > Ver productos </button>
-            {% if perms.bocatapp.seller %}
-                <button class ='btn-primary' onclick="window.location.href='/seller/category/edit/{{ category.id }}/'" > Editar </button>
-            {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                {% if categories %}
+                {%for category in categories%}
+                    <div class="item-search well white">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-8 info-wrapper">
+                                <h3>{{category.name}}</h3>
+                                <p>{{category.description}}</p>
+                            </div>
+                            <div class="col-md-2 col-xs-12 buttons-wrapper text-center">
+                                <a href="{% url 'product_list_category' pk=category.id %}">
+                                    <button class ='btn btn-primary'> 
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver productos 
+                                    </button>
+                                </a>
+                                {% if perms.bocatapp.seller %}
+                                    <a href="{% url 'category_edit' pk=category.id %}">
+                                        <button class ='btn btn-warning'> 
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar 
+                                        </button>
+                                    </a>
+                                    <a href="{% url 'category_delete' pk=category.id %}">
+                                        <button class ='btn btn-danger'> 
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar 
+                                        </button>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                    <h2><span class="glyphicon glyphicon-exclamation-sign"> </span> No hay categor&iacute;as creadas en este local.</h2>
+                {% endif %}
+                <div class="row">
+                    <a class="col-sm-2 text-left" href="{% url 'locals_by_seller' %}">
+                        <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
+                        </button>
+                    </a>
+                </div>
+            </div>
         </div>
-
-    {% endfor %}
-
+    </div>
 {%endblock%}
 

@@ -1,6 +1,6 @@
 {% load bootstrap3 %}
 
-<form method="POST" class="local-form" action="{% url 'category_new' pk=local.id%}">{% csrf_token %}
+{% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
         <button type="submit" class="btn btn-primary">Guardar</button>

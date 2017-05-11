@@ -152,17 +152,6 @@ def do_checkout(request):
     return redirect(home.home)
 
 
-@permission_required('bocatapp.customer', message='You are not a customer')
-def customer_dashboard(request):
-    orders_pending = OrderService.pending_orders(request.user.id)
-    orders_complete = OrderService.complete_orders(request.user.id)
-
-    context = {
-        'orders_pending': orders_pending,
-        'orders_complete': orders_complete
-    }
-    return render_to_response('customerDashboard.html', context, context_instance=RequestContext(request))
-
 # ACTUALIZAR EL CAMPO AVG RATING Y A PARTIR DE ESE ORDENAR SI SE PASA UNA PRODPIEDAD AUX
 @permission_required('bocatapp.customer', message='You are not a customer')
 def comment_new(request, pk):
