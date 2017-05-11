@@ -4,6 +4,7 @@ from .decorators import anonymous_required, login_required
 from django.contrib.auth.views import login, logout
 from bocatapp.views import home, UserRegister, UserAccount, ShoppingCart
 from seller import views
+from django.views.generic import TemplateView
 urlpatterns = [
     # Examples:
     url(r'^$', home.home, name='home'),
@@ -44,4 +45,10 @@ urlpatterns = [
     url(r'^ShoppingCart/delete/', ShoppingCart.delete_product, name='delete_product_cart'),
     url(r'^shoppingCart/update_badge/', ShoppingCart.update_badge, name='update_badge'),
     url(r'^shoppingCart/update_total/', ShoppingCart.update_total, name='update_total'),
+
+    # OTHERS ==================================================================
+    url(r'^faq/', TemplateView.as_view(template_name="faq.html"), name='faq'),
+    url(r'^terms/', TemplateView.as_view(template_name="terms.html"), name='terms'),
+    url(r'^cookies/', TemplateView.as_view(template_name="cookies.html"), name='cookies'),
+
 ]

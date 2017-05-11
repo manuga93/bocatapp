@@ -76,31 +76,17 @@ class Command(BaseCommand):
         customer2.user_permissions.add(Permission.objects.get(codename="customer"))
 
         customer3 = User(
-            username='rafcorchuelo',
-            email='rafcorchuelo@customer.com',
-            first_name='Rafael',
-            amount_money=15.0,
-            phone=123456589,
-            birth_date='1993-01-25')
-        customer3.set_password('@rafcorchuelo')
-        customer3.save()
-        customer3.user_permissions.add(Permission.objects.get(codename="customer"))
-
-        customer4 = User(
-            username='patjimenez',
+            username='patri',
             email='patjimenez@customer.com',
             first_name='Patricia',
             amount_money=15.0,
             phone=123456289,
             birth_date='1993-01-25')
-        customer4.set_password('@patjimenez')
-        customer4.save()
-        customer4.user_permissions.add(Permission.objects.get(codename="customer"))
+        customer3.set_password('@customer')
+        customer3.save()
+        customer3.user_permissions.add(Permission.objects.get(codename="customer"))
 
-
-
-
-        print('Customer created...Ok')
+        print('Customers created...Ok')
 
         # Sellers ======================================================================================================
 
@@ -134,7 +120,19 @@ class Command(BaseCommand):
         seller3.save()
         seller3.user_permissions.add(Permission.objects.get(codename="seller"))
 
-        print('Seller created...Ok')
+        seller4 = User(
+            username='corchu',
+            email='rafcorchuelo@seller.com',
+            first_name='Rafael',
+            amount_money=15.0,
+            phone=123456589,
+            birth_date='1993-01-25')
+        seller4.set_password('@seller')
+        seller4.save()
+        seller4.user_permissions.add(Permission.objects.get(codename="seller"))
+
+
+        print('Sellers created...Ok')
 
         # Locals =======================================================================================================
 
@@ -421,6 +419,7 @@ class Command(BaseCommand):
         donutOreo_namnam = Product(name='Donut de oreo', price=1.0, local=namnam, ingredients='donut,oreo,nata',
                                     picture='http://www.equiphotel.com/__novaimages/1802353?v=636126641735900000',
                                     category=bolleria_namnam)
+        donutOreo_namnam.save()
         napolitana_namnam.save()
 
         # 100m =====================================================================================================
@@ -509,7 +508,7 @@ class Command(BaseCommand):
             expireYear='2020',
             cvv='255',
             number='4361744206052381',
-            user=customer3)
+            user=seller4)
 
         creditCard3.save()
 
@@ -520,7 +519,7 @@ class Command(BaseCommand):
             expireYear='2021',
             cvv='142',
             number='4882910476013938',
-            user=customer4)
+            user=customer3)
 
         creditCard4.save()
 
@@ -558,7 +557,7 @@ class Command(BaseCommand):
                        creditCard=creditCard3, status=True, hour='13:45')
         order6.save()
 
-        order7 = Order(totalPrice=5.30, moment='2017-05-15 13:45:00', local=frankyb,customer=customer4,
+        order7 = Order(totalPrice=5.30, moment='2017-05-15 13:45:00', local=frankyb,customer=customer2,
                        creditCard=creditCard4, status=False,hour='13:45')
         order7.save()
 
@@ -566,7 +565,7 @@ class Command(BaseCommand):
                        creditCard=creditCard3,status=False, hour='14:15')
         order8.save()
 
-        order9 = Order(totalPrice=8.80, moment='2017-05-15 14:00', local=frankyb, customer=customer4,
+        order9 = Order(totalPrice=8.80, moment='2017-05-15 14:00', local=frankyb, customer=customer3,
                        creditCard=creditCard4, status=False, hour='14:15')
         order9.save()
 

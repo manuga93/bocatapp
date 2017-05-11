@@ -33,5 +33,8 @@ class PackForm(forms.ModelForm):
             raise ValidationError('Debes introducir una fecha valida')
         if self.fecha_inicio > self.cleaned_data['fecha_fin']:
             raise ValidationError('Debes introducir una fecha futura')
-        if int(self.data['precio']) <= 0:
-            raise ValidationError('Demasiado barato!')
+        if len(self.data['precio']) == 0:
+            raise ValidationError('Introduce un precio!')
+        else:
+            if int(self.data['precio']) <= 0:
+                raise ValidationError('Demasiado barato!')
