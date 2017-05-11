@@ -16,16 +16,16 @@
                 {% for field in user_form %}
                     <div class="form-group">
                         {{ field.label_tag }}<br>
-                        {% if field.errors %}
+                        {{ field }} {% if field.errors %}
                             {% for error in field.errors %}
-                                <p class="alert alert-danger">{{ error }}</p>
+                                <br><span style="color: darkred">{{ error }}</span >
                             {% endfor %}
                         {% endif %}
-                        {{ field }}
                     </div>
                 {% endfor %}
                 <br>
                 <button type="submit" class="btn btn-default"><i class="fa fa-check"></i> Guardar</button>
+                <a href="{% url 'myAccount'%}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Atrás</a>
             </form>
         </div>
     </div>
