@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from models import User
+from datetime import date
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -54,8 +55,15 @@ class UserForm(forms.ModelForm):
         self.fields['phone'].label = "Teléfono"
         self.fields['birth_date'].label = "Cumpleaños"
         self.fields['birth_date'].widget.attrs['class'] = 'dateinput'
+        self.fields['birth_date'].widget.attrs['readonly'] = True
         self.fields['avatar'].label = "Avatar (URL)"
 
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'phone', 'birth_date', 'avatar']
+
+    def clean_birth_date(self):
+        date = self.cleaned_data['birth_date']
+        if date is not None and date > date.today():
+            raise forms.ValidationError("todavía no has nacido?!")
+        return date
