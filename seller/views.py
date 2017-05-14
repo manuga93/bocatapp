@@ -213,7 +213,7 @@ def local_charts(request, pk):
     local = get_object_or_404(Local, pk=pk)
 
     if local.seller.pk == request.user.pk:
-        orders = get_list_or_404(Order, local=pk)
+        orders = Order.objects.filter(local=pk)
         # General
         done_orders = sum([1 for order in orders if order.status is True])
         pending_orders = len(orders) - done_orders
