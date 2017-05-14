@@ -20,7 +20,7 @@ class RegistrationCustomerView(FormView):
     @transaction.atomic
     def post(self, request):
         if not request.user.is_authenticated():
-            form = UserRegistrationForm(request.POST)
+            form = UserRegistrationForm(request.POST or None)
             if form.is_valid():
                 user = form.create_user()
                 password = form.cleaned_data.get('password')
@@ -55,7 +55,7 @@ class RegistrationSellerView(FormView):
     @transaction.atomic
     def post(self, request):
         if not request.user.is_authenticated():
-            form = UserRegistrationForm(request.POST)
+            form = UserRegistrationForm(request.POST or None)
             if form.is_valid():
                 user = form.create_user()
                 password = form.cleaned_data.get('password')

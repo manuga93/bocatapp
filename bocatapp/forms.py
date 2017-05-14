@@ -13,6 +13,8 @@ class UserRegistrationForm(forms.ModelForm):
     username = forms.CharField()
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(widget=forms.PasswordInput)
+    acceptation = forms.BooleanField(required=False)
     phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
                              error_message=(
                                  "Debe tener formato 999999999"))
@@ -24,7 +26,20 @@ class UserRegistrationForm(forms.ModelForm):
         self.fields['last_name'].label = "Apellidos"
         self.fields['email'].label = "Correo"
         self.fields['password'].label = "Contraseña"
+        self.fields['password2'].label = "Repita su contraseña"
+        self.fields['acceptation'].label = "Acepto los terminos y condiciones"
         self.fields['phone'].label = "Teléfono"
+
+    def clean(self):
+        cleaned_data = super(UserRegistrationForm, self).clean()
+        password = cleaned_data.get("password")
+        password2 = cleaned_data.get("password2")
+        acceptation = cleaned_data.get("acceptation")
+
+        if password != password2:
+            self.add_error('password2', 'Las contrasenas no coinciden.')
+        if not acceptation:
+            self.add_error(None, 'Debes aceptar los terminos y condiciones para registrarte.')
 
     def create_user(self):
         res = User(first_name=self.cleaned_data['first_name'],
@@ -37,7 +52,7 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'phone']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'password2', 'phone', 'acceptation']
 
 
 class UserForm(forms.ModelForm):
