@@ -4,6 +4,11 @@ from ..models import Local, Category, Product
 
 
 class LocalForm(forms.ModelForm):
+
+    phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
+                             error_message=(
+                                 "Debe tener formato 999999999"))
+
     def __init__(self, *args, **kwargs):
         super(LocalForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Nombre"
