@@ -58,6 +58,7 @@ def order_line_by_order(request, order_id):
 # Busqueda de productos
 def search_product(request, local_id):
     #Input de busqueda
+
     search = request.GET.get('search_input', None)
     #Local de busqueda
     local = Local.objects.get(pk=local_id)
@@ -66,8 +67,9 @@ def search_product(request, local_id):
 
     #categories = Diccionario {Categoria: Productos resultantes de la busqueda en esta categoria, ...}
     if search:
-        grouped = itertools.groupby(products, lambda product: product.category)
-        categories = {c: p for c, p in grouped}
+        categories = dict((p.category, products.filter(category_id=p.category.id)) for p in products)
+        #grouped = itertools.groupby(products, lambda product: product.category)
+        #categories = {c: p for c, p in grouped}
 
         #Devolvemos la pantalla de carta con la nueva lista de categorias
         return render(request, 'menu.html',
