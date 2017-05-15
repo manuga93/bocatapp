@@ -277,25 +277,26 @@ def search2(request, pk):
 
 
 # Packs--------------------------------------------------------------------------
+@permission_required('bocatapp.seller', message='You are not a seller')
 def packs_list(request):
     packs = get_list_or_404(Pack)
     return render(request, 'pack/list.html',
                   {'packs': packs})
 
-
+@permission_required('bocatapp.seller', message='You are not a seller')
 def local_packs(request, local_pk):
     packs = Local.objects.get(id=local_pk).pack_set.all()
     local = Local.objects.get(id=local_pk)
     return render(request, 'pack/list.html',
                   {'packs': packs, 'local': local})
 
-
+@permission_required('bocatapp.seller', message='You are not a seller')
 def pack_details(request, pk):
     pack = get_object_or_404(Pack, id=pk)
     return render(request, 'pack/details.html',
                   {'pack': pack})
 
-
+@permission_required('bocatapp.seller', message='You are not a seller')
 class EditPack(edit.View):
     # @permission_required('bocatapp.seller', message='You are not a seller')
     def get(self, request, local_pk):
