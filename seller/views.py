@@ -270,6 +270,12 @@ def search(request):
     return render(request, 'cp_search.html', {'locals': locals})
 
 
+def search2(request, pk):
+    code = get_object_or_404(Local, pk=pk).postalCode
+    locals = Local.objects.all().filter(postalCode=code)
+    return render(request, 'cp_search.html', {'locals': locals})
+
+
 # Packs--------------------------------------------------------------------------
 def packs_list(request):
     packs = get_list_or_404(Pack)
