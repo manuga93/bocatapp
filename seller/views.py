@@ -296,9 +296,9 @@ def pack_details(request, pk):
     return render(request, 'pack/details.html',
                   {'pack': pack})
 
-@permission_required('bocatapp.seller', message='You are not a seller')
+
 class EditPack(edit.View):
-    # @permission_required('bocatapp.seller', message='You are not a seller')
+    @permission_required('bocatapp.seller', message='You are not a seller')
     def get(self, request, local_pk):
         pack_form = PackForm()
         local_products = get_object_or_404(Local, id=local_pk).product_set.all()
@@ -312,6 +312,7 @@ class EditPack(edit.View):
         # @permission_required('bocatapp.seller', message='You are not a seller')
 
     @transaction.atomic
+    @permission_required('bocatapp.seller', message='You are not a seller')
     def post(self, request, local_pk):
         if request.user.is_authenticated():
             pack_form = PackForm(request.POST)
