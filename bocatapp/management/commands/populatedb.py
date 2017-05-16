@@ -784,9 +784,28 @@ class Command(BaseCommand):
             reason='Este comentario no tiene fundamento',
             accepted=0,
             decline=0,
-            comment=comment1)
+            comment=comment1,
+            customer=customer2)
 
         report1.save()
+
+        report2 = Report(
+            reason='Este comentario no me gusta',
+            accepted=0,
+            decline=0,
+            comment=comment2,
+            customer=customer2)
+
+        report2.save()
+
+        report3 = Report(
+            reason='Este comentario es insultante',
+            accepted=0,
+            decline=0,
+            comment=comment1,
+            customer=customer2)
+
+        report3.save()
 
         print('reports created...Ok')
 

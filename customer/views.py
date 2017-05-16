@@ -58,6 +58,7 @@ def order_line_by_order(request, order_id):
 # Busqueda de productos
 def search_product(request, local_id):
     #Input de busqueda
+
     search = request.GET.get('search_input', None)
     #Local de busqueda
     local = Local.objects.get(pk=local_id)
@@ -66,8 +67,9 @@ def search_product(request, local_id):
 
     #categories = Diccionario {Categoria: Productos resultantes de la busqueda en esta categoria, ...}
     if search:
-        grouped = itertools.groupby(products, lambda product: product.category)
-        categories = {c: p for c, p in grouped}
+        categories = dict((p.category, products.filter(category_id=p.category.id)) for p in products)
+        #grouped = itertools.groupby(products, lambda product: product.category)
+        #categories = {c: p for c, p in grouped}
 
         #Devolvemos la pantalla de carta con la nueva lista de categorias
         return render(request, 'menu.html',
@@ -161,7 +163,7 @@ def do_checkout(request):
 
 
 # ACTUALIZAR EL CAMPO AVG RATING Y A PARTIR DE ESE ORDENAR SI SE PASA UNA PRODPIEDAD AUX
-@permission_required('bocatapp.customer', message='You are not a customer')
+@permission_required('bocatapp.customer', message='No eres un usuario')
 def comment_new(request, pk):
     local = get_object_or_404(Local, pk=pk)
     if request.method == "POST":
@@ -185,7 +187,7 @@ def update_avg_rating(local_id):
     local.avg_rating = aux
     local.save()
 
-@permission_required('bocatapp.customer', message='You are not a customer')
+@permission_required('bocatapp.customer', message='No eres un usuario')
 def report_new(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == "POST":
@@ -209,20 +211,20 @@ def comment_list(request, pk):
                                 {'comentarios': comentarios, 'local': local}, context_instance=RequestContext(request))
 
 # Lista los reportes de un comentario
-@permission_required('bocatapp.administrator', message='You are not an administrator')
-def report_list(request, pk):
-    reports = Report.objects.filter(comment = pk, accepted=0,decline=0)
+@permission_required('bocatapp.administrator', message='No eres un administrador')
+def report_list(request):
+    dict = ReportService.commentsWithReports()
     return render_to_response('report_list.html',
-                                {'reports': reports}, context_instance=RequestContext(request))
+                                {'reports': dict}, context_instance=RequestContext(request))
 
-@permission_required('bocatapp.administrator', message='You are not an administrator')
+@permission_required('bocatapp.administrator', message='No eres un administrador')
 def report_accept(request, pk):
     ReportService.accept_report(pk)
     report = get_object_or_404(Report, pk=pk)
-    return redirect('seller.views.local_detail', pk=report.comment.local.pk)
+    return redirect('report_list')
 
-@permission_required('bocatapp.administrator', message='You are not an administrator')
+@permission_required('bocatapp.administrator', message='No eres un administrador')
 def report_decline(request, pk):
     ReportService.decline_report(pk)
     report = get_object_or_404(Report, pk=pk)
-    return redirect('customer.views.report_list', pk=report.comment.pk)
+    return redirect('report_list')

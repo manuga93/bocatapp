@@ -3,11 +3,24 @@
 {% load bootstrap3 %}
 
 {% bootstrap_messages %}
-{% block title %}Editar producto{%endblock%}
+{% block title %}
+    {% if form.instance.pk == None %}
+        Crear producto
+    {% endif %}
+    {% if form.instance.pk != None %}
+        Editar producto
+    {% endif %}
+{%endblock%}
 
 {% block content%}
 <div class="container">
-  <h1>Editar producto</h1>
+{% if form.instance.pk == None %}
+  <h1>Crear producto</h1>
+{% endif %}
+{% if form.instance.pk != None %}
+    <h1>Editar producto</h1>
+{% endif %}
+
   <form method="POST" class="local-form"> {%csrf_token%}
       {% bootstrap_form form %}
       {% buttons %}
