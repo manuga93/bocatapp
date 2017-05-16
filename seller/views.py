@@ -126,7 +126,7 @@ def product_new(request, pk):
         else:
             form = ProductForm(pk=pk)
 
-        return render(request, 'product_edit.html', {'form': form})
+        return render(request, 'product_edit.html', {'form': form,'pk':pk})
     else:
         return redirect("/")
 
@@ -250,7 +250,7 @@ def local_edit(request, pk):
     else:
         form = LocalForm(instance=local)
 
-    return render(request, 'local_edit.html', {'form': form})
+    return render(request, 'local_edit.html', {'form': form,'pk':pk})
 
 
 def search(request):
@@ -283,9 +283,9 @@ def packs_list(request):
                   {'packs': packs})
 
 
-def local_packs(request, local_pk):
-    packs = Local.objects.get(id=local_pk).pack_set.all()
-    local = Local.objects.get(id=local_pk)
+def local_packs(request, pk):
+    packs = Local.objects.get(id=pk).pack_set.all()
+    local = Local.objects.get(id=pk)
     return render(request, 'pack/list.html',
                   {'packs': packs, 'local': local})
 
