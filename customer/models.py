@@ -56,6 +56,7 @@ class Comment(models.Model):
 
 
 class Report(models.Model):
+    customer = models.ForeignKey(User)
     reason = models.CharField(max_length=256)
     accepted = models.BooleanField(default=False)
     decline = models.BooleanField(default=False)

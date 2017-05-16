@@ -1,35 +1,60 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}reports{% endblock %}
+{% block title %}Reportes{% endblock %}
 
 {% block content %}
+    <link href="{% static "styles/stars.css" %}" rel="stylesheet">
+
+    <div class="container">
     <h1>Reportes</h1>
     <hr>
-    {% for report in reports %}
+    {% if reports %}
+    {% for c, r in reports.items %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="item-search well white">
+                        <div class="comment">
+                        <p>Escrito por: <strong>{{ c.customer.username }}</strong></p>
+
+                            <p>Valoracion:
+                            {% for i in "x"|ljust:c.rating %}
+                                <i class="fa fa-star"></i>
+                            {% endfor %}
+                            <p>{{ c.description|linebreaks }}</p>
+                        </div>
+                        {% if perms.bocatapp.administration %}
+
+
+                            </div>
+                        {% endif %}
+
+        {% for k in r %}
         <div class="report">
-            <p>{{ report.reason|linebreaks }}</p>
-        </div>
-        <div>
-            <button class='btn-primary'
-                    onclick="window.location.href='/customer/report/accept/{{ report.pk }}/'"> Aceptar
-            </button>
-            <button class='btn-primary'
-                    onclick="window.location.href='/customer/report/decline/{{ report.pk }}/'"> Cancelar
-            </button>
-        </div>
-        <div>
+            <p>Reportado por: <b>{{ k.customer.username }}</b></p>
+            <p>Razon: {{ k.reason }}</p>
+
 
         </div>
 
-        <hr/>
 
+        <div class="botones">
+            <a href="{% url 'report_accept' pk=k.pk %}" class='btn btn-primary'> Aceptar </a>
+            <a href="{% url 'report_decline' pk=k.pk %}" class='btn btn-danger'> Rechazar </a>
 
-    {% empty %}
-        <p>No hay reportes sobre este comentario</p>
-    {% endfor %}
+        </div>
+            <br/>
 
+        {% endfor %}
+            <hr/>
+        <br/>
+        </div>
+        </div>
+        {% endfor %}
 
-    <hr/>
+    {% endif %}
+
+    {% if not reports %}
+        <h2>No hay reportes activos</h2>
+    {% endif %}
+    </div>
 {% endblock %}
-
-

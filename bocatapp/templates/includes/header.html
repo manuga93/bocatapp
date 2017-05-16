@@ -22,7 +22,7 @@
                     </a>
                 </li>
             {% endif %}
-            {% if perms.bocatapp.customer %}
+            {% if perms.bocatapp.customer and not user.is_superuser%}
             <li>
               <a href="#">
                 Saldo: {{user.amount_money}} €
@@ -66,11 +66,13 @@
                             <a href="/user/myAccount/"><strong class="hidden-xs block">{{ user.get_full_name }}</strong>
                             <span class="block">Mi cuenta</span></a>
                         </li>
-
-                        {% if perms.bocatapp.seller %}
+                        {% if user.is_superuser %}
+                            <li><a href="{% url 'report_list' %}">Reportes</a></li>
+                        {% endif %}
+                        {% if perms.bocatapp.seller and not user.is_superuser%}
                           <li><a href="{% url 'locals_by_seller' %}">Mis locales</a></li>
                         {% endif %}
-                        {% if perms.bocatapp.customer %}
+                        {% if perms.bocatapp.customer and not user.is_superuser%}
                           <li><a href="{% url 'orders_by_customer'%}">Mis pedidos</a></li>
                         {% endif %}
                         <li><a id= "logoutButton" href="/logout">Desconectar</a></li>
