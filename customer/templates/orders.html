@@ -110,6 +110,12 @@
         {% else %}
             <h3>No hay pedidos hechos =)</h3>
         {% endif %}
+
+        <a class="col-sm-2 text-left" href="{% url 'locals_by_seller'%}">
+                  <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
+                  </button>
+              </a>
     </div>
 
     <script>

@@ -29,6 +29,7 @@ urlpatterns = [
                                                   message='You`ve already sign in!'), name='seller_register'),
     url(r'^seller/', include('seller.urls')),
     url(r'^pack/all/$', views.packs_list, name="packs_all"),
+    url(r'^pack/local/(?P<pk>[0-9]+)/$', views.local_packs, name="packs_local"),
 
 
     # Customer ==================================================================

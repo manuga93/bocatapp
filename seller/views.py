@@ -111,7 +111,7 @@ def category_delete(request, pk):
 
 
 # Vista para la creacion de un nuevo producto
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message='You are not a seller')
 def product_new(request, pk):
     local = get_object_or_404(Local, pk=pk)
 
@@ -126,13 +126,13 @@ def product_new(request, pk):
         else:
             form = ProductForm(pk=pk)
 
-        return render(request, 'product_edit.html', {'form': form})
+        return render(request, 'product_edit.html', {'form': form,'pk':pk})
     else:
         return redirect("/")
 
 
 # Listado de locales dado un seller
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message='You are not a seller')
 def get_my_locals(request):
     locals = Local.objects.filter(seller=request.user.pk)
     ratings = []
@@ -156,7 +156,7 @@ def local_list(request):
 
 
 # Vista para las orders de un local
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message='You are not a seller')
 def local_orders(request, pk):
     local = get_object_or_404(Local, pk=pk)
     if local.seller.pk == request.user.pk:
@@ -170,7 +170,7 @@ def local_orders(request, pk):
     else:
         return redirect("/")
 
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message='You are not a seller')
 def do_order(request, pk):
     order = Order.objects.get(id=pk)
     order.status = True
@@ -179,7 +179,7 @@ def do_order(request, pk):
 
 
 # Vista para la creacion de un nuevo local
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message='You are not a seller')
 def local_new(request):
     if request.method == "POST":
         form = LocalForm(request.POST)
@@ -196,7 +196,7 @@ def local_new(request):
 
 
 # Vista para los detalles de un local
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message='You are not a seller')
 def local_detail(request, pk):
     local = get_object_or_404(Local, pk=pk)
 
@@ -208,7 +208,7 @@ def local_detail(request, pk):
 
 
 # Vista para los detalles de un local
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message='You are not a seller')
 def local_charts(request, pk):
     local = get_object_or_404(Local, pk=pk)
 
@@ -236,7 +236,7 @@ def local_charts(request, pk):
 
 
 # Vista para la creacion de un local
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message='You are not a seller')
 def local_edit(request, pk):
     local = get_object_or_404(Local, pk=pk)
     if request.method == "POST":
@@ -250,7 +250,7 @@ def local_edit(request, pk):
     else:
         form = LocalForm(instance=local)
 
-    return render(request, 'local_edit.html', {'form': form})
+    return render(request, 'local_edit.html', {'form': form,'pk':pk})
 
 
 def search(request):
@@ -277,20 +277,19 @@ def search2(request, pk):
 
 
 # Packs--------------------------------------------------------------------------
-@permission_required('bocatapp.seller', message='No eres un vendedor')
 def packs_list(request):
     packs = get_list_or_404(Pack)
     return render(request, 'pack/list.html',
                   {'packs': packs})
 
-@permission_required('bocatapp.seller', message='No eres un vendedor')
-def local_packs(request, local_pk):
-    packs = Local.objects.get(id=local_pk).pack_set.all()
-    local = Local.objects.get(id=local_pk)
+
+def local_packs(request, pk):
+    packs = Local.objects.get(id=pk).pack_set.all()
+    local = Local.objects.get(id=pk)
     return render(request, 'pack/list.html',
                   {'packs': packs, 'local': local})
 
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+
 def pack_details(request, pk):
     pack = get_object_or_404(Pack, id=pk)
     return render(request, 'pack/details.html',
@@ -298,7 +297,7 @@ def pack_details(request, pk):
 
 
 class EditPack(edit.View):
-    @permission_required('bocatapp.seller', message='No eres un vendedor')
+    # @permission_required('bocatapp.seller', message='You are not a seller')
     def get(self, request, local_pk):
         pack_form = PackForm()
         local_products = get_object_or_404(Local, id=local_pk).product_set.all()
@@ -309,8 +308,9 @@ class EditPack(edit.View):
         }
         return render(request, 'pack/edit.html', context)
 
+        # @permission_required('bocatapp.seller', message='You are not a seller')
+
     @transaction.atomic
-    @permission_required('bocatapp.seller', message='No eres un vendedor')
     def post(self, request, local_pk):
         if request.user.is_authenticated():
             pack_form = PackForm(request.POST)
