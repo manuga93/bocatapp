@@ -270,20 +270,27 @@ def search(request):
     return render(request, 'cp_search.html', {'locals': locals})
 
 
+def search2(request, pk):
+    code = get_object_or_404(Local, pk=pk).postalCode
+    locals = Local.objects.all().filter(postalCode=code)
+    return render(request, 'cp_search.html', {'locals': locals})
+
+
 # Packs--------------------------------------------------------------------------
+@permission_required('bocatapp.seller', message='No eres un vendedor')
 def packs_list(request):
     packs = get_list_or_404(Pack)
     return render(request, 'pack/list.html',
                   {'packs': packs})
 
-
+@permission_required('bocatapp.seller', message='No eres un vendedor')
 def local_packs(request, local_pk):
     packs = Local.objects.get(id=local_pk).pack_set.all()
     local = Local.objects.get(id=local_pk)
     return render(request, 'pack/list.html',
                   {'packs': packs, 'local': local})
 
-
+@permission_required('bocatapp.seller', message='No eres un vendedor')
 def pack_details(request, pk):
     pack = get_object_or_404(Pack, id=pk)
     return render(request, 'pack/details.html',
@@ -291,7 +298,7 @@ def pack_details(request, pk):
 
 
 class EditPack(edit.View):
-    # @permission_required('bocatapp.seller', message='No eres un vendedor')
+    @permission_required('bocatapp.seller', message='No eres un vendedor')
     def get(self, request, local_pk):
         pack_form = PackForm()
         local_products = get_object_or_404(Local, id=local_pk).product_set.all()
@@ -302,9 +309,8 @@ class EditPack(edit.View):
         }
         return render(request, 'pack/edit.html', context)
 
-        # @permission_required('bocatapp.seller', message='No eres un vendedor')
-
     @transaction.atomic
+    @permission_required('bocatapp.seller', message='No eres un vendedor')
     def post(self, request, local_pk):
         if request.user.is_authenticated():
             pack_form = PackForm(request.POST)
