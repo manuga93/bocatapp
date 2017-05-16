@@ -40,8 +40,8 @@ class ProductForm(forms.ModelForm):
     precio = forms.DecimalField()
     imagen = forms.URLField(required=False)
     ingredientes = forms.CharField()
-    categorias = forms.ModelMultipleChoiceField(queryset=Category.objects.none(), required=True,
-                                                widget=forms.CheckboxSelectMultiple())
+    categorias = forms.ModelChoiceField(queryset=Category.objects.none(), required=True)
+
 
     def __init__(self, *args, **kwargs):
         pk = kwargs.pop('pk', None)
