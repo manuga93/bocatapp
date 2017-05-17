@@ -33,13 +33,17 @@
                     <hr/>
                     <a href="{% url 'category_new' pk=local.pk %}"> Nueva categoria</a>
                     <hr/>
+                    <!--
                     <a href="{% url 'edit_pack' local_pk=local.pk %}"> Nuevo pack</a>
-                    <hr/>
+                    <hr/> 
+                    -->
                     <a href="{% url 'comment_list' pk=local.pk %}">Comentarios</a>
                     <hr/>
 
                 {% endif %}
+                <!--
                 <a href="{% url 'packs_local' pk=local.pk %}"> Packs</a>
+                -->
             </div>
         </div>
 
