@@ -36,6 +36,7 @@
         <h3>Total: <span id="totalCart">{{ shoppingcart.total_price }}</span> € {% if shoppingcart.total_price != 0 %}
             <a id="checkoutSC" class="btn btn-success" href="{% url 'checkout' %}"><span
                     class="glyphicon glyphicon-ok"></span> Terminar y pagar</a>{% endif %}</h3>
+        <br/>
         <a class="col-sm-2 text-left" href="{% url 'home' %}">
             <button type="button" class="btn btn-default" style="margin-bottom: 15px">
                 <span class="glyphicon glyphicon" aria-hidden="true"></span> Seguir comprando
