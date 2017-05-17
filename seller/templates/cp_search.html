@@ -101,7 +101,7 @@
                                     <a href="{% url 'comment_list' pk=local.pk %}">1 opinión</a> - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
                                   {% endif %}
                                   {% if local.comment_set.count > 1 %}
-                                    <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} opiniones</a> - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
+                                    <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} opiniones</a>   {% if perms.bocatapp.customer %}- <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>  {% endif %}
                                   {% endif %}
                               </p>
                           </div>
