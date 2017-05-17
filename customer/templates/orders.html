@@ -69,7 +69,7 @@
         <br/>
         {% if orders_done %}
             {% for k,v in orders_done.items %}
-                               <button class="accordion">
+                <button class="accordion">
                     <b style="..."><u>Usuario</u>: </b>
                     {{ k.customer.username }}
                     <br/>
@@ -110,12 +110,8 @@
         {% else %}
             <h3>No hay pedidos hechos =)</h3>
         {% endif %}
+        <br/>
 
-        <a class="col-sm-2 text-left" href="{% url 'locals_by_seller'%}">
-                  <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
-                  </button>
-              </a>
     </div>
 
     <script>
