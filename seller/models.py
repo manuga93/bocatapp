@@ -22,7 +22,7 @@ class Local(models.Model):
 
 class LocalCategory(models.Model):
     name = models.CharField(max_length=32)
-    locals = models.ManyToManyField(Local)
+    locals = models.ManyToManyField(Local, related_name="locals")
 
     def __unicode__(self):
         return self.name

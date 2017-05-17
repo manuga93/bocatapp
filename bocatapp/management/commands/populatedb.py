@@ -141,26 +141,6 @@ class Command(BaseCommand):
 
         print('Sellers created...Ok')
 
-        # Super Categories =============================================================================================
-
-        supercat_bocadillos = LocalCategory(name="Bocadillos y Sandwiches")
-        supercat_bocadillos.save()
-
-        supercat_pizza = LocalCategory(name="Pizzas")
-        supercat_pizza.save()
-
-        supercat_pasta = LocalCategory(name="Pasta")
-        supercat_pasta.save()
-
-        supercat_kebab = LocalCategory(name="Kebab")
-        supercat_kebab.save()
-
-        supercat_bolleria = LocalCategory(name="Bolleria")
-        supercat_bocadillos.save()
-
-
-        print("Super categories created...Ok")
-
         # Locals =======================================================================================================
 
         namnam = Local(name=u'ÑemÑem',
@@ -200,14 +180,14 @@ class Command(BaseCommand):
 
         # Super Categories =============================================================================================
 
-        supercat_bocadillos = LocalCategory(name="Bocadillos y Sandwiches")
+        supercat_bocadillos = LocalCategory(name="Bocadillos/Sandwiches")
         supercat_bocadillos.save()
         supercat_bocadillos.locals.add(namnam, ricorico, cienm, frankyb, buenProvecho)
         supercat_bocadillos.save()
 
         supercat_pizza = LocalCategory(name="Pizzas")
-        supercat_pizza.save(frankyb)
-        supercat_pizza.locals.add()
+        supercat_pizza.save()
+        supercat_pizza.locals.add(frankyb)
         supercat_pizza.save()
 
         supercat_pasta = LocalCategory(name="Pasta")
