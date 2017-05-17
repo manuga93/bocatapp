@@ -68,6 +68,7 @@ class Command(BaseCommand):
             username='manuel',
             email='manuel@customer.com',
             first_name='Manuel',
+            last_name='GarriDev',
             amount_money=5.0,
             phone=123456889,
             birth_date='1993-01-25')
@@ -79,6 +80,7 @@ class Command(BaseCommand):
             username='patri',
             email='patjimenez@customer.com',
             first_name='Patricia',
+            last_name='Garcia',
             amount_money=15.0,
             phone=123456289,
             birth_date='1993-01-25')
@@ -94,6 +96,7 @@ class Command(BaseCommand):
             username='jesusgar',
             email='jesus@seller.com',
             first_name='Jesus',
+            last_name='Cabeza',
             phone=123456789,
             birth_date='1993-01-25')
         seller1.set_password('@seller')
@@ -104,6 +107,7 @@ class Command(BaseCommand):
             username='pomelo',
             email='pomelo@seller.com',
             first_name='pomelo',
+            last_name='pomeloide',
             phone=123456789,
             birth_date='1993-01-25')
         seller2.set_password('@seller')
@@ -114,6 +118,7 @@ class Command(BaseCommand):
             username='franky',
             email='franky@gmail.com',
             first_name='Francisco',
+            last_name='Pacheco',
             phone=123456789,
             birth_date='1987-06-14')
         seller3.set_password('franky987')
@@ -124,6 +129,7 @@ class Command(BaseCommand):
             username='corchu',
             email='rafcorchuelo@seller.com',
             first_name='Rafael',
+            last_name='Corchuelo',
             amount_money=15.0,
             phone=123456589,
             birth_date='1993-01-25')
