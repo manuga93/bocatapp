@@ -35,7 +35,7 @@
                                     </p>
                                 </div>
                                 <div class="col-xs-6 col-md-8 info-wrapper">
-                                    <a href="{% url 'seller.views.local_detail' pk=local.pk %}"><b>{{ local.name }}</b></a>
+                                    <b>{{ local.name }}</b>
                                     <p>
                                         {{ local.description|linebreaksbr }}
                                     </p>
@@ -71,8 +71,10 @@
                                             <li><a href='{% url 'menu_list' pk=local.pk %}'>Men&uacute;</a></li>
                                             <li><a href='{% url 'category_list' pk=local.pk %}'>Categor&iacute;as</a></li>
                                             <li><a href='{% url 'product_new' pk=local.pk %}'>Nuevo Producto</a></li>
+                                            <!--
                                             <li><a href='{% url 'edit_pack' local_pk=local.pk %}'>Nuevo Pack</a></li>
-                                              <li><a href='{% url 'local_packs' local_pk=local.pk %}'>Packs</a></li>
+                                            <li><a href='{% url 'local_packs' local_pk=local.pk %}'>Packs</a></li>
+                                            -->
                                           </ul>
                                         </li>
                                         </div>

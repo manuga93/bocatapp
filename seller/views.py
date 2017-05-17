@@ -188,7 +188,7 @@ def local_new(request):
             local.seller = request.user
             local.isActive = True
             local.save()
-            return redirect('seller.views.local_detail', pk=local.pk)
+            return redirect('seller.views.get_my_locals')
     else:
         form = LocalForm()
 
