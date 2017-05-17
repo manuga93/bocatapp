@@ -58,15 +58,6 @@
             </div>
         {% endfor %}
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="alert alert-danger">
-                No se pueden agregar productos de distintos locales.
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-            </div>
-        </div>
-    </div>
     <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
@@ -106,18 +97,20 @@
                 dataType: 'json',
                 success: function (data) {
                     if (data.add != 'ok') {
-                        $('#myModal').modal('show');
+                        var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
                     } else {
                         var m = $("<div class='alert alert-success fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
-                        $('#message-list').append(m);
-                        m.fadeIn(500);
-
-                        setTimeout(function() {
-                            m.fadeOut(500, function() {
-                                m.remove();
-                            });
-                        }, 3000);
                     }
+
+                    $('#message-list').append(m);
+                    m.fadeIn(500);
+
+                    setTimeout(function() {
+                        m.fadeOut(500, function() {
+                            m.remove();
+                        });
+                    }, 3000);
+
                     UpdateBadge();
                 }
             });
