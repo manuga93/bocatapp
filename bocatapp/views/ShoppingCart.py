@@ -120,6 +120,7 @@ def add_product(request):
 
     data = {
             'add': 'no',
+            'message': u'El producto no se ha añadido al carrito.',
     }
 
     
@@ -129,6 +130,10 @@ def add_product(request):
         for items in productsInSC:
             item = get_object_or_404(Product, pk=items.product_id)
             if newProduct.local_id != item.local_id:
+                data = {
+                    'add': 'no',
+                    'message': u'No se pueden agregar productos de distintos locales.',
+                }
                 sameLocal = 0    
 
         if sameLocal == 1:
@@ -155,7 +160,7 @@ def add_to_shoppingcart_line(idShoppingCart, idProduct, newQuantity):
                 shoppingCart_id=idShoppingCart)
             scLine.save()
     else:
-        scLine = 1
+        scLine = 0
 
     return scLine
 
@@ -166,12 +171,18 @@ def update_product(request):
     
     scLine = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart,product_id=idProduct)
     if int(newQuantity) > 0:
-        scLine.update(quantity = newQuantity)   
+        scLine.update(quantity = newQuantity)
+        data = {
+            'update': 'ok',
+            'message': u'El producto se ha actualizado correctamente.',
+        }
+    else:
+        data = {
+            'update': 'no',
+            'message': u'El producto no se ha actualizado.',
+        } 
     
-    data = {
-        'update': 'ok',
-        'message': u'El producto se ha actualizado correctamente.',
-    }
+    
 
     return JsonResponse(data)
 
