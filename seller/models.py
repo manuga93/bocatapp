@@ -36,7 +36,6 @@ class Product(models.Model):
     category = models.ForeignKey(Category, null=True)
     local = models.ForeignKey(Local)
     deleted = models.BooleanField(default=False)
-    picture = models.URLField(default='/static/images/No_image_available.png')
 
     def __unicode__(self):
         return self.name

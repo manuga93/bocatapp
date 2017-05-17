@@ -38,9 +38,8 @@ class CategoryForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     nombre = forms.CharField()
     precio = forms.DecimalField()
-    imagen = forms.URLField(required=False)
     ingredientes = forms.CharField()
-    categorias = forms.ModelChoiceField(queryset=Category.objects.none(), required=True)
+    categoria = forms.ModelChoiceField(queryset=Category.objects.none(), required=True)
 
 
     def __init__(self, *args, **kwargs):
@@ -48,22 +47,19 @@ class ProductForm(forms.ModelForm):
         super(ProductForm, self).__init__(*args, **kwargs)
         if pk:
             self.local = Local.objects.get(pk=pk)
-            self.fields['categorias'].queryset = self.local.category_set.all()
+            self.fields['categoria'].queryset = self.local.category_set.all()
 
     def createProduct(self):
         result = Product(name=self.cleaned_data['nombre'],
                          price=self.cleaned_data['precio'],
-                         picture=self.cleaned_data['imagen'],
                          ingredients=self.cleaned_data['ingredientes'],
+                         category=self.cleaned_data['categoria'],
                          local=self.local)
         result.save()
-        for category in self.cleaned_data["categorias"]:
-            result.category.add(category)
-
         return result
 
 
 
     class Meta:
         model = Product
-        fields = ('nombre', 'precio', 'categorias', 'ingredientes', 'imagen')
+        fields = ('nombre', 'precio', 'categoria', 'ingredientes')
