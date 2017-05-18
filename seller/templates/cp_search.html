@@ -36,30 +36,14 @@
               </div>
               <hr />
               <h4>Cocina</h4>
+                {% for c in supercats %}
               <div class="radio">
                 <label>
-                  <input type="radio" name="cuisine" onchange="this.form.submit();" value="pizza" {%if request.GET.cuisine == 'pizza'%}checked{%endif%}>
-                  Pizza
+                  <input type="radio" name="cuisine" onchange="this.form.submit();" value={{ c.name }} {%if request.GET.cuisine == c.name %}checked{%endif%}>
+                  {{ c.name }}
                 </label>
               </div>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="cuisine" onchange="this.form.submit();" value="sandwiches" {%if request.GET.cuisine == 'sandwiches'%}checked{%endif%}>
-                  Sandwiches
-                </label>
-              </div>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="cuisine" onchange="this.form.submit();" value="kebab" {%if request.GET.cuisine == 'kebab'%}checked{%endif%}>
-                  Kebabs
-                </label>
-              </div>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="cuisine" onchange="this.form.submit();" value="chineese" {%if request.GET.cuisine == 'chineese'%}checked{%endif%}>
-                  Comida china
-                </label>
-              </div>
+                {% endfor %}
               <input type="hidden" name="postcode" value="{{request.GET.postcode}}" />
               <button onclick="#" class="form-control">Recargar</button>
             </form>

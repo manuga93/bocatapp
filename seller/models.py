@@ -20,6 +20,14 @@ class Local(models.Model):
         return self.name
 
 
+class LocalCategory(models.Model):
+    name = models.CharField(max_length=32)
+    locals = models.ManyToManyField(Local, related_name="locals")
+
+    def __unicode__(self):
+        return self.name
+
+
 class Category(models.Model):
     name = models.CharField(max_length=32)
     description = models.CharField(max_length=256)

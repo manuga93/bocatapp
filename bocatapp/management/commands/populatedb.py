@@ -3,7 +3,7 @@
 from django.core.management.base import BaseCommand
 from bocatapp.models import User
 from django.contrib.auth.models import Permission
-from seller.models import Local, Product, Pack, ProductLine, Local, Category
+from seller.models import Local, Product, Pack, ProductLine, Local, Category, LocalCategory
 from customer.models import Order, CreditCard, OrderLine, ShoppingCart, Comment, Report
 from administration.models import CreditCard, Allergen
 
@@ -31,6 +31,7 @@ class Command(BaseCommand):
         ProductLine.objects.all().delete()
         Category.objects.all().delete()
         Allergen.objects.all().delete()
+        LocalCategory.objects.all().delete()
 
         print('Populating database...')
 
@@ -147,14 +148,12 @@ class Command(BaseCommand):
                        address='Avd Reina Mercedes, 31, 41012 Sevilla', phone=697190794, postalCode="41012",
                        photo='https://s3-media1.fl.yelpcdn.com/bphoto/bqVR69LXKcTOh0imCBZt4A/ls.jpg', seller=seller1,
                        avg_rating=4.00)
-
         namnam.save()
 
         ricorico = Local(name='Rica Rica', description='Tenemos las mejores ofertas para merendar!',
                          address='Av. de la Reina Mercedes, 39, 41012 Sevilla', phone=622397165, postalCode="41012",
                          photo='https://s3-media1.fl.yelpcdn.com/bphoto/QKiTaoNVWDuM1i-4Z3IJxA/168s.jpg',
                          seller=seller1, avg_rating=4.00)
-
         ricorico.save()
 
         cienm = Local(name='1000 Montaditos', description='Los miercoles todo a 1€!',
@@ -176,7 +175,38 @@ class Command(BaseCommand):
                              seller =seller2, avg_rating=4.00)
         buenProvecho.save()
 
+
         print ('Locals...Ok!')
+
+        # Super Categories =============================================================================================
+
+        supercat_bocadillos = LocalCategory(name="Bocadillos/Sandwiches")
+        supercat_bocadillos.save()
+        supercat_bocadillos.locals.add(namnam, ricorico, cienm, frankyb, buenProvecho)
+        supercat_bocadillos.save()
+
+        supercat_pizza = LocalCategory(name="Pizzas")
+        supercat_pizza.save()
+        supercat_pizza.locals.add(frankyb)
+        supercat_pizza.save()
+
+        supercat_pasta = LocalCategory(name="Pasta")
+        supercat_pasta.save()
+        supercat_pasta.locals.add(buenProvecho, frankyb, namnam)
+        supercat_pasta.save()
+
+
+        supercat_kebab = LocalCategory(name="Kebab")
+        supercat_kebab.save()
+        supercat_kebab.locals.add(namnam, ricorico)
+        supercat_kebab.save()
+
+        supercat_bolleria = LocalCategory(name="Bolleria")
+        supercat_bolleria.save()
+        supercat_bolleria.locals.add(ricorico, namnam, cienm, frankyb)
+        supercat_bolleria.save()
+
+        print("Super categories created...Ok")
 
         # Categories =====================================================================================================
 
