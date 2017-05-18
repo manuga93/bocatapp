@@ -9,11 +9,11 @@
                 <br/>
                 <form class="form-inline well white" style="text-align:center;">
                     <div class="form-group">
-                        <label style="font-weight: normal;" for="postcode">Results for </label>
+                        <label style="font-weight: normal;" for="postcode">Resultados para </label>
                         <input id="postcode" name="postcode" type="text" class="form-control input-md"
                                value="{{ request.GET.postcode }}">
                     </div>
-                    <button onclick="#" class="form-control">Search!</button>
+                    <button onclick="#" class="form-control">BuscarSearch!</button>
                 </form>
             </div>
         </div>
@@ -134,7 +134,13 @@
                     </div>
                 </div>
             </div>
+            <a class="col-sm-2 text-left" href="{% url 'seller.views.local_detail' pk=local.pk %}">
+                  <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
+                  </button>
+            </a>
         </div>
+
     </div>
 
 {% endblock %}

@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 import itertools
 
 from seller.forms.packsForms import PackForm
-from seller.models import Product, Local, Category, Pack, ProductLine
+from seller.models import Product, Local, Category, Pack, ProductLine, LocalCategory
 from customer.models import Order, OrderLine
 from django.shortcuts import get_list_or_404, render_to_response, render, redirect, get_object_or_404
 
@@ -126,7 +126,7 @@ def product_new(request, pk):
         else:
             form = ProductForm(pk=pk)
 
-        return render(request, 'product_edit.html', {'form': form})
+        return render(request, 'product_edit.html', {'form': form,'pk':pk})
     else:
         return redirect("/")
 
@@ -188,7 +188,7 @@ def local_new(request):
             local.seller = request.user
             local.isActive = True
             local.save()
-            return redirect('seller.views.local_detail', pk=local.pk)
+            return redirect('seller.views.get_my_locals')
     else:
         form = LocalForm()
 
@@ -213,7 +213,7 @@ def local_charts(request, pk):
     local = get_object_or_404(Local, pk=pk)
 
     if local.seller.pk == request.user.pk:
-        orders = get_list_or_404(Order, local=pk)
+        orders = Order.objects.filter(local=pk)
         # General
         done_orders = sum([1 for order in orders if order.status is True])
         pending_orders = len(orders) - done_orders
@@ -250,23 +250,51 @@ def local_edit(request, pk):
     else:
         form = LocalForm(instance=local)
 
-    return render(request, 'local_edit.html', {'form': form})
+    return render(request, 'local_edit.html', {'form': form,'pk':pk})
 
 
 def search(request):
+    ### COMPROBAR PRIMERO LA COCINA Y ENTONCES ORDENAR POR ESTRELLAS SI AUX
     input_search = request.GET.get("postcode")
+    #print (LocalCategory.objects.filter(locals__id=68))
+    supercats = find_different_cats()
     if input_search and input_search.isdigit():
         locals = Local.objects.all().filter(postalCode=input_search)
         aux = request.GET.get('list_by')
+        cocina = request.GET.get("cuisine")
+        if cocina:
+            locals = sort_locals(cocina)
         if aux == u'1':
-            locals = Local.objects.all().order_by("avg_rating")
+            locals = locals.order_by("avg_rating")
         elif aux == u'0':
-            locals = Local.objects.all().order_by("-avg_rating")
+            locals = locals.order_by("-avg_rating")
     elif not isinstance(input_search, int):
         locals = []
     else:
         locals = Local.objects.all()
 
+    return render(request, 'cp_search.html', {'locals': locals, 'supercats': supercats})
+
+def find_different_cats():
+    aux = LocalCategory.objects.all()
+    res = []
+    checked = []
+
+    for c in aux:
+        if not checked.__contains__(c.name):
+            checked.append(c.name)
+            res.append(c)
+
+    return res
+
+def sort_locals(cocina):
+    aux = LocalCategory.objects.get(name=cocina)
+    return aux.locals.get_queryset()
+
+
+def search2(request, pk):
+    code = get_object_or_404(Local, pk=pk).postalCode
+    locals = Local.objects.all().filter(postalCode=code)
     return render(request, 'cp_search.html', {'locals': locals})
 
 
@@ -277,9 +305,9 @@ def packs_list(request):
                   {'packs': packs})
 
 
-def local_packs(request, local_pk):
-    packs = Local.objects.get(id=local_pk).pack_set.all()
-    local = Local.objects.get(id=local_pk)
+def local_packs(request, pk):
+    packs = Local.objects.get(id=pk).pack_set.all()
+    local = Local.objects.get(id=pk)
     return render(request, 'pack/list.html',
                   {'packs': packs, 'local': local})
 

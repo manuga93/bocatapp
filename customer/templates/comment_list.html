@@ -54,9 +54,11 @@
             </div>
         </div>
 
-        <button class="btn btn-default" onclick=" window.history.back();"><span
-                class="glyphicon glyphicon-arrow-left"></span> Atrás
-        </button>
+        <a class="col-sm-2 text-left" href="javascript:history.back(-1);">
+                  <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
+                  </button>
+        </a>
 
         {% if perms.bocatapp.customer %}
 

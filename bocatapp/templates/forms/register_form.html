@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Register{% endblock %}
-
+{% load bootstrap3 %}
+{% bootstrap_messages %}
+{% block title %}Registro - Bocatapp.com{% endblock %}
 {% block content %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,23 +13,12 @@
         <div class="contact-main well white">
             <form method="post">
                 {% csrf_token %}
-                {% for field in form %}
-                    <div class="form-group">
-                        {{ field.label_tag }}<br>
-                        {% if field.errors %}
-                            {% for error in field.errors %}
-                                <p class="alert alert-danger">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
-                        {{ field }}
-
-                    </div>
-                {% endfor %}
-                <br>
-                <button type="submit" class="form-control">register</button>
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="form-control">Enviar</button>
+                {% endbuttons %}
             </form>
         </div>
     </div>
 
 {% endblock %}
-

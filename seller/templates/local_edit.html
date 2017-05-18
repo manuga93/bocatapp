@@ -7,13 +7,24 @@
 
 {% block content %}
 <div class="container">
-  <h1>Crear local</h1>
+ {% if form.instance.pk == None %}
+  <h1>Crear Local</h1>
+{% endif %}
+{% if form.instance.pk != None %}
+    <h1>Editar Local</h1>
+{% endif %}
   <form method="POST" class="local-form">{% csrf_token %}
       {% bootstrap_form form %}
       {% buttons %}
-      <button type="submit"  class="btn btn-primary">Guardar</button>
+          <button type="submit"  class="btn btn-primary">Guardar</button>
+              <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                  <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
+              </button>
+          </a>
       {% endbuttons %}
   </form>
+
+
 </div>
 
  {%endblock%}

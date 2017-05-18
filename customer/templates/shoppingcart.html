@@ -2,48 +2,53 @@
 {% load staticfiles %}
 {% block title %}Carrito de Compra{% endblock %}
 {% block content %}
-<div class="container">
-    <h2><i class="fa fa-shopping-cart fa-lg"></i> Carrito de la Compra</h2>
-   <br/>
-      <div class="row" style="padding-bottom: 1em">
-         <div class="col-xs-3">
-            <h4><b style="font-size: 0.85em;"><u>Nombre</u></b></h4>
-         </div>
-         <div class="col-xs-3">
-            <h4><b style="font-size: 0.85em;"><u>Precio</u></b></h4>
-         </div>
-         <div class="col-xs-6">
-            <h4><b style="font-size: 0.85em;"><u>Añadir</u></b></h4>
-         </div>
-      </div>
-      {% for line in shoppingcart.shoppingcartline_set.all %}
-      <div class="row" style="padding-bottom: 1em">
-         <div class="col-xs-3">{{ line.product.name }}</div>
-         <div class="col-xs-3">{{ line.product.price }} €</div>
-         <div class="col-xs-6">
-            <input type="hidden" value="{{line.product.id}}" id="productId" />
-            <input type="number" value="{{line.quantity}}" id="quantity" min="1" max="10"/>
-            <a class="btn btn-warning" href="#" id="updatesc">
-                <i class="fa fa-refresh fa-lg"></i>
-            </a>
-            <a class="btn btn-danger" href="#" id="removesc">
-                <i class="fa fa-trash fa-lg"></i>
-            </a>
-         </div>
-      </div>
-      <hr/>
-      {% endfor %}
-    <h3>Total: <span id="totalCart">{{ shoppingcart.total_price }}</span> € {% if shoppingcart.total_price != 0 %}<a id="checkoutSC" class="btn btn-success" href="{% url 'checkout' %}"><span
-            class="glyphicon glyphicon-ok"></span> Terminar y pagar</a>{% endif %}</h3>
-    <button class="btn btn-default" onclick=" window.history.back();"><span
-            class="glyphicon glyphicon-arrow-left"></span> Atrás</button>
-</div>
+    <div class="container">
+        <h2><i class="fa fa-shopping-cart fa-lg"></i> Carrito de la Compra</h2>
+        <br/>
+        <div class="row" style="padding-bottom: 1em">
+            <div class="col-xs-3">
+                <h4><b style="font-size: 0.85em;"><u>Nombre</u></b></h4>
+            </div>
+            <div class="col-xs-3">
+                <h4><b style="font-size: 0.85em;"><u>Precio</u></b></h4>
+            </div>
+            <div class="col-xs-6">
+                <h4><b style="font-size: 0.85em;"><u>Añadir</u></b></h4>
+            </div>
+        </div>
+        {% for line in shoppingcart.shoppingcartline_set.all %}
+            <div class="row" style="padding-bottom: 1em">
+                <div class="col-xs-3">{{ line.product.name }}</div>
+                <div class="col-xs-3">{{ line.product.price }} €</div>
+                <div class="col-xs-6">
+                    <input type="hidden" value="{{ line.product.id }}" id="productId"/>
+                    <input type="number" value="{{ line.quantity }}" id="quantity" min="1" max="10"/>
+                    <a class="btn btn-warning" href="#" id="updatesc">
+                        <i class="fa fa-refresh fa-lg"></i>
+                    </a>
+                    <a class="btn btn-danger" href="#" id="removesc">
+                        <i class="fa fa-trash fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+            <hr/>
+        {% endfor %}
+        <h3>Total: <span id="totalCart">{{ shoppingcart.total_price }}</span> € {% if shoppingcart.total_price != 0 %}
+            <a id="checkoutSC" class="btn btn-success" href="{% url 'checkout' %}"><span
+                    class="glyphicon glyphicon-ok"></span> Terminar y pagar</a>{% endif %}</h3>
+        <br/>
+        <a class="col-sm-2 text-left" href="{% url 'home' %}">
+            <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                <span class="glyphicon glyphicon" aria-hidden="true"></span> Seguir comprando
+            </button>
+        </a>
+    </div>
 {% endblock %}
 
 {% block scripts %}
-    {{block.super}}
+    {{ block.super }}
     <script type="text/javascript">
-        $('.container').on( 'click', '#updatesc', function () {
+        $('.container').on('click', '#updatesc', function () {
             var td = $(this).parent('.col-xs-6');
             var quantity = td.children('input#quantity').val();
             var id = td.children('input#productId').val();
@@ -58,24 +63,26 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data.update == 'ok'){
+                    if (data.update == 'ok') {
                         var m = $("<div class='alert alert-success fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
-                        $('#message-list').append(m);
-                        m.fadeIn(500);
-
-                        setTimeout(function() {
-                            m.fadeOut(500, function() {
-                                m.remove();
-                            });
-                        }, 3000);
+                    }else{
+                        var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
                     }
+                    $('#message-list').append(m);
+                    m.fadeIn(500);
+
+                    setTimeout(function() {
+                        m.fadeOut(500, function() {
+                            m.remove();
+                        });
+                    }, 3000);
                     UpdateBadge();
                     updateTotal();
                 }
             });
-        } );
+        });
 
-        $('.container').on( 'click', '#removesc', function () {
+        $('.container').on('click', '#removesc', function () {
             var td = $(this).parent('.col-xs-6');
             var id = td.children('input#productId').val();
             var cartId = getIdCart();
@@ -88,15 +95,15 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data.delete == 'ok'){
+                    if (data.delete == 'ok') {
                         $(td).parent().next().remove();
                         $(td).parent().remove();
                         var m = $("<div class='alert alert-success fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
                         $('#message-list').append(m);
                         m.fadeIn(500);
 
-                        setTimeout(function() {
-                            m.fadeOut(500, function() {
+                        setTimeout(function () {
+                            m.fadeOut(500, function () {
                                 m.remove();
                             });
                         }, 3000);
@@ -105,17 +112,17 @@
                     updateTotal();
                 }
             });
-        } );
+        });
 
         function updateTotal() {
             var idCart = getIdCart();
             $.ajax({
                 url: '{% url "update_total" %}',
-                data: {'idCart':idCart},
+                data: {'idCart': idCart},
                 dataType: 'json',
                 success: function (data) {
                     $("#totalCart").text(data.total);
-                    if(data.total == 0){
+                    if (data.total == 0) {
                         $("#checkoutSC").remove();
                     }
                 }
