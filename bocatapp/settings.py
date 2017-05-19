@@ -123,3 +123,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGIN_URL = '/login/'
+
+###
+# PAYSAFECARD
+###
+PAYSAFECARD_API_KEY = 'psc_Srilth8vrBdsb-lT-8bYNrHq5WAq9mE'
+PAYSAFECARD_ENVIROMENT = 'TEST'
+PAYSAFECARD_DEFAULT_CURRENCY = 'EUR'
+
+SITE_ID = 1
