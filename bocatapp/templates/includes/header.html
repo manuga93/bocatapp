@@ -28,7 +28,7 @@
                 <span class="caret hidden-sm hidden-md hidden-lg"></span></a>
                 <a class="hidden-xs" data-toggle="dropdown" href="#">Saldo: {{user.amount_money}} €</a>
                 <ul id="balance" class="dropdown-menu box main-dp">
-                  <li><a id="recharge" href="/recharge">Recargar saldo</a></li>
+                  <li><a id="recharge" href="{% url 'recharge_account' %}">Recargar saldo</a></li>
                 </ul>
             </li>
             {% endif %}

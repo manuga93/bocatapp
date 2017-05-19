@@ -22,6 +22,10 @@ import re
 
 # This method is for testing the funcionality
 
+@permission_required('bocatapp.customer', message='You are not a customer')
+def recharge_account(request):
+    return render(request, 'recharge_account.html', {})
+
 
 def all_orders(request):
     try:

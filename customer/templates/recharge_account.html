@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_messages %}
+{% block title %}Recargar cuenta{% endblock %}
+
+{% block content %}
+    <link href="{% static "styles/stars.css" %}" rel="stylesheet">
+
+    <div class="container" id="container_id">
+        <h2>Recarga tu cuenta</h2>
+        <hr />
+    </div>
+{% endblock %}
