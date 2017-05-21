@@ -27,7 +27,6 @@ import socket
 import json
 import re
 import logging
-from pprint import pprint
 
 logger = logging.getLogger('bocatapp')
 
@@ -44,7 +43,27 @@ def recharge_account_success(request):
         logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
 
         if pscpayment.getResponse()['status'] == 'AUTHORIZED':
-            messages.add_message(request, messages.SUCCESS, 'La recarga ha sido aceptada. ¡Pronto dispondrás del dinero en tu cuenta!')
+            logger.info("Capturing payment")
+            pscpayment.capturePayment(payment_id)
+            if pscpayment.requestIsOK():
+                logger.info('Capture request was successful. Checking response:')
+                logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
+
+                if pscpayment.getResponse()['status'] == 'SUCCESS':
+                    _check_pscpayment(pscpayment)
+                    messages.add_message(request, messages.SUCCESS, '¡Tu saldo ha sido actualizado correctamente!')
+                else:
+                    logger.error('Payment failure')
+                    logger.error(json.dumps(pscpayment.getResponse(), indent=2))
+                    messages.add_message(request, messages.SUCCESS, 'La solicitud de recarga ha sido recibida. Pronto se actualizará tu saldo.')
+            else:
+                error = pscpayment.getError()
+                logger.error("#### Error ####")
+                logger.error("# Request failed with Error: " + str(error['number']) + " - " + error['message'])
+                logger.debug('Debug information:')
+                logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
+                logger.debug('###############')
+                messages.add_message(request, messages.WARNING, 'Hubo problemas para conectar con PaySafeCard. ¡Inténtalo de nuevo más tarde!')
 
         elif pscpayment.getResponse()['status'] == 'SUCCESS':
             messages.add_message(request, messages.SUCCESS, 'Tu saldo ha sido actualizado con éxito!')
@@ -134,18 +153,6 @@ def recharge_account_notification(request):
                 logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
                 logger.debug('###############')
                 return JsonResponse({'response': error['message']})
-
-        elif pscpayment.getResponse()['status'] == 'SUCCESS':
-            # retrieved payment has success status
-            # print a positive response to the customer
-            logger.info('payment status success - Thank you for your purchase!')
-            logger.debug('Retrieve Reponse')
-            logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
-            _check_pscpayment(pscpayment)
-
-        elif pscpayment.getResponse()['status'] == 'INITIATED':
-            # payment is iniated but not yet payed / failed
-            logger.info('payment is not yet processed, please visit / redirect to auth_url your received on payment creation')
         return JsonResponse({'response': pscpayment.getResponse()})
     else:
         # retrive payment failed, handle errors
@@ -166,7 +173,8 @@ def recharge_account(request):
 
             form = RechargeForm(request.POST or None)
             if not form.is_valid():
-                return render(request, 'recharge_account.html', { 'form': form })
+                pscs = PSCPaymentModel.objects.filter(customer=request.user)
+                return render(request, 'recharge_account.html', { 'form': form, 'transactions': pscs })
 
             amount = str(form.cleaned_data['amount'])
             pscpayment = PSCPayment(PAYSAFECARD_API_KEY, PAYSAFECARD_ENVIROMENT)
