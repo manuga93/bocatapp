@@ -19,5 +19,19 @@
           {% endbuttons %}
         </form>
         <hr />
+        <h4>Transacciones</h4>
+        <div class="row">
+          {% for transaction in transactions %}
+          <div class="col-md-4">
+            {{transaction.moment}}
+          </div>
+          <div class="col-md-4">
+            {{transaction.amount}}
+          </div>
+          <div class="col-md-4">
+            {{transaction.currency}}
+          </div>
+          {% endfor %}
+        </div>
     </div>
 {% endblock %}

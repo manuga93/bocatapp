@@ -101,6 +101,7 @@ def _check_pscpayment(pscpayment):
         logger.error('Payment successful')
         return JsonResponse({'response': 'Success'})
 
+
 @transaction.atomic
 def recharge_account_notification(request):
     payment_id = request.GET.get('payment_id', '')
@@ -159,8 +160,10 @@ def recharge_account_notification(request):
 
 @permission_required('bocatapp.customer', message='You are not a customer')
 def recharge_account(request):
-    if request.method == 'POST':
-        if request.user.is_authenticated():
+
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+
             form = RechargeForm(request.POST or None)
             if not form.is_valid():
                 return render(request, 'recharge_account.html', { 'form': form })
@@ -186,14 +189,15 @@ def recharge_account(request):
                 error = pscpayment.getError()
                 # print "#### Error ####"
                 # print "Create Request failed with Error: " + str(error['number']) + " - "+  error['message']
-                print json.dumps(pscpayment.getResponse(), indent=2)
-                return render(request, 'recharge_account.html', {'error': error, 'form': form})
+                logger.error(json.dumps(pscpayment.getResponse(), indent=2))
+                pscs = PSCPaymentModel.objects.filter(customer=request.user)
+                return render(request, 'recharge_account.html', {'error': error, 'form': form, 'transactions': pscs })
         else:
-            return redirect(home.home)
+            # Normal GET request (most likely)
+            pscs = PSCPaymentModel.objects.filter(customer=request.user)
+            return render(request, 'recharge_account.html', {'form': RechargeForm(), 'transactions': pscs})
     else:
-        # Normal GET request (most likely)
-        return render(request, 'recharge_account.html', {'form': RechargeForm()})
-
+        return redirect(home.home)
 
 def all_orders(request):
     try:
