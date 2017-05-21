@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -131,4 +132,38 @@ PAYSAFECARD_API_KEY = 'psc_Srilth8vrBdsb-lT-8bYNrHq5WAq9mE'
 PAYSAFECARD_ENVIROMENT = 'TEST'
 PAYSAFECARD_DEFAULT_CURRENCY = 'EUR'
 
-SITE_ID = 1
+###
+# LOGGING
+###
+LOGGING = {
+   'version': 1,
+   'formatters': {
+      'django': {
+         'format': 'django: %(message)s',
+       },
+    },
+
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+
+   'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout
+        },
+   },
+
+   'loggers': {
+      'bocatapp': {
+            'handlers': ['console'],
+            'propagate': True,
+            'format': 'django: %(message)s',
+            'level': 'DEBUG',
+       },
+    }
+}
