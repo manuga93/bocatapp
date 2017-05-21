@@ -9,6 +9,15 @@
 
     <div class="container" id="container_id">
         <h2>Recarga tu cuenta</h2>
+        <p>
+          Saldo actual: <b>{{user.amount_money}}</b>
+        </p>
+        <form action="" method="POST">{% csrf_token %}
+          {% bootstrap_form form %}
+          {% buttons %}
+              <button type="submit" class="btn btn-default">Recargar</button>
+          {% endbuttons %}
+        </form>
         <hr />
     </div>
 {% endblock %}

@@ -8,13 +8,13 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
-class PSCPayment(models.Model):
+class PSCPaymentModel(models.Model):
     amount = models.DecimalField(max_digits=5, decimal_places=2)
     currency = models.CharField(max_length=25, default='EUR')
-    serial = models.IntegerField()
+    serial = models.IntegerField(null=True)
     moment = models.DateTimeField(auto_now=True)
     customer_ip = models.CharField(max_length=25, blank=True)
-    pysc_id = models.IntegerField()
+    psc_id = models.CharField(max_length=75, unique=True)
     customer = models.ForeignKey(User)
 
 

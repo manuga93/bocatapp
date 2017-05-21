@@ -3,8 +3,9 @@ from django.shortcuts import render_to_response, get_object_or_404, render, redi
 from customer.services import OrderService, ReportService
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from django.http.response import HttpResponseRedirect
-from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine, Comment, Report
+from django.http.response import HttpResponseRedirect, JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
+from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine, Comment, Report, PSCPaymentModel
 from seller.models import Product, Local, Category
 from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
@@ -13,18 +14,24 @@ from administration.forms.forms import CreditCardForm
 from django.core.urlresolvers import reverse
 from customer.services import CommentService
 from bocatapp.decorators import permission_required
+from bocatapp.models import User
 from datetime import datetime, timedelta, time
 from bocatapp.views import home
-from forms.forms import CommentForm, ReportForm
+from forms.forms import CommentForm, ReportForm, RechargeForm
 from customer.classes.PSCPayment import PSCPayment
+from django.db import transaction
+from decimal import Decimal
 from bocatapp.settings import PAYSAFECARD_API_KEY, PAYSAFECARD_ENVIROMENT, PAYSAFECARD_DEFAULT_CURRENCY
-import itertools, socket, json
+import itertools
+import socket
+import json
 import re
 import logging
+from pprint import pprint
+
+logger = logging.getLogger('bocatapp')
 
 # Create your views here.
-
-# This method is for testing the funcionality
 
 
 def recharge_account_success(request):
@@ -33,124 +40,159 @@ def recharge_account_success(request):
     pscpayment.retrievePayment(payment_id)
 
     if pscpayment.requestIsOK():
-        logging.info('Retrive payment successful.')
-        logging.debug(json.dumps(pscpayment.getResponse(), indent=2))
+        logger.info('Retrive payment successful.')
+        logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
 
         if pscpayment.getResponse()['status'] == 'AUTHORIZED':
-            messages.add_message(request, messages.SUCCESS, 'La recarga se ha aceptado. Pronto tendrá el dinero en su cuenta.')
+            messages.add_message(request, messages.SUCCESS, 'La recarga ha sido aceptada. ¡Pronto dispondrás del dinero en tu cuenta!')
 
         elif pscpayment.getResponse()['status'] == 'SUCCESS':
-            messages.add_message(request, messages.SUCCESS, '¡Su saldo ha sido actualizado con éxito!')
-            logging.info('payment status success')
-            logging.debug('Retrieve Reponse')
-            logging.debug(json.dumps(pscpayment.getResponse(), indent=2))
+            messages.add_message(request, messages.SUCCESS, 'Tu saldo ha sido actualizado con éxito!')
+            logger.info('Payment status success')
+            logger.debug('Retrieve Reponse')
+            logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
 
-        elif pscpayment.getResponse()['status'] == 'INITIATED':
-            logging.info('payment is not yet processed, please visit / redirect to auth_url your received on payment creation')
+        elif pscpayment.getResponse()['status'] == 'INITIATED' or pscpayment.getResponse()['status'] == 'REDIRECTED':
+            logger.info('Payment is not yet processed, please visit / redirect to auth_url your received on payment creation')
             return redirect(pscpayment.getResponse()['redirect']['auth_url'])
+        return redirect(home.home)
     else:
         # retrive payment failed, handle errors
-        messages.add_message(request, messages.WARNING, 'Se ha producido un error al recuperar el pago.')
+        messages.add_message(request, messages.WARNING, 'Se ha producido un error al recuperar el pago. Inténtalo de nuevo más tarde.')
         error = pscpayment.getError()
-        logging.error("#### Error ####")
-        logging.error("Request failed with Error: " + str(error['number']) + " - " +  error['message'])
-        logging.debug('Debug information:')
-        logging.debug(json.dumps(pscpayment.getResponse(), indent=2))
-        logging.debug('###############')
+        logger.error("#### Error ####")
+        logger.error("Request failed with Error: " + str(error['number']) + " - " +  error['message'])
+        logger.debug('Debug information:')
+        logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
+        logger.debug('###############')
         return redirect(home.home)
+
 
 def recharge_account_failure(request):
     # payment_id = request.GET.get('payment_id', '')
-    messages.add_message(request, messages.WARNING, '¡Hubo un problema al actualizar su saldo! Inténtelo de nuevo más tarde')
+    messages.add_message(request, messages.WARNING, '¡Hubo un problema al actualizar tu saldo! Inténtalo de nuevo más tarde.')
     return render(request, 'recharge_account.html', {})
 
 
+def _check_pscpayment(pscpayment):
+    amount = pscpayment.getResponse()['amount']
+    currency = pscpayment.getResponse()['currency']
+    customer_ip = pscpayment.getResponse()['customer']['ip']
+    psc_id = pscpayment.getResponse()['id']
+    customer_id = pscpayment.getResponse()['customer']['id']
+    pscpayment = {
+        'amount': amount,
+        'currency': currency,
+        'customer_ip': customer_ip,
+        'psc_id': psc_id,
+        'customer_id': customer_id,
+    }
+    userModel = User.objects.filter(id=customer_id).first()
+    if userModel:
+        psc = PSCPaymentModel.objects.filter(psc_id=psc_id).first()
+        if psc:
+            logger.error('Payment was already done!')
+        else:
+            psc = PSCPaymentModel(**pscpayment).save()
+            logger.info('Payment has been saved!')
+            userModel.amount_money += Decimal(amount)
+            userModel.save()
+            logger.info('Balance for user {} has been updated'.format(customer_id))
+        logger.error('Payment successful')
+        return JsonResponse({'response': 'Success'})
+
+@transaction.atomic
 def recharge_account_notification(request):
     payment_id = request.GET.get('payment_id', '')
     pscpayment = PSCPayment(PAYSAFECARD_API_KEY, PAYSAFECARD_ENVIROMENT)
     pscpayment.retrievePayment(payment_id)
 
     if pscpayment.requestIsOK():
-        logging.info('Retrive payment successful.')
-        logging.debug(json.dumps(pscpayment.getResponse(), indent=2))
+        logger.info('Retrive payment successful.')
+        logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
 
         if pscpayment.getResponse()['status'] == 'AUTHORIZED':
-            logging.info("Capturing payment")
+            logger.info("Capturing payment")
             pscpayment.capturePayment(payment_id)
 
             if pscpayment.requestIsOK():
-                logging.info('Capture request was successful. Checking response:')
-                logging.debug(json.dumps(pscpayment.getResponse(), indent=2))
+                logger.info('Capture request was successful. Checking response:')
+                logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
 
                 if pscpayment.getResponse()['status'] == 'SUCCESS':
-                    """
-                     *                Payment OK
-                     *        Here you can save the Payment
-                     * process your actions here (i.e. send confirmation email etc.)
-                     *  This is a fallback to notification
-                     *
-                    """
+                    _check_pscpayment(pscpayment)
                 else:
-                    logging.error('Payment failure')
-                    logging.error(json.dumps(pscpayment.getResponse(), indent=2))
+                    logger.error('Payment failure')
+                    logger.error(json.dumps(pscpayment.getResponse(), indent=2))
+                    return JsonResponse({'response': 'error'})
             else:
                 error = pscpayment.getError()
-                logging.error("#### Error ####")
-                logging.error("# Request failed with Error: " + str(error['number']) + " - " + error['message'])
-                logging.debug('Debug information:')
-                logging.debug(json.dumps(pscpayment.getResponse(), indent=2))
-                logging.debug('###############')
+                logger.error("#### Error ####")
+                logger.error("# Request failed with Error: " + str(error['number']) + " - " + error['message'])
+                logger.debug('Debug information:')
+                logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
+                logger.debug('###############')
+                return JsonResponse({'response': error['message']})
 
         elif pscpayment.getResponse()['status'] == 'SUCCESS':
             # retrieved payment has success status
             # print a positive response to the customer
-            logging.info('payment status success - Thank you for your purchase!')
-            logging.debug('Retrieve Reponse')
-            logging.debug(json.dumps(pscpayment.getResponse(), indent=2))
+            logger.info('payment status success - Thank you for your purchase!')
+            logger.debug('Retrieve Reponse')
+            logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
+            _check_pscpayment(pscpayment)
 
         elif pscpayment.getResponse()['status'] == 'INITIATED':
             # payment is iniated but not yet payed / failed
-            logging.info('payment is not yet processed, please visit / redirect to auth_url your received on payment creation')
-
+            logger.info('payment is not yet processed, please visit / redirect to auth_url your received on payment creation')
+        return JsonResponse({'response': pscpayment.getResponse()})
     else:
         # retrive payment failed, handle errors
         error = pscpayment.getError()
-        logging.error("#### Error ####")
-        logging.error("Request failed with Error: " + str(error['number']) + " - " +  error['message'])
-        logging.debug('Debug information:')
-        logging.debug(json.dumps(pscpayment.getResponse(), indent=2))
-        logging.debug('###############')
+        logger.error("#### Error ####")
+        logger.error("Request failed with Error: " + str(error['number']) + " - " +  error['message'])
+        logger.debug('Debug information:')
+        logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
+        logger.debug('###############')
+        return JsonResponse({'response': error['message']})
 
 
 @permission_required('bocatapp.customer', message='You are not a customer')
 def recharge_account(request):
-    if request.user.is_authenticated():
-        pscpayment = PSCPayment(PAYSAFECARD_API_KEY, PAYSAFECARD_ENVIROMENT)
-        customer_ip = socket.gethostbyname(socket.gethostname())
-        domain = request.get_host()
+    if request.method == 'POST':
+        if request.user.is_authenticated():
+            form = RechargeForm(request.POST or None)
+            if not form.is_valid():
+                return render(request, 'recharge_account.html', { 'form': form })
 
-        success_url = 'http://{domain}{path}?payment_id={{payment_id}}'.format(domain=domain, path=reverse('recharge_account_success'))
-        failure_url = 'http://{domain}{path}?payment_id={{payment_id}}'.format(domain=domain, path=reverse('recharge_account_failure'))
-        notification_url = 'http://bocatapp.com{path}?payment_id={{payment_id}}'.format(domain=domain, path=reverse('recharge_account_notification'))
+            amount = str(form.cleaned_data['amount'])
+            pscpayment = PSCPayment(PAYSAFECARD_API_KEY, PAYSAFECARD_ENVIROMENT)
+            customer_ip = socket.gethostbyname(socket.gethostname())
+            domain = request.get_host()
 
-        print(notification_url)
+            success_url = 'http://{domain}{path}?payment_id={{payment_id}}'.format(domain=domain, path=reverse('recharge_account_success'))
+            failure_url = 'http://{domain}{path}?payment_id={{payment_id}}'.format(domain=domain, path=reverse('recharge_account_failure'))
+            notification_url = 'http://bocatapp.com{path}?payment_id={{payment_id}}'.format(domain=domain, path=reverse('recharge_account_notification'))
 
-        pscpayment.createPayment(request.GET.get('price', ''), PAYSAFECARD_DEFAULT_CURRENCY, request.user.id, customer_ip, success_url, failure_url, notification_url)
-        if pscpayment.requestIsOK():
-            # check if the createpayment request was successful
-            # redirect customer to payment page
-            return redirect(pscpayment.getResponse()['redirect']['auth_url'])
+            pscpayment.createPayment(amount, PAYSAFECARD_DEFAULT_CURRENCY, request.user.id, customer_ip, success_url, failure_url, notification_url)
+            if pscpayment.requestIsOK():
+                # check if the createpayment request was successful
+                # redirect customer to payment page
+                return redirect(pscpayment.getResponse()['redirect']['auth_url'])
 
+            else:
+                messages.add_message(request, messages.WARNING, '¡Hubo un problema al conectar con PaySafeCard, ¡inténtelo de nuevo más tarde!')
+                # create payment failed, handle errors
+                error = pscpayment.getError()
+                # print "#### Error ####"
+                # print "Create Request failed with Error: " + str(error['number']) + " - "+  error['message']
+                print json.dumps(pscpayment.getResponse(), indent=2)
+                return render(request, 'recharge_account.html', {'error': error, 'form': form})
         else:
-            messages.add_message(request, messages.WARNING, '¡Hubo un problema al conectar con PaySafeCard, ¡inténtelo de nuevo más tarde!')
-            # create payment failed, handle errors
-            error = pscpayment.getError()
-            # print "#### Error ####"
-            # print "Create Request failed with Error: " + str(error['number']) + " - "+  error['message']
-            print json.dumps(pscpayment.getResponse(), indent=2)
-            return render(request, 'recharge_account.html', {'error': error})
+            return redirect(home.home)
     else:
-        return redirect(home.home)
+        # Normal GET request (most likely)
+        return render(request, 'recharge_account.html', {'form': RechargeForm()})
 
 
 def all_orders(request):
