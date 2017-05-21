@@ -13,7 +13,6 @@ class CommentForm(forms.ModelForm):
         fields = ('description', 'rating')
 
 
-
 class ReportForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ReportForm, self).__init__(*args, **kwargs)
@@ -22,3 +21,14 @@ class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = ('reason',)
+
+
+class RechargeForm(forms.Form):
+    amount = forms.DecimalField(min_value=0, max_digits=5, decimal_places=2)
+
+    def __init__(self, *args, **kwargs):
+        super(RechargeForm, self).__init__(*args, **kwargs)
+        self.fields['amount'].label = "Cantidad a recargar"
+
+    class Meta:
+        fields = ('amount',)

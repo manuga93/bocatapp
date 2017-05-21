@@ -23,10 +23,13 @@
                 </li>
             {% endif %}
             {% if perms.bocatapp.customer and not user.is_superuser%}
-            <li>
-              <a href="#">
-                Saldo: {{user.amount_money}} €
-              </a>
+            <li class="dropdown">
+                <a href="#" class="hidden-sm hidden-md hidden-lg" data-toggle="dropdown">Saldo: {{user.amount_money}} €
+                <span class="caret hidden-sm hidden-md hidden-lg"></span></a>
+                <a class="hidden-xs" data-toggle="dropdown" href="#">Saldo: {{user.amount_money}} €</a>
+                <ul id="balance" class="dropdown-menu box main-dp">
+                  <li><a id="recharge" href="{% url 'recharge_account' %}">Recargar saldo</a></li>
+                </ul>
             </li>
             {% endif %}
             <li><a href="/faq">Ayuda</a></li>
