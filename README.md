@@ -1,9 +1,10 @@
 # Bocatapp Core
 
 ## Dependencies
-**IMPORTANT!** bootstrap3 dependency is required! Please install it:
+**IMPORTANT!** bootstrap3 and requests dependencies are required! Please install it:
 ```
 pip install django-bootstrap3
+pip install requests
 ```
 Now you keep using Django forms easily like in this example:
 ```
