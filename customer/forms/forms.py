@@ -24,7 +24,7 @@ class ReportForm(forms.ModelForm):
 
 
 class RechargeForm(forms.Form):
-    amount = forms.DecimalField(min_value=0, max_digits=5, decimal_places=2)
+    amount = forms.DecimalField(min_value=10, max_digits=5, decimal_places=2)
 
     def __init__(self, *args, **kwargs):
         super(RechargeForm, self).__init__(*args, **kwargs)
