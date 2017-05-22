@@ -16,11 +16,8 @@
   <form method="POST" class="local-form">{% csrf_token %}
       {% bootstrap_form form %}
       {% buttons %}
-          <button type="submit"  class="btn btn-primary">Guardar</button>
-              <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                  <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
-              </button>
-          </a>
+        <a href="{% url 'locals_by_seller'%}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Atrás</a>
+        <button type="submit"  class="btn btn-primary">Guardar</button>
       {% endbuttons %}
   </form>
 
