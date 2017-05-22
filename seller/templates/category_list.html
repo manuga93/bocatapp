@@ -37,11 +37,42 @@
                                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar 
                                         </button>
                                     </a>
-                                    <a href="{% url 'category_delete' pk=category.id %}">
-                                        <button class ='btn btn-danger'> 
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar 
-                                        </button>
-                                    </a>
+      <!-- Trigger the modal with a button -->
+                                    <button type="button" class='btn btn-danger' data-toggle="modal"
+                                            data-target="#deleteCategory"><span class="glyphicon glyphicon-trash"
+                                                                                aria-hidden="true"></span> Eliminar
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div id="deleteCategory" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close"
+                                                            data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Eliminar categoria</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>¿Desea realmente borrar esta categoría? Los
+                                                        productos que pertenezcan a esta serán elminados</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="{% url 'category_delete' pk=category.id %}">
+                                                        <button class='btn btn-danger'>
+                                                            <span class="glyphicon glyphicon-trash"
+                                                                  aria-hidden="true"></span> Si
+                                                        </button>
+                                                    </a>
+                                                         <button type="button" class="btn btn-default" data-dismiss="modal">No
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 {% endif %}
                             </div>
                         </div>
