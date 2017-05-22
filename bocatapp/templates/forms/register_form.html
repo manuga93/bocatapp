@@ -15,7 +15,10 @@
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}
-                    <button type="submit" class="form-control">Enviar</button>
+                    <br>
+                <a href="{% url 'home'%}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Atrás</a>
+                <button type="submit" class="btn btn-default"><i class="fa fa-check"></i> Guardar
+                </button>
                 {% endbuttons %}
             </form>
         </div>
