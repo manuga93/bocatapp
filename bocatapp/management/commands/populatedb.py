@@ -542,41 +542,41 @@ class Command(BaseCommand):
 
         order1 = Order(totalPrice=2.10, moment='2017-04-01 14:35:00', local=namnam,
                        comment="Sin salsas", customer=customer1, creditCard=creditCard1,
-                       pickupMoment='2017-04-01 14:45:00', hour='14:45')
+                       pickupMoment='2017-04-01 14:45:00')
         order1.save()
 
         order2 = Order(totalPrice=3.30, moment='2017-04-01 14:30:00', local=ricorico,
                        comment="Mucho roquefort", customer=customer1, creditCard=creditCard1,
-                       pickupMoment='2017-05-01 15:00:00', hour='15:00')
+                       pickupMoment='2017-05-01 15:00:00')
         order2.save()
 
         order3 = Order(totalPrice=6.10, moment='2017-04-01 14:40:00', local=ricorico,
                        comment="Frios por favor", customer=customer2, creditCard=creditCard2,
-                       pickupMoment='2017-04-01 14:55:00', hour='14:55')
+                       pickupMoment='2017-04-01 14:55:00')
         order3.save()
 
         order4 = Order(totalPrice=6.70, moment='2017-05-11 15:45:00', local=namnam, customer=customer2,
-                       creditCard=creditCard1, status=False, hour='15:45')
+                       creditCard=creditCard1, status=False, pickupMoment='2017-05-31 14:00:00')
         order4.save()
 
         order5 = Order(totalPrice=9.50, moment='2017-04-27 14:45:00', local=frankyb, customer=customer3,
-                       creditCard=creditCard3, status=True, hour='14:45')
+                       creditCard=creditCard3, status=True, pickupMoment='2017-05-27 15:10:00')
         order5.save()
 
         order6 = Order(totalPrice=5.30, moment='2017-04-27 13:45:00',local=frankyb, customer=customer1,
-                       creditCard=creditCard3, status=True, hour='13:45')
+                       creditCard=creditCard3, status=True, pickupMoment='2017-06-02 15:35:00')
         order6.save()
 
         order7 = Order(totalPrice=5.30, moment='2017-05-15 13:45:00', local=frankyb,customer=customer2,
-                       creditCard=creditCard4, status=False,hour='13:45')
+                       creditCard=creditCard4, status=False, pickupMoment='2017-05-24 14:45:00')
         order7.save()
 
         order8 = Order(totalPrice=10.50, moment='2017-05-15 14:15:00', local=buenProvecho,customer=customer3,
-                       creditCard=creditCard3,status=False, hour='14:15')
+                       creditCard=creditCard3,status=False, pickupMoment='2017-05-25 13:10:00')
         order8.save()
 
         order9 = Order(totalPrice=8.80, moment='2017-05-15 14:00', local=frankyb, customer=customer3,
-                       creditCard=creditCard4, status=False, hour='14:15')
+                       creditCard=creditCard4, status=False, pickupMoment='2017-05-26 16:30:00')
         order9.save()
 
 
