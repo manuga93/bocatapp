@@ -12,7 +12,7 @@
                     {{ k.customer.username }}
                     <br/>
                     <b style="..."><u>Recogida</u>: </b>
-                    {{ k.pickupMoment|date:'d/m/Y' }} {{k.hour}}
+                    {{ k.pickupMoment|date:'d/m/Y H:i' }}
                     <br/>
                     <b style="..."><u>Precio</u>: </b>
                     {{ k.totalPrice }} €
@@ -74,7 +74,7 @@
                     {{ k.customer.username }}
                     <br/>
                     <b style="..."><u>Recogida</u>: </b>
-                    {{ k.pickupMoment|date:'d/m/Y' }} {{k.hour}}
+                    {{ k.pickupMoment|date:'d/m/Y H:i' }}
                     <br/>
                     <b style="..."><u>Precio</u>: </b>
                     {{ k.totalPrice }} €

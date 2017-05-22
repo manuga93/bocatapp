@@ -24,7 +24,6 @@ class Order(models.Model):
     comment = models.CharField(max_length=232)
     status = models.BooleanField(default=False)
     pickupMoment = models.DateTimeField()
-    hour = models.CharField(max_length=5)
     local = models.ForeignKey(Local)
     customer = models.ForeignKey(User)
     creditCard = models.ForeignKey(CreditCard, null=True)
