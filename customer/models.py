@@ -23,7 +23,7 @@ class Order(models.Model):
     moment = models.DateTimeField(auto_now=True)
     comment = models.CharField(max_length=232)
     status = models.BooleanField(default=False)
-    pickupMoment = models.DateTimeField(auto_now=True)
+    pickupMoment = models.DateTimeField()
     hour = models.CharField(max_length=5)
     local = models.ForeignKey(Local)
     customer = models.ForeignKey(User)
