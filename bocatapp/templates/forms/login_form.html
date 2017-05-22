@@ -11,7 +11,7 @@
         <div class="form-group">
              <label class="sr-only" for="password">Contraseña</label>
              <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
-             <div class="help-block text-right"><a href="">¿Olvidó su contraseña?</a></div>
+             <div class="help-block text-right"><a href="{% url 'password_reset'%}">¿Olvidó su contraseña?</a></div>
         </div>
         <div class="form-group">
              <button type="submit" class="button btn-login btn-block">Iniciar sesión</button>
