@@ -132,6 +132,8 @@ PAYSAFECARD_API_KEY = 'psc_Srilth8vrBdsb-lT-8bYNrHq5WAq9mE'
 PAYSAFECARD_ENVIROMENT = 'TEST'
 PAYSAFECARD_DEFAULT_CURRENCY = 'EUR'
 
+
+
 ###
 # LOGGING
 ###
@@ -166,4 +168,27 @@ LOGGING = {
             'level': 'DEBUG',
        },
     }
+
+
 }
+
+
+###
+# EMAIL
+###
+ACCOUNT_ACTIVATION_DAYS=7
+
+#EMAIL_HOST = "smtp.zoho.eu"
+#EMAIL_USE_TLS = 1
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'info@bocatapp.com'
+#EMAIL_HOST_PASSWORD = 'pA4TWcDDHiab'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.zoho.eu'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'info@bocatapp.com'
+EMAIL_HOST_PASSWORD = 'pA4TWcDDHiab'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'Bocatapp <info@bocatapp.com>'
