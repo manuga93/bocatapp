@@ -48,8 +48,8 @@
                                 <input type="hidden" value="{{ p.id }}" id="productId"/>
                                 <input type="number" value="1" id="quantity" min="1" max="10"/>
  -                                <a class="btn btn-success" href="#" id="addsc">
- -                                    <i class="fa fa-cart-plus fa-lg"></i>
- -                                </a>
+                                     <i class="fa fa-cart-plus fa-lg"></i>
+                                </a>
                             </div>
                         {% endif %}
                     </div>
@@ -87,33 +87,47 @@
             var id = td.children('input#productId').val();
             var cartId = getIdCart();
 
-            $.ajax({
-                url: '{% url "add_product_cart" %}',
-                data: {
-                    'idCart': cartId,
-                    'idProduct': id,
-                    'quantity': quantity
-                },
-                dataType: 'json',
-                success: function (data) {
-                    if (data.add != 'ok') {
-                        var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
-                    } else {
-                        var m = $("<div class='alert alert-success fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
+            if(!isNaN(quantity) && quantity > 0 && quantity <= 10){
+
+                $.ajax({
+                    url: '{% url "add_product_cart" %}',
+                    data: {
+                        'idCart': cartId,
+                        'idProduct': id,
+                        'quantity': quantity
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.add != 'ok') {
+                            var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
+                        } else {
+                            var m = $("<div class='alert alert-success fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
+                        }
+
+                        $('#message-list').append(m);
+                        m.fadeIn(500);
+
+                        setTimeout(function() {
+                            m.fadeOut(500, function() {
+                                m.remove();
+                            });
+                        }, 3000);
+
+                        UpdateBadge();
                     }
+                });
+            }else{
+                var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>La cantidad introducida debe ser un número comprendido entre 1 y 10.</div>").hide();
 
-                    $('#message-list').append(m);
-                    m.fadeIn(500);
+                $('#message-list').append(m);
+                m.fadeIn(500);
 
-                    setTimeout(function() {
-                        m.fadeOut(500, function() {
-                            m.remove();
-                        });
-                    }, 3000);
-
-                    UpdateBadge();
-                }
-            });
+                setTimeout(function() {
+                    m.fadeOut(500, function() {
+                        m.remove();
+                    });
+                }, 3000);
+            }
         });
     </script>
 {% endblock %}
