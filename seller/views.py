@@ -36,7 +36,7 @@ def getLocalCategories(pk):
 
 # Lista las categorias de un local
 def category_list(request, pk):
-    categories = get_list_or_404(Category, local=pk)
+    categories = getLocalCategories(pk)
     return render(request, 'category_list.html',
                   {'categories': categories, 'local_pk': pk})
 

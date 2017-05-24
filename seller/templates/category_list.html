@@ -38,11 +38,16 @@
                                         </button>
                                     </a>
       <!-- Trigger the modal with a button -->
-                                    <button type="button" class='btn btn-danger' data-toggle="modal"
+
+                                    <a href="{% url 'category_delete' pk=category.id %}">
+                                        <button class ='btn btn-danger' onclick="return confirm('Esta seguro?')">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar
+                                        </button>
+                                    </a>
+                                       <!-- <button type="button" class='btn btn-danger' data-toggle="modal"
                                             data-target="#deleteCategory"><span class="glyphicon glyphicon-trash"
                                                                                 aria-hidden="true"></span> Eliminar
-                                    </button>
-
+                                        </button>-->
                                     <!-- Modal -->
                                     <div id="deleteCategory" class="modal fade" role="dialog">
                                         <div class="modal-dialog">
@@ -55,7 +60,7 @@
                                                     <h4 class="modal-title">Eliminar categoria</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>¿Desea realmente borrar esta categoría? Los
+                                                    <p>¿Desea realmente borrar la categoría {{ category.name }}? Los
                                                         productos que pertenezcan a esta serán elminados</p>
                                                 </div>
                                                 <div class="modal-footer">
