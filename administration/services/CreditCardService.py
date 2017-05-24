@@ -34,7 +34,7 @@ def get_cc_type(number):
 def luhn(input):
     if not input.isdigit():
         raise ValidationError(
-            ('%(input)s is not a correct Credit Card number'),
+            ('%(input)s no es un N. de tarjeta de credito correcto'),
             params={'input': input},
         )
     digits = [int(c) for c in input if c.isdigit()]
@@ -44,6 +44,6 @@ def luhn(input):
     total = sum(d-9 if d > 9 else d for d in doubled) + sum(digits[1::2])
     if (total * 9) % 10 != checksum:
         raise ValidationError(
-            ('%(input)s is not a correct Credit Card number'),
+            ('%(input)s no es un N. de tarjeta de credito correcto'),
             params={'input': input},
         )
