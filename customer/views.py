@@ -391,6 +391,7 @@ def report_new(request, pk):
         if form.is_valid():
             report = form.save(commit=False)
             report.comment = comment
+            report.customer = request.user
             report.save()
             return redirect('comment_list', pk=comment.local.pk)
     else:
