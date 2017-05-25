@@ -24,12 +24,9 @@
   <form method="POST" class="local-form"> {%csrf_token%}
       {% bootstrap_form form %}
       {% buttons %}
+      <a href="{% url 'locals_by_seller'%}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Atrás</a>
       <button type="submit" class="btn btn-primary">Guardar</button>
-          <a class="col-sm-2 text-left" href="{% url 'seller.views.local_detail' pk=pk %}">
-              <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                  <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
-              </button>
-          </a>
+
       {% endbuttons %}
   </form>
 </div>

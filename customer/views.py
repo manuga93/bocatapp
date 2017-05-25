@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, get_object_or_404, render, redirect, get_list_or_404, render
+from django.contrib.auth.decorators import login_required
 from customer.services import OrderService, ReportService
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -265,15 +266,14 @@ def objectsInCategory(cat):
     return cat.model.product_set
 
 # Checkout view
+@login_required
 def checkout(request, form=CreditCardForm):
     current_user = request.user
-    if current_user.is_authenticated():
-        shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
-        creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
-        return render(request, 'checkout.html', {'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=10)})
-    return redirect(reverse('login'))
+    shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
+    creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
+    return render(request, 'checkout.html', {'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=10)})
 
-
+@login_required
 def do_checkout(request):
     if request.user.is_authenticated():
         current_user = request.user
@@ -319,29 +319,41 @@ def do_checkout(request):
                 dd = date.split('/')[0]
                 mm = date.split('/')[1]
                 aaaa = date.split('/')[2]
-                # saving order
-                new_order = Order(
-                    totalPrice=shoppingcart.total_price,
-                    moment=time(),
-                    local=local,
-                    comment="Añada su comentario aquí",
-                    customer=current_user,
-                    creditCard=creditcard,
-                    pickupMoment=datetime(year=int(aaaa),month=int(mm),day=int(dd)),
-                    hour=str(hour))
-                new_order.save()
-                # loop shoppingcart_lines
-                for line in shoppingcart_lines:
-                    new_order.orderline_set.create(
-                        quantity=line.quantity,
-                        name=line.product.name,
-                        price=line.product.price
-                    )
+                hourMoment = hour.split(':')[0]
+                minutesMoment = hour.split(':')[1]
 
-                ShoppingCart.objects.filter(customer_id=current_user.id, checkout=False).update(checkout=True)
+                momentOrder = datetime(year=int(aaaa),month=int(mm),day=int(dd), hour=int(hourMoment), minute=int(minutesMoment))
+                present = datetime.now()
+                differenceDates = (momentOrder - present).total_seconds()/60
+
+                if present < momentOrder and differenceDates > 9:
+                    # saving order
+                    new_order = Order(
+                        totalPrice=shoppingcart.total_price,
+                        moment=time(),
+                        local=local,
+                        comment="Añada su comentario aquí",
+                        customer=current_user,
+                        creditCard=creditcard,
+                        pickupMoment=momentOrder)
+                    new_order.save()
+                    # loop shoppingcart_lines
+                    for line in shoppingcart_lines:
+                        new_order.orderline_set.create(
+                            quantity=line.quantity,
+                            name=line.product.name,
+                            price=line.product.price
+                        )
+
+                    ShoppingCart.objects.filter(customer_id=current_user.id, checkout=False).update(checkout=True)
+
+                else:
+                    messages.warning(request, u'La fecha y hora de recogida debe ser posterior a la fecha y hora actual. Mínimo 10 min.')
+                    return redirect('customer.views.checkout')
+
             return render(request, 'thanks.html', {})
         else:
-            messages.error(request, 'La fecha o la hora no son correctas')
+            messages.warning(request, u'La fecha o la hora no son correctas')
             return redirect('customer.views.checkout')
     return redirect(home.home)
 
@@ -379,6 +391,7 @@ def report_new(request, pk):
         if form.is_valid():
             report = form.save(commit=False)
             report.comment = comment
+            report.customer = request.user
             report.save()
             return redirect('comment_list', pk=comment.local.pk)
     else:

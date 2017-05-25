@@ -54,32 +54,45 @@
             var id = td.children('input#productId').val();
             var cartId = getIdCart();
 
-            $.ajax({
-                url: '{% url "update_product_cart" %}',
-                data: {
-                    'idCart': cartId,
-                    'idProduct': id,
-                    'quantity': quantity
-                },
-                dataType: 'json',
-                success: function (data) {
-                    if (data.update == 'ok') {
-                        var m = $("<div class='alert alert-success fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
-                    }else{
-                        var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
-                    }
-                    $('#message-list').append(m);
-                    m.fadeIn(500);
+            if(!isNaN(quantity) && quantity > 0 && quantity <= 10){
+                $.ajax({
+                    url: '{% url "update_product_cart" %}',
+                    data: {
+                        'idCart': cartId,
+                        'idProduct': id,
+                        'quantity': quantity
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.update == 'ok') {
+                            var m = $("<div class='alert alert-success fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
+                        }else{
+                            var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>" + data.message + "</div>").hide();
+                        }
+                        $('#message-list').append(m);
+                        m.fadeIn(500);
 
-                    setTimeout(function() {
-                        m.fadeOut(500, function() {
-                            m.remove();
-                        });
-                    }, 3000);
-                    UpdateBadge();
-                    updateTotal();
-                }
-            });
+                        setTimeout(function() {
+                            m.fadeOut(500, function() {
+                                m.remove();
+                            });
+                        }, 3000);
+                        UpdateBadge();
+                        updateTotal();
+                    }
+                });
+            }else{
+                var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>La cantidad introducida debe ser un número comprendido entre 1 y 10.</div>").hide();
+
+                $('#message-list').append(m);
+                m.fadeIn(500);
+
+                setTimeout(function() {
+                    m.fadeOut(500, function() {
+                        m.remove();
+                    });
+                }, 3000);
+            }
         });
 
         $('.container').on('click', '#removesc', function () {
