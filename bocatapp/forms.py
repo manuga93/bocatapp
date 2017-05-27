@@ -19,18 +19,18 @@ class UserRegistrationForm(forms.ModelForm):
     acceptation = forms.BooleanField(required=False)
     phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
                              error_message=(
-                                 _("Debe tener formato 999999999")))
+                                 _("It must be 999999999 format")))
 
     def __init__(self, *args, **kwargs):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
-        self.fields['username'].label = _("Usuario")
-        self.fields['first_name'].label = _("Nombre")
-        self.fields['last_name'].label = _("Apellidos")
-        self.fields['email'].label = _("Correo")
-        self.fields['password'].label = _("Contraseña")
-        self.fields['password2'].label = _("Repetir contraseña")
-        self.fields['acceptation'].label = _("Acepto los terminos y condiciones")
-        self.fields['phone'].label = _("Teléfono")
+        self.fields['username'].label = _("Username")
+        self.fields['first_name'].label = _("First name")
+        self.fields['last_name'].label = _("Last name")
+        self.fields['email'].label = _("Email")
+        self.fields['password'].label = _("Password")
+        self.fields['password2'].label = _("Repeat password")
+        self.fields['acceptation'].label = _("I accept the terms and conditions")
+        self.fields['phone'].label = _("Phone")
 
     def clean(self):
         cleaned_data = super(UserRegistrationForm, self).clean()
@@ -39,9 +39,9 @@ class UserRegistrationForm(forms.ModelForm):
         acceptation = cleaned_data.get("acceptation")
 
         if password != password2:
-            self.add_error('password2', 'Las contrasenas no coinciden.')
+            self.add_error('password2', _('Passwords dont match'))
         if not acceptation:
-            self.add_error(None, 'Debes aceptar los terminos y condiciones para registrarte.')
+            self.add_error(None, _('To register you have to accept the terms and conditions'))
 
     def create_user(self):
         res = User(first_name=self.cleaned_data['first_name'],
@@ -69,14 +69,14 @@ class UserForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
-        self.fields['first_name'].label = _("Nombre")
-        self.fields['last_name'].label = _("Apellidos")
-        self.fields['email'].label = _("Correo")
-        self.fields['phone'].label = _("Teléfono")
-        self.fields['birth_date'].label = _("Cumpleaños")
+        self.fields['first_name'].label = _("Name")
+        self.fields['last_name'].label = _("Surname")
+        self.fields['email'].label = _("Email")
+        self.fields['phone'].label = _("Phone")
+        self.fields['birth_date'].label = _("Birthday")
         self.fields['birth_date'].widget.attrs['class'] = 'dateinput'
         self.fields['birth_date'].widget.attrs['readonly'] = True
-        self.fields['avatar'].label = _("Avatar (URL)")
+        self.fields['avatar'].label = _("Avatar")
 
     class Meta:
         model = User
@@ -85,7 +85,7 @@ class UserForm(forms.ModelForm):
     def clean_birth_date(self):
         date = self.cleaned_data['birth_date']
         if date is not None and date > date.today():
-            raise forms.ValidationError(_("todavía no has nacido?!"))
+            raise forms.ValidationError(_("Arent you born yet?!"))
         return date
 
 
@@ -97,9 +97,9 @@ class PasswordForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(PasswordForm, self).__init__(*args, **kwargs)
-        self.fields['old_password'].label = _("Antigua contraseña")
-        self.fields['new_password'].label = _("Nueva contraseña")
-        self.fields['password'].label = _("Repetir contraseña")
+        self.fields['old_password'].label = _("Old password")
+        self.fields['new_password'].label = _("New password")
+        self.fields['password'].label = _("Repeat password")
         self.non_field_errors()
 
     class Meta:
@@ -109,7 +109,7 @@ class PasswordForm(forms.ModelForm):
     def clean(self):
         old_password = self.cleaned_data.get('old_password')
         if not check_password(old_password, self.user.password):
-            self.add_error(None, _('La contraseña antigua no coincide'))
+            self.add_error(None, _('Old password doesnt match'))
         if self.cleaned_data.get('password') != self.cleaned_data.get('new_password'):
-            self.add_error(None, _('Las nuevas contraseñas no coinciden'))
+            self.add_error(None, _('New passwords dont match'))
         return self.cleaned_data
