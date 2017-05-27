@@ -91,7 +91,7 @@ def recharge_account_success(request):
 def recharge_account_failure(request):
     # payment_id = request.GET.get('payment_id', '')
     messages.add_message(request, messages.WARNING, '¡Hubo un problema al actualizar tu saldo! Inténtalo de nuevo más tarde.')
-    return render(request, 'recharge_account.html', {})
+    return render(request, 'recharge_account.html', {'form': RechargeForm()})
 
 
 def _check_pscpayment(pscpayment):
