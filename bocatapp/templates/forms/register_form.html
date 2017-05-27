@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
+{% load i18n %}
 {% bootstrap_messages %}
-{% block title %}Registro - Bocatapp.com{% endblock %}
 {% block content %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <div class="container">
-
-        <h1>  {{ type }}</h1>
 
         <div class="contact-main well white">
             <form method="post">
@@ -16,8 +14,8 @@
                 {% bootstrap_form form %}
                 {% buttons %}
                     <br>
-                <a href="{% url 'home'%}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Atrás</a>
-                <button type="submit" class="btn btn-default"><i class="fa fa-check"></i> Guardar
+                <a href="{% url 'home'%}" class="btn btn-default"><i class="fa fa-arrow-left"></i> {% trans "Back" %}</a>
+                <button type="submit" class="btn btn-default"><i class="fa fa-check"></i> {% trans "Save" %}
                 </button>
                 {% endbuttons %}
             </form>

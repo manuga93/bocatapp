@@ -5,6 +5,7 @@ from django.contrib.auth.views import login, logout,password_reset,password_rese
 from bocatapp.views import home, UserRegister, UserAccount, ShoppingCart
 from seller import views
 from django.views.generic import TemplateView
+from views.TranlateView import change_language
 urlpatterns = [
     # Examples:
     url(r'^$', home.home, name='home'),#../templates/passwordreset/
@@ -63,5 +64,8 @@ urlpatterns = [
     url(r'^faq/', TemplateView.as_view(template_name="faq.html"), name='faq'),
     url(r'^terms/', TemplateView.as_view(template_name="terms.html"), name='terms'),
     url(r'^cookies/', TemplateView.as_view(template_name="cookies.html"), name='cookies'),
+
+    # i18n
+    url(r'i18n/change_language', change_language, name='change_language'),
 
 ]

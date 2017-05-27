@@ -1,0 +1,197 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-27 14:30+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: bocatapp/decorators.py:52
+msgid "You must to be logged."
+msgstr "Debes estar logueado"
+
+#: bocatapp/forms.py:22
+msgid "It must be 999999999 format"
+msgstr "Debe tener el formato 999999999"
+
+#: bocatapp/forms.py:26
+msgid "Username"
+msgstr "Usuario"
+
+#: bocatapp/forms.py:27
+msgid "First name"
+msgstr "Nombre"
+
+#: bocatapp/forms.py:28
+msgid "Last name"
+msgstr "Apellidos"
+
+#: bocatapp/forms.py:29 bocatapp/forms.py:74
+msgid "Email"
+msgstr "Correo"
+
+#: bocatapp/forms.py:30
+msgid "Password"
+msgstr "Contraseña"
+
+#: bocatapp/forms.py:31 bocatapp/forms.py:102
+msgid "Repeat password"
+msgstr "Repetir contraseña"
+
+#: bocatapp/forms.py:32
+msgid "I accept the terms and conditions"
+msgstr "Acepto los terminos y condiciones"
+
+#: bocatapp/forms.py:33 bocatapp/forms.py:75
+msgid "Phone"
+msgstr "teléfono"
+
+#: bocatapp/forms.py:42
+msgid "Passwords dont match"
+msgstr ""
+
+#: bocatapp/forms.py:44
+msgid "To register you have to accept the terms and conditions"
+msgstr "Para registrarte debes aceptar los terminos y condiciones"
+
+#: bocatapp/forms.py:72
+msgid "Name"
+msgstr "Nombre"
+
+#: bocatapp/forms.py:73
+msgid "Surname"
+msgstr "Apellidos"
+
+#: bocatapp/forms.py:76
+msgid "Birthday"
+msgstr "Cumpleaños"
+
+#: bocatapp/forms.py:79
+msgid "Avatar"
+msgstr "Avatar"
+
+#: bocatapp/forms.py:88
+msgid "Arent you born yet?!"
+msgstr "¿todavía no has nacido?"
+
+#: bocatapp/forms.py:100
+msgid "Old password"
+msgstr "Contraseña antigua"
+
+#: bocatapp/forms.py:101
+msgid "New password"
+msgstr "Nueva contraseña"
+
+#: bocatapp/forms.py:112
+msgid "Old password doesnt match"
+msgstr "La contraseña antigua no coincide"
+
+#: bocatapp/forms.py:114
+msgid "New passwords dont match"
+msgstr "Las nueva contraseña no coincide"
+
+#: bocatapp/templates/forms/password_edit.html:18
+#: bocatapp/templates/forms/register_form.html:17
+#: bocatapp/templates/forms/user_edit.html:17
+msgid "Back"
+msgstr "Atrás"
+
+#: bocatapp/templates/forms/password_edit.html:19
+#: bocatapp/templates/forms/register_form.html:18
+#: bocatapp/templates/forms/user_edit.html:18
+msgid "Save"
+msgstr "Guardar"
+
+#: bocatapp/templates/home.html:10
+msgid "Skip the queue in a bite"
+msgstr "¡Sáltate la cola de un mordisco!"
+
+#: bocatapp/templates/home.html:11
+msgid "Make your order. Enjoy without waits"
+msgstr "Haz tu pedido. Disfruta sin esperar."
+
+#: bocatapp/templates/home.html:17
+msgid "Insert a ZIP code to find places near you"
+msgstr "Inserta un código postar para buscar locales cercanos"
+
+#: bocatapp/templates/includes/header.html:28
+#: bocatapp/templates/includes/header.html:30
+msgid "Balance"
+msgstr "Saldo"
+
+#: bocatapp/templates/includes/header.html:32
+msgid "Recharge balance"
+msgstr "Recargar saldo"
+
+#: bocatapp/templates/includes/header.html:40
+msgid "Language"
+msgstr "Idioma"
+
+#: bocatapp/templates/includes/header.html:43
+msgid "Spanish"
+msgstr "Español"
+
+#: bocatapp/templates/includes/header.html:46
+msgid "English"
+msgstr "Inglés"
+
+#: bocatapp/templates/includes/header.html:53
+msgid "Help"
+msgstr "Ayuda"
+
+#: bocatapp/templates/includes/header.html:56
+#: bocatapp/templates/includes/header.html:58
+msgid "Log in"
+msgstr "Iniciar sesión"
+
+#: bocatapp/templates/includes/header.html:66
+msgid "Do not have an account yet?"
+msgstr "¿No tienes cuenta todavía?"
+
+#: bocatapp/templates/includes/header.html:66
+msgid "Register now!"
+msgstr "Registro"
+
+#: bocatapp/templates/includes/header.html:88
+msgid "My account"
+msgstr "Mi cuenta"
+
+#: bocatapp/templates/includes/header.html:91
+msgid "Reports"
+msgstr "Reportes"
+
+#: bocatapp/templates/includes/header.html:94
+msgid "My places"
+msgstr "Mis locales"
+
+#: bocatapp/templates/includes/header.html:97
+msgid "My orders"
+msgstr "Mis pedidos"
+
+#: bocatapp/templates/includes/header.html:99
+msgid "Disconect"
+msgstr "Cerrar Sesión"
+
+#: bocatapp/views/UserAccount.py:21
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+#: bocatapp/views/UserRegister.py:36
+msgid "Register"
+msgstr "Registro"
+
+#: bocatapp/views/UserRegister.py:48 bocatapp/views/UserRegister.py:70
+msgid "Seller register"
+msgstr "Registro de vendedor"

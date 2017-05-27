@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 <div class="navbar-custom" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -24,20 +25,37 @@
             {% endif %}
             {% if perms.bocatapp.customer and not user.is_superuser%}
             <li class="dropdown">
-                <a href="#" class="hidden-sm hidden-md hidden-lg" data-toggle="dropdown">Saldo: {{user.amount_money}} €
+                <a href="#" class="hidden-sm hidden-md hidden-lg" data-toggle="dropdown">{% trans 'Balance' %}: {{user.amount_money}} €
                 <span class="caret hidden-sm hidden-md hidden-lg"></span></a>
-                <a class="hidden-xs" data-toggle="dropdown" href="#">Saldo: {{user.amount_money}} €</a>
+                <a class="hidden-xs" data-toggle="dropdown" href="#">{% trans 'Balance' %}: {{user.amount_money}} €</a>
                 <ul id="balance" class="dropdown-menu box main-dp">
-                  <li><a id="recharge" href="{% url 'recharge_account' %}">Recargar saldo</a></li>
+                  <li><a id="recharge" href="{% url 'recharge_account' %}">{% trans 'Recharge balance' %}</a></li>
                 </ul>
             </li>
             {% endif %}
-            <li><a href="/faq">Ayuda</a></li>
+
+
+
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Language" %}</a>
+            <ul class="dropdown-menu box main-dp">
+                <li>
+                    <a class="dropdown-item" href="/i18n/change_language?language=es">{% trans "Spanish" %}</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="/i18n/change_language?language=en">{% trans "English" %}</a>
+                </li>
+            </ul>
+         </li>
+
+
+
+            <li><a href="/faq">{% trans 'Help' %}</a></li>
             {% if user.is_anonymous %}
                 <li class="dropdown">
-                    <a href="#" class="hidden-sm hidden-md hidden-lg" data-toggle="dropdown">Iniciar sesión
+                    <a href="#" class="hidden-sm hidden-md hidden-lg" data-toggle="dropdown">{% trans 'Log in' %}
                     <span class="caret hidden-sm hidden-md hidden-lg"></span></a>
-                    <a class="hidden-xs" data-toggle="dropdown" href="#">Iniciar sesión</a>
+                    <a class="hidden-xs" data-toggle="dropdown" href="#">{% trans 'Log in' %}</a>
                     <ul id="login-dp" class="dropdown-menu box main-dp">
                         <li>
                              <div class="row">
@@ -45,7 +63,7 @@
                                         {% include "forms/login_form.html" %}
                                     </div>
                                     <div class="bottom text-center">
-                                        ¿Todavía no tiene cuenta? <a href="{% url 'customer_register' %}"><b>¡Registrese!</b></a>
+                                        {% trans 'Do not have an account yet?' %} <a href="{% url 'customer_register' %}"><b>{% trans 'Register now!' %}</b></a>
                                     </div>
                              </div>
                         </li>
@@ -67,18 +85,18 @@
                     <ul id="myaccount-dp" class="dropdown-menu box main-dp">
                         <li>
                             <a href="/user/myAccount/"><strong class="hidden-xs block">{{ user.get_full_name }}</strong>
-                            <span class="block">Mi cuenta</span></a>
+                            <span class="block">{% trans 'My account' %}</span></a>
                         </li>
                         {% if user.is_superuser %}
-                            <li><a href="{% url 'report_list' %}">Reportes</a></li>
+                            <li><a href="{% url 'report_list' %}">{% trans 'Reports' %}</a></li>
                         {% endif %}
                         {% if perms.bocatapp.seller and not user.is_superuser%}
-                          <li><a href="{% url 'locals_by_seller' %}">Mis locales</a></li>
+                          <li><a href="{% url 'locals_by_seller' %}">{% trans 'My places' %}</a></li>
                         {% endif %}
                         {% if perms.bocatapp.customer and not user.is_superuser%}
-                          <li><a href="{% url 'orders_by_customer'%}">Mis pedidos</a></li>
+                          <li><a href="{% url 'orders_by_customer'%}">{% trans 'My orders' %}</a></li>
                         {% endif %}
-                        <li><a id= "logoutButton" href="/logout">Desconectar</a></li>
+                        <li><a id= "logoutButton" href="/logout">{% trans 'Disconect' %}</a></li>
                     </ul>
                 </li>
             {% endif %}
