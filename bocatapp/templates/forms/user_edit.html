@@ -13,23 +13,13 @@
         <div class="contact-main well white">
             <form method="post">
                 {% csrf_token %}
-                {% for field in user_form %}
-                    <div class="form-group">
-                        {{ field.label_tag }}<br>
-                        {{ field }} {% if field.errors %}
-                            {% for error in field.errors %}
-                                <br><span style="color: darkred">{{ error }}</span >
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <br>
-                <a href="{% url 'myAccount'%}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Atrás</a>
-                <button type="submit" class="btn btn-default"><i class="fa fa-check"></i> Guardar</button>
-
+                {% bootstrap_form user_form %} <!-- old form.as_p -->
+                {% buttons %}
+                  <a href="{% url 'myAccount'%}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Atrás</a>
+                  <button type="submit" class="btn btn-default"><i class="fa fa-check"></i> Guardar</button>
+                {% endbuttons %}
             </form>
         </div>
     </div>
 
 {% endblock %}
-
