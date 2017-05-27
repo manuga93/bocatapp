@@ -49,7 +49,7 @@ def user_passes_test(test_func,
 
 def login_required(function=None,
                    redirect_field_name=REDIRECT_FIELD_NAME,
-                   login_url=None, message=_("You must to be logged.")):
+                   login_url=None, message=_("Debes estar logueado!")):
     """
     Decorator for views that checks that the user is logged in, redirecting
     to the log-in page if necessary.
