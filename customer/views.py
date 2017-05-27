@@ -267,7 +267,7 @@ def objectsInCategory(cat):
 
 # Checkout view
 @login_required
-def checkout(request, form=CreditCardForm):
+def checkout(request, form=CreditCardForm(None)):
     current_user = request.user
     shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
     creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
@@ -294,7 +294,10 @@ def do_checkout(request):
             form = CreditCardForm(values)
             if not form.is_valid():
                 return checkout(request, form)
-            creditcard = form.save()
+            if request.POST.get('save', '') == 'on':
+                creditcard = form.save()
+            else:
+                creditcard = None
         elif creditcard_opt == 'balance':
             # Other credit card
             if current_user.amount_money < shoppingcart.total_price:
@@ -349,7 +352,7 @@ def do_checkout(request):
 
                 else:
                     messages.warning(request, u'La fecha y hora de recogida debe ser posterior a la fecha y hora actual. Mínimo 10 min.')
-                    return redirect('customer.views.checkout')
+                    return checkout(request, form)
 
             return render(request, 'thanks.html', {})
         else:

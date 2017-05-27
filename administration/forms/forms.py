@@ -12,7 +12,6 @@ class CreditCardForm(forms.ModelForm):
         self.fields['number'].label = "Numero"
         self.fields['user'].label = "Usuario"
 
-
     class Meta:
         model = CreditCard
         fields = ('holderName', 'expireMonth', 'expireYear', 'cvv', 'number', 'user')

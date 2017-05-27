@@ -18,7 +18,7 @@
 
               {% if form.errors %}
               <div class="alert alert-danger">
-              	<p>La operación no se ha podido realizar debido a que uno o más errores han ocurrido.<br />Por favor, reenvie el formulario después de hacer los siguientes cambios:</p>
+              	<p>La operación no se ha podido realizar debido a que uno o más errores han ocurrido.<!--<br />Por favor, reenvie el formulario después de hacer los siguientes cambios:</p>-->
               	<!-- <ul>
               	{% for field in form %}
               	<li>{{ field.errors|striptags }}</li>
@@ -52,27 +52,30 @@
                     <div id="creditcard-new">
                       <div class="row">
                           <div class="col-xs-12">
-                              <div class="form-group">
+                              <div class="form-group {{form.holderName.errors|yesno:"has-error," }}">
                                   <label for="holdername">Nombre</label>
                                   <input
                                       type="text"
                                       class="form-control"
                                       name="holderName"
+                                      value="{{form.holderName.value|default_if_none:""}}"
                                       placeholder="Titular de la tarjeta"
                                       required
                                   />
+                                  {% if form.holderName.errors %} <span id="help-block-holderName" class="help-block">{{form.holderName.errors}}</span>{%endif%}
                               </div>
                           </div>
                       </div>
                       <div class="row">
                           <div class="col-xs-12">
-                              <div class="form-group">
+                              <div class="form-group {{form.number.errors|yesno:"has-error," }}">
                                   <label for="number">Numero de tarjeta</label>
                                   <div class="input-group">
                                       <input
                                           type="tel"
                                           class="form-control"
                                           name="number"
+                                          value="{{form.number.value|default_if_none:""}}"
                                           placeholder="Número de tarjeta válido"
                                           autocomplete="cc-number"
                                           required
@@ -81,44 +84,44 @@
 
                                           ard"></i></span>
                                   </div>
+                                  {% if form.number.errors %} <span id="help-block-number" class="help-block">{{form.number.errors}}</span>{%endif%}
                               </div>
                           </div>
                       </div>
                       <div class="row">
                           <div class="col-xs-7 col-md-7">
-                              <div class="form-group">
+                              <div class="form-group {{form.expireMonth.errors|yesno:"has-error," }} {{form.expireYear.errors|yesno:"has-error," }}">
                                   <label for="cardExpiry"><span class="hidden-xs">Fecha de caducidad</span><span class="visible-xs-inline">EXP</span></label>
                                   <input
                                       type="tel"
                                       class="form-control"
                                       name="cardExpiry"
-                                      placeholder="MM / YY"
+                                      placeholder="MM / AA"
                                       autocomplete="cc-exp"
                                       required
                                   />
+                                  {% if form.expireMonth.errors %} <span id="help-block-expireMonth" class="help-block">{{form.expireMonth.errors}}</span>{%endif%}
+                                  {% if form.expireYear.errors %} <span id="help-block-expireYear" class="help-block">{{form.expireYear.errors}}</span>{%endif%}
                               </div>
                           </div>
                           <div class="col-xs-5 col-md-5 pull-right">
-                              <div class="form-group">
+                              <div class="form-group {{form.cvv.errors|yesno:"has-error," }} ">
                                   <label for="cvv">CVV</label>
                                   <input
                                       type="tel"
                                       class="form-control"
                                       name="cvv"
                                       placeholder="CVV"
+                                      value="{{form.cvv.value|default_if_none:""}}"
                                       autocomplete="cc-csc"
                                       required
                                   />
+                                  {% if form.cvv.errors %} <span id="help-block-cvv" class="help-block">{{form.cvv.errors}}</span>{%endif%}
                               </div>
                           </div>
                       </div>
-                      <div class="row" style="display:none;">
-                          <div class="col-xs-12">
-                              <p class="payment-errors"></p>
-                          </div>
-                      </div>
                       <div class="checkbox">
-                        <label><input type="checkbox" value="">Si, me gustaria guardar mi tarjeta de credito en el sistema</label>
+                        <label><input type="checkbox" name="save" checked>Si, me gustaria guardar mi tarjeta de credito en el sistema</label>
                       </div>
                     </div>
                 <br />
