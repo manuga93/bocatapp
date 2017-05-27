@@ -443,31 +443,31 @@ class Command(BaseCommand):
         cerveza.save()
 
         # Buen Provecho ================================================================================================
-        paella = Product(name='Paella(200gr)', price='2.5', local=buenProvecho, ingredients='arroz,pollo,colorante,sofrito',
+        paella = Product(name='Paella(200gr)', price='2.5', local=buenProvecho, ingredients='arroz, pollo, colorante, sofrito',
                          category=platos_calientes_buenProvecho)
         paella.save()
 
-        fabada = Product(name='Fabada asturiana(200gr)', price='2.5', local=buenProvecho, ingredients='alubias,chorizo,morcilla',
+        fabada = Product(name='Fabada asturiana(200gr)', price='2.5', local=buenProvecho, ingredients='alubias, chorizo, morcilla',
                          category=platos_calientes_buenProvecho)
         fabada.save()
 
         croquetas = Product(name='Croquetas de puchero(200gr)', price=2.5, local=buenProvecho,
-                            ingredients='bechamel,pringa de puchero,pan rallado',
+                            ingredients='bechamel, pringa de puchero, pan rallado',
                             category=platos_calientes_buenProvecho)
         croquetas.save()
 
         tortilla_patatas = Product(name='Tortilla de patata (250gr)', price=4, local=buenProvecho,
-                                   ingredients='huevo,patata,cebolla',
+                                   ingredients='huevo, patata, cebolla',
                                    category=platos_calientes_buenProvecho)
         tortilla_patatas.save()
 
         ensaladilla_rusa = Product(name='Ensaladilla rusa(200gr)', price=2.0, local=buenProvecho,
-                                   ingredients='huevo,mahonesa,aceitunas,atun',
+                                   ingredients='huevo, mahonesa, aceitunas, atun',
                                    category=platos_frios_buenProvecho)
         ensaladilla_rusa.save()
 
         patatas_alioli = Product(name='Patatas con alioli(200gr)', price=2.0 ,local=buenProvecho,
-                                 ingredients='patatas,alioli',
+                                 ingredients='patatas, alioli',
                                  category=platos_frios_buenProvecho)
         patatas_alioli.save()
 
