@@ -10,6 +10,7 @@ from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine, Co
 from seller.models import Product, Local, Category
 from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
+from django.utils import timezone
 from django.contrib import messages
 from administration.forms.forms import CreditCardForm
 from django.core.urlresolvers import reverse
@@ -219,13 +220,41 @@ def all_orders(request):
 @permission_required('bocatapp.customer', message='You are not a customer')
 def orders_by_customer(request):
         # Pending orders
-        orders_not_do = request.user.order_set.all().filter(status=False)
+        orders_not_do = request.user.order_set.all().filter(status=False, cancelled=False)
         orders_pending = {o: o.orderline_set.all() for o in orders_not_do}
         # Done orders
-        orders_do = request.user.order_set.all().filter(status=True)
+        orders_do = request.user.order_set.all().filter(status=True, cancelled=False)
         orders_done = {o: o.orderline_set.all() for o in orders_do}
-        return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done})
+        # Done orders
+        orders_cancel = request.user.order_set.all().filter(status=False, cancelled=True)
+        orders_cancelled = {o: o.orderline_set.all() for o in orders_cancel}
+        return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done,'orders_cancelled': orders_cancelled})
 
+@permission_required('bocatapp.customer', message='You are not a customer')
+def cancel_order(request, pk):
+    order = Order.objects.get(pk=pk)
+    present = timezone.now()
+    if order.customer.pk == request.user.id:
+        if order.pickupMoment > present:
+            if order.status == False:
+                if order.cancelled == False:
+
+                    order.cancelled = True
+                    order.save()
+                    return redirect('customer.views.orders_by_customer')
+                else:
+                    messages.warning(request, u'El pedido ya ha sido cancelado')
+                    return redirect('customer.views.orders_by_customer')
+            else:
+                messages.warning(request, u'Lo sentimos, el pedido ya esta realizado, y es imposible cancelarlo')
+                return redirect('customer.views.orders_by_customer')
+        else:
+            messages.warning(request, u'La fecha del pedido ya ha pasado.')
+            return redirect('customer.views.orders_by_customer')
+
+    else:
+        messages.warning(request, u'El pedido que intentas cancelar no te pertenece.')
+        return redirect("/")
 
 @permission_required('bocatapp.customer', message='You are not a customer')
 def order_line_by_order(request, order_id):

@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^report/accept/(?P<pk>[0-9]+)/$', 'customer.views.report_accept', name="report_accept"),
     url(r'^report/decline/(?P<pk>[0-9]+)/$', 'customer.views.report_decline', name="report_decline"),
     url(r'^orders/$', 'customer.views.orders_by_customer', name="orders_by_customer"),
+    url(r'^cancelOrder/(?P<pk>[0-9]+)/$', 'customer.views.cancel_order', name="cancel_order"),
     url(r'^checkout/$', 'customer.views.checkout', name="checkout"),
     url(r'^checkout/save/$', 'customer.views.do_checkout', name="do_checkout"),
     url(r'^search/(?P<local_id>[0-9]+)/$', 'customer.views.search_product', name="search_product"),
