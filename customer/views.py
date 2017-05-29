@@ -234,13 +234,25 @@ def orders_by_customer(request):
 def cancel_order(request, pk):
     order = Order.objects.get(pk=pk)
     present = timezone.now()
+    devolver = 0.0
+    customer = request.user
     if order.customer.pk == request.user.id:
         if order.pickupMoment > present:
             if order.status == False:
                 if order.cancelled == False:
-
+                    cosa = order.pickupMoment-present
+                    if convert_timedelta(cosa)[0]>=3:
+                        devolver = float(order.totalPrice)
+                    elif convert_timedelta(cosa)[0]>=2:
+                        devolver = float(order.totalPrice)*0.925
+                    elif convert_timedelta(cosa)[0]>=1:
+                        devolver = float(order.totalPrice)*0.5
                     order.cancelled = True
                     order.save()
+                    customer.amount_money = (float(customer.amount_money)+devolver)
+                    customer.save()
+
+                    messages.warning(request, u'Cancelacion realizada. En breve te ingresaremos ' + str(devolver) + u'€ en tu saldo.')
                     return redirect('customer.views.orders_by_customer')
                 else:
                     messages.warning(request, u'El pedido ya ha sido cancelado')
@@ -255,6 +267,13 @@ def cancel_order(request, pk):
     else:
         messages.warning(request, u'El pedido que intentas cancelar no te pertenece.')
         return redirect("/")
+
+def convert_timedelta(duration):
+    days, seconds = duration.days, duration.seconds
+    hours = days * 24 + seconds // 3600
+    minutes = (seconds % 3600) // 60
+    seconds = (seconds % 60)
+    return hours, minutes, seconds
 
 @permission_required('bocatapp.customer', message='You are not a customer')
 def order_line_by_order(request, order_id):

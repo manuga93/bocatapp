@@ -45,12 +45,12 @@
                     {% endfor %}
                     {% if perms.bocatapp.customer %}
                                                 </hr>
-                        <div class="col-xs-3" style="float: left"><a class="btn btn-success"
-                                                                     href="{% url "cancel_order" pk=k.id %}"
-                                                                     id="cancelOrder">
-                            <i class="fa fa-check fa-lg"></i>
-                            Cancelar pedido
-                        </a>
+                        <div class="col-xs-3" style="float: left">
+                            <a href="{% url 'cancel_order' pk=k.id %}">
+                                        <button class ='btn btn-danger' onclick="return confirm('Esta seguro?')">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar pedido
+                                        </button>
+                            </a>
                         </div>
                         <br/>
                         <hr/>
