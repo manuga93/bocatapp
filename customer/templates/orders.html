@@ -43,6 +43,18 @@
                         </div>
                         <hr/>
                     {% endfor %}
+                    {% if perms.bocatapp.customer %}
+                                                </hr>
+                        <div class="col-xs-3" style="float: left">
+                            <a href="{% url 'cancel_order' pk=k.id %}">
+                                        <button class ='btn btn-danger' onclick="return confirm('Esta seguro?')">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar pedido
+                                        </button>
+                            </a>
+                        </div>
+                        <br/>
+                        <hr/>
+                    {% endif %}
 
                     {% if not perms.bocatapp.customer %}
                         </hr>
@@ -64,6 +76,58 @@
         {% endif %}
 
     </div>
+
+    <div class="container">
+        <h2>Cancelados</h2>
+        <br/>
+        {% if orders_cancelled %}
+            {% for k,v in orders_cancelled.items %}
+                <button class="accordion">
+                    <b style="..."><u>Usuario</u>: </b>
+                    {{ k.customer.username }}
+                    <br/>
+                    <b style="..."><u>Recogida</u>: </b>
+                    {{ k.pickupMoment|date:'d/m/Y H:i' }}
+                    <br/>
+                    <b style="..."><u>Precio</u>: </b>
+                    {{ k.totalPrice }} €
+                    {% if perms.bocatapp.customer %}
+                        <br/>
+                        <b style="..."><u>Local</u>: </b>
+                        {{ k.local }}
+                    {% endif %}
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <div class="carta">
+                    <div class="row" style="...">
+                        <div class="col-xs-3">
+                            <h5><b style="..."><u>Producto</u></b></h5>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5><b style="..."><u>Precio</u></b></h5>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5><b style="..."><u>Unds</u></b></h5>
+                        </div>
+                    </div>
+                    {% for ol in v %}
+                        <div class="row" style="...">
+                            <div class="col-xs-3">{{ ol.name }}</div>
+                            <div class="col-xs-3">{{ ol.price }} €</div>
+                            <div class="col-xs-3">{{ ol.quantity }}</div>
+                        </div>
+                        <hr/>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>No hay pedidos Cancelados =)</h3>
+        {% endif %}
+        <br/>
+        <br/>
+
+    </div>
+
     <div class="container">
         <h2>Hechos</h2>
         <br/>
