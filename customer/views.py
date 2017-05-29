@@ -225,7 +225,7 @@ def orders_by_customer(request):
         # Done orders
         orders_do = request.user.order_set.all().filter(status=True, cancelled=False)
         orders_done = {o: o.orderline_set.all() for o in orders_do}
-        # Done orders
+        # Cancel orders
         orders_cancel = request.user.order_set.all().filter(status=False, cancelled=True)
         orders_cancelled = {o: o.orderline_set.all() for o in orders_cancel}
         return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done,'orders_cancelled': orders_cancelled})
