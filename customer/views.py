@@ -240,12 +240,13 @@ def cancel_order(request, pk):
         if order.pickupMoment > present:
             if order.status == False:
                 if order.cancelled == False:
-                    cosa = order.pickupMoment-present
-                    if convert_timedelta(cosa)[0]>=3:
+
+                    tiempoRestante = order.pickupMoment-present
+                    if convert_timedelta(tiempoRestante)[0]>=3:
                         devolver = float(order.totalPrice)
-                    elif convert_timedelta(cosa)[0]>=2:
+                    elif convert_timedelta(tiempoRestante)[0]>=2:
                         devolver = float(order.totalPrice)*0.925
-                    elif convert_timedelta(cosa)[0]>=1:
+                    elif convert_timedelta(tiempoRestante)[0]>=1:
                         devolver = float(order.totalPrice)*0.5
                     order.cancelled = True
                     order.save()
