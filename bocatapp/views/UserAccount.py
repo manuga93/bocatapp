@@ -2,6 +2,7 @@ from django.db import transaction
 from django.views.generic import detail, edit
 from django.shortcuts import render
 from bocatapp.forms import UserForm, PasswordForm
+from django.utils.translation import ugettext_lazy as _
 
 
 class UserAccountView(detail.DetailView):
@@ -17,7 +18,7 @@ class UserEdit(edit.BaseUpdateView):
     def get(self, request):
         user_form = UserForm(instance=request.user, prefix='user')
         context = {
-            'type': 'Editar perfil',
+            'type': _('Edit profile'),
             'user_form': user_form
         }
         return render(request, '../templates/forms/user_edit.html', context)

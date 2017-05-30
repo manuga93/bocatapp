@@ -4,7 +4,7 @@ from django.contrib.auth.models import Permission
 from django.views.generic import FormView
 from bocatapp.forms import UserRegistrationForm
 from django.http.response import HttpResponseRedirect
-
+from django.utils.translation import ugettext_lazy as _
 
 class RegistrationCustomerView(FormView):
     def get(self, request):
@@ -33,7 +33,7 @@ class RegistrationCustomerView(FormView):
                     for error in errors:
                         message += error
                 context = {
-                    'type': 'Registro',
+                    'type': _('Register'),
                     'form': form, 'message': message
                 }
                 return render(request, '../templates/forms/register_form.html', context)
@@ -45,7 +45,7 @@ class RegistrationSellerView(FormView):
     def get(self, request):
         if not request.user.is_authenticated():
             form = UserRegistrationForm()
-            context = {'type': 'Registro de vendedor',
+            context = {'type': _('Seller register'),
                        'form': form,
                        }
             return render(request, '../templates/forms/register_form.html', context)
@@ -67,7 +67,7 @@ class RegistrationSellerView(FormView):
                 for field, errors in form.errors.items():
                     for error in errors:
                         message += error
-                context = {'type': 'Registro de vendedor',
+                context = {'type':  _('Seller register'),
                            'form': form, 'message': message
                            }
                 return render(request, '../templates/forms/register_form.html', context)

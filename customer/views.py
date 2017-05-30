@@ -10,6 +10,7 @@ from customer.models import Order, OrderLine, ShoppingCart, ShoppingCartLine, Co
 from seller.models import Product, Local, Category
 from administration.models import CreditCard
 from django.db.models import Sum, F, FloatField
+from django.utils import timezone
 from django.contrib import messages
 from administration.forms.forms import CreditCardForm
 from django.core.urlresolvers import reverse
@@ -91,7 +92,7 @@ def recharge_account_success(request):
 def recharge_account_failure(request):
     # payment_id = request.GET.get('payment_id', '')
     messages.add_message(request, messages.WARNING, '¡Hubo un problema al actualizar tu saldo! Inténtalo de nuevo más tarde.')
-    return render(request, 'recharge_account.html', {})
+    return render(request, 'recharge_account.html', {'form': RechargeForm()})
 
 
 def _check_pscpayment(pscpayment):
@@ -219,13 +220,61 @@ def all_orders(request):
 @permission_required('bocatapp.customer', message='You are not a customer')
 def orders_by_customer(request):
         # Pending orders
-        orders_not_do = request.user.order_set.all().filter(status=False)
+        orders_not_do = request.user.order_set.all().filter(status=False, cancelled=False)
         orders_pending = {o: o.orderline_set.all() for o in orders_not_do}
         # Done orders
-        orders_do = request.user.order_set.all().filter(status=True)
+        orders_do = request.user.order_set.all().filter(status=True, cancelled=False)
         orders_done = {o: o.orderline_set.all() for o in orders_do}
-        return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done})
+        # Cancel orders
+        orders_cancel = request.user.order_set.all().filter(status=False, cancelled=True)
+        orders_cancelled = {o: o.orderline_set.all() for o in orders_cancel}
+        return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done,'orders_cancelled': orders_cancelled})
 
+@permission_required('bocatapp.customer', message='You are not a customer')
+def cancel_order(request, pk):
+    order = Order.objects.get(pk=pk)
+    present = timezone.now()
+    devolver = 0.0
+    customer = request.user
+    if order.customer.pk == request.user.id:
+        if order.pickupMoment > present:
+            if order.status == False:
+                if order.cancelled == False:
+
+                    tiempoRestante = order.pickupMoment-present
+                    if convert_timedelta(tiempoRestante)[0]>=3:
+                        devolver = float(order.totalPrice)
+                    elif convert_timedelta(tiempoRestante)[0]>=2:
+                        devolver = float(order.totalPrice)*0.925
+                    elif convert_timedelta(tiempoRestante)[0]>=1:
+                        devolver = float(order.totalPrice)*0.5
+                    order.cancelled = True
+                    order.save()
+                    customer.amount_money = (float(customer.amount_money)+devolver)
+                    customer.save()
+
+                    messages.warning(request, u'Cancelacion realizada. En breve te ingresaremos ' + str(devolver) + u'€ en tu saldo.')
+                    return redirect('customer.views.orders_by_customer')
+                else:
+                    messages.warning(request, u'El pedido ya ha sido cancelado')
+                    return redirect('customer.views.orders_by_customer')
+            else:
+                messages.warning(request, u'Lo sentimos, el pedido ya esta realizado, y es imposible cancelarlo')
+                return redirect('customer.views.orders_by_customer')
+        else:
+            messages.warning(request, u'La fecha del pedido ya ha pasado.')
+            return redirect('customer.views.orders_by_customer')
+
+    else:
+        messages.warning(request, u'El pedido que intentas cancelar no te pertenece.')
+        return redirect("/")
+
+def convert_timedelta(duration):
+    days, seconds = duration.days, duration.seconds
+    hours = days * 24 + seconds // 3600
+    minutes = (seconds % 3600) // 60
+    seconds = (seconds % 60)
+    return hours, minutes, seconds
 
 @permission_required('bocatapp.customer', message='You are not a customer')
 def order_line_by_order(request, order_id):

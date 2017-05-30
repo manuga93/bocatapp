@@ -161,12 +161,16 @@ def local_orders(request, pk):
     local = get_object_or_404(Local, pk=pk)
     if local.seller.pk == request.user.pk:
         # Pending orders
-        orders_not_do = local.order_set.all().filter(status=False)
+        orders_not_do = local.order_set.all().filter(status=False, cancelled=False)
         orders_pending = {o: o.orderline_set.all() for o in orders_not_do}
         # Done orders
-        orders_do = local.order_set.all().filter(status=True)
+        orders_do = local.order_set.all().filter(status=True, cancelled=False)
         orders_done = {o: o.orderline_set.all() for o in orders_do}
-        return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done})
+        # Cancel orders
+        orders_cancel = local.order_set.all().filter(status=False, cancelled=True)
+        orders_cancelled = {o: o.orderline_set.all() for o in orders_cancel}
+
+        return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done, 'orders_cancelled': orders_cancelled})
     else:
         return redirect("/")
 
