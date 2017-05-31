@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-31 04:43+0200\n"
+"POT-Creation-Date: 2017-05-31 16:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1034,7 +1034,6 @@ msgid "Transactions"
 msgstr "Transacciones"
 
 #: customer/templates/report_edit.html:10
-
 msgid "New report"
 msgstr "Nuevo reporte"
 
@@ -1043,7 +1042,6 @@ msgid "Send"
 msgstr "Enviar"
 
 #: customer/templates/report_list.html:34
-
 msgid "Reported by"
 msgstr "Reportado por"
 
@@ -1078,3 +1076,112 @@ msgstr ""
 #: customer/templates/thanks.html:13
 msgid "Do not forget to pick your order on time!"
 msgstr "¡No olvides recoger tu pedido a tiempo!"
+
+#: customer/views.py:44
+msgid "Retrieve payment successful."
+msgstr "Recuperar el pago correctamente."
+
+#: customer/views.py:48
+msgid "Capturing payment"
+msgstr "Capturar el pago"
+
+#: customer/views.py:51
+msgid "Capture request was successful. Checking response:"
+msgstr "La solicitud de captura tuvo éxito. Comprobación de la respuesta:"
+
+#: customer/views.py:56
+msgid "Your balance has been acted correctly!"
+msgstr "¡Tu saldo ha sido actuado correctamente!"
+
+#: customer/views.py:60
+msgid ""
+"The reload request has been received. Your balance will be updated soon. "
+msgstr ""
+"La solicitud de recarga ha sido recibida. Pronto se actualizará tu saldo."
+
+#: customer/views.py:68
+msgid "There were problems connecting to PaySafeCard. Try again later!"
+msgstr ""
+"Hubo problemas para conectar con PaySafeCard. ¡Inténtalo de nuevo más tarde!"
+
+#: customer/views.py:71
+msgid "Your balance has been successfully updated!"
+msgstr "Tu saldo ha sido actualizado con éxito!"
+
+#: customer/views.py:77
+msgid ""
+"Payment is not yet processed, please visit / redirect to auth_url your "
+"received on payment creation"
+msgstr ""
+"Payment is not processed yet, please visit / redirect to auth_url your "
+"received on payment creation"
+
+#: customer/views.py:82
+msgid "There was an error retrieving the payment. Try again later."
+msgstr ""
+"Se ha producido un error al recuperar el pago. Inténtalo de nuevo más tarde."
+
+#: customer/views.py:94
+msgid "There was a problem updating your balance! Try again later."
+msgstr "Hubo un problema al actualizar tu saldo! Inténtalo de nuevo más tarde."
+
+#: customer/views.py:197
+msgid "There was a problem connecting to PaySafeCard, please try again later!"
+msgstr ""
+"¡Hubo un problema al conectar con PaySafeCard, ¡inténtelo de nuevo más tarde!"
+
+#: customer/views.py:233 customer/views.py:414
+msgid "You are not a customer"
+msgstr "Usted no es cliente"
+
+#: customer/views.py:256
+msgid "Cancellation made. Soon we will enter "
+msgstr "Cancelacion realizada. En breve te ingresaremos"
+
+#: customer/views.py:256
+msgid "€ in your balance."
+msgstr "€ en tu saldo."
+
+#: customer/views.py:259
+msgid "The order has already been canceled"
+msgstr "El pedido ya ha sido cancelado"
+
+#: customer/views.py:262
+msgid "Sorry, the order is already made, and it is impossible to cancel it"
+msgstr "Lo sentimos, el pedido ya esta realizado, y es imposible cancelarlo"
+
+#: customer/views.py:265
+msgid "The order date has already passed."
+msgstr "La fecha del pedido ya ha pasado."
+
+#: customer/views.py:269
+msgid "The order you are trying to cancel does not belong to you."
+msgstr "El pedido que intentas cancelar no te pertenece."
+
+#: customer/views.py:353
+msgid "Choose another method of payment, you do not have enough balance!"
+msgstr "Elige otro método de pago, ¡no tienes suficiente saldo!"
+
+#: customer/views.py:387
+msgid "Add your comment"
+msgstr "Añade tu comentario"
+
+#: customer/views.py:403
+msgid ""
+"The date and time of collection must be after the current date and time. "
+"Minimum 10 min."
+msgstr ""
+"La fecha y hora de recogida debe ser posterior a la fecha y hora actual. "
+"Mínimo 10 min"
+
+#: customer/views.py:408
+msgid "Date or time is not correct"
+msgstr "Fecha u hora no es correcta"
+
+#: customer/views.py:438
+msgid "You are not user"
+msgstr "Usted no es usuario"
+
+#: customer/views.py:463 customer/views.py:469 customer/views.py:475
+msgid "You are not an admin"
+msgstr "Usted no es administrador"
