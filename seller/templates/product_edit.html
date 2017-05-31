@@ -1,31 +1,31 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
-
+{% load i18n %}
 {% bootstrap_messages %}
 {% block title %}
     {% if form.instance.pk == None %}
-        Crear producto
+        {% trans "Create product" %}
     {% endif %}
     {% if form.instance.pk != None %}
-        Editar producto
+        {% trans "Edit product" %}
     {% endif %}
 {%endblock%}
 
 {% block content%}
 <div class="container">
 {% if form.instance.pk == None %}
-  <h1>Crear producto</h1>
+  <h1>{% trans "Create product" %}</h1>
 {% endif %}
 {% if form.instance.pk != None %}
-    <h1>Editar producto</h1>
+    <h1>{% trans "Edit product" %}</h1>
 {% endif %}
 
   <form method="POST" class="local-form"> {%csrf_token%}
       {% bootstrap_form form %}
       {% buttons %}
-      <a href="{% url 'locals_by_seller'%}" class="btn btn-default"><i class="fa fa-arrow-left"></i> Atrás</a>
-      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a href="{% url 'locals_by_seller'%}" class="btn btn-default"><i class="fa fa-arrow-left"></i> {% trans "Back" %}</a>
+      <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
 
       {% endbuttons %}
   </form>

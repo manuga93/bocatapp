@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from seller.models import Pack, Local
 import datetime
-
+from django.utils.translation import ugettext_lazy as _
 
 class PackForm(forms.ModelForm):
     nombre = forms.CharField()
@@ -30,11 +30,11 @@ class PackForm(forms.ModelForm):
 
     def clean(self):
         if not self.data['fecha_fin']:
-            raise ValidationError('Debes introducir una fecha valida')
+            raise ValidationError(_('You must enter a valid date'))
         if self.fecha_inicio > self.cleaned_data['fecha_fin']:
-            raise ValidationError('Debes introducir una fecha futura')
+            raise ValidationError(_('You must enter a date in the future'))
         if len(self.data['precio']) == 0:
-            raise ValidationError('Introduce un precio!')
+            raise ValidationError(_('Enter a price!'))
         else:
             if int(self.data['precio']) <= 0:
-                raise ValidationError('Demasiado barato!')
+                raise ValidationError(_('Too cheap!'))

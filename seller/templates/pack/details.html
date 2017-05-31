@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}Packs{% endblock %}
-
+{% load i18n %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -13,7 +13,7 @@
                         <input id="postcode" name="postcode" type="text" class="form-control input-md"
                                value="{{ request.GET.postcode }}">
                     </div>
-                    <button onclick="#" class="form-control">Search!</button>
+                    <button onclick="#" class="form-control">{% trans "Search" %}</button>
                 </form>
             </div>
         </div>
@@ -56,10 +56,10 @@
 
                             <div class="col-md-2 buttons-wrapper">
                                 <p class="brief-text">
-                                    Disponible hasta el {{ pack.endDate }}
+                                    {% trans "Available until " %} {{ pack.endDate }}
                                 </p>
 
-                                <button onclick="#" class="form-control">Comprar</button>
+                                <button onclick="#" class="form-control">{% trans "Buy" %}</button>
                                 {#                                        location.replace('{% url 'pack_details' pk=pack.pk %}');" class="form-control">Detalles#}
 
                             </div>
