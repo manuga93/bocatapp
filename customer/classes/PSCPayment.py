@@ -2,7 +2,7 @@ import requests
 import base64
 import json
 import datetime
-
+from django.utils.translation import ugettext_lazy as _
 class PSCPayment:
 
     def __init__(self, key, environment):
@@ -168,34 +168,34 @@ class PSCPayment:
 
         if self.request.status_code == 400:
             self.error['number'] = "HTTP:400"
-            self.error['message'] = 'Logical error. The requested URL cannot be found. Check your request data'
+            self.error['message'] = _('Logical error. The requested URL cannot be found. Check your request data')
         elif self.request.status_code == 403:
             self.error['number']  = "HTTP:403"
-            self.error['message'] = 'Transaction could not be initiated due to connection problems. The servers IP address is probably not whitelisted!'
+            self.error['message'] = _('Transaction could not be initiated due to connection problems. The servers IP address is probably not whitelisted!')
         elif self.request.status_code == 500:
             self.error['number']  = "HTTP:500"
-            self.error['message'] = 'Server error.'
+            self.error['message'] = _('Server error.')
 
         if self.error:
             return self.error
         if 'number' in self.getResponse():
             if self.getResponse()['number'] == 4003:
                 self.error['number'] = self.getResponse()['number']
-                self.error['message'] = 'The amount for this transaction exceeds the maximum amount. The maximum amount is 1000 EURO (equivalent in other currencies)'
+                self.error['message'] = _('The amount for this transaction exceeds the maximum amount. The maximum amount is 1000 EURO (equivalent in other currencies)')
             elif self.getResponse()['number'] == 3001:
                 self.error['number'] = self.getResponse()['number']
-                self.error['message'] = 'Transaction could not be initiated because the account is inactive.'
+                self.error['message'] = _('Transaction could not be initiated because the account is inactive.')
             elif self.getResponse()['number'] == 2002:
                 self.error['number'] = self.getResponse()['number']
-                self.error['message'] = 'payment id is unknown.'
+                self.error['message'] = _('payment id is unknown.')
             elif self.getResponse()['number'] == 2010:
                 self.error['number'] = self.getResponse()['number']
-                self.error['message'] = 'Currency is not supported.'
+                self.error['message'] = _('Currency is not supported.')
             elif self.getResponse()['number'] == 2029:
                 self.error['number'] = self.getResponse()['number']
-                self.error['message'] = 'Amount is not valid. Valid amount has to be above 0.'
+                self.error['message'] = _('Amount is not valid. Valid amount has to be above 0.')
             else:
                 self.error['number'] = self.getResponse()['number']
-                self.error['message'] = 'Transaction could not be initiated due to connection problems. If the problem persists, please contact our support.';
+                self.error['message'] = _('Transaction could not be initiated due to connection problems. If the problem persists, please contact our support.');
 
         return self.error

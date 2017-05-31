@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Reportes{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Reports" %}{% endblock %}
 
 {% block content %}
     <link href="{% static "styles/stars.css" %}" rel="stylesheet">
 
     <div class="container">
-    <h1>Reportes</h1>
+    <h1>{% trans "Reports" %}</h1>
     <hr>
     {% if reports %}
     {% for c, r in reports.items %}
@@ -14,9 +15,9 @@
             <div class="col-md-12">
                 <div class="item-search well white">
                         <div class="comment">
-                        <p>Escrito por: <strong>{{ c.customer.username }}</strong></p>
+                        <p>{% trans "Writen by" %}: <strong>{{ c.customer.username }}</strong></p>
 
-                            <p>Valoracion:
+                            <p>{% trans "Valoration" %}:
                             {% for i in "x"|ljust:c.rating %}
                                 <i class="fa fa-star"></i>
                             {% endfor %}
@@ -30,8 +31,8 @@
 
         {% for k in r %}
         <div class="report">
-            <p>Reportado por: <b>{{ k.customer.username }}</b></p>
-            <p>Razon: {{ k.reason }}</p>
+            <p>{% trans "Reported by" %}: <b>{{ k.customer.username }}</b></p>
+            <p>{% trans "Reason" %}: {{ k.reason }}</p>
 
 
         </div>

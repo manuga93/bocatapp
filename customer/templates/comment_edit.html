@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
+{% load i18n %}
 {% bootstrap_messages %}
 {% block title %}Comentarios{% endblock %}
 
@@ -8,13 +9,13 @@
     <link href="{% static "styles/stars.css" %}" rel="stylesheet">
 
     <div class="container" id="container_id">
-        <h2>Nuevo comentario</h2>
+        <h2>{% trans "New comment" %}</h2>
     <hr/>
 
         <form method="POST" id="formComment" class="comment-form">{% csrf_token %}
             {% bootstrap_form form %}
         <div class="form-group" style="display: inline-block;">
-            <label class="control-label">Valoracion: </label>
+            <label class="control-label">{% trans "Valoration" %}: </label>
             <br/>
                     <input class="star star-5" id="star-5" type="radio" name="star"/>
                     <label class="star star-5" for="star-5"></label>
@@ -29,7 +30,7 @@
         </div>
         <br/>
             {% buttons %}
-                <button type="submit" class="btn btn-primary" onclick="getCommentRating()">Guardar</button>
+                <button type="submit" class="btn btn-primary" onclick="getCommentRating()">{% trans "Save" %}</button>
             {% endbuttons %}
 
         </form>

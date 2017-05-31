@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load staticfiles %}
 {% block title %} Bocatapp - Cookies{% endblock %}
 
@@ -6,15 +7,15 @@
 
     <div class="container">
 
-    <h1>Politica de cookies</h1>
-    <p>Una cookie (o galleta informática) es una pequeña información enviada por un sitio web y almacenada en el navegador del usuario, de manera que el sitio web puede consultar la actividad previa del mismo.</p>
-    <p>El Usuario acepta expresamente, por la utilización de este Site, el tratamiento de la información recabada en la forma y con los fines anteriormente mencionados.</p>
-    <h3>¿Que tipos de cookies utiliza BocatApp?</h3>
-    <p>Cookies técnicas: Son aquéllas que permiten al usuario la navegación a través de una página web, plataforma o aplicación y la utilización de las diferentes opciones o servicios que en ella existan como, por ejemplo, controlar el tráfico y la comunicación de datos, identificar la sesión, acceder a partes de acceso restringido, , realizar la solicitud de inscripción o participación en un evento, utilizar elementos de seguridad durante la navegación.</p>
-    <p>Cookies de personalización: Son aquéllas que permiten al usuario acceder al servicio con algunas características de carácter general predefinidas en función de una serie de criterios en el terminal del usuario como por ejemplo serian el idioma, el tipo de navegador a través del cual accede al servicio, la configuración regional desde donde accede al servicio, etc.</p>
-    <p>Cookies de tercero: La Web de www.bocatapp.com puede utilizar servicios de terceros que, por cuenta de www.bocatapp.com, recopilaran información con fines estadísticos, de uso del Site por parte del usuario y para la prestacion de otros servicios relacionados con la actividad del Website y otros servicios de Internet.</p>
-    <p>En particular Bocatapp utiliza Google Analytics, un servicio analítico de webs prestado por Google, Inc.Para la prestación de estos servicios,estos utilizan cookies que recopilan la información, incluida la dirección IP del usuario, que será transmitida, tratada y almacenada por Google en los términos fijados en la Web Google.com. Incluyendo la posible transmisión de dicha información a terceros por razones de exigencia legal o cuando dichos terceros procesen la información por cuenta de Google.</p>
-    <p>Para mas informacion visite el siguiente <a href="http://politicadecookies.com/">enlace</a></p>
+    <h1>{% trans "Cookies policy" %}</h1>
+    <p>{% trans "A cookie is a little information sent by a website and stored in the user's browser, so that the website can check the previous activity of the same." %}</p>
+    <p>{% trans "The User expressly accepts, for the use of this Site, the treatment of the information collected in the form and for the aforementioned purposes." %}</p>
+    <h3>{% trans "What types of cookies does BocatApp use?" %}</h3>
+    <p>{% trans "Technical Cookies: These are the ones that allow the user to navigate through a web page, platform or application and the use of the different options or services that exist in it, such as controlling traffic and communication of data, identify the Session, access restricted access parts, make the application for registration or participation in an event, use security features during navigation." %}</p>
+    <p>{% trans "Personalization Cookies: They are those that allow the user to access the service with some general characteristics predefined according to a series of criteria in the user's terminal such as the language, the type of browser through which accesses the service , The regional settings from where you access the service, etc." %}</p>
+    <p>{% trans "Third Party Cookies: The Web of www.bocatapp.com may use third party services that, on behalf of www.bocatapp.com, collect information for statistical purposes, use of the Site by the user and for the provision of other related services With the activity of the Website and other Internet services." %}</p>
+    <p>{% trans "In particular, Bocatapp uses Google Analytics, a web analytics service provided by Google, Inc. In order to provide these services, Bocatapp uses cookies that collect information, including the user's IP address, which will be transmitted, processed and stored by Google in The terms set in the Web Google.com. Including the possible transmission of such information to third parties for reasons of legal exigency or when said third parties process the information for Google account." %}</p>
+    <p>{% trans "If you need more information, follow the following " %} <a href="http://politicadecookies.com/">{% trans "link" %}</a></p>
     </div>
 
 {% endblock %}

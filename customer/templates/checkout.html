@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 {% load multiply %}
 {% load show_last_4 %}
 {% block title %} Método de pago - Bocatapp.com {% endblock %}
@@ -12,13 +13,13 @@
         <!-- CREDIT CARD FORM STARTS HERE -->
         <div class="panel panel-default credit-card-box">
             <div class="panel-heading" >
-              <h3 class="panel-title" > Método de pago</h3>
+              <h3 class="panel-title" > {% trans "Payment method" %}</h3>
             </div>
             <div class="panel-body">
 
               {% if form.errors %}
               <div class="alert alert-danger">
-              	<p>La operación no se ha podido realizar debido a que uno o más errores han ocurrido.<!--<br />Por favor, reenvie el formulario después de hacer los siguientes cambios:</p>-->
+              	<p>{% trans "The operation could not be performed because one or more errors have occurred." %}<!--<br />Por favor, reenvie el formulario después de hacer los siguientes cambios:</p>-->
               	<!-- <ul>
               	{% for field in form %}
               	<li>{{ field.errors|striptags }}</li>
@@ -32,7 +33,7 @@
 
                     <div class="row">
                       <div class="col-xs-12">
-                        <h3>Pagar con:</h3>
+                        <h3>{% trans "Pay with:" %}</h3>
                         <ul class="list-group">
                           {%for creditcard in creditcards%}
                             <div class="radio list-group-item">
@@ -40,10 +41,10 @@
                             </div>
                           {%endfor%}
                           <div class="radio list-group-item">
-                            <label><input type="radio" name="creditcard" value="balance"{% if user.amount_money < shoppingcart.total_price %} disabled {%endif%}>Saldo: {{user.amount_money}} € {% if user.amount_money < shoppingcart.total_price %} <span class="text-danger">¡No tienes saldo suficiente!</span> {% endif %}</label>
+                            <label><input type="radio" name="creditcard" value="balance"{% if user.amount_money < shoppingcart.total_price %} disabled {%endif%}>Saldo: {{user.amount_money}} € {% if user.amount_money < shoppingcart.total_price %} <span class="text-danger">{% trans "You do not have enough balance!" %}</span> {% endif %}</label>
                           </div>
                           <div class="radio list-group-item">
-                            <label><input type="radio" name="creditcard" value="new" checked="true">Nueva tarjeta de crédito</label>
+                            <label><input type="radio" name="creditcard" value="new" checked="true">{% trans "New credit card" %}</label>
                           </div>
                         </ul>
                       </div>
@@ -53,13 +54,13 @@
                       <div class="row">
                           <div class="col-xs-12">
                               <div class="form-group {{form.holderName.errors|yesno:"has-error," }}">
-                                  <label for="holdername">Nombre</label>
+                                  <label for="holdername">{% trans "Name" %}</label>
                                   <input
                                       type="text"
                                       class="form-control"
                                       name="holderName"
                                       value="{{form.holderName.value|default_if_none:""}}"
-                                      placeholder="Titular de la tarjeta"
+                                      placeholder="{% trans 'Holdername' %}"
                                       required
                                   />
                                   {% if form.holderName.errors %} <span id="help-block-holderName" class="help-block">{{form.holderName.errors}}</span>{%endif%}
@@ -69,20 +70,18 @@
                       <div class="row">
                           <div class="col-xs-12">
                               <div class="form-group {{form.number.errors|yesno:"has-error," }}">
-                                  <label for="number">Numero de tarjeta</label>
+                                  <label for="number">{% trans "Number of credit card" %}</label>
                                   <div class="input-group">
                                       <input
                                           type="tel"
                                           class="form-control"
                                           name="number"
                                           value="{{form.number.value|default_if_none:""}}"
-                                          placeholder="Número de tarjeta válido"
+                                          placeholder="{% trans "Valid credit card number" %}"
                                           autocomplete="cc-number"
                                           required
                                       />
-                                      <span class="input-group-addon"><i class="fa fa-credit-c
-
-                                          ard"></i></span>
+                                      <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                                   </div>
                                   {% if form.number.errors %} <span id="help-block-number" class="help-block">{{form.number.errors}}</span>{%endif%}
                               </div>
@@ -91,7 +90,7 @@
                       <div class="row">
                           <div class="col-xs-7 col-md-7">
                               <div class="form-group {{form.expireMonth.errors|yesno:"has-error," }} {{form.expireYear.errors|yesno:"has-error," }}">
-                                  <label for="cardExpiry"><span class="hidden-xs">Fecha de caducidad</span><span class="visible-xs-inline">EXP</span></label>
+                                  <label for="cardExpiry"><span class="hidden-xs">{% trans "Expiration date" %}</span><span class="visible-xs-inline">EXP</span></label>
                                   <input
                                       type="tel"
                                       class="form-control"
@@ -121,10 +120,11 @@
                           </div>
                       </div>
                       <div class="checkbox">
-                        <label><input type="checkbox" name="save" checked>Si, me gustaria guardar mi tarjeta de credito en el sistema</label>
+                        <label><input type="checkbox" name="save" checked>{% trans "Yes, I would like to keep my credit card in the system" %}</label>
                       </div>
                     </div>
                 <br />
+                </form>
             </div>
         </div>
         <!-- CREDIT CARD FORM ENDS HERE -->
@@ -145,21 +145,21 @@
           </div>
         </div>
         <div class="text-center">
-            <h3>Detalles del pedido</h3>
+            <h3>{% trans "Order details" %}</h3>
         </div>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Producto</th>
+                    <th>{% trans "Product" %}</th>
                     <th>#</th>
-                    <th class="text-center">Precio</th>
+                    <th class="text-center">{% trans "Price" %}</th>
                     <th class="text-center">Total</th>
                 </tr>
             </thead>
             <tbody>
                 {%for line in shoppingcart.shoppingcartline_set.all%}
                     <tr>
-                        <td class="col-md-7"><em>{{line.product.name}}</em></h4></td>
+                        <td class="col-md-7"><em>{{line.product.name}}</em></td>
                         <td class="col-md-1" style="text-align: center">{{ line.quantity }}</td>
                         <td class="col-md-2 text-center">{{line.product.price}}</td>
                         <td class="col-md-2 text-center">{% multiply line.quantity line.product.price %}</td>
@@ -172,7 +172,7 @@
                         <strong>Subtotal: </strong>
                     </p>
                     <p>
-                        <strong>Tasas (5%): </strong>
+                        <strong>{% trans "Taxes" %} (5%): </strong>
                     </p>
                     <p>
                         <strong>IVA (10%): </strong>
@@ -202,7 +202,7 @@
       <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <label for="dateCheckout">Fecha de Recogida</label>
+                    <label for="dateCheckout">{% trans "Pick up date" %}</label>
                     <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
                         <input type="text" name="dateCheckout" class="form-control dateinput" data-date-format="dd/mm/yyyy" value="{{ datetime|date:"d/m/Y" }}" required>
                         <div class="input-group-addon">
@@ -213,7 +213,7 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="form-group">
-                    <label for="hourCheckout">Hora de recogida</label>
+                    <label for="hourCheckout">{% trans "Pick up time" %}</label>
                     <input
                         type="tel"
                         class="form-control"
@@ -230,7 +230,7 @@
   </div>
   <div class="row">
       <div class="col-md-4 col-md-offset-8">
-          <button class="savecard btn btn-success btn-lg btn-block" onclick="$('#payment-form').submit();" type="button">Realizar la reserva</button>
+          <button class="savecard btn btn-success btn-lg btn-block" onclick="$('#payment-form').submit();" type="button">{% trans "Make the reservation" %}</button>
       <br>
       </div>
   </div>
