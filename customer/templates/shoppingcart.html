@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Carrito de Compra{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Shopping cart" %}{% endblock %}
 {% block content %}
     <div class="container">
-        <h2><i class="fa fa-shopping-cart fa-lg"></i> Carrito de la Compra</h2>
+        <h2><i class="fa fa-shopping-cart fa-lg"></i> {% trans "Shopping cart" %}</h2>
         <br/>
         <div class="row" style="padding-bottom: 1em">
             <div class="col-xs-3">
-                <h4><b style="font-size: 0.85em;"><u>Nombre</u></b></h4>
+                <h4><b style="font-size: 0.85em;"><u>{% trans "Name" %}</u></b></h4>
             </div>
             <div class="col-xs-3">
-                <h4><b style="font-size: 0.85em;"><u>Precio</u></b></h4>
+                <h4><b style="font-size: 0.85em;"><u>{% trans "Price" %}</u></b></h4>
             </div>
             <div class="col-xs-6">
-                <h4><b style="font-size: 0.85em;"><u>Añadir</u></b></h4>
+                <h4><b style="font-size: 0.85em;"><u>{% trans "Add" %}</u></b></h4>
             </div>
         </div>
         {% for line in shoppingcart.shoppingcartline_set.all %}
@@ -35,11 +36,11 @@
         {% endfor %}
         <h3>Total: <span id="totalCart">{{ shoppingcart.total_price }}</span> € {% if shoppingcart.total_price != 0 %}
             <a id="checkoutSC" class="btn btn-success" href="{% url 'checkout' %}"><span
-                    class="glyphicon glyphicon-ok"></span> Terminar y pagar</a>{% endif %}</h3>
+                    class="glyphicon glyphicon-ok"></span> {% trans "Finish and pay" %}</a>{% endif %}</h3>
         <br/>
         <a class="col-sm-2 text-left" href="{% url 'home' %}">
             <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                <span class="glyphicon glyphicon" aria-hidden="true"></span> Seguir comprando
+                <span class="glyphicon glyphicon" aria-hidden="true"></span> {% trans "Keep buying" %}
             </button>
         </a>
     </div>
@@ -82,7 +83,7 @@
                     }
                 });
             }else{
-                var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>La cantidad introducida debe ser un número comprendido entre 1 y 10.</div>").hide();
+                var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>"+{% trans 'The quantity entered must be a number between 1 and 10.' %}"</div>").hide();
 
                 $('#message-list').append(m);
                 m.fadeIn(500);

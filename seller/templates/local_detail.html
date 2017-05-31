@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Locales{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Locals" %}{% endblock %}
 
 {% block content %}
         <div class="container">
@@ -8,36 +9,36 @@
 
 
             <div class="col-xs-12 col-md-8 jumbotron">
-                <img height="120px" width="120px" class="img-circle center-block" alt="foto de perfil"
-                     src=" {{ local.photo }} " alt="Profile image"><br/><br/>
+                <img height="120px" width="120px" class="img-circle center-block" alt="{% trans "Profile image" %}"
+                     src=" {{ local.photo }} " alt="{% trans "Profile image" %}"><br/><br/>
 
                 <p>
                     {{ local.description|linebreaksbr }}
                 </p>
                 <p class="brief-text bottom">
 
-                    Direcci&oacute;n: {{ local.address }} <br/>
-                    Tel&eacute;fono: {{ local.phone }} <br/>
+                    {% trans "Address" %}: {{ local.address }} <br/>
+                    {% trans "Phone" %}: {{ local.phone }} <br/>
                 </p>
 
 
-                <a href="{% url 'menu_list' pk=local.pk %}"> Ver carta</a>
+                <a href="{% url 'menu_list' pk=local.pk %}"> {% trans "See menu" %}</a>
                 <hr/>
                 {% if perms.bocatapp.seller and local.seller == request.user %}
-                    <a href="{% url 'local_edit' pk=local.pk %}"> Editar</a>
+                    <a href="{% url 'local_edit' pk=local.pk %}"> {% trans "Edit" %}</a>
                     <hr/>
-                    <a href="{% url 'category_list' pk=local.pk %}"> Ver categorias</a>
+                    <a href="{% url 'category_list' pk=local.pk %}"> {% trans "See categories" %}</a>
 
                     <hr/>
-                    <a href="{% url 'product_new' pk=local.pk %}"> Nuevo producto</a>
+                    <a href="{% url 'product_new' pk=local.pk %}"> {% trans "New product" %}</a>
                     <hr/>
-                    <a href="{% url 'category_new' pk=local.pk %}"> Nueva categoria</a>
+                    <a href="{% url 'category_new' pk=local.pk %}"> {% trans "New category" %}</a>
                     <hr/>
                     <!--
                     <a href="{% url 'edit_pack' local_pk=local.pk %}"> Nuevo pack</a>
                     <hr/> 
                     -->
-                    <a href="{% url 'comment_list' pk=local.pk %}">Comentarios</a>
+                    <a href="{% url 'comment_list' pk=local.pk %}">{% trans "Comments" %}</a>
                     <hr/>
 
                 {% endif %}

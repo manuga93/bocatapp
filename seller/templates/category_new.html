@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
-
+{% load i18n %}
 {% bootstrap_messages %}
-{%block title%}Nueva Categor&iacute;a{%endblock%}
+{%block title%}{% trans "New category" %}{%endblock%}
 
 {% block content %}
   <div class="container">
-  <h1>Nueva Categor&iacute;a</h1>
+  <h1>{% trans "New category" %}</h1>
   <form method="POST" class="local-form"> {%csrf_token%}
           {% bootstrap_form form %}
           {% buttons %}
-          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
               <a class="col-sm-2 text-left" href="{% url 'seller.views.local_detail' pk=local.pk %}">
                   <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
+                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Save" %}
                   </button>
               </a>
           {% endbuttons %}

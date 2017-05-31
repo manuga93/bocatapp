@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.db.models import F
 import datetime
 from bocatapp.views import home
-
+from django.utils.translation import ugettext_lazy as _
 
 
 def create_shopping_cart(request):
@@ -120,7 +120,7 @@ def add_product(request):
 
     data = {
             'add': 'no',
-            'message': u'El producto no se ha añadido al carrito.',
+            'message': unicode(_("Product has not been added to cart")),
     }
 
     
@@ -132,7 +132,7 @@ def add_product(request):
             if newProduct.local_id != item.local_id:
                 data = {
                     'add': 'no',
-                    'message': u'No se pueden agregar productos de distintos locales.',
+                    'message': unicode(_("You can not add products from different locations.")),
                 }
                 sameLocal = 0    
 
@@ -142,7 +142,7 @@ def add_product(request):
     if res:
         data = {
             'add': 'ok',
-            'message': u'El producto se ha añadido correctamente al carrito.',
+            'message': unicode(_("The product has been successfully added to cart.")),
         }
 
     return JsonResponse(data)
@@ -174,12 +174,12 @@ def update_product(request):
         scLine.update(quantity = newQuantity)
         data = {
             'update': 'ok',
-            'message': u'El producto se ha actualizado correctamente.',
+            'message': unicode(_("The product has been updated successfully.")),
         }
     else:
         data = {
             'update': 'no',
-            'message': u'El producto no se ha actualizado.',
+            'message': unicode(_("The product has not been updated successfully.")),
         } 
     
     
@@ -196,7 +196,7 @@ def delete_product(request):
     
     data = {
         'delete': 'ok',
-        'message': u'El producto se ha eliminado del carrito.',
+        'message': unicode(_("The product has been removed from the cart.")),
     }
 
     return JsonResponse(data)

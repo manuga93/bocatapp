@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 {% block title %} Gracias {% endblock %}
 
 {% block content %}
@@ -8,8 +9,8 @@
              src="https://www.shareicon.net/data/2016/08/20/817720_check_395x512.png"
              alt="Thumb v3 avatar 1453299202">
         <div class="text-center">
-            <h2>¡Gracias! Tu pedido está siendo procesado, te avisaremos cuando esté listo</h2>
-            <h4>¡No olvides recoger tu pedido a tiempo!</h4>
+            <h2>{% trans "Thank you! Your order is being processed, we will notify you when you are ready" %}</h2>
+            <h4>{% trans "Do not forget to pick your order on time!" %}</h4>
         </div>
     </div>
 {% endblock %}

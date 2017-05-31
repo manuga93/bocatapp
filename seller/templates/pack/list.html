@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}Packs{% endblock %}
-
+{% load i18n %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -13,7 +13,7 @@
                         <input id="postcode" name="postcode" type="text" class="form-control input-md"
                                value="{{ request.GET.postcode }}">
                     </div>
-                    <button onclick="#" class="form-control">BuscarSearch!</button>
+                    <button onclick="#" class="form-control">{% trans "Search" %}</button>
                 </form>
             </div>
         </div>

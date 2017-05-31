@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}Packs{% endblock %}
-
+{% load i18n %}
 {% block content %}
     <div class="contact-wrapper well white">
         <div class="contact-main" style="text-align:center;">
             {% if edit %}
-                <h1>Editar Pack</h1>
+                <h1>{% trans "Edit pack" %}</h1>
             {% else %}
-                <h1>Crear Pack</h1>
+                <h1>{% trans "Create pack" %}</h1>
             {% endif %}
 
         </div>
@@ -36,7 +36,7 @@
                             </div>
                             <div id="panel-element-{{ product.id }}" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    Cantidad: <input type="text" name="{{ product.id }}"><br>
+                                    {% trans "Quantity" %}: <input type="text" name="{{ product.id }}"><br>
                                 </div>
                             </div>
                         </div>
@@ -44,10 +44,10 @@
                 </div>
                 <a class="col-sm-2 text-left" href="{% url 'seller.views.local_detail' pk=local_pk %}">
                   <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
+                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
                   </button>
               </a>
-                <input class="btn btn-primary" type="submit" value="Enviar">
+                <input class="btn btn-primary" type="submit" value="{% trans "Send" %}">
             </form>
         </div>
     </div>

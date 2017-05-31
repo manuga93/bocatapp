@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}{{ local.name }} - Carta {% endblock %}
+{% load i18n %}
+{% block title %}{{ local.name }} - Menu{% endblock %}
 {% block content %}
     <div class="container">
-        <h2>Carta de {{ local.name }}</h2>
+        <h2>{% trans "Menu of" %} {{ local.name }}</h2>
         <br/>
         <form id="search_form" method="GET" action="{% url 'search_product' local_id=local.id %}">
             <div class="input-group stylish-input-group" style="z-index: 0">
-                <input name="search_input" type="text" class="form-control" placeholder="Buscar">
+                <input name="search_input" type="text" class="form-control" placeholder="{% trans "Search" %}">
                 <span class="input-group-addon">
       <button id="search_button" type="submit">
       <span class="glyphicon glyphicon-search"></span>
@@ -22,17 +23,17 @@
             <div class="carta">
                 <div class="row" style="padding-bottom: 1em">
                     <div class="col-xs-3">
-                        <h4><b style="font-size: 0.85em;"><u>Nombre</u></b></h4>
+                        <h4><b style="font-size: 0.85em;"><u>{% trans "Name" %}</u></b></h4>
                     </div>
                     <div class="col-xs-3">
                         <h4><b style="font-size: 0.85em;"><u>Ingrs.</u></b></h4>
                     </div>
                     <div class="col-xs-3">
-                        <h4><b style="font-size: 0.85em;"><u>Precio</u></b></h4>
+                        <h4><b style="font-size: 0.85em;"><u>{% trans "Price" %}</u></b></h4>
                     </div>
                     {% if perms.bocatapp.customer or user.is_anonymous %}
                         <div class="col-xs-3">
-                            <h4><b style="font-size: 0.85em;"><u>Añadir</u></b></h4>
+                            <h4><b style="font-size: 0.85em;"><u>{% trans "Add" %}</u></b></h4>
                         </div>
                     {% endif %}
                 </div>
@@ -119,7 +120,7 @@
                     }
                 });
             }else{
-                var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>La cantidad introducida debe ser un número comprendido entre 1 y 10.</div>").hide();
+                var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>{% trans "The quantity entered must be a number between 1 and 10." %}</div>").hide();
 
                 $('#message-list').append(m);
                 m.fadeIn(500);

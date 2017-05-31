@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
+{% load i18n %}
 {% bootstrap_messages %}
-{% block title %}Recargar cuenta{% endblock %}
+{% block title %}{% trans "Recharge account" %}{% endblock %}
 
 {% block content %}
     <link href="{% static "styles/stars.css" %}" rel="stylesheet">
 
     <div class="container" id="container_id">
-        <h2>Recarga tu cuenta</h2>
+        <h2>{% trans "Recharge account" %}</h2>
         <p>
-          Saldo actual: <b>{{user.amount_money}}</b>
+          {% trans "Current balance" %}: <b>{{user.amount_money}}</b>
         </p>
         <form action="" method="POST">{% csrf_token %}
           {% bootstrap_form form %}
           {% buttons %}
-              <button type="submit" class="btn btn-default">Recargar</button>
+              <button type="submit" class="btn btn-default">{% trans "Recharge" %}</button>
           {% endbuttons %}
         </form>
         <hr />
-        <h4>Transacciones</h4>
+        <h4>{% trans "Transactions" %}</h4>
         <div class="row">
           {% for transaction in transactions %}
           <div class="col-md-4">

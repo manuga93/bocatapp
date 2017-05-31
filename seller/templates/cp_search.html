@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Locales{%endblock%}
-
+{% block title %}{% trans "Locals" %}{%endblock%}
+{% load i18n %}
 {% block content %}
   <div class="container">
     <div class="row">
@@ -9,10 +9,10 @@
         <br/>
           <form class="form-inline well white" style="text-align:center;">
               <div class="form-group">
-                  <label style="font-weight: normal;" for="postcode">Resultados para: </label>
+                  <label style="font-weight: normal;" for="postcode">{% trans "Results for" %}: </label>
                   <input id="postcode" name="postcode" type="text" class="form-control input-md" value="{{request.GET.postcode}}">
               </div>
-              <button onclick="#" class="form-control">¡Buscar!</button>
+              <button onclick="#" class="form-control">{% trans "Search" %}</button>
           </form>
       </div>
     </div>
@@ -21,21 +21,21 @@
       <div class="col-md-3 search-filter" id="sidebar">
           <div class="col-md-12 well white">
             <form action="{% url "search" %}" method="GET" >
-              <h4>Ordenar por</h4>
+              <h4>{% trans "Order by" %}</h4>
               <div class="radio">
                 <label>
                   <input type="radio" name="list_by" onchange="this.form.submit();" value="0" {%if request.GET.list_by == '0'%}checked{%endif%}>
-                  Mejor puntuación media
+                  {% trans "Top-Rated" %}
                 </label>
               </div>
               <div class="radio">
                 <label>
                   <input type="radio" name="list_by" onchange="this.form.submit();" value="1" {%if request.GET.list_by == '1'%}checked{%endif%}>
-                  Nuevo
+                  {% trans "New" %}
                 </label>
               </div>
               <hr />
-              <h4>Cocina</h4>
+              <h4>{% trans "Kitchen" %}</h4>
                 {% for c in supercats %}
               <div class="radio">
                 <label>
@@ -45,7 +45,7 @@
               </div>
                 {% endfor %}
               <input type="hidden" name="postcode" value="{{request.GET.postcode}}" />
-              <button onclick="#" class="form-control">Recargar</button>
+              <button onclick="#" class="form-control">{% trans "Update" %}</button>
             </form>
           </div>
       </div>
@@ -53,7 +53,7 @@
           <div id="map"></div>
           <div class="row">
               <div class="col-md-12">
-                  <h4>{{locals|length}} local{%if locals|length != 1 %}es{%endif%} encontrado en esta zona</h4>
+                  <h4>{{locals|length}} local{%if locals|length != 1 %}es{%endif%} {% trans "found in this zone" %}</h4>
               </div>
           </div>
           <div class="row">
@@ -65,7 +65,7 @@
                               {%if local.photo %}
                                   <img alt="" height="100px" width="100px" class="img-circle center-block" src="{{MEDIA_URL}}{{local.photo}}">
                               {% else %}
-                                  <img height="100px" width="100px"  class="img-circle center-block" alt="foto de perfil" src="{% static "images/No_image_available.png" %}" alt="Profile image">
+                                  <img height="100px" width="100px"  class="img-circle center-block" alt="{% trans "Profile image" %}" src="{% static "images/No_image_available.png" %}" alt="{% trans "Profile image" %}">
                               {%endif%}
                               <p class="stars">
                                       {{ local.avg_rating }}/5
@@ -78,14 +78,14 @@
                                   {{ local.description|linebreaksbr }}
                               </p>
                               <p class="brief-text bottom">
-                                  {% if local.comment_set.count == 0 or not local.comment_set %} Sin opiniones.
-                                      ¡Escribe la tuya! - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
+                                  {% if local.comment_set.count == 0 or not local.comment_set %} {% trans "No opinions" %}
+                                      {% trans "Write yours" %} - <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>
                                   {% endif %}
                                   {% if local.comment_set.count == 1 %}
-                                    <a href="{% url 'comment_list' pk=local.pk %}">1 opinión</a> - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
+                                    <a href="{% url 'comment_list' pk=local.pk %}">{% trans "1 comment" %}</a> - <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>
                                   {% endif %}
                                   {% if local.comment_set.count > 1 %}
-                                    <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} opiniones</a>   {% if perms.bocatapp.customer %}- <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>  {% endif %}
+                                    <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} {% trans "comments" %}</a>   {% if perms.bocatapp.customer %}- <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>  {% endif %}
                                   {% endif %}
                               </p>
                           </div>
