@@ -91,7 +91,7 @@
                             <li><a href="{% url 'report_list' %}">{% trans 'Reports' %}</a></li>
                         {% endif %}
                         {% if perms.bocatapp.seller and not user.is_superuser%}
-                          <li><a href="{% url 'locals_by_seller' %}">{% trans 'My places' %}</a></li>
+                          <li><a href="{% url 'locals_by_seller' %}">{% trans 'My locals' %}</a></li>
                         {% endif %}
                         {% if perms.bocatapp.customer and not user.is_superuser%}
                           <li><a href="{% url 'orders_by_customer'%}">{% trans 'My orders' %}</a></li>

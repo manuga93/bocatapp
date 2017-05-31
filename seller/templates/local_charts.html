@@ -34,8 +34,8 @@
       var ctx = document.getElementById("doughnut");
       var data = {
           labels: [
-              "Preparados",
-              "Pendientes"
+              "{% trans "Ready" %}",
+              "{% trans "Pending" %}"
           ],
           datasets: [
           {
@@ -63,7 +63,7 @@
           labels: {{label_dates}},
           {% endautoescape %}
           datasets: [{
-            label: 'Pedidos',
+            label: '{% trans "Orders" %}',
             data: {{orders_by_day}},
             backgroundColor: "#1E90FF"
           }]

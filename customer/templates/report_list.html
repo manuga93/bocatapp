@@ -39,8 +39,8 @@
 
 
         <div class="botones">
-            <a href="{% url 'report_accept' pk=k.pk %}" class='btn btn-primary'> Aceptar </a>
-            <a href="{% url 'report_decline' pk=k.pk %}" class='btn btn-danger'> Rechazar </a>
+            <a href="{% url 'report_accept' pk=k.pk %}" class='btn btn-primary'> {% trans "Accept" %} </a>
+            <a href="{% url 'report_decline' pk=k.pk %}" class='btn btn-danger'> {% trans "Deny" %} </a>
 
         </div>
             <br/>
@@ -55,7 +55,7 @@
     {% endif %}
 
     {% if not reports %}
-        <h2>No hay reportes activos</h2>
+        <h2>{% trans "There are no activated reports" %}</h2>
     {% endif %}
     </div>
 {% endblock %}

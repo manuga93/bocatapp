@@ -47,6 +47,9 @@ class ProductForm(forms.ModelForm):
         super(ProductForm, self).__init__(*args, **kwargs)
         if pk:
             self.local = Local.objects.get(pk=pk)
+            self.fields['nombre'].label = unicode(_("Name"))
+            self.fields['precio'].label = unicode(_("Price"))
+            self.fields['ingredientes'].label = unicode(_("Ingredients"))
             self.fields['categoria'].queryset = self.local.category_set.all()
 
     def createProduct(self):
