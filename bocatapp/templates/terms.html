@@ -1,42 +1,43 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load staticfiles %}
-{% block title %} Bocatapp - Términos y condiciones{% endblock %}
+{% block title %} Bocatapp - {% trans "Terms and Conditions" %}{% endblock %}
 
 {% block content %}
 
     <div class="container">
 
-    <h1>Términos y condiciones</h1>
+    <h1>{% trans "Terms and Conditions" %}</h1>
 
-    <p>El acceso y/o uso de este portal atribuye la condición de usuario, que acepta, desde dicho acceso y/o uso, las Condiciones Generales de Uso aquí reflejadas. Las citadas Condiciones serán de aplicación independientemente de las Condiciones Generales de Contratación que en su caso resulten de obligado cumplimiento.</p>
-    <p>La empresa se reserva la facultad de modificar en cualquier momento las condiciones generales de uso del portal.En todo caso, se recomienda que consulte periódicamente los presentes términos de uso del portal, ya que pueden ser modificados.</p>
-    <p>El usuario deberá respetar en todo momento los términos y condiciones establecidos en las presentes condiciones generales de uso del portal. De forma expresa el usuario manifiesta que utilizará el portal de forma diligente y asumiendo cualquier responsabilidad que pudiera derivarse del incumplimiento de las normas.</p>
-    <p>El Portal excluye cualquier responsabilidad por los daños y perjuicios que puedan deberse a la información y/o servicios prestados o suministrados por terceros diferentes de la Empresa. Toda responsabilidad será del tercero ya sea proveedor o colaborador.</p>
-    <p>Todos los contenidos, marcas, logos, dibujos, documentación, programas informáticos o cualquier otro elemento susceptible de protección por la legislación de propiedad intelectual o industrial, que sean accesibles en el portal corresponden exclusivamente a la empresa o a sus legítimos titulares y quedan expresamente reservados todos los derechos sobre los mismos.</p>
+    <p>{% trans "The access and / or use of this portal attributes the condition of user, who accepts, from said access and / or use, the General Conditions of Use reflected here. The aforementioned Conditions will apply independently of the General Conditions of Contract that in their case are obligatory." %}</p>
+    <p>{% trans "The company reserves the right to modify at any time the general conditions of use of the portal. In any case, it is recommended that you periodically consult these terms of use of the portal, as they can be modified." %}</p>
+    <p>{% trans "The user must at all times respect the terms and conditions established in these general conditions of use of the portal. The user expressly states that he will diligently use the portal and assume any responsibility that may arise from breach of the rules." %}</p>
+    <p>{% trans "The Portal excludes any liability for damages that may be due to information and / or services provided or supplied by third parties other than the Company. All responsibility will be from the third party, either supplier or collaborator." %}</p>
+    <p>{% trans "All contents, trademarks, logos, drawings, documentation, computer programs or any other element susceptible of protection by the intellectual or industrial property laws, that are accessible in the portal correspond exclusively to the company or its legitimate owners and are expressly reserved all The rights over them." %}</p>
 
-    <h2>Otras condiciones</h2>
+    <h2>{% trans "Other conditions" %}</h2>
 
-    <p>BocatApp como titular a todos los efectos de la presente página web y responsable de todos los ficheros automatizados derivados de la misma garantiza el integro y pleno cumplimiento de las obligaciones dispuestas por la Ley Orgánica de Protección de Datos.</p>
-    <p>BocatApp informa que el hecho de utilizar algún formulario implica que el usuario expresa su consentimiento para que los datos suministrados queden incorporados a un fichero automatizado. </p>
-    <p> Los usuarios responderán, en cualquier caso, de la veracidad de los datos facilitados y se hacen responsables de comunicar a BocatApp cualquier modificación en los mismos, quedando BocatApp exento de cualquier tipo de responsabilidad a este respecto.</p>
-    <p>Los usuarios tienen reconocidos y podrán ejercitar los derechos de acceso,rectificación, cancelación y oposición, previstos por la Ley, dirigiendo un correo electrónico al Responsable del Fichero: BocatApp, indicando su nombre y apellidos, e incluyendo como asunto del correo "Derechos ARCO".</p>
-    <p>BocatApp,Inc en virtud de la Ley de Servicios de la Sociedad de la Información , en ningún caso remitirá publicidad y comunicaciones con fines de venta u otras de naturaleza comercial a los usuarios sin que medie su previa solicitud o consentimiento. Asimismo tampoco remitirá mensajes no solicitados ni consentidos previamenente.</p>
-    <p>En cumplimiento con la Ley de Servicios de la Sociedad de la Información, se reflejan los siguientes datos : la empresa titular de esta web es BocatApp con número CIF:X-0000000,debidamente inscrita en el Registro Mercantil.</p>
+    <p>{% trans "BocatApp as the holder for all purposes of this website and responsible for all automated files derived therefrom ensures full and complete compliance with the obligations set forth by the Organic Law of Data Protection." %}</p>
+    <p>{% trans "BocatApp informs that the use of a form implies that the user expresses his consent for the data supplied to be incorporated into an automated file." %}</p>
+    <p>{% trans "The users will respond, in any case, of the veracity of the provided data and are responsible for communicating to BocatApp any modification in the same, being BocatApp exempt of any type of responsibility in this respect." %}</p>
+    <p>{% trans "The users have recognized and will be able to exercise the rights of access, rectification, cancellation and opposition, anticipated by the Law, directing an email to the Responsible of the File: BocatApp, indicating their name and surnames, and including as subject of the email 'ARCO Rights' ." %}</p>
+    <p>{% trans "BocatApp, Inc under the Information Society Services Law, in no case will send advertising and communications for sale or other commercial purposes to users without their prior request or consent. Neither will it send unsolicited messages or consents previously." %}</p>
+    <p>{% trans "In compliance with the Law on Services of the Information Society, the following data are reflected: the company that owns this website is BocatApp with CIF number: X-0000000, duly registered in the Mercantile Register." %}</p>
 
-    <h2>Politica de devoluciones</h2>
+    <h2>{% trans "Return Policy" %}</h2>
 
-    <p>Para realizar una cancelación sólo se podrá hacer de los pedidos que estén pendientes de hacer, es decir, que no hayan pasado al apartado de hechos.</p>
+    <p>{% trans "To make a cancellation can only be made of orders that are pending to do, ie, have not gone to the facts section." %}</p>
 
 
-    <p>Habrá que cumplir una serie de criterios para cancelar el pedido. No se puede cancelar un pedido en el que la fecha y hora de recogida ya haya pasado.</p>
+    <p>{% trans "A number of criteria must be met to cancel the order. You can not cancel an order in which the date and time of collection has already passed." %}</p>
 
-        <p>&bull; El pedido debe estar en la sección pendientes.</p>
-        <p>&bull; El usuario tiene que confirmar que esta de acuerdo en cancelar el pedido.</p>
-        <p>&bull; El importe se devolverá siempre como saldo en BocatApp.</p>
-        <p>&bull; Si el pedido se cancela con tres o más horas de antelación se le devolverá el 100% del importe.</p>
-        <p>&bull; Si el pedido se cancela con 2 o 2:59 horas de antelación se le devolverá el 92,5% del importe.</p>
-        <p>&bull; Si el pedido se cancela con 1 o 1:59 horas de antelación se le devolverá el 50% del importe.</p>
-        <p>&bull; Si el pedido se cancela durante los últimos 59 minutos no se le devolverá importe ninguno.</p>
+        <p>&bull; {% trans "The order must be in the pending section." %}</p>
+        <p>&bull; {% trans "The user has to confirm that he / she agrees to cancel the order." %}</p>
+        <p>&bull; {% trans "The amount will always be returned as a balance in BocatApp." %}</p>
+        <p>&bull; {% trans "If the order is canceled with three or more hours in advance will be refunded 100%% of the amount." %}</p>
+        <p>&bull; {% trans "If the order is canceled with 2 or 2:59 hours in advance will be refunded 92.5%% of the amount." %}</p>
+        <p>&bull; {% trans "If the order is canceled with 1 or 1:59 hours in advance will be refunded 50%% of the amount." %}</p>
+        <p>&bull; {% trans "If the order is canceled during the last 59 minutes no amount will be refunded." %}</p>
 
     </div>
 

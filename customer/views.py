@@ -29,7 +29,7 @@ import socket
 import json
 import re
 import logging
-
+from django.utils.translation import ugettext_lazy as _
 logger = logging.getLogger('bocatapp')
 
 # Create your views here.
@@ -41,23 +41,23 @@ def recharge_account_success(request):
     pscpayment.retrievePayment(payment_id)
 
     if pscpayment.requestIsOK():
-        logger.info('Retrive payment successful.')
+        logger.info(_('Retrieve payment successful.'))
         logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
 
         if pscpayment.getResponse()['status'] == 'AUTHORIZED':
-            logger.info("Capturing payment")
+            logger.info(_("Capturing payment"))
             pscpayment.capturePayment(payment_id)
             if pscpayment.requestIsOK():
-                logger.info('Capture request was successful. Checking response:')
+                logger.info(_('Capture request was successful. Checking response:'))
                 logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
 
                 if pscpayment.getResponse()['status'] == 'SUCCESS':
                     _check_pscpayment(pscpayment)
-                    messages.add_message(request, messages.SUCCESS, '¡Tu saldo ha sido actualizado correctamente!')
+                    messages.add_message(request, messages.SUCCESS, _('Your balance has been acted correctly!'))
                 else:
                     logger.error('Payment failure')
                     logger.error(json.dumps(pscpayment.getResponse(), indent=2))
-                    messages.add_message(request, messages.SUCCESS, 'La solicitud de recarga ha sido recibida. Pronto se actualizará tu saldo.')
+                    messages.add_message(request, messages.SUCCESS, _('The reload request has been received. Your balance will be updated soon. '))
             else:
                 error = pscpayment.getError()
                 logger.error("#### Error ####")
@@ -65,21 +65,21 @@ def recharge_account_success(request):
                 logger.debug('Debug information:')
                 logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
                 logger.debug('###############')
-                messages.add_message(request, messages.WARNING, 'Hubo problemas para conectar con PaySafeCard. ¡Inténtalo de nuevo más tarde!')
+                messages.add_message(request, messages.WARNING, _('There were problems connecting to PaySafeCard. Try again later!'))
 
         elif pscpayment.getResponse()['status'] == 'SUCCESS':
-            messages.add_message(request, messages.SUCCESS, 'Tu saldo ha sido actualizado con éxito!')
+            messages.add_message(request, messages.SUCCESS, _('Your balance has been successfully updated!'))
             logger.info('Payment status success')
             logger.debug('Retrieve Reponse')
             logger.debug(json.dumps(pscpayment.getResponse(), indent=2))
 
         elif pscpayment.getResponse()['status'] == 'INITIATED' or pscpayment.getResponse()['status'] == 'REDIRECTED':
-            logger.info('Payment is not yet processed, please visit / redirect to auth_url your received on payment creation')
+            logger.info(_('Payment is not yet processed, please visit / redirect to auth_url your received on payment creation'))
             return redirect(pscpayment.getResponse()['redirect']['auth_url'])
         return redirect(home.home)
     else:
         # retrive payment failed, handle errors
-        messages.add_message(request, messages.WARNING, 'Se ha producido un error al recuperar el pago. Inténtalo de nuevo más tarde.')
+        messages.add_message(request, messages.WARNING, _('There was an error retrieving the payment. Try again later.'))
         error = pscpayment.getError()
         logger.error("#### Error ####")
         logger.error("Request failed with Error: " + str(error['number']) + " - " +  error['message'])
@@ -91,7 +91,7 @@ def recharge_account_success(request):
 
 def recharge_account_failure(request):
     # payment_id = request.GET.get('payment_id', '')
-    messages.add_message(request, messages.WARNING, '¡Hubo un problema al actualizar tu saldo! Inténtalo de nuevo más tarde.')
+    messages.add_message(request, messages.WARNING, _('There was a problem updating your balance! Try again later.'))
     return render(request, 'recharge_account.html', {'form': RechargeForm()})
 
 
@@ -194,7 +194,7 @@ def recharge_account(request):
                 return redirect(pscpayment.getResponse()['redirect']['auth_url'])
 
             else:
-                messages.add_message(request, messages.WARNING, '¡Hubo un problema al conectar con PaySafeCard, ¡inténtelo de nuevo más tarde!')
+                messages.add_message(request, messages.WARNING, _('There was a problem connecting to PaySafeCard, please try again later!'))
                 # create payment failed, handle errors
                 error = pscpayment.getError()
                 # print "#### Error ####"
@@ -230,7 +230,7 @@ def orders_by_customer(request):
         orders_cancelled = {o: o.orderline_set.all() for o in orders_cancel}
         return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done,'orders_cancelled': orders_cancelled})
 
-@permission_required('bocatapp.customer', message='You are not a customer')
+@permission_required('bocatapp.customer', message=_('You are not a customer'))
 def cancel_order(request, pk):
     order = Order.objects.get(pk=pk)
     present = timezone.now()
@@ -253,20 +253,20 @@ def cancel_order(request, pk):
                     customer.amount_money = (float(customer.amount_money)+devolver)
                     customer.save()
 
-                    messages.warning(request, u'Cancelacion realizada. En breve te ingresaremos ' + str(devolver) + u'€ en tu saldo.')
+                    messages.warning(request, unicode(_('Cancellation made. Soon we will enter ')) + str(devolver) + unicode(_('€ in your balance.')))
                     return redirect('customer.views.orders_by_customer')
                 else:
-                    messages.warning(request, u'El pedido ya ha sido cancelado')
+                    messages.warning(request, unicode(_('The order has already been canceled')))
                     return redirect('customer.views.orders_by_customer')
             else:
-                messages.warning(request, u'Lo sentimos, el pedido ya esta realizado, y es imposible cancelarlo')
+                messages.warning(request, unicode(_('Sorry, the order is already made, and it is impossible to cancel it')))
                 return redirect('customer.views.orders_by_customer')
         else:
-            messages.warning(request, u'La fecha del pedido ya ha pasado.')
+            messages.warning(request, unicode(_('The order date has already passed.')))
             return redirect('customer.views.orders_by_customer')
 
     else:
-        messages.warning(request, u'El pedido que intentas cancelar no te pertenece.')
+        messages.warning(request, unicode(_('The order you are trying to cancel does not belong to you.')))
         return redirect("/")
 
 def convert_timedelta(duration):
@@ -350,7 +350,7 @@ def do_checkout(request):
         elif creditcard_opt == 'balance':
             # Other credit card
             if current_user.amount_money < shoppingcart.total_price:
-                messages.add_message(request, messages.WARNING, 'Elige otro método de pago, ¡no tienes suficiente saldo!')
+                messages.add_message(request, messages.WARNING, _('Choose another method of payment, you do not have enough balance!'))
                 return checkout(request)
             else:
                 request.user.amount_money -= shoppingcart.total_price
@@ -384,7 +384,7 @@ def do_checkout(request):
                         totalPrice=shoppingcart.total_price,
                         moment=time(),
                         local=local,
-                        comment="Añada su comentario aquí",
+                        comment=_('Add your comment'),
                         customer=current_user,
                         creditCard=creditcard,
                         pickupMoment=momentOrder)
@@ -400,18 +400,18 @@ def do_checkout(request):
                     ShoppingCart.objects.filter(customer_id=current_user.id, checkout=False).update(checkout=True)
 
                 else:
-                    messages.warning(request, u'La fecha y hora de recogida debe ser posterior a la fecha y hora actual. Mínimo 10 min.')
+                    messages.warning(request, unicode(_('The date and time of collection must be after the current date and time. Minimum 10 min.')))
                     return checkout(request, form)
 
             return render(request, 'thanks.html', {})
         else:
-            messages.warning(request, u'La fecha o la hora no son correctas')
+            messages.warning(request, unicode(_('Date or time is not correct')))
             return redirect('customer.views.checkout')
     return redirect(home.home)
 
 
 # ACTUALIZAR EL CAMPO AVG RATING Y A PARTIR DE ESE ORDENAR SI SE PASA UNA PRODPIEDAD AUX
-@permission_required('bocatapp.customer', message='No eres un usuario')
+@permission_required('bocatapp.customer', message=_('You are not a customer'))
 def comment_new(request, pk):
     local = get_object_or_404(Local, pk=pk)
     if request.method == "POST":
@@ -435,7 +435,7 @@ def update_avg_rating(local_id):
     local.avg_rating = aux
     local.save()
 
-@permission_required('bocatapp.customer', message='No eres un usuario')
+@permission_required('bocatapp.customer', message=_('You are not user'))
 def report_new(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == "POST":
@@ -460,19 +460,19 @@ def comment_list(request, pk):
                                 {'comentarios': comentarios, 'local': local}, context_instance=RequestContext(request))
 
 # Lista los reportes de un comentario
-@permission_required('bocatapp.administrator', message='No eres un administrador')
+@permission_required('bocatapp.administrator', message=_('You are not an admin'))
 def report_list(request):
     dict = ReportService.commentsWithReports()
     return render_to_response('report_list.html',
                                 {'reports': dict}, context_instance=RequestContext(request))
 
-@permission_required('bocatapp.administrator', message='No eres un administrador')
+@permission_required('bocatapp.administrator', message=_('You are not an admin'))
 def report_accept(request, pk):
     ReportService.accept_report(pk)
     report = get_object_or_404(Report, pk=pk)
     return redirect('report_list')
 
-@permission_required('bocatapp.administrator', message='No eres un administrador')
+@permission_required('bocatapp.administrator', message=_('You are not an admin'))
 def report_decline(request, pk):
     ReportService.decline_report(pk)
     report = get_object_or_404(Report, pk=pk)

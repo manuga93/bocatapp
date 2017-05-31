@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load staticfiles %}
-{% block title %}Bocatapp - Preguntas frecuentes{% endblock %}
+{% block title %}Bocatapp - FAQ{% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>FAQs - Preguntas frecuentes</h1>
+        <h1>FAQs</h1>
         <div class="panel-group" id="faq-container">
-            <div class="faqHeader">Preguntas generales</div>
+            <div class="faqHeader">{% trans "General questions" %}</div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseOne">¿Qué es BocatApp? </a>
+                           href="#collapseOne">{% trans "What is Bocatapp?" %} </a>
                     </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse">
                     <div class="panel-body">
-                        BocatApp es una plataforma especializada en la compra-venta de comida en los establecimientos
-                        cercanos a : zonas empresariales,campus universitarios o institutos.
+                        {% trans "BocatApp is a platform specialized in the purchase and sale of food in establishments near to: business areas, university campuses or institutes." %}
                     </div>
                 </div>
             </div>
@@ -25,15 +25,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">¿Es
-                            necesario crear una cuenta?</a>
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">{% trans "Do I need to create an account?" %}</a>
                     </h4>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Las cuentas con necesarias para solicitar pedidos y para gestionar tu negocio.
-                        Si sólo deseas consultar los establecimientos en tu código postal o sus cartas no necesitas
-                        crear una cuenta.
+                        {% trans "The necessary accounts to request orders and to manage your business. If you just want to check the establishments in your zip code or your letters you do not need to create an account." %}
                     </div>
                 </div>
             </div>
@@ -42,30 +39,29 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseThree">¿Cual es la divisa utilizada en todas las transacciones?</a>
+                           href="#collapseThree">{% trans "What is the currency used in all transactions?" %}</a>
                     </h4>
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Todos los precios incluidos en BocatApp son en <strong>EUR</strong>.
+                        {% trans "All the prices are in " %}<strong>EUR</strong>.
                     </div>
                 </div>
             </div>
 
-            <div class="faqHeader">Vendedores</div>
+            <div class="faqHeader">{% trans "Sellers" %}</div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseFour">¿Quién puede vender productos?</a>
+                           href="#collapseFour">{% trans "Who can sell products?" %}</a>
                     </h4>
                 </div>
                 <div id="collapseFour" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Cualquier negocio de compra-venta de comida que quiera mejorar su gestión y facilitar las
-                        reservas online a sus clientes.
-                        </br>¿Quires gestionar tu negocio con nosotros?<a
-                            href="{% url 'seller_register' %}"><b> ¡Registrese!</b></a>
+                        {% trans "Any business buying and selling food that wants to improve its management and facilitate online reservations to its customers." %}
+                        </br>{% trans "Do you want to manage your business with us?" %}<a
+                            href="{% url 'seller_register' %}"><b> {% trans "Register!" %}</b></a>
                     </div>
                 </div>
             </div>
@@ -73,13 +69,12 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseFive">¿Por qué vender desde BocatApp?</a>
+                           href="#collapseFive">{% trans "Why sell from BocatApp?" %}</a>
                     </h4>
                 </div>
                 <div id="collapseFive" class="panel-collapse collapse">
                     <div class="panel-body">
-                        La principal ventaja que tendrás si vendes tus productos desde BocatApp es facilitar la gestión
-                        de pedidos, ya que podrás saber el momento de recogida de dichos pedidos.
+                        {% trans "The main advantage that you will have if you sell your products from BocatApp is to facilitate the management of orders, since you can know the moment of collection of such orders." %}
                     </div>
                 </div>
             </div>
@@ -87,62 +82,41 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseSix">¿Y si un cliente no recoge su pedido?</a>
+                           href="#collapseSix">{% trans "What if a customer does not pick up your order?" %}</a>
                     </h4>
                 </div>
                 <div id="collapseSix" class="panel-collapse collapse">
                     <div class="panel-body">
-                        En BocatApp queremos proteger a nuestros negocios por ello, los clientes de sus establecimientos
-                        deben hacer el pago en el momento de la compra.
-                        Si el cliente no recoge el pedido, el establecimiento tendrá cubierta la venta y no tendrá
-                        pérdidas.
-                    </div>
-                </div>
-            </div>
-        <!--    <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseSeven">¿Puedo hacer ofertas personalizadas combinando diferentes
-                            productos?</a>
-                    </h4>
-                </div>
-                <div id="collapseSeven" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        Sí, en BocatApp hemos implementado los <strong>Packs</strong> que facilita a nuestros vendedores
-                        la creación de ofertas personalizadas combinando varios productos.
-                    </div>
-                </div>
-            </div>-->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseEight">¿Cómo recibo los pagos de las ventas a través de BocatApp?</a>
-                    </h4>
-                </div>
-                <div id="collapseEight" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        Los pagos se realizarán de forma semanal. Al final de la semana la cuantía acumulada será
-                        transferida a la cuenta bancaria de su negocio.
-                        El mínimo a transferir es de <strong>50 EUR</strong>.
+                        {% trans "At BocatApp we want to protect our businesses therefore, customers of their establishments must make the payment at the time of purchase. If the customer does not collect the order, the establishment will have the sale covered and will not have losses." %}
                     </div>
                 </div>
             </div>
 
-            <div class="faqHeader">Compradores</div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseNine">¿Que beneficios tengo frente a hacer el pedido en el propio local?</a>
+                           href="#collapseEight">{% trans "How do I receive sales payments through BocatApp?" %}</a>
+                    </h4>
+                </div>
+                <div id="collapseEight" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        {% trans "Payments will be made on a weekly basis. At the end of the week the amount accumulated will be transferred to the bank account of your business. The minimum to be transferred is" %} <strong>50 EUR</strong>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faqHeader">{% trans "Customers" %}</div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseNine">{% trans "What benefits do I have in front of placing the order in the own premises?" %}</a>
                     </h4>
                 </div>
                 <div id="collapseNine" class="panel-collapse collapse">
                     <div class="panel-body">
-                        La principal ventaja será tu comodidad. Como usuario podrás realizar un pedido en cualquier
-                        momento y desde cualquier sitio, elegirás el día y hora de recogida y no tendrás que esperar
-                        colas ni preocuparte de si llevas el dinero encima.
+                        {% trans "The main advantage will be your comfort. As a user you can place an order at any time and from anywhere, choose the day and time of collection and you will not have to wait queues or worry about if you carry the money." %}
                     </div>
                 </div>
             </div>
@@ -150,14 +124,12 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseTen">Soy alérgico a determinados ingredientes, ¿cómo puedo informarme del
-                            contenido de los productos?</a>
+                           href="#collapseTen">{% trans "I am allergic to certain ingredients, how can I find out the content of the products?" %}</a>
                     </h4>
                 </div>
                 <div id="collapseTen" class="panel-collapse collapse">
                     <div class="panel-body">
-                        En el menú de cada establecimiento se listan los productos junto a la lista de alérgenos de los
-                        mismos.
+                        {% trans "In the menu of each establishment the products are listed next to the list of allergens of the same." %}
                     </div>
                 </div>
             </div>
@@ -165,13 +137,12 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseEleven">En un mismo pedido, ¿puedo introducir productos de diferentes
-                            locales?</a>
+                           href="#collapseEleven">{% trans "In the same order, can I introduce products from different locals?" %}</a>
                     </h4>
                 </div>
                 <div id="collapseEleven" class="panel-collapse collapse">
                     <div class="panel-body">
-                        No, con el sistema actual es necesario hacer los pedidos de cada local de forma independiente.
+                        {% trans "No, with the current system it is necessary to make the orders of each premises independently." %}
                     </div>
                 </div>
             </div>
@@ -179,17 +150,17 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseTwelve">¿Puedo cancelar un pedido?</a>
+                           href="#collapseTwelve">{% trans "Can I cancel a order?" %}</a>
                     </h4>
                 </div>
                 <div id="collapseTwelve" class="panel-collapse collapse">
                     <div class="panel-body">
-                        Sí, podrás cancelar el pedido hasta 2h antes de la entrega.
+                        {% trans "Yes, you can cancel the order until 2h before delivery." %}
                     </div>
                 </div>
             </div>
             <div style="margin-top:25px;">
-                Para más información contacta a través de <a href="mailto:info@bocatapp.com">info@bocatapp.com</a>.
+                {% trans "if you need more information, contact with" %}<a href="mailto:info@bocatapp.com">info@bocatapp.com</a>.
             </div>
         </div>
     </div>

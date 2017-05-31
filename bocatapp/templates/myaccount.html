@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}Profile{% endblock %}
 {% block content %}
 
@@ -46,7 +47,7 @@
                     <div class="col-md-4 text-left">
                         <div class="previous">
                             <button onclick="location.replace('{% url 'edit_profile' %}');"
-                                    class="form-control">Editar perfil
+                                    class="form-control">{% trans "Edit profile" %}
                             </button>
 
 
@@ -56,7 +57,7 @@
                     <div class="col-md-4 text-right">
                         <div class="next">
                             <button onclick="location.replace('{% url 'edit_password' %}');"
-                                    class="form-control">Editar contraseña
+                                    class="form-control">{% trans "Edit password" %}
                             </button>
                         </div>
                     </div>

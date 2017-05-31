@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Locales{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Locals" %}{% endblock %}
 
 {% block content %}
 
     <div class="container">
-        <h1>Locales</h1>
+        <h1>{% trans "Locals" %}</h1>
         <div class="row">
             <div class="col-md-2 col-md-offset-10">
                 <button type="button" class="btn btn-default col-xs-12"
                         onclick="location.replace('{% url 'seller.views.local_new' %}')" style="margin-bottom: 15px">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Local
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {% trans "New local" %}
                 </button>
             </div>
         </div>
@@ -26,8 +27,8 @@
                                              src="{{ local.photo }}">
                                     {% else %}
                                         <img height="100px" width="100px" class="img-circle center-block"
-                                             alt="foto de perfil" src="{% static "images/No_image_available.png" %}"
-                                             alt="Profile image">
+                                             alt="{% trans "Profile image" %}" src="{% static "images/No_image_available.png" %}"
+                                             >
                                     {% endif %}
                                     <p class="stars">
                                         {{ local.avg_rating }}/5
@@ -40,16 +41,16 @@
                                         {{ local.description|linebreaksbr }}
                                     </p>
                                     <p class="brief-text bottom">
-                                        {% if local.comment_set.count == 0 or not local.comment_set %} Sin opiniones.
+                                        {% if local.comment_set.count == 0 or not local.comment_set %} {% trans "No opinions" %}.
                                             {% if perms.bocatapp.customer %}
-                                            ¡Escribe la tuya! - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a>
+                                            {% trans "Write yours" %} - <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>
                                             {% endif %}
                                         {% endif %}
                                         {% if local.comment_set.count == 1 %}
-                                          <a href="{% url 'comment_list' pk=local.pk %}">1 opinión</a>{% if perms.bocatapp.customer %} -  <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a> {% endif %}
+                                          <a href="{% url 'comment_list' pk=local.pk %}">{% trans "1 comment" %}</a>{% if perms.bocatapp.customer %} -  <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a> {% endif %}
                                         {% endif %}
                                         {% if local.comment_set.count > 1 %}
-                                          <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} Opiniones</a>{% if perms.bocatapp.customer %} - <a href="{% url 'comment_new' pk=local.pk %}">Comentar</a> {% endif %}
+                                          <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} {% trans "comments" %}</a>{% if perms.bocatapp.customer %} - <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a> {% endif %}
                                         {% endif %}
                                     </p>
                                 </div>
@@ -58,19 +59,19 @@
                                   <ul class="nav navbar-nav">
 
                                         <button  onclick="location.replace('{% url 'local_orders' pk=local.pk %}');"
-                                                class="form-control text-left"><i class="fa fa-tasks"></i> Gestionar Pedidos
+                                                class="form-control text-left"><i class="fa fa-tasks"></i> {% trans "Manage orders" %}
                                         </button>
                                         <button onclick="location.replace('{% url 'local_charts' pk=local.pk %}');"
-                                                class="form-control text-left"><i class="fa fa-pie-chart"></i> Estad&iacute;sticas
+                                                class="form-control text-left"><i class="fa fa-pie-chart"></i> {% trans "Statistics" %}
                                         </button>
                                         <div class="btn-group btn-block">
                                         <li class="dropdown">
-                                          <button href="#" class="dropdown-toggle form-control text-left btn-block" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> Configuraci&oacute;n </button>
+                                          <button href="#" class="dropdown-toggle form-control text-left btn-block" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> {% trans "Configuration" %} </button>
                                           <ul class="dropdown-menu">
-                                            <li><a href='{% url 'local_edit' pk=local.pk %}'>Editar local</a></li>
-                                            <li><a href='{% url 'menu_list' pk=local.pk %}'>Men&uacute;</a></li>
-                                            <li><a href='{% url 'category_list' pk=local.pk %}'>Categor&iacute;as</a></li>
-                                            <li><a href='{% url 'product_new' pk=local.pk %}'>Nuevo Producto</a></li>
+                                            <li><a href='{% url 'local_edit' pk=local.pk %}'>{% trans "Edit local" %}</a></li>
+                                            <li><a href='{% url 'menu_list' pk=local.pk %}'>{% trans "Menu" %}</a></li>
+                                            <li><a href='{% url 'category_list' pk=local.pk %}'>{% trans "Categories" %}</a></li>
+                                            <li><a href='{% url 'product_new' pk=local.pk %}'>{% trans "New product" %}</a></li>
                                             <!--
                                             <li><a href='{% url 'edit_pack' local_pk=local.pk %}'>Nuevo Pack</a></li>
                                             <li><a href='{% url 'local_packs' local_pk=local.pk %}'>Packs</a></li>
@@ -86,7 +87,7 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <h2><span class="glyphicon glyphicon-exclamation-sign"> </span> No hay locales aún</h2>
+                    <h2><span class="glyphicon glyphicon-exclamation-sign"> </span> {% trans "There is no locals yet" %}</h2>
                 {% endif %}
             </div>
         </div>

@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
-
-{% block title %}Bocatapp - Iniciar sesión{%endblock%}
+{% load i18n %}
+{% block title %}{% trans "Bocatapp - Log in" %}{%endblock%}
 
 {% block content %}
 <div class="container">
     <div class="row">
     <div id="centered-form" class="col-sm-4 col-sm-offset-4">
-        <h2>Iniciar sesión</h2>
-{#        <div class="social-buttons">#}
-{#            <p><a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Connect with Facebook</a></p>#}
-{#            <p class="separator hr"><span>or</span></p>#}
-{#        </div>#}
+        <h2>{% trans "Log in" %}</h2>
             {% include "forms/login_form.html" %}
         <div class="bottom text-center">
-            ¿Todavía no tiene cuenta? <a href="{% url 'customer_register' %}"><b>¡Registrese!</b></a>
+            {% trans "Don't you have account yet?" %} <a href="{% url 'customer_register' %}"><b>{% trans "Register!" %}</b></a>
         </div>
     </div>
     </div>

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 {% block title %}comments{% endblock %}
 
 
@@ -7,13 +8,13 @@
     <link href="{% static "styles/stars.css" %}" rel="stylesheet">
 
     <div class="container">
-        <h3>Comentarios de {{ local.name }}</h3>
+        <h3>{% trans "Comments of" %} {{ local.name }}</h3>
         <hr/>
         {% if perms.bocatapp.customer %}
 
             <a class="col-sm-2 text-left" href="{% url 'comment_new' pk=local.pk %}">
                 <button type="button" class="btn btn-primary" style="margin-bottom: 15px">
-                    <span class="glyphicon glyphicon-comment"></span> Comentar
+                    <span class="glyphicon glyphicon-comment"></span> {% trans "Comment" %}
                 </button>
             </a>
         {% endif %}
@@ -23,7 +24,7 @@
                 {% for comment in comentarios %}
                     <div class="item-search well white">
                         <div class="comment">
-                            <p>Escrito por: <strong>{{ comment.customer.username }}</strong></p>
+                            <p>{% trans "Writen by" %}: <strong>{{ comment.customer.username }}</strong></p>
 
                             <p>Valoracion:
                                 {% for i in "x"|ljust:comment.rating %}
@@ -36,7 +37,7 @@
                             <div class="comment">
                                 <a class="btn btn-danger"
                                    onclick="location.replace('{% url 'report_new' pk=comment.pk %}')"><span
-                                        class="glyphicon glyphicon-remove"></span> Reportar </a></h3>
+                                        class="glyphicon glyphicon-remove"></span> {% trans "Report" %} </a></h3>
 
 
                             </div>
@@ -45,10 +46,10 @@
                         {% if perms.bocatapp.administration %}
 
                             <div class="comment">
-                                <a href="{% url 'report_list' pk=comment.pk %}">Reportes</a>
+                                <a href="{% url 'report_list' pk=comment.pk %}">{% trans "Reports" %}</a>
                                 <button onclick="location.replace('{% url 'report_list' pk=comment.pk %}');"
                                         class="form-control">
-                                    Reportar
+                                    {% trans "Report" %}
                                 </button>
 
                             </div>
@@ -56,7 +57,7 @@
 
                     </div>
                 {% empty %}
-                    <p>No hay comentarios sobre este local</p>
+                    <p>{% trans "There are no comments from this local" %}</p>
 
                 {% endfor %}
 
@@ -65,7 +66,7 @@
 
         <a class="col-sm-2 text-left" href="javascript:history.back(-1);">
             <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
             </button>
         </a>
 

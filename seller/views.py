@@ -18,7 +18,7 @@ from forms.forms import LocalForm
 from bocatapp.decorators import permission_required
 from customer.models import Order
 from customer.services import CommentService
-
+from django.utils.translation import ugettext_lazy as _
 
 # Create your views here.
 
@@ -51,7 +51,7 @@ def product_list_category(request, pk):
 
 
 # Vista para la creacion de una nueva categoria
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def category_new(request, pk):
     local = Local.objects.get(pk=pk)
 
@@ -62,19 +62,19 @@ def category_new(request, pk):
                 category = form.save(commit=False)
                 category.local = local
                 category.save()
-                messages.error(request, 'Categoría creada correctamente.')
+                messages.error(request, _('Category created correctly'))
                 return redirect('category_list', pk=local.pk)
         else:
             form = CategoryForm()
 
         return render(request, 'category_new.html', {'form': form, 'local': local})
     else:
-        messages.warning(request, u'La categoría no se ha creado porque no le pertenece.')
+        messages.warning(request, unicode(_('The category has not been created because it does not belong to you.')))
         return redirect('/')
 
 
 # Editar una categoria
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def category_edit(request, pk):
     category = Category.objects.get(pk=pk)
     local = category.local
@@ -86,32 +86,32 @@ def category_edit(request, pk):
             if form.is_valid() and category.local.seller == request.user:
                 category = form.save(commit=False)
                 category.save()
-                messages.success(request, u'Categoría editada correctamente.')
+                messages.success(request, unicode(_('Category updated correctly')))
                 return redirect('category_list', pk=category.local.pk)
         else:
             form = CategoryForm(instance=category)
 
         return render(request, 'category_edit.html', {'category_id':category.pk, 'form': form, 'local': local})
     else:
-        messages.warning(request, u'La categoría no se ha editado porque no le pertenece.')
+        messages.warning(request, unicode(_('The category has not been edited because it does not belong to you.')))
         return redirect('/')
 
-@permission_required('bocatapp.seller', message='No eres un vendedor')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def category_delete(request, pk):
     category = Category.objects.get(pk=pk)
     local = category.local
 
     if local.seller.pk == request.user.pk:
         category.delete()
-        messages.success(request, u'Categoría eliminada correctamente.')
+        messages.success(request, unicode(_('Category successfully deleted. ')))
         return redirect('category_list', pk=local.pk)
     else:
-        messages.warning(request, u'La categoría no se ha eliminado porque no le pertenece.')
+        messages.warning(request, unicode(_('The category has not been deleted because it does not belong to you.')))
         return redirect('/')
 
 
 # Vista para la creacion de un nuevo producto
-@permission_required('bocatapp.seller', message='You are not a seller')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def product_new(request, pk):
     local = get_object_or_404(Local, pk=pk)
 
@@ -132,7 +132,7 @@ def product_new(request, pk):
 
 
 # Listado de locales dado un seller
-@permission_required('bocatapp.seller', message='You are not a seller')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def get_my_locals(request):
     locals = Local.objects.filter(seller=request.user.pk)
     ratings = []
@@ -156,7 +156,7 @@ def local_list(request):
 
 
 # Vista para las orders de un local
-@permission_required('bocatapp.seller', message='You are not a seller')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def local_orders(request, pk):
     local = get_object_or_404(Local, pk=pk)
     if local.seller.pk == request.user.pk:
@@ -174,7 +174,7 @@ def local_orders(request, pk):
     else:
         return redirect("/")
 
-@permission_required('bocatapp.seller', message='You are not a seller')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def do_order(request, pk):
     order = Order.objects.get(id=pk)
     order.status = True
@@ -183,7 +183,7 @@ def do_order(request, pk):
 
 
 # Vista para la creacion de un nuevo local
-@permission_required('bocatapp.seller', message='You are not a seller')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def local_new(request):
     if request.method == "POST":
         form = LocalForm(request.POST)
@@ -200,7 +200,7 @@ def local_new(request):
 
 
 # Vista para los detalles de un local
-@permission_required('bocatapp.seller', message='You are not a seller')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def local_detail(request, pk):
     local = get_object_or_404(Local, pk=pk)
 
@@ -212,7 +212,7 @@ def local_detail(request, pk):
 
 
 # Vista para los detalles de un local
-@permission_required('bocatapp.seller', message='You are not a seller')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def local_charts(request, pk):
     local = get_object_or_404(Local, pk=pk)
 
@@ -240,7 +240,7 @@ def local_charts(request, pk):
 
 
 # Vista para la creacion de un local
-@permission_required('bocatapp.seller', message='You are not a seller')
+@permission_required('bocatapp.seller', message=_('You are not a seller'))
 def local_edit(request, pk):
     local = get_object_or_404(Local, pk=pk)
     if request.method == "POST":

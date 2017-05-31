@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from ..models import Local, Category, Product
-
+from django.utils.translation import ugettext_lazy as _
 
 class LocalForm(forms.ModelForm):
 
     phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
                              error_message=(
-                                 "Debe tener formato 999999999"))
+                                 _("Must have 999999999 format")))
 
     def __init__(self, *args, **kwargs):
         super(LocalForm, self).__init__(*args, **kwargs)
-        self.fields['name'].label = "Nombre"
-        self.fields['description'].label = u"Descripción"
-        self.fields['address'].label = u"Dirección"
-        self.fields['phone'].label = u"Teléfono"
-        self.fields['postalCode'].label = u"Código Postal"
-        self.fields['photo'].label = "Foto"
+        self.fields['name'].label = unicode(_('Name'))
+        self.fields['description'].label = unicode(_('Description'))
+        self.fields['address'].label = unicode(_('Address'))
+        self.fields['phone'].label = unicode(_('Phone'))
+        self.fields['postalCode'].label = unicode(_('Postal code'))
+        self.fields['photo'].label = unicode(_('Photo'))
 
     class Meta:
         model = Local
@@ -27,8 +27,8 @@ class CategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
 
         super(CategoryForm, self).__init__(*args, **kwargs)
-        self.fields['name'].label = "Nombre"
-        self.fields['description'].label = u"Descripción"
+        self.fields['name'].label = unicode(_('Name'))
+        self.fields['description'].label = unicode(_('Description'))
 
     class Meta:
         model = Category
@@ -47,6 +47,9 @@ class ProductForm(forms.ModelForm):
         super(ProductForm, self).__init__(*args, **kwargs)
         if pk:
             self.local = Local.objects.get(pk=pk)
+            self.fields['nombre'].label = unicode(_("Name"))
+            self.fields['precio'].label = unicode(_("Price"))
+            self.fields['ingredientes'].label = unicode(_("Ingredients"))
             self.fields['categoria'].queryset = self.local.category_set.all()
 
     def createProduct(self):

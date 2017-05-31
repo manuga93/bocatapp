@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-27 14:30+0200\n"
+"POT-Creation-Date: 2017-05-31 20:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +25,10 @@ msgstr "Debes estar logueado"
 msgid "It must be 999999999 format"
 msgstr "Debe tener el formato 999999999"
 
-#: bocatapp/forms.py:26
+#: bocatapp/forms.py:26 bocatapp/templates/forms/login_form.html:9
+#: bocatapp/templates/forms/login_form.html:10
+#: customer/templates/orders.html:12 customer/templates/orders.html.py:87
+#: customer/templates/orders.html:138
 msgid "Username"
 msgstr "Usuario"
 
@@ -39,14 +41,17 @@ msgid "Last name"
 msgstr "Apellidos"
 
 #: bocatapp/forms.py:29 bocatapp/forms.py:74
+#: bocatapp/templates/passwordreset/password_reset_form.html:17
 msgid "Email"
 msgstr "Correo"
 
-#: bocatapp/forms.py:30
+#: bocatapp/forms.py:30 bocatapp/templates/forms/login_form.html:13
+#: bocatapp/templates/forms/login_form.html:14
 msgid "Password"
 msgstr "Contraseña"
 
 #: bocatapp/forms.py:31 bocatapp/forms.py:102
+#: bocatapp/templates/passwordreset/password_reset_confirm.html:25
 msgid "Repeat password"
 msgstr "Repetir contraseña"
 
@@ -54,19 +59,23 @@ msgstr "Repetir contraseña"
 msgid "I accept the terms and conditions"
 msgstr "Acepto los terminos y condiciones"
 
-#: bocatapp/forms.py:33 bocatapp/forms.py:75
+#: bocatapp/forms.py:33 bocatapp/forms.py:75 seller/forms/forms.py:17
+#: seller/templates/local_detail.html:21
 msgid "Phone"
 msgstr "teléfono"
 
 #: bocatapp/forms.py:42
 msgid "Passwords dont match"
-msgstr ""
+msgstr "Las contraseñas no coinciden"
 
 #: bocatapp/forms.py:44
 msgid "To register you have to accept the terms and conditions"
 msgstr "Para registrarte debes aceptar los terminos y condiciones"
 
-#: bocatapp/forms.py:72
+#: bocatapp/forms.py:72 customer/templates/checkout.html:57
+#: customer/templates/shoppingcart.html:11 seller/forms/forms.py:14
+#: seller/forms/forms.py:30 seller/forms/forms.py:50
+#: seller/templates/menu.html:26
 msgid "Name"
 msgstr "Nombre"
 
@@ -91,6 +100,7 @@ msgid "Old password"
 msgstr "Contraseña antigua"
 
 #: bocatapp/forms.py:101
+#: bocatapp/templates/passwordreset/password_reset_confirm.html:21
 msgid "New password"
 msgstr "Nueva contraseña"
 
@@ -102,15 +112,336 @@ msgstr "La contraseña antigua no coincide"
 msgid "New passwords dont match"
 msgstr "Las nueva contraseña no coincide"
 
+#: bocatapp/templates/auth/login.html:3
+msgid "Bocatapp - Log in"
+msgstr "Bocatapp - Iniciar sesion"
+
+#: bocatapp/templates/auth/login.html:9
+#: bocatapp/templates/forms/login_form.html:18
+#: bocatapp/templates/includes/header.html:56
+#: bocatapp/templates/includes/header.html:58
+msgid "Log in"
+msgstr "Iniciar sesión"
+
+#: bocatapp/templates/auth/login.html:12
+msgid "Don't you have account yet?"
+msgstr "¿No tienes cuenta todavía?"
+
+#: bocatapp/templates/auth/login.html:12 bocatapp/templates/faq.html:64
+msgid "Register!"
+msgstr "Registro"
+
+#: bocatapp/templates/base.html:60
+msgid ""
+"This page uses own and third party cookies in order to improve the service. "
+"If you continue browsing, you accept its use."
+msgstr ""
+"Esta página utiliza cookies propias y de terceros con el fin de mejorar el "
+"servicio. Si continuas navegando, aceptas su uso."
+
+#: bocatapp/templates/base.html:61
+msgid ""
+"You can find out how to change your browser settings or learn more about the "
+"cookies law."
+msgstr ""
+"Puedes informarte sobre cómo cambiar la configuración de tu navegador u "
+"obtener más información sobre la ley de cookies"
+
+#: bocatapp/templates/base.html:61
+msgid "Following this link"
+msgstr "Siguiendo este enlace"
+
+#: bocatapp/templates/base.html:62 customer/templates/report_list.html:42
+msgid "Accept"
+msgstr "Aceptar"
+
+#: bocatapp/templates/cookies.html:10
+msgid "Cookies policy"
+msgstr "Politica de cookies"
+
+#: bocatapp/templates/cookies.html:11
+msgid ""
+"A cookie is a little information sent by a website and stored in the user's "
+"browser, so that the website can check the previous activity of the same."
+msgstr ""
+"Una cookie (o galleta informática) es una pequeña información enviada por un "
+"sitio web y almacenada en el navegador del usuario, de manera que el sitio "
+"web puede consultar la actividad previa del mismo."
+
+#: bocatapp/templates/cookies.html:12
+msgid ""
+"The User expressly accepts, for the use of this Site, the treatment of the "
+"information collected in the form and for the aforementioned purposes."
+msgstr ""
+"El Usuario acepta expresamente, por la utilización de este Site, el "
+"tratamiento de la información recabada en la forma y con los fines "
+"anteriormente mencionados."
+
+#: bocatapp/templates/cookies.html:13
+msgid "What types of cookies does BocatApp use?"
+msgstr "¿Que tipos de cookies utiliza BocatApp?"
+
+#: bocatapp/templates/cookies.html:14
+msgid ""
+"Technical Cookies: These are the ones that allow the user to navigate "
+"through a web page, platform or application and the use of the different "
+"options or services that exist in it, such as controlling traffic and "
+"communication of data, identify the Session, access restricted access parts, "
+"make the application for registration or participation in an event, use "
+"security features during navigation."
+msgstr ""
+"Cookies técnicas: Son aquéllas que permiten al usuario la navegación a "
+"través de una página web, plataforma o aplicación y la utilización de las "
+"diferentes opciones o servicios que en ella existan como, por ejemplo, "
+"controlar el tráfico y la comunicación de datos, identificar la sesión, "
+"acceder a partes de acceso restringido, , realizar la solicitud de "
+"inscripción o participación en un evento, utilizar elementos de seguridad "
+"durante la navegación."
+
+#: bocatapp/templates/cookies.html:15
+msgid ""
+"Personalization Cookies: They are those that allow the user to access the "
+"service with some general characteristics predefined according to a series "
+"of criteria in the user's terminal such as the language, the type of browser "
+"through which accesses the service , The regional settings from where you "
+"access the service, etc."
+msgstr ""
+"Cookies de personalización: Son aquéllas que permiten al usuario acceder al "
+"servicio con algunas características de carácter general predefinidas en "
+"función de una serie de criterios en el terminal del usuario como por "
+"ejemplo serian el idioma, el tipo de navegador a través del cual accede al "
+"servicio, la configuración regional desde donde accede al servicio, etc."
+
+#: bocatapp/templates/cookies.html:16
+msgid ""
+"Third Party Cookies: The Web of www.bocatapp.com may use third party "
+"services that, on behalf of www.bocatapp.com, collect information for "
+"statistical purposes, use of the Site by the user and for the provision of "
+"other related services With the activity of the Website and other Internet "
+"services."
+msgstr ""
+"Cookies de terceros: La Web de www.bocatapp.com puede utilizar servicios de "
+"terceros que, en nombre de www.bocatapp.com, recopilen información para "
+"propósitos estadísticos, uso del Sitio por el usuario y para la provisión de "
+"otros servicios relacionados con La actividad del Sitio Web y otros "
+"servicios de Internet."
+
+#: bocatapp/templates/cookies.html:17
+msgid ""
+"In particular, Bocatapp uses Google Analytics, a web analytics service "
+"provided by Google, Inc. In order to provide these services, Bocatapp uses "
+"cookies that collect information, including the user's IP address, which "
+"will be transmitted, processed and stored by Google in The terms set in the "
+"Web Google.com. Including the possible transmission of such information to "
+"third parties for reasons of legal exigency or when said third parties "
+"process the information for Google account."
+msgstr ""
+"En particular Bocatapp utiliza Google Analytics, un servicio analítico de "
+"webs prestado por Google, Inc.Para la prestación de estos servicios,estos "
+"utilizan cookies que recopilan la información, incluida la dirección IP del "
+"usuario, que será transmitida, tratada y almacenada por Google en los "
+"términos fijados en la Web Google.com. Incluyendo la posible transmisión de "
+"dicha información a terceros por razones de exigencia legal o cuando dichos "
+"terceros procesen la información por cuenta de Google."
+
+#: bocatapp/templates/cookies.html:18
+msgid "If you need more information, follow the following "
+msgstr "Si necesitas mas informacion, sigue el siguiente"
+
+#: bocatapp/templates/cookies.html:18
+msgid "link"
+msgstr "enlace"
+
+#: bocatapp/templates/faq.html:10
+msgid "General questions"
+msgstr "Preguntas generales"
+
+#: bocatapp/templates/faq.html:15
+msgid "What is Bocatapp?"
+msgstr "¿Que es Bocatapp?"
+
+#: bocatapp/templates/faq.html:20
+msgid ""
+"BocatApp is a platform specialized in the purchase and sale of food in "
+"establishments near to: business areas, university campuses or institutes."
+msgstr ""
+"BocatApp es una plataforma especializada en la compra-venta de comida en los "
+"establecimientos cercanos a : zonas empresariales,campus universitarios o "
+"institutos."
+
+#: bocatapp/templates/faq.html:28
+msgid "Do I need to create an account?"
+msgstr "¿Es necesario crear una cuenta?"
+
+#: bocatapp/templates/faq.html:33
+msgid ""
+"The necessary accounts to request orders and to manage your business. If you "
+"just want to check the establishments in your zip code or your letters you "
+"do not need to create an account."
+msgstr ""
+"Las cuentas con necesarias para solicitar pedidos y para gestionar tu "
+"negocio. Si sólo deseas consultar los establecimientos en tu código postal o "
+"sus cartas no necesitas crear una cuenta."
+
+#: bocatapp/templates/faq.html:42
+msgid "What is the currency used in all transactions?"
+msgstr "¿Cual es la divisa utilizada en todas las transacciones?"
+
+#: bocatapp/templates/faq.html:47
+msgid "All the prices are in "
+msgstr "Todos los precios estan en "
+
+#: bocatapp/templates/faq.html:52
+msgid "Sellers"
+msgstr "Vendedores"
+
+#: bocatapp/templates/faq.html:57
+msgid "Who can sell products?"
+msgstr "¿Quien puede vender productos?"
+
+#: bocatapp/templates/faq.html:62
+msgid ""
+"Any business buying and selling food that wants to improve its management "
+"and facilitate online reservations to its customers."
+msgstr ""
+"Cualquier negocio de compra-venta de comida que quiera mejorar su gestión y "
+"facilitar las reservas online a sus clientes."
+
+#: bocatapp/templates/faq.html:63
+msgid "Do you want to manage your business with us?"
+msgstr "¿Quieres controlar tu negocio con nosotros?"
+
+#: bocatapp/templates/faq.html:72
+msgid "Why sell from BocatApp?"
+msgstr "¿Por qué vender desde BocatApp?"
+
+#: bocatapp/templates/faq.html:77
+msgid ""
+"The main advantage that you will have if you sell your products from "
+"BocatApp is to facilitate the management of orders, since you can know the "
+"moment of collection of such orders."
+msgstr ""
+"La principal ventaja que tendrás si vendes tus productos desde BocatApp es "
+"facilitar la gestiónde pedidos, ya que podrás saber el momento de recogida "
+"de dichos pedidos."
+
+#: bocatapp/templates/faq.html:85
+msgid "What if a customer does not pick up your order?"
+msgstr "¿Y si un cliente no recoge su pedido?"
+
+#: bocatapp/templates/faq.html:90
+msgid ""
+"At BocatApp we want to protect our businesses therefore, customers of their "
+"establishments must make the payment at the time of purchase. If the "
+"customer does not collect the order, the establishment will have the sale "
+"covered and will not have losses."
+msgstr ""
+"En BocatApp queremos proteger a nuestros negocios por ello, los clientes de "
+"sus establecimientos deben hacer el pago en el momento de la compra. Si el "
+"cliente no recoge el pedido, el establecimiento tendrá cubierta la venta y "
+"no tendrá pérdidas."
+
+#: bocatapp/templates/faq.html:99
+msgid "How do I receive sales payments through BocatApp?"
+msgstr "¿Cómo recibo los pagos de las ventas a través de BocatApp?"
+
+#: bocatapp/templates/faq.html:104
+msgid ""
+"Payments will be made on a weekly basis. At the end of the week the amount "
+"accumulated will be transferred to the bank account of your business. The "
+"minimum to be transferred is"
+msgstr ""
+"Los pagos se realizarán de forma semanal. Al final de la semana la cuantía "
+"acumulada será transferida a la cuenta bancaria de su negocio. El mínimo a "
+"transferir es de"
+
+#: bocatapp/templates/faq.html:109
+msgid "Customers"
+msgstr "Clientes"
+
+#: bocatapp/templates/faq.html:114
+msgid ""
+"What benefits do I have in front of placing the order in the own premises?"
+msgstr "¿Que beneficios tengo frente a hacer el pedido en el propio local?"
+
+#: bocatapp/templates/faq.html:119
+msgid ""
+"The main advantage will be your comfort. As a user you can place an order at "
+"any time and from anywhere, choose the day and time of collection and you "
+"will not have to wait queues or worry about if you carry the money."
+msgstr ""
+"La principal ventaja será tu comodidad. Como usuario podrás realizar un "
+"pedido en cualquier momento y desde cualquier sitio, elegirás el día y hora "
+"de recogida y no tendrás que esperar colas ni preocuparte de si llevas el "
+"dinero encima."
+
+#: bocatapp/templates/faq.html:127
+msgid ""
+"I am allergic to certain ingredients, how can I find out the content of the "
+"products?"
+msgstr ""
+"Soy alérgico a determinados ingredientes, ¿cómo puedo informarme del "
+"contenido de los productos?"
+
+#: bocatapp/templates/faq.html:132
+msgid ""
+"In the menu of each establishment the products are listed next to the list "
+"of allergens of the same."
+msgstr ""
+"En el menú de cada establecimiento se listan los productos junto a la lista "
+"de alérgenos de los mismos."
+
+#: bocatapp/templates/faq.html:140
+msgid "In the same order, can I introduce products from different locals?"
+msgstr "En un mismo pedido, ¿puedo introducir productos de diferentes locales?"
+
+#: bocatapp/templates/faq.html:145
+msgid ""
+"No, with the current system it is necessary to make the orders of each "
+"premises independently."
+msgstr ""
+"No, con el sistema actual es necesario hacer los pedidos de cada local de "
+"forma independiente."
+
+#: bocatapp/templates/faq.html:153
+msgid "Can I cancel a order?"
+msgstr "¿Puedo cancelar un pedido?"
+
+#: bocatapp/templates/faq.html:158
+msgid "Yes, you can cancel the order until 2h before delivery."
+msgstr "Sí, podrás cancelar el pedido hasta 2h antes de la entrega."
+
+#: bocatapp/templates/faq.html:163
+msgid "if you need more information, contact with"
+msgstr "Si necesitas mas informacion, sigue el siguiente"
+
+#: bocatapp/templates/forms/login_form.html:15
+msgid "Forget password?"
+msgstr "Nueva contraseña"
+
+#: bocatapp/templates/forms/login_form.html:22
+msgid "Remember password"
+msgstr "Repetir contraseña"
+
 #: bocatapp/templates/forms/password_edit.html:18
 #: bocatapp/templates/forms/register_form.html:17
 #: bocatapp/templates/forms/user_edit.html:17
+#: bocatapp/templates/passwordreset/password_reset_confirm.html:30
+#: bocatapp/templates/passwordreset/password_reset_form.html:22
+#: customer/templates/comment_list.html:69
+#: seller/templates/local_charts.html:23 seller/templates/local_edit.html:19
+#: seller/templates/pack/edit.html:47 seller/templates/product_edit.html:27
 msgid "Back"
 msgstr "Atrás"
 
 #: bocatapp/templates/forms/password_edit.html:19
 #: bocatapp/templates/forms/register_form.html:18
 #: bocatapp/templates/forms/user_edit.html:18
+#: bocatapp/templates/passwordreset/password_reset_confirm.html:31
+#: customer/templates/comment_edit.html:33
+#: seller/templates/category_new.html:14 seller/templates/category_new.html:17
+#: seller/templates/forms/category_form.html:6
+#: seller/templates/local_edit.html:20 seller/templates/product_edit.html:28
 msgid "Save"
 msgstr "Guardar"
 
@@ -125,6 +456,20 @@ msgstr "Haz tu pedido. Disfruta sin esperar."
 #: bocatapp/templates/home.html:17
 msgid "Insert a ZIP code to find places near you"
 msgstr "Inserta un código postar para buscar locales cercanos"
+
+#: bocatapp/templates/home.html:22 seller/templates/cp_search.html:16
+#: seller/templates/menu.html:11 seller/templates/pack/details.html:16
+#: seller/templates/pack/list.html:16
+msgid "Search"
+msgstr "Buscar"
+
+#: bocatapp/templates/includes/footer.html:2
+msgid "All rights reserved"
+msgstr "Todos los derechos reservados"
+
+#: bocatapp/templates/includes/footer.html:2
+msgid "Terms and use conditions"
+msgstr "Terminos y condiciones"
 
 #: bocatapp/templates/includes/header.html:28
 #: bocatapp/templates/includes/header.html:30
@@ -151,11 +496,6 @@ msgstr "Inglés"
 msgid "Help"
 msgstr "Ayuda"
 
-#: bocatapp/templates/includes/header.html:56
-#: bocatapp/templates/includes/header.html:58
-msgid "Log in"
-msgstr "Iniciar sesión"
-
 #: bocatapp/templates/includes/header.html:66
 msgid "Do not have an account yet?"
 msgstr "¿No tienes cuenta todavía?"
@@ -169,11 +509,13 @@ msgid "My account"
 msgstr "Mi cuenta"
 
 #: bocatapp/templates/includes/header.html:91
+#: customer/templates/comment_list.html:49
+#: customer/templates/report_list.html:4 customer/templates/report_list.html:10
 msgid "Reports"
 msgstr "Reportes"
 
 #: bocatapp/templates/includes/header.html:94
-msgid "My places"
+msgid "My locals"
 msgstr "Mis locales"
 
 #: bocatapp/templates/includes/header.html:97
@@ -184,9 +526,274 @@ msgstr "Mis pedidos"
 msgid "Disconect"
 msgstr "Cerrar Sesión"
 
-#: bocatapp/views/UserAccount.py:21
+#: bocatapp/templates/myaccount.html:50 bocatapp/views/UserAccount.py:21
 msgid "Edit profile"
 msgstr "Editar perfil"
+
+#: bocatapp/templates/myaccount.html:60
+msgid "Edit password"
+msgstr "Editar contraseña"
+
+#: bocatapp/templates/passwordreset/password_reset_complete.html:6
+msgid "Your password has been reset"
+msgstr "Su contraseña ha sido reestablecida"
+
+#: bocatapp/templates/passwordreset/password_reset_confirm.html:38
+msgid "Invalid link. This link has already been used"
+msgstr "Enlace invalido. Este enlace ya ha sido utilizado"
+
+#: bocatapp/templates/passwordreset/password_reset_done.html:6
+msgid "We have sent you an email with a link to reset the password."
+msgstr ""
+"Te hemos enviado un correo con un enlace para reestablecer la contraseña."
+
+#: bocatapp/templates/passwordreset/password_reset_email.html:2
+msgid "You requested password reset."
+msgstr "Has solicitado un reestablecimiento de contraseña"
+
+#: bocatapp/templates/passwordreset/password_reset_email.html:3
+msgid "Click on the following link to create your new password"
+msgstr "Haz click en el siguiente enlace para crear tu nueva contraseña"
+
+#: bocatapp/templates/passwordreset/password_reset_form.html:11
+msgid "Forget password"
+msgstr "Recordar contraseña"
+
+#: bocatapp/templates/passwordreset/password_reset_form.html:23
+#: customer/templates/report_edit.html:15 seller/templates/pack/edit.html:50
+msgid "Send"
+msgstr "Enviar"
+
+#: bocatapp/templates/terms.html:4 bocatapp/templates/terms.html.py:10
+msgid "Terms and Conditions"
+msgstr "Terminos y condiciones"
+
+#: bocatapp/templates/terms.html:12
+msgid ""
+"The access and / or use of this portal attributes the condition of user, who "
+"accepts, from said access and / or use, the General Conditions of Use "
+"reflected here. The aforementioned Conditions will apply independently of "
+"the General Conditions of Contract that in their case are obligatory."
+msgstr ""
+"El acceso y/o uso de este portal atribuye la condición de usuario, que "
+"acepta, desde dicho acceso y/o uso, las Condiciones Generales de Uso aquí "
+"reflejadas. Las citadas Condiciones serán de aplicación independientemente "
+"de las Condiciones Generales de Contratación que en su caso resulten de "
+"obligado cumplimiento."
+
+#: bocatapp/templates/terms.html:13
+msgid ""
+"The company reserves the right to modify at any time the general conditions "
+"of use of the portal. In any case, it is recommended that you periodically "
+"consult these terms of use of the portal, as they can be modified."
+msgstr ""
+"La empresa se reserva la facultad de modificar en cualquier momento las "
+"condiciones generales de uso del portal.En todo caso, se recomienda que "
+"consulte periódicamente los presentes términos de uso del portal, ya que "
+"pueden ser modificados."
+
+#: bocatapp/templates/terms.html:14
+msgid ""
+"The user must at all times respect the terms and conditions established in "
+"these general conditions of use of the portal. The user expressly states "
+"that he will diligently use the portal and assume any responsibility that "
+"may arise from breach of the rules."
+msgstr ""
+"El usuario deberá respetar en todo momento los términos y condiciones "
+"establecidos en las presentes condiciones generales de uso del portal. De "
+"forma expresa el usuario manifiesta que utilizará el portal de forma "
+"diligente y asumiendo cualquier responsabilidad que pudiera derivarse del "
+"incumplimiento de las normas."
+
+#: bocatapp/templates/terms.html:15
+msgid ""
+"The Portal excludes any liability for damages that may be due to information "
+"and / or services provided or supplied by third parties other than the "
+"Company. All responsibility will be from the third party, either supplier or "
+"collaborator."
+msgstr ""
+"El Portal excluye cualquier responsabilidad por los daños y perjuicios que "
+"puedan deberse a la información y/o servicios prestados o suministrados por "
+"terceros diferentes de la Empresa. Toda responsabilidad será del tercero ya "
+"sea proveedor o colaborador."
+
+#: bocatapp/templates/terms.html:16
+msgid ""
+"All contents, trademarks, logos, drawings, documentation, computer programs "
+"or any other element susceptible of protection by the intellectual or "
+"industrial property laws, that are accessible in the portal correspond "
+"exclusively to the company or its legitimate owners and are expressly "
+"reserved all The rights over them."
+msgstr ""
+"Todos los contenidos, marcas, logos, dibujos, documentación, programas "
+"informáticos o cualquier otro elemento susceptible de protección por la "
+"legislación de propiedad intelectual o industrial, que sean accesibles en el "
+"portal corresponden exclusivamente a la empresa o a sus legítimos titulares "
+"y quedan expresamente reservados todos los derechos sobre los mismos."
+
+#: bocatapp/templates/terms.html:18
+msgid "Other conditions"
+msgstr "Otras condiciones"
+
+#: bocatapp/templates/terms.html:20
+msgid ""
+"BocatApp as the holder for all purposes of this website and responsible for "
+"all automated files derived therefrom ensures full and complete compliance "
+"with the obligations set forth by the Organic Law of Data Protection."
+msgstr ""
+"BocatApp como titular a todos los efectos de la presente página web y "
+"responsable de todos los ficheros automatizados derivados de la misma "
+"garantiza el integro y pleno cumplimiento de las obligaciones dispuestas por "
+"la Ley Orgánica de Protección de Datos."
+
+#: bocatapp/templates/terms.html:21
+msgid ""
+"BocatApp informs that the use of a form implies that the user expresses his "
+"consent for the data supplied to be incorporated into an automated file."
+msgstr ""
+"BocatApp informa que el hecho de utilizar algún formulario implica que el "
+"usuario expresa su consentimiento para que los datos suministrados queden "
+"incorporados a un fichero automatizado. "
+
+#: bocatapp/templates/terms.html:22
+msgid ""
+"The users will respond, in any case, of the veracity of the provided data "
+"and are responsible for communicating to BocatApp any modification in the "
+"same, being BocatApp exempt of any type of responsibility in this respect."
+msgstr ""
+"Los usuarios responderán, en cualquier caso, de la veracidad de los datos "
+"facilitados y se hacen responsables de comunicar a BocatApp cualquier "
+"modificación en los mismos, quedando BocatApp exento de cualquier tipo de "
+"responsabilidad a este respecto."
+
+#: bocatapp/templates/terms.html:23
+msgid ""
+"The users have recognized and will be able to exercise the rights of access, "
+"rectification, cancellation and opposition, anticipated by the Law, "
+"directing an email to the Responsible of the File: BocatApp, indicating "
+"their name and surnames, and including as subject of the email 'ARCO "
+"Rights' ."
+msgstr ""
+"Los usuarios tienen reconocidos y podrán ejercitar los derechos de acceso,"
+"rectificación, cancelación y oposición, previstos por la Ley, dirigiendo un "
+"correo electrónico al Responsable del Fichero: BocatApp, indicando su nombre "
+"y apellidos, e incluyendo como asunto del correo 'Derechos ARCO'."
+
+#: bocatapp/templates/terms.html:24
+msgid ""
+"BocatApp, Inc under the Information Society Services Law, in no case will "
+"send advertising and communications for sale or other commercial purposes to "
+"users without their prior request or consent. Neither will it send "
+"unsolicited messages or consents previously."
+msgstr ""
+"BocatApp,Inc en virtud de la Ley de Servicios de la Sociedad de la "
+"Información , en ningún caso remitirá publicidad y comunicaciones con fines "
+"de venta u otras de naturaleza comercial a los usuarios sin que medie su "
+"previa solicitud o consentimiento. Asimismo tampoco remitirá mensajes no "
+"solicitados ni consentidos previamenente."
+
+#: bocatapp/templates/terms.html:25
+msgid ""
+"In compliance with the Law on Services of the Information Society, the "
+"following data are reflected: the company that owns this website is BocatApp "
+"with CIF number: X-0000000, duly registered in the Mercantile Register."
+msgstr ""
+"En cumplimiento con la Ley de Servicios de la Sociedad de la Información, se "
+"reflejan los siguientes datos : la empresa titular de esta web es BocatApp "
+"con número CIF:X-0000000,debidamente inscrita en el Registro Mercantil."
+
+#: bocatapp/templates/terms.html:27
+msgid "Return Policy"
+msgstr "Politica de devoluciones"
+
+#: bocatapp/templates/terms.html:29
+msgid ""
+"To make a cancellation can only be made of orders that are pending to do, "
+"ie, have not gone to the facts section."
+msgstr ""
+"Para realizar una cancelación sólo se podrá hacer de los pedidos que estén "
+"pendientes de hacer, es decir, que no hayan pasado al apartado de hechos."
+
+#: bocatapp/templates/terms.html:32
+msgid ""
+"A number of criteria must be met to cancel the order. You can not cancel an "
+"order in which the date and time of collection has already passed."
+msgstr ""
+"Habrá que cumplir una serie de criterios para cancelar el pedido. No se "
+"puede cancelar un pedido en el que la fecha y hora de recogida ya haya "
+"pasado."
+
+#: bocatapp/templates/terms.html:34
+msgid "The order must be in the pending section."
+msgstr "El pedido debe estar en la sección pendientes."
+
+#: bocatapp/templates/terms.html:35
+msgid "The user has to confirm that he / she agrees to cancel the order."
+msgstr ""
+"El usuario tiene que confirmar que esta de acuerdo en cancelar el pedido."
+
+#: bocatapp/templates/terms.html:36
+msgid "The amount will always be returned as a balance in BocatApp."
+msgstr "El importe se devolverá siempre como saldo en BocatApp."
+
+#: bocatapp/templates/terms.html:37
+#, python-format
+msgid ""
+"If the order is canceled with three or more hours in advance will be "
+"refunded 100%% of the amount."
+msgstr ""
+"Si el pedido se cancela con tres o más horas de antelación se le devolverá "
+"el 100%% del importe."
+
+#: bocatapp/templates/terms.html:38
+#, python-format
+msgid ""
+"If the order is canceled with 2 or 2:59 hours in advance will be refunded "
+"92.5%% of the amount."
+msgstr ""
+"Si el pedido se cancela con 2 o 2:59 horas de antelación se le devolverá el "
+"92.5 %% del importe"
+
+#: bocatapp/templates/terms.html:39
+#, python-format
+msgid ""
+"If the order is canceled with 1 or 1:59 hours in advance will be refunded "
+"50%% of the amount."
+msgstr ""
+"Si el pedido se cancela con 1 o 1:59 horas de antelación se le devolverá el "
+"50 %% del importe."
+
+#: bocatapp/templates/terms.html:40
+msgid ""
+"If the order is canceled during the last 59 minutes no amount will be "
+"refunded."
+msgstr ""
+"Si el pedido se cancela durante los últimos 59 minutos no se le devolverá "
+"importe ninguno."
+
+#: bocatapp/views/ShoppingCart.py:123
+msgid "Product has not been added to cart"
+msgstr "El producto no ha sido añadido al carrito"
+
+#: bocatapp/views/ShoppingCart.py:135
+msgid "You can not add products from different locations."
+msgstr "No se pueden agregar productos de distintos locales."
+
+#: bocatapp/views/ShoppingCart.py:145
+msgid "The product has been successfully added to cart."
+msgstr "El producto ha sido añadido correctamente al carrito"
+
+#: bocatapp/views/ShoppingCart.py:177
+msgid "The product has been updated successfully."
+msgstr "El producto se ha añadido correctamente al carrito."
+
+#: bocatapp/views/ShoppingCart.py:182
+msgid "The product has not been updated successfully."
+msgstr "El producto no se ha añadido correctamente al carrito."
+
+#: bocatapp/views/ShoppingCart.py:199
+msgid "The product has been removed from the cart."
+msgstr "El producto se ha eliminado del carrito."
 
 #: bocatapp/views/UserRegister.py:36
 msgid "Register"
@@ -195,3 +802,685 @@ msgstr "Registro"
 #: bocatapp/views/UserRegister.py:48 bocatapp/views/UserRegister.py:70
 msgid "Seller register"
 msgstr "Registro de vendedor"
+
+#: customer/classes/PSCPayment.py:171
+msgid ""
+"Logical error. The requested URL cannot be found. Check your request data"
+msgstr ""
+"Error lógico. No se ha encontrado la URL solicitada. Compruebe los datos de "
+"su solicitud"
+
+#: customer/classes/PSCPayment.py:174
+msgid ""
+"Transaction could not be initiated due to connection problems. The servers "
+"IP address is probably not whitelisted!"
+msgstr ""
+"No se pudo iniciar la transacción debido a problemas de conexión. La "
+"dirección IP de los servidores probablemente no está en la lista blanca!"
+
+#: customer/classes/PSCPayment.py:177
+msgid "Server error."
+msgstr "Error de servidor"
+
+#: customer/classes/PSCPayment.py:184
+msgid ""
+"The amount for this transaction exceeds the maximum amount. The maximum "
+"amount is 1000 EURO (equivalent in other currencies)"
+msgstr ""
+"El monto de esta transacción excede el monto máximo. El importe máximo es de "
+"1000 euros (equivalente en otras monedas)"
+
+#: customer/classes/PSCPayment.py:187
+msgid "Transaction could not be initiated because the account is inactive."
+msgstr "No se pudo iniciar la transacción porque la cuenta está inactiva."
+
+#: customer/classes/PSCPayment.py:190
+msgid "payment id is unknown."
+msgstr "El ID de pago es desconocido."
+
+#: customer/classes/PSCPayment.py:193
+msgid "Currency is not supported."
+msgstr "La moneda no es compatible."
+
+#: customer/classes/PSCPayment.py:196
+msgid "Amount is not valid. Valid amount has to be above 0."
+msgstr "La cantidad no es válida. La cantidad válida debe ser superior a 0."
+
+#: customer/classes/PSCPayment.py:199
+msgid ""
+"Transaction could not be initiated due to connection problems. If the "
+"problem persists, please contact our support."
+msgstr ""
+"No se pudo iniciar la transacción debido a problemas de conexión. Si el "
+"problema persiste, póngase en contacto con nuestro servicio de asistencia."
+
+#: customer/forms/forms.py:8 seller/forms/forms.py:15 seller/forms/forms.py:31
+msgid "Description"
+msgstr "Descripcion"
+
+#: customer/forms/forms.py:19 customer/templates/report_list.html:35
+msgid "Reason"
+msgstr "Razon"
+
+#: customer/forms/forms.py:31
+msgid "Amount to recharge"
+msgstr "Cantidad a recargar"
+
+#: customer/templates/checkout.html:16
+msgid "Payment method"
+msgstr "Metodo de pago"
+
+#: customer/templates/checkout.html:22
+msgid ""
+"The operation could not be performed because one or more errors have "
+"occurred."
+msgstr ""
+"La operación no se ha podido realizar debido a que uno o más errores han "
+"ocurrido."
+
+#: customer/templates/checkout.html:36
+msgid "Pay with:"
+msgstr "Pagar con:"
+
+#: customer/templates/checkout.html:44
+msgid "You do not have enough balance!"
+msgstr "¡No tienes saldo suficiente!"
+
+#: customer/templates/checkout.html:47
+msgid "New credit card"
+msgstr "Nueva tarjeta de credito"
+
+#: customer/templates/checkout.html:63
+msgid "Holdername"
+msgstr "Nombre del titular"
+
+#: customer/templates/checkout.html:73
+msgid "Number of credit card"
+msgstr "Numero de tarjeta de credito"
+
+#: customer/templates/checkout.html:80
+msgid "Valid credit card number"
+msgstr "Numero de tarjeta de credito valido"
+
+#: customer/templates/checkout.html:93
+msgid "Expiration date"
+msgstr "Fecha de expiracion"
+
+#: customer/templates/checkout.html:123
+msgid "Yes, I would like to keep my credit card in the system"
+msgstr "Si, me gustaria guardar mi tarjeta de credito en el sistema"
+
+#: customer/templates/checkout.html:148
+msgid "Order details"
+msgstr "Detalles del pedido"
+
+#: customer/templates/checkout.html:153 customer/templates/orders.html:30
+#: customer/templates/orders.html.py:105 customer/templates/orders.html:156
+#: customer/templates/ordersLine.html:14
+msgid "Product"
+msgstr "Producto"
+
+#: customer/templates/checkout.html:155 customer/templates/orders.html:18
+#: customer/templates/orders.html.py:33 customer/templates/orders.html:93
+#: customer/templates/orders.html.py:108 customer/templates/orders.html:144
+#: customer/templates/orders.html.py:159 customer/templates/ordersLine.html:15
+#: customer/templates/shoppingcart.html:14 seller/forms/forms.py:51
+#: seller/templates/menu.html:32
+msgid "Price"
+msgstr "Precio"
+
+#: customer/templates/checkout.html:175
+msgid "Taxes"
+msgstr "Impuestos"
+
+#: customer/templates/checkout.html:205
+msgid "Pick up date"
+msgstr "Fecha de recogida"
+
+#: customer/templates/checkout.html:216
+msgid "Pick up time"
+msgstr "Hora de recogida"
+
+#: customer/templates/checkout.html:233
+msgid "Make the reservation"
+msgstr "Realizar reserva"
+
+#: customer/templates/comment_edit.html:12
+msgid "New comment"
+msgstr "Nuevo comentario"
+
+#: customer/templates/comment_edit.html:18
+#: customer/templates/report_list.html:20
+msgid "Valoration"
+msgstr "Valoracion"
+
+#: customer/templates/comment_list.html:11
+msgid "Comments of"
+msgstr "Comentarios de"
+
+#: customer/templates/comment_list.html:17 seller/templates/cp_search.html:83
+#: seller/templates/cp_search.html.py:86 seller/templates/cp_search.html:89
+#: seller/templates/local_list.html:46 seller/templates/local_list.html:50
+#: seller/templates/local_list.html:53
+msgid "Comment"
+msgstr "Comentar"
+
+#: customer/templates/comment_list.html:27
+#: customer/templates/report_list.html:18
+msgid "Writen by"
+msgstr "Escrito por"
+
+#: customer/templates/comment_list.html:40
+#: customer/templates/comment_list.html:52
+#: customer/templates/report_edit.html:6
+msgid "Report"
+msgstr "Reportar"
+
+#: customer/templates/comment_list.html:60
+msgid "There are no comments from this local"
+msgstr "No hay comentarios de este local"
+
+#: customer/templates/orders.html:4 seller/templates/local_charts.html:66
+msgid "Orders"
+msgstr "Pedidos"
+
+#: customer/templates/orders.html:7 seller/templates/local_charts.html:38
+msgid "Pending"
+msgstr "Pendiente"
+
+#: customer/templates/orders.html:15 customer/templates/orders.html.py:90
+#: customer/templates/orders.html:141
+msgid "Pick up"
+msgstr "Recogida"
+
+#: customer/templates/orders.html:51
+msgid "Are you sure?"
+msgstr "¿Estas seguro?"
+
+#: customer/templates/orders.html:52
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: customer/templates/orders.html:66
+msgid "Mark as done"
+msgstr "Marcar como hecho"
+
+#: customer/templates/orders.html:76
+msgid "There are no pending orders"
+msgstr "No hay pedidos pendientes"
+
+#: customer/templates/orders.html:82
+msgid "Canceled orders"
+msgstr "Pedidos cancelados"
+
+#: customer/templates/orders.html:125
+msgid "There are no canceled orders"
+msgstr "No hay pedidos cancelados"
+
+#: customer/templates/orders.html:133
+msgid "Done orders"
+msgstr "Pedidos hechos"
+
+#: customer/templates/orders.html:176
+msgid "There are no done orders"
+msgstr "No hay pedidos hechos"
+
+#: customer/templates/orders.html:184
+msgid "Make another order"
+msgstr "Realizar otra reserva"
+
+#: customer/templates/ordersLine.html:13 seller/templates/pack/edit.html:39
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: customer/templates/ordersLine.html:16
+msgid "Status"
+msgstr "Estado"
+
+#: customer/templates/ordersLine.html:28
+msgid "Done"
+msgstr "Hecho"
+
+#: customer/templates/ordersLine.html:30
+msgid "Not done"
+msgstr "No hecho"
+
+#: customer/templates/recharge_account.html:6
+#: customer/templates/recharge_account.html:12
+msgid "Recharge account"
+msgstr "Recargar cuenta"
+
+#: customer/templates/recharge_account.html:14
+msgid "Current balance"
+msgstr "Saldo actual"
+
+#: customer/templates/recharge_account.html:19
+msgid "Recharge"
+msgstr "Recargar"
+
+#: customer/templates/recharge_account.html:23
+msgid "Transactions"
+msgstr "Transacciones"
+
+#: customer/templates/report_edit.html:10
+msgid "New report"
+msgstr "Nuevo reporte"
+
+#: customer/templates/report_list.html:34
+msgid "Reported by"
+msgstr "Reportado por"
+
+#: customer/templates/report_list.html:43
+msgid "Deny"
+msgstr "Denegar"
+
+#: customer/templates/report_list.html:58
+msgid "There are no activated reports"
+msgstr "No hay pedidos activos"
+
+#: customer/templates/shoppingcart.html:4
+#: customer/templates/shoppingcart.html:7
+msgid "Shopping cart"
+msgstr "Carrito de compra"
+
+#: customer/templates/shoppingcart.html:17 seller/templates/menu.html:36
+msgid "Add"
+msgstr "Añadir"
+
+#: customer/templates/shoppingcart.html:39
+msgid "Finish and pay"
+msgstr "Finalizar y pagar"
+
+#: customer/templates/shoppingcart.html:43
+msgid "Keep buying"
+msgstr "Seguir comprando"
+
+#: customer/templates/shoppingcart.html:86 seller/templates/menu.html:123
+msgid "The quantity entered must be a number between 1 and 10."
+msgstr "La cantidad introducida debe estar entre 1 y 10"
+
+#: customer/templates/thanks.html:12
+msgid ""
+"Thank you! Your order is being processed, we will notify you when you are "
+"ready"
+msgstr ""
+"¡Gracias! Tu pedido está siendo procesado, te avisaremos cuando esté listo"
+
+#: customer/templates/thanks.html:13
+msgid "Do not forget to pick your order on time!"
+msgstr "¡No olvides recoger tu pedido a tiempo!"
+
+#: customer/views.py:44
+msgid "Retrieve payment successful."
+msgstr "Recuperar el pago correctamente."
+
+#: customer/views.py:48
+msgid "Capturing payment"
+msgstr "Capturar el pago"
+
+#: customer/views.py:51
+msgid "Capture request was successful. Checking response:"
+msgstr "La solicitud de captura tuvo éxito. Comprobación de la respuesta:"
+
+#: customer/views.py:56
+msgid "Your balance has been acted correctly!"
+msgstr "¡Tu saldo ha sido actuado correctamente!"
+
+#: customer/views.py:60
+msgid ""
+"The reload request has been received. Your balance will be updated soon. "
+msgstr ""
+"La solicitud de recarga ha sido recibida. Pronto se actualizará tu saldo."
+
+#: customer/views.py:68
+msgid "There were problems connecting to PaySafeCard. Try again later!"
+msgstr ""
+"Hubo problemas para conectar con PaySafeCard. ¡Inténtalo de nuevo más tarde!"
+
+#: customer/views.py:71
+msgid "Your balance has been successfully updated!"
+msgstr "Tu saldo ha sido actualizado con éxito!"
+
+#: customer/views.py:77
+msgid ""
+"Payment is not yet processed, please visit / redirect to auth_url your "
+"received on payment creation"
+msgstr ""
+"Payment is not processed yet, please visit / redirect to auth_url your "
+"received on payment creation"
+
+#: customer/views.py:82
+msgid "There was an error retrieving the payment. Try again later."
+msgstr ""
+"Se ha producido un error al recuperar el pago. Inténtalo de nuevo más tarde."
+
+#: customer/views.py:94
+msgid "There was a problem updating your balance! Try again later."
+msgstr "Hubo un problema al actualizar tu saldo! Inténtalo de nuevo más tarde."
+
+#: customer/views.py:197
+msgid "There was a problem connecting to PaySafeCard, please try again later!"
+msgstr ""
+"¡Hubo un problema al conectar con PaySafeCard, ¡inténtelo de nuevo más tarde!"
+
+#: customer/views.py:233 customer/views.py:414
+msgid "You are not a customer"
+msgstr "Usted no es cliente"
+
+#: customer/views.py:256
+msgid "Cancellation made. Soon we will enter "
+msgstr "Cancelacion realizada. En breve te ingresaremos"
+
+#: customer/views.py:256
+msgid "€ in your balance."
+msgstr "€ en tu saldo."
+
+#: customer/views.py:259
+msgid "The order has already been canceled"
+msgstr "El pedido ya ha sido cancelado"
+
+#: customer/views.py:262
+msgid "Sorry, the order is already made, and it is impossible to cancel it"
+msgstr "Lo sentimos, el pedido ya esta realizado, y es imposible cancelarlo"
+
+#: customer/views.py:265
+msgid "The order date has already passed."
+msgstr "La fecha del pedido ya ha pasado."
+
+#: customer/views.py:269
+msgid "The order you are trying to cancel does not belong to you."
+msgstr "El pedido que intentas cancelar no te pertenece."
+
+#: customer/views.py:353
+msgid "Choose another method of payment, you do not have enough balance!"
+msgstr "Elige otro método de pago, ¡no tienes suficiente saldo!"
+
+#: customer/views.py:387
+msgid "Add your comment"
+msgstr "Añade tu comentario"
+
+#: customer/views.py:403
+msgid ""
+"The date and time of collection must be after the current date and time. "
+"Minimum 10 min."
+msgstr ""
+"La fecha y hora de recogida debe ser posterior a la fecha y hora actual. "
+"Mínimo 10 min"
+
+#: customer/views.py:408
+msgid "Date or time is not correct"
+msgstr "Fecha u hora no es correcta"
+
+#: customer/views.py:438
+msgid "You are not user"
+msgstr "Usted no es usuario"
+
+#: customer/views.py:463 customer/views.py:469 customer/views.py:475
+msgid "You are not an admin"
+msgstr "Usted no es administrador"
+
+#: seller/forms/forms.py:10
+msgid "Must have 999999999 format"
+msgstr "Debe tener el formato 999999999"
+
+#: seller/forms/forms.py:16 seller/templates/local_detail.html:20
+msgid "Address"
+msgstr "Direccion"
+
+#: seller/forms/forms.py:18
+msgid "Postal code"
+msgstr "Codigo Postal"
+
+#: seller/forms/forms.py:19
+msgid "Photo"
+msgstr "Foto"
+
+#: seller/forms/forms.py:52
+msgid "Ingredients"
+msgstr "Ingredientes"
+
+#: seller/forms/packsForms.py:33
+msgid "You must enter a valid date"
+msgstr "Debes introducir una fecha valida"
+
+#: seller/forms/packsForms.py:35
+msgid "You must enter a date in the future"
+msgstr "Debes introducir una fecha futura"
+
+#: seller/forms/packsForms.py:37
+msgid "Enter a price!"
+msgstr "Introduce un precio!"
+
+#: seller/forms/packsForms.py:40
+msgid "Too cheap!"
+msgstr "Demasiado barato!"
+
+#: seller/templates/category_edit.html:6 seller/templates/category_edit.html:10
+msgid "Edit category"
+msgstr "Editar categoria"
+
+#: seller/templates/category_list.html:3
+msgid "Category"
+msgstr "Categoria"
+
+#: seller/templates/category_list.html:13 seller/templates/category_new.html:6
+#: seller/templates/category_new.html:10 seller/templates/local_detail.html:35
+msgid "New category"
+msgstr "Nueva categoria"
+
+#: seller/templates/category_list.html:31
+msgid "See products"
+msgstr "Ver productos"
+
+#: seller/templates/category_list.html:37 seller/templates/local_detail.html:28
+msgid "Edit"
+msgstr "Editar"
+
+#: seller/templates/category_list.html:44
+msgid "Delete"
+msgstr "Borrar"
+
+#: seller/templates/category_list.html:60
+msgid "Delete category"
+msgstr "Borrar categoria"
+
+#: seller/templates/category_list.html:63
+msgid "Do you want to delete this category?"
+msgstr "¿Quieres borrar esta categoria? "
+
+#: seller/templates/category_list.html:63
+msgid "The products which belong to it will be deleted"
+msgstr "Los productos pertenecientes seran borrados"
+
+#: seller/templates/category_list.html:69
+msgid "Yes"
+msgstr "Si"
+
+#: seller/templates/category_list.html:72
+msgid "No"
+msgstr "No"
+
+#: seller/templates/cp_search.html:4 seller/templates/local_detail.html:4
+#: seller/templates/local_edit.html:6 seller/templates/local_list.html:4
+#: seller/templates/local_list.html.py:9
+msgid "Locals"
+msgstr "Locales"
+
+#: seller/templates/cp_search.html:13
+msgid "Results for"
+msgstr "Resultados para"
+
+#: seller/templates/cp_search.html:25
+msgid "Order by"
+msgstr "Ordenar por"
+
+#: seller/templates/cp_search.html:29
+msgid "Top-Rated"
+msgstr "Mejor puntuacion media"
+
+#: seller/templates/cp_search.html:35
+msgid "New"
+msgstr "Nuevo"
+
+#: seller/templates/cp_search.html:39
+msgid "Kitchen"
+msgstr "Cocina"
+
+#: seller/templates/cp_search.html:49
+msgid "Update"
+msgstr "Actualizar"
+
+#: seller/templates/cp_search.html:57
+msgid "found in this zone"
+msgstr "encontrado en esta zona"
+
+#: seller/templates/cp_search.html:69 seller/templates/local_detail.html:12
+#: seller/templates/local_detail.html:13 seller/templates/local_list.html:30
+msgid "Profile image"
+msgstr "Imagen de perfil"
+
+#: seller/templates/cp_search.html:82 seller/templates/local_list.html:44
+msgid "No opinions"
+msgstr "Sin opiniones"
+
+#: seller/templates/cp_search.html:83 seller/templates/local_list.html:46
+msgid "Write yours"
+msgstr "Escribe la tuya"
+
+#: seller/templates/cp_search.html:86 seller/templates/local_list.html:50
+msgid "1 comment"
+msgstr "1 comentario"
+
+#: seller/templates/cp_search.html:89 seller/templates/local_list.html:53
+msgid "comments"
+msgstr "Comentarios"
+
+#: seller/templates/local_charts.html:6 seller/templates/local_charts.html:10
+msgid "Statistics of "
+msgstr "Estadisticas de"
+
+#: seller/templates/local_charts.html:13
+msgid "Last week's orders"
+msgstr "Pedidos de la semana pasada"
+
+#: seller/templates/local_charts.html:17
+msgid "Current status"
+msgstr "Estado actual"
+
+#: seller/templates/local_charts.html:37
+msgid "Ready"
+msgstr "Preparado"
+
+#: seller/templates/local_detail.html:25
+msgid "See menu"
+msgstr "Ver menu"
+
+#: seller/templates/local_detail.html:30
+msgid "See categories"
+msgstr "Ver categorias"
+
+#: seller/templates/local_detail.html:33 seller/templates/local_list.html:74
+msgid "New product"
+msgstr "Nuevo producto"
+
+#: seller/templates/local_detail.html:41
+msgid "Comments"
+msgstr "Comentarios"
+
+#: seller/templates/local_edit.html:11
+msgid "Create local"
+msgstr "Crear local"
+
+#: seller/templates/local_edit.html:14 seller/templates/local_list.html:71
+msgid "Edit local"
+msgstr "Editar local"
+
+#: seller/templates/local_list.html:14
+msgid "New local"
+msgstr "Nueva local"
+
+#: seller/templates/local_list.html:62
+msgid "Manage orders"
+msgstr "Gestionar pedidos"
+
+#: seller/templates/local_list.html:65
+msgid "Statistics"
+msgstr "Estadisticas"
+
+#: seller/templates/local_list.html:69
+msgid "Configuration"
+msgstr "Configuracion"
+
+#: seller/templates/local_list.html:72
+msgid "Menu"
+msgstr "Carta"
+
+#: seller/templates/local_list.html:73
+msgid "Categories"
+msgstr "Categorias"
+
+#: seller/templates/local_list.html:90
+msgid "There is no locals yet"
+msgstr "No hay locales aun"
+
+#: seller/templates/menu.html:7
+msgid "Menu of"
+msgstr "Carta de"
+
+#: seller/templates/pack/details.html:59
+msgid "Available until "
+msgstr "Disponible hasta "
+
+#: seller/templates/pack/details.html:62
+msgid "Buy"
+msgstr "Comprar"
+
+#: seller/templates/pack/edit.html:9
+msgid "Edit pack"
+msgstr "Editar pack"
+
+#: seller/templates/pack/edit.html:11
+msgid "Create pack"
+msgstr "Crear pack"
+
+#: seller/templates/product_edit.html:8 seller/templates/product_edit.html:18
+msgid "Create product"
+msgstr "Crear producto"
+
+#: seller/templates/product_edit.html:11 seller/templates/product_edit.html:21
+msgid "Edit product"
+msgstr "Editar producto"
+
+#: seller/views.py:54 seller/views.py:77 seller/views.py:99 seller/views.py:114
+#: seller/views.py:135 seller/views.py:159 seller/views.py:177
+#: seller/views.py:186 seller/views.py:203 seller/views.py:215
+#: seller/views.py:243
+msgid "You are not a seller"
+msgstr "Usted no es un vendedor"
+
+#: seller/views.py:65
+msgid "Category created correctly"
+msgstr "Categoria creada correctamente"
+
+#: seller/views.py:72
+msgid "The category has not been created because it does not belong to you."
+msgstr "La categoria no ha sido creada porque no te pertenece"
+
+#: seller/views.py:89
+msgid "Category updated correctly"
+msgstr "Fecha u hora no es correcta"
+
+#: seller/views.py:96
+msgid "The category has not been edited because it does not belong to you."
+msgstr "La categoria no ha sido editada porque no te pertenece"
+
+#: seller/views.py:106
+msgid "Category successfully deleted. "
+msgstr "Categoria borrada correctamente"
+
+#: seller/views.py:109
+msgid "The category has not been deleted because it does not belong to you."
+msgstr "La categoria que has intentado borrar no te pertenece"
+
+#~ msgid "My places"
+#~ msgstr "Mis locales"

@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}Pedidos {% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Orders" %} {% endblock %}
 {% block content %}
     <div class="container">
-        <h2>Pendientes</h2>
+        <h2>{% trans "Pending" %}</h2>
         <br/>
         {% if orders_pending %}
             {% for k,v in orders_pending.items %}
                 <button class="accordion">
-                    <b style="..."><u>Usuario</u>: </b>
+                    <b style="..."><u>{% trans "Username" %}</u>: </b>
                     {{ k.customer.username }}
                     <br/>
-                    <b style="..."><u>Recogida</u>: </b>
+                    <b style="..."><u>{% trans "Pick up" %}</u>: </b>
                     {{ k.pickupMoment|date:'d/m/Y H:i' }}
                     <br/>
-                    <b style="..."><u>Precio</u>: </b>
+                    <b style="..."><u>{% trans "Price" %}</u>: </b>
                     {{ k.totalPrice }} €
                     {% if perms.bocatapp.customer %}
                         <br/>
@@ -26,10 +27,10 @@
                 <div class="carta">
                     <div class="row" style="...">
                         <div class="col-xs-3">
-                            <h5><b style="..."><u>Producto</u></b></h5>
+                            <h5><b style="..."><u>{% trans "Product" %}</u></b></h5>
                         </div>
                         <div class="col-xs-3">
-                            <h5><b style="..."><u>Precio</u></b></h5>
+                            <h5><b style="..."><u>{% trans "Price" %}</u></b></h5>
                         </div>
                         <div class="col-xs-3">
                             <h5><b style="..."><u>Unds</u></b></h5>
@@ -47,8 +48,8 @@
                                                 </hr>
                         <div class="col-xs-3" style="float: left">
                             <a href="{% url 'cancel_order' pk=k.id %}">
-                                        <button class ='btn btn-danger' onclick="return confirm('Esta seguro?')">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar pedido
+                                        <button class ='btn btn-danger' onclick="return confirm('{% trans "Are you sure?" %}')">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {% trans "Cancel" %}
                                         </button>
                             </a>
                         </div>
@@ -62,7 +63,7 @@
                                                                      href="{% url "local_do_order" pk=k.id %}"
                                                                      id="doOrder">
                             <i class="fa fa-check fa-lg"></i>
-                            Marcar como hecho
+                            {% trans "Mark as done" %}
                         </a>
                         </div>
                         <br/>
@@ -72,24 +73,24 @@
             {% endfor %}
             </div>
         {% else %}
-            <h3>No hay pedidos pendientes =)</h3>
+            <h3>{% trans "There are no pending orders" %} =)</h3>
         {% endif %}
 
     </div>
 
     <div class="container">
-        <h2>Cancelados</h2>
+        <h2>{% trans "Canceled orders" %}</h2>
         <br/>
         {% if orders_cancelled %}
             {% for k,v in orders_cancelled.items %}
                 <button class="accordion">
-                    <b style="..."><u>Usuario</u>: </b>
+                    <b style="..."><u>{% trans "Username" %}</u>: </b>
                     {{ k.customer.username }}
                     <br/>
-                    <b style="..."><u>Recogida</u>: </b>
+                    <b style="..."><u>{% trans "Pick up" %}</u>: </b>
                     {{ k.pickupMoment|date:'d/m/Y H:i' }}
                     <br/>
-                    <b style="..."><u>Precio</u>: </b>
+                    <b style="..."><u>{% trans "Price" %}</u>: </b>
                     {{ k.totalPrice }} €
                     {% if perms.bocatapp.customer %}
                         <br/>
@@ -101,10 +102,10 @@
                 <div class="carta">
                     <div class="row" style="...">
                         <div class="col-xs-3">
-                            <h5><b style="..."><u>Producto</u></b></h5>
+                            <h5><b style="..."><u>{% trans "Product" %}</u></b></h5>
                         </div>
                         <div class="col-xs-3">
-                            <h5><b style="..."><u>Precio</u></b></h5>
+                            <h5><b style="..."><u>{% trans "Price" %}</u></b></h5>
                         </div>
                         <div class="col-xs-3">
                             <h5><b style="..."><u>Unds</u></b></h5>
@@ -121,7 +122,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <h3>No hay pedidos Cancelados =)</h3>
+            <h3>{% trans "There are no canceled orders" %} =)</h3>
         {% endif %}
         <br/>
         <br/>
@@ -129,18 +130,18 @@
     </div>
 
     <div class="container">
-        <h2>Hechos</h2>
+        <h2>{% trans "Done orders" %}</h2>
         <br/>
         {% if orders_done %}
             {% for k,v in orders_done.items %}
                 <button class="accordion">
-                    <b style="..."><u>Usuario</u>: </b>
+                    <b style="..."><u>{% trans "Username" %}</u>: </b>
                     {{ k.customer.username }}
                     <br/>
-                    <b style="..."><u>Recogida</u>: </b>
+                    <b style="..."><u>{% trans "Pick up" %}</u>: </b>
                     {{ k.pickupMoment|date:'d/m/Y H:i' }}
                     <br/>
-                    <b style="..."><u>Precio</u>: </b>
+                    <b style="..."><u>{% trans "Price" %}</u>: </b>
                     {{ k.totalPrice }} €
                     {% if perms.bocatapp.customer %}
                         <br/>
@@ -152,10 +153,10 @@
                 <div class="carta">
                     <div class="row" style="...">
                         <div class="col-xs-3">
-                            <h5><b style="..."><u>Producto</u></b></h5>
+                            <h5><b style="..."><u>{% trans "Product" %}</u></b></h5>
                         </div>
                         <div class="col-xs-3">
-                            <h5><b style="..."><u>Precio</u></b></h5>
+                            <h5><b style="..."><u>{% trans "Price" %}</u></b></h5>
                         </div>
                         <div class="col-xs-3">
                             <h5><b style="..."><u>Unds</u></b></h5>
@@ -172,7 +173,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <h3>No hay pedidos hechos =)</h3>
+            <h3>{% trans "There are no done orders" %}No hay pedidos hechos =)</h3>
         {% endif %}
         <br/>
         <br/>
@@ -180,7 +181,7 @@
 
         <a class="col-sm-2 text-left" href="{% url 'home' %}">
             <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                <span class="glyphicon glyphicon" aria-hidden="true"></span> Realizar otro pedido
+                <span class="glyphicon glyphicon" aria-hidden="true"></span> {% trans "Make another order" %}
             </button>
         </a>
         {% endif %}

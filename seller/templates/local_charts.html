@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
-
+{% load i18n %}
 {% bootstrap_messages %}
-{% block title %}Estadisticas de {{local.name}}{%endblock%}
+{% block title %}{% trans "Statistics of " %}{{local.name}}{%endblock%}
 
 {% block content %}
 <div class="container">
-  <h1>Estadísticas de {{local.name}}</h1>
+  <h1>{% trans "Statistics of " %} {{local.name}}</h1>
   <div class="row">
     <div class="col-md-8">
-      <h2>Pedidos última semana</h2>
+      <h2>{% trans "Last week's orders" %}</h2>
       <canvas id="barChart"></canvas>
     </div>
     <div class="col-md-4">
-      <h2>Estado actual</h2>
+      <h2>{% trans "Current status" %}</h2>
       <canvas id="doughnut"></canvas>
     </div>
   </div>
     <a class="col-sm-2 text-left" href="{% url 'locals_by_seller'%}">
                   <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
+                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
                   </button>
               </a>
 </div>
@@ -34,8 +34,8 @@
       var ctx = document.getElementById("doughnut");
       var data = {
           labels: [
-              "Preparados",
-              "Pendientes"
+              "{% trans "Ready" %}",
+              "{% trans "Pending" %}"
           ],
           datasets: [
           {
@@ -63,7 +63,7 @@
           labels: {{label_dates}},
           {% endautoescape %}
           datasets: [{
-            label: 'Pedidos',
+            label: '{% trans "Orders" %}',
             data: {{orders_by_day}},
             backgroundColor: "#1E90FF"
           }]
