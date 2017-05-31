@@ -83,7 +83,7 @@
                     }
                 });
             }else{
-                var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>"+{% trans 'The quantity entered must be a number between 1 and 10.' %}"</div>").hide();
+                var m = $("<div class='alert alert-danger fade in alert-dismissible'><button type='button' onclick='#' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span></button> <strong></strong>{% trans 'The quantity entered must be a number between 1 and 10.' %}</div>").hide();
 
                 $('#message-list').append(m);
                 m.fadeIn(500);

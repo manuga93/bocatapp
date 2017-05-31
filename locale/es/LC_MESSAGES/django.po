@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-31 17:35+0200\n"
+"POT-Creation-Date: 2017-05-31 20:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,7 @@ msgid "Last name"
 msgstr "Apellidos"
 
 #: bocatapp/forms.py:29 bocatapp/forms.py:74
+#: bocatapp/templates/passwordreset/password_reset_form.html:17
 msgid "Email"
 msgstr "Correo"
 
@@ -73,7 +74,8 @@ msgstr "Para registrarte debes aceptar los terminos y condiciones"
 
 #: bocatapp/forms.py:72 customer/templates/checkout.html:57
 #: customer/templates/shoppingcart.html:11 seller/forms/forms.py:14
-#: seller/forms/forms.py:30 seller/templates/menu.html:26
+#: seller/forms/forms.py:30 seller/forms/forms.py:50
+#: seller/templates/menu.html:26
 msgid "Name"
 msgstr "Nombre"
 
@@ -149,13 +151,13 @@ msgstr ""
 msgid "Following this link"
 msgstr "Siguiendo este enlace"
 
-#: bocatapp/templates/base.html:62
+#: bocatapp/templates/base.html:62 customer/templates/report_list.html:42
 msgid "Accept"
 msgstr "Aceptar"
 
 #: bocatapp/templates/cookies.html:10
 msgid "Cookies policy"
-msgstr ""
+msgstr "Politica de cookies"
 
 #: bocatapp/templates/cookies.html:11
 msgid ""
@@ -425,6 +427,7 @@ msgstr "Repetir contraseña"
 #: bocatapp/templates/forms/register_form.html:17
 #: bocatapp/templates/forms/user_edit.html:17
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:30
+#: bocatapp/templates/passwordreset/password_reset_form.html:22
 #: customer/templates/comment_list.html:69
 #: seller/templates/local_charts.html:23 seller/templates/local_edit.html:19
 #: seller/templates/pack/edit.html:47 seller/templates/product_edit.html:27
@@ -454,7 +457,7 @@ msgstr "Haz tu pedido. Disfruta sin esperar."
 msgid "Insert a ZIP code to find places near you"
 msgstr "Inserta un código postar para buscar locales cercanos"
 
-#: bocatapp/templates/home.html:22 seller/templates/cp_search.html:15
+#: bocatapp/templates/home.html:22 seller/templates/cp_search.html:16
 #: seller/templates/menu.html:11 seller/templates/pack/details.html:16
 #: seller/templates/pack/list.html:16
 msgid "Search"
@@ -512,7 +515,7 @@ msgid "Reports"
 msgstr "Reportes"
 
 #: bocatapp/templates/includes/header.html:94
-msgid "My places"
+msgid "My locals"
 msgstr "Mis locales"
 
 #: bocatapp/templates/includes/header.html:97
@@ -551,6 +554,15 @@ msgstr "Has solicitado un reestablecimiento de contraseña"
 #: bocatapp/templates/passwordreset/password_reset_email.html:3
 msgid "Click on the following link to create your new password"
 msgstr "Haz click en el siguiente enlace para crear tu nueva contraseña"
+
+#: bocatapp/templates/passwordreset/password_reset_form.html:11
+msgid "Forget password"
+msgstr "Recordar contraseña"
+
+#: bocatapp/templates/passwordreset/password_reset_form.html:23
+#: customer/templates/report_edit.html:15 seller/templates/pack/edit.html:50
+msgid "Send"
+msgstr "Enviar"
 
 #: bocatapp/templates/terms.html:4 bocatapp/templates/terms.html.py:10
 msgid "Terms and Conditions"
@@ -912,7 +924,8 @@ msgstr "Producto"
 #: customer/templates/orders.html.py:33 customer/templates/orders.html:93
 #: customer/templates/orders.html.py:108 customer/templates/orders.html:144
 #: customer/templates/orders.html.py:159 customer/templates/ordersLine.html:15
-#: customer/templates/shoppingcart.html:14 seller/templates/menu.html:32
+#: customer/templates/shoppingcart.html:14 seller/forms/forms.py:51
+#: seller/templates/menu.html:32
 msgid "Price"
 msgstr "Precio"
 
@@ -945,8 +958,8 @@ msgstr "Valoracion"
 msgid "Comments of"
 msgstr "Comentarios de"
 
-#: customer/templates/comment_list.html:17 seller/templates/cp_search.html:82
-#: seller/templates/cp_search.html.py:85 seller/templates/cp_search.html:88
+#: customer/templates/comment_list.html:17 seller/templates/cp_search.html:83
+#: seller/templates/cp_search.html.py:86 seller/templates/cp_search.html:89
 #: seller/templates/local_list.html:46 seller/templates/local_list.html:50
 #: seller/templates/local_list.html:53
 msgid "Comment"
@@ -967,11 +980,11 @@ msgstr "Reportar"
 msgid "There are no comments from this local"
 msgstr "No hay comentarios de este local"
 
-#: customer/templates/orders.html:4
+#: customer/templates/orders.html:4 seller/templates/local_charts.html:66
 msgid "Orders"
 msgstr "Pedidos"
 
-#: customer/templates/orders.html:7
+#: customer/templates/orders.html:7 seller/templates/local_charts.html:38
 msgid "Pending"
 msgstr "Pendiente"
 
@@ -1053,13 +1066,17 @@ msgstr "Transacciones"
 msgid "New report"
 msgstr "Nuevo reporte"
 
-#: customer/templates/report_edit.html:15 seller/templates/pack/edit.html:50
-msgid "Send"
-msgstr "Enviar"
-
 #: customer/templates/report_list.html:34
 msgid "Reported by"
 msgstr "Reportado por"
+
+#: customer/templates/report_list.html:43
+msgid "Deny"
+msgstr "Denegar"
+
+#: customer/templates/report_list.html:58
+msgid "There are no activated reports"
+msgstr "No hay pedidos activos"
 
 #: customer/templates/shoppingcart.html:4
 #: customer/templates/shoppingcart.html:7
@@ -1218,6 +1235,10 @@ msgstr "Codigo Postal"
 msgid "Photo"
 msgstr "Foto"
 
+#: seller/forms/forms.py:52
+msgid "Ingredients"
+msgstr "Ingredientes"
+
 #: seller/forms/packsForms.py:33
 msgid "You must enter a valid date"
 msgstr "Debes introducir una fecha valida"
@@ -1279,57 +1300,58 @@ msgstr "Si"
 msgid "No"
 msgstr "No"
 
-#: seller/templates/cp_search.html:3 seller/templates/local_detail.html:4
+#: seller/templates/cp_search.html:4 seller/templates/local_detail.html:4
 #: seller/templates/local_edit.html:6 seller/templates/local_list.html:4
+#: seller/templates/local_list.html.py:9
 msgid "Locals"
 msgstr "Locales"
 
-#: seller/templates/cp_search.html:12
+#: seller/templates/cp_search.html:13
 msgid "Results for"
 msgstr "Resultados para"
 
-#: seller/templates/cp_search.html:24
+#: seller/templates/cp_search.html:25
 msgid "Order by"
-msgstr "Ordenrar por"
+msgstr "Ordenar por"
 
-#: seller/templates/cp_search.html:28
+#: seller/templates/cp_search.html:29
 msgid "Top-Rated"
 msgstr "Mejor puntuacion media"
 
-#: seller/templates/cp_search.html:34
+#: seller/templates/cp_search.html:35
 msgid "New"
 msgstr "Nuevo"
 
-#: seller/templates/cp_search.html:38
+#: seller/templates/cp_search.html:39
 msgid "Kitchen"
 msgstr "Cocina"
 
-#: seller/templates/cp_search.html:48
+#: seller/templates/cp_search.html:49
 msgid "Update"
 msgstr "Actualizar"
 
-#: seller/templates/cp_search.html:56
+#: seller/templates/cp_search.html:57
 msgid "found in this zone"
 msgstr "encontrado en esta zona"
 
-#: seller/templates/cp_search.html:68 seller/templates/local_detail.html:12
+#: seller/templates/cp_search.html:69 seller/templates/local_detail.html:12
 #: seller/templates/local_detail.html:13 seller/templates/local_list.html:30
 msgid "Profile image"
 msgstr "Imagen de perfil"
 
-#: seller/templates/cp_search.html:81 seller/templates/local_list.html:44
+#: seller/templates/cp_search.html:82 seller/templates/local_list.html:44
 msgid "No opinions"
 msgstr "Sin opiniones"
 
-#: seller/templates/cp_search.html:82 seller/templates/local_list.html:46
+#: seller/templates/cp_search.html:83 seller/templates/local_list.html:46
 msgid "Write yours"
 msgstr "Escribe la tuya"
 
-#: seller/templates/cp_search.html:85 seller/templates/local_list.html:50
+#: seller/templates/cp_search.html:86 seller/templates/local_list.html:50
 msgid "1 comment"
 msgstr "1 comentario"
 
-#: seller/templates/cp_search.html:88 seller/templates/local_list.html:53
+#: seller/templates/cp_search.html:89 seller/templates/local_list.html:53
 msgid "comments"
 msgstr "Comentarios"
 
@@ -1344,6 +1366,10 @@ msgstr "Pedidos de la semana pasada"
 #: seller/templates/local_charts.html:17
 msgid "Current status"
 msgstr "Estado actual"
+
+#: seller/templates/local_charts.html:37
+msgid "Ready"
+msgstr "Preparado"
 
 #: seller/templates/local_detail.html:25
 msgid "See menu"
@@ -1455,3 +1481,6 @@ msgstr "Categoria borrada correctamente"
 #: seller/views.py:109
 msgid "The category has not been deleted because it does not belong to you."
 msgstr "La categoria que has intentado borrar no te pertenece"
+
+#~ msgid "My places"
+#~ msgstr "Mis locales"
