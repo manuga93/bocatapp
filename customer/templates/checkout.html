@@ -41,7 +41,7 @@
                             </div>
                           {%endfor%}
                           <div class="radio list-group-item">
-                            <label><input type="radio" name="creditcard" value="balance"{% if user.amount_money < shoppingcart.total_price %} disabled {%endif%}>Saldo: {{user.amount_money}} € {% if user.amount_money < shoppingcart.total_price %} <span class="text-danger">{% trans "You do not have enough balance!" %}</span> {% endif %}</label>
+                            <label><input type="radio" name="creditcard" value="balance"{% if user.amount_money < shoppingcart.total_price %} disabled {%endif%}>{% trans "Balance" %}: {{user.amount_money}} € {% if user.amount_money < shoppingcart.total_price %} <span class="text-danger">{% trans "You do not have enough balance!" %}</span> {% endif %}</label>
                           </div>
                           <div class="radio list-group-item">
                             <label><input type="radio" name="creditcard" value="new" checked="true">{% trans "New credit card" %}</label>
@@ -124,7 +124,7 @@
                       </div>
                     </div>
                 <br />
-                </form>
+
             </div>
         </div>
         <!-- CREDIT CARD FORM ENDS HERE -->
@@ -172,7 +172,7 @@
                         <strong>Subtotal: </strong>
                     </p>
                     <p>
-                        <strong>{% trans "Taxes" %} (5%): </strong>
+                        <strong>{% trans "Taxes" %} (7.5%): </strong>
                     </p>
                     <p>
                         <strong>IVA (10%): </strong>
