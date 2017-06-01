@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-01 02:24+0200\n"
+"POT-Creation-Date: 2017-06-01 09:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1170,11 +1170,11 @@ msgstr "Usted no es cliente"
 
 #: customer/views.py:256
 msgid "Cancellation made. Soon we will enter "
-msgstr "Cancelacion realizada. En breve te ingresaremos"
+msgstr "Cancelacion realizada. En breve te ingresaremos "
 
 #: customer/views.py:256
-msgid "€ in your balance."
-msgstr "€ en tu saldo."
+msgid " in your balance."
+msgstr " en tu saldo."
 
 #: customer/views.py:259
 msgid "The order has already been canceled"
