@@ -253,7 +253,7 @@ def cancel_order(request, pk):
                     customer.amount_money = (float(customer.amount_money)+devolver)
                     customer.save()
 
-                    messages.warning(request, unicode(_('Cancellation made. Soon we will enter ')) + str(devolver) + unicode(_('€ in your balance.')))
+                    messages.warning(request, unicode(_('Cancellation made. Soon we will enter ')) + str(devolver) + u'\u20ac ' + unicode(_(' in your balance.')))
                     return redirect('customer.views.orders_by_customer')
                 else:
                     messages.warning(request, unicode(_('The order has already been canceled')))
