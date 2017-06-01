@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-31 20:04+0200\n"
+"POT-Creation-Date: 2017-06-01 02:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -473,6 +473,7 @@ msgstr "Terminos y condiciones"
 
 #: bocatapp/templates/includes/header.html:28
 #: bocatapp/templates/includes/header.html:30
+#: customer/templates/checkout.html:44
 msgid "Balance"
 msgstr "Saldo"
 
@@ -1259,7 +1260,7 @@ msgstr "Demasiado barato!"
 msgid "Edit category"
 msgstr "Editar categoria"
 
-#: seller/templates/category_list.html:3
+#: seller/templates/category_list.html:4
 msgid "Category"
 msgstr "Categoria"
 
