@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-01 09:02+0200\n"
+"POT-Creation-Date: 2017-06-04 12:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgstr "Nombre"
 msgid "Last name"
 msgstr "Apellidos"
 
-#: bocatapp/forms.py:29 bocatapp/forms.py:74
+#: bocatapp/forms.py:29 bocatapp/forms.py:79
 #: bocatapp/templates/passwordreset/password_reset_form.html:17
 msgid "Email"
 msgstr "Correo"
@@ -50,7 +50,7 @@ msgstr "Correo"
 msgid "Password"
 msgstr "Contraseña"
 
-#: bocatapp/forms.py:31 bocatapp/forms.py:102
+#: bocatapp/forms.py:31 bocatapp/forms.py:121
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:25
 msgid "Repeat password"
 msgstr "Repetir contraseña"
@@ -59,56 +59,60 @@ msgstr "Repetir contraseña"
 msgid "I accept the terms and conditions"
 msgstr "Acepto los terminos y condiciones"
 
-#: bocatapp/forms.py:33 bocatapp/forms.py:75 seller/forms/forms.py:17
+#: bocatapp/forms.py:33 bocatapp/forms.py:80 seller/forms/forms.py:17
 #: seller/templates/local_detail.html:21
 msgid "Phone"
 msgstr "teléfono"
 
-#: bocatapp/forms.py:42
+#: bocatapp/forms.py:43
 msgid "Passwords dont match"
 msgstr "Las contraseñas no coinciden"
 
-#: bocatapp/forms.py:44
+#: bocatapp/forms.py:45
 msgid "To register you have to accept the terms and conditions"
 msgstr "Para registrarte debes aceptar los terminos y condiciones"
 
-#: bocatapp/forms.py:72 customer/templates/checkout.html:57
+#: bocatapp/forms.py:48 bocatapp/forms.py:98
+msgid "Email is already in use"
+msgstr "Correo ya en uso"
+
+#: bocatapp/forms.py:77 customer/templates/checkout.html:57
 #: customer/templates/shoppingcart.html:11 seller/forms/forms.py:14
 #: seller/forms/forms.py:30 seller/forms/forms.py:50
 #: seller/templates/menu.html:26
 msgid "Name"
 msgstr "Nombre"
 
-#: bocatapp/forms.py:73
+#: bocatapp/forms.py:78
 msgid "Surname"
 msgstr "Apellidos"
 
-#: bocatapp/forms.py:76
+#: bocatapp/forms.py:81
 msgid "Birthday"
 msgstr "Cumpleaños"
 
-#: bocatapp/forms.py:79
+#: bocatapp/forms.py:84
 msgid "Avatar"
 msgstr "Avatar"
 
-#: bocatapp/forms.py:88
-msgid "Arent you born yet?!"
-msgstr "¿todavía no has nacido?"
+#: bocatapp/forms.py:96 seller/forms/packsForms.py:33
+msgid "You must enter a valid date"
+msgstr "Debes introducir una fecha valida"
 
-#: bocatapp/forms.py:100
+#: bocatapp/forms.py:119
 msgid "Old password"
 msgstr "Contraseña antigua"
 
-#: bocatapp/forms.py:101
+#: bocatapp/forms.py:120
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:21
 msgid "New password"
 msgstr "Nueva contraseña"
 
-#: bocatapp/forms.py:112
+#: bocatapp/forms.py:131
 msgid "Old password doesnt match"
 msgstr "La contraseña antigua no coincide"
 
-#: bocatapp/forms.py:114
+#: bocatapp/forms.py:133
 msgid "New passwords dont match"
 msgstr "Las nueva contraseña no coincide"
 
@@ -796,11 +800,11 @@ msgstr "El producto no se ha añadido correctamente al carrito."
 msgid "The product has been removed from the cart."
 msgstr "El producto se ha eliminado del carrito."
 
-#: bocatapp/views/UserRegister.py:36
+#: bocatapp/views/UserRegister.py:37
 msgid "Register"
 msgstr "Registro"
 
-#: bocatapp/views/UserRegister.py:48 bocatapp/views/UserRegister.py:70
+#: bocatapp/views/UserRegister.py:49 bocatapp/views/UserRegister.py:71
 msgid "Seller register"
 msgstr "Registro de vendedor"
 
@@ -1240,10 +1244,6 @@ msgstr "Foto"
 msgid "Ingredients"
 msgstr "Ingredientes"
 
-#: seller/forms/packsForms.py:33
-msgid "You must enter a valid date"
-msgstr "Debes introducir una fecha valida"
-
 #: seller/forms/packsForms.py:35
 msgid "You must enter a date in the future"
 msgstr "Debes introducir una fecha futura"
@@ -1483,5 +1483,7 @@ msgstr "Categoria borrada correctamente"
 msgid "The category has not been deleted because it does not belong to you."
 msgstr "La categoria que has intentado borrar no te pertenece"
 
-#~ msgid "My places"
-#~ msgstr "Mis locales"
+#, fuzzy
+#~| msgid "Birthday"
+#~ msgid "birth_date"
+#~ msgstr "Cumpleaños"

@@ -6,6 +6,7 @@ from bocatapp.forms import UserRegistrationForm
 from django.http.response import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 
+
 class RegistrationCustomerView(FormView):
     def get(self, request):
         if not request.user.is_authenticated():
