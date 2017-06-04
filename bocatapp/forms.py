@@ -37,11 +37,16 @@ class UserRegistrationForm(forms.ModelForm):
         password = cleaned_data.get("password")
         password2 = cleaned_data.get("password2")
         acceptation = cleaned_data.get("acceptation")
+        email = cleaned_data.get('email')
 
         if password != password2:
             self.add_error('password2', _('Passwords dont match'))
         if not acceptation:
             self.add_error(None, _('To register you have to accept the terms and conditions'))
+
+        if User.objects.filter(email=email).exists():
+            self.add_error('email', _('Email is already in use'))
+
 
     def create_user(self):
         res = User(first_name=self.cleaned_data['first_name'],
@@ -82,11 +87,25 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name', 'email', 'phone', 'birth_date', 'avatar']
 
-    def clean_birth_date(self):
-        date = self.cleaned_data['birth_date']
-        if date is not None and date > date.today():
-            raise forms.ValidationError(_("Arent you born yet?!"))
-        return date
+    def clean(self):
+        cleaned_data = super(UserForm, self).clean()
+        birth_date = cleaned_data.get("birth_date")
+        email = cleaned_data.get("email")
+
+        if birth_date is not None and birth_date > date.today():
+            self.add_error('birth_date', _('You must enter a valid date'))
+        if User.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+            self.add_error('email', _('Email is already in use'))
+
+    # def clean_birth_date(self):
+    #     date = self.cleaned_data['birth_date']
+    #     if date is not None and date > date.today():
+    #         self.add_error(_('birth_date', "Arent you born yet?!"))
+    #
+    # def clean_email(self):
+    #     email = self.cleaned_data['email']
+    #     if User.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+    #         self.add_error('email', _('Email is already in use'))
 
 
 class PasswordForm(forms.ModelForm):
