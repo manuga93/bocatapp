@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="container">
-  <h2>Mi pedido</h2>
+  <h2>{% trans "Checkout" %}</h2>
   <div class="row">
     <div class="col-md-8">
         <!-- CREDIT CARD FORM STARTS HERE -->
@@ -180,10 +180,10 @@
                   </td>
                     <td class="text-center">
                     <p>
-                        <strong>{% multiply shoppingcart.total_price 0.85%}</strong>
+                        <strong>{% multiply shoppingcart.total_price 0.825%}</strong>
                     </p>
                     <p>
-                        <strong>{% multiply shoppingcart.total_price 0.05%}</strong>
+                        <strong>{% multiply shoppingcart.total_price 0.075%}</strong>
                     </p>
                     <p>
                         <strong>{% multiply shoppingcart.total_price 0.1%}</strong>
