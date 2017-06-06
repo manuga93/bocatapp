@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-05 16:36+0200\n"
+"POT-Creation-Date: 2017-06-06 00:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,7 +57,7 @@ msgstr "Repetir contraseña"
 
 #: bocatapp/forms.py:32
 msgid "I accept the terms and conditions"
-msgstr "Acepto los terminos y condiciones"
+msgstr "Acepto los términos y condiciones"
 
 #: bocatapp/forms.py:33 bocatapp/forms.py:80 seller/forms/forms.py:17
 #: seller/templates/local_detail.html:21
@@ -70,7 +70,7 @@ msgstr "Las contraseñas no coinciden"
 
 #: bocatapp/forms.py:45
 msgid "To register you have to accept the terms and conditions"
-msgstr "Para registrarte debes aceptar los terminos y condiciones"
+msgstr "Para registrarte debes aceptar los términos y condiciones"
 
 #: bocatapp/forms.py:48 bocatapp/forms.py:98
 msgid "Email is already in use"
@@ -104,6 +104,7 @@ msgid "Old password"
 msgstr "Contraseña antigua"
 
 #: bocatapp/forms.py:120
+#: bocatapp/templates/passwordreset/password_reset_confirm.html:15
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:21
 msgid "New password"
 msgstr "Nueva contraseña"
@@ -449,6 +450,10 @@ msgstr "Atrás"
 msgid "Save"
 msgstr "Guardar"
 
+#: bocatapp/templates/home.html:4
+msgid "Home"
+msgstr ""
+
 #: bocatapp/templates/home.html:10
 msgid "Skip the queue in a bite"
 msgstr "¡Sáltate la cola de un mordisco!"
@@ -473,7 +478,7 @@ msgstr "Todos los derechos reservados"
 
 #: bocatapp/templates/includes/footer.html:2
 msgid "Terms and use conditions"
-msgstr "Terminos y condiciones"
+msgstr "Términos y condiciones"
 
 #: bocatapp/templates/includes/header.html:28
 #: bocatapp/templates/includes/header.html:30
@@ -531,6 +536,10 @@ msgstr "Mis pedidos"
 msgid "Disconect"
 msgstr "Cerrar Sesión"
 
+#: bocatapp/templates/myaccount.html:3
+msgid "Profile"
+msgstr "Perfil"
+
 #: bocatapp/templates/myaccount.html:50 bocatapp/views/UserAccount.py:21
 msgid "Edit profile"
 msgstr "Editar perfil"
@@ -571,7 +580,7 @@ msgstr "Enviar"
 
 #: bocatapp/templates/terms.html:4 bocatapp/templates/terms.html.py:10
 msgid "Terms and Conditions"
-msgstr "Terminos y condiciones"
+msgstr "Términos y condiciones"
 
 #: bocatapp/templates/terms.html:12
 msgid ""
@@ -871,13 +880,13 @@ msgstr "Razon"
 msgid "Amount to recharge"
 msgstr "Cantidad a recargar"
 
+#: customer/templates/checkout.html:6 customer/templates/checkout.html.py:16
+msgid "Payment method"
+msgstr "Metodo de pago"
+
 #: customer/templates/checkout.html:10
 msgid "Checkout"
 msgstr "Mi pedido"
-
-#: customer/templates/checkout.html:16
-msgid "Payment method"
-msgstr "Metodo de pago"
 
 #: customer/templates/checkout.html:22
 msgid ""
@@ -954,6 +963,11 @@ msgstr "Hora de recogida"
 msgid "Make the reservation"
 msgstr "Realizar reserva"
 
+#: customer/templates/comment_edit.html:6
+#: customer/templates/comment_list.html:4 seller/templates/local_detail.html:41
+msgid "Comments"
+msgstr "Comentarios"
+
 #: customer/templates/comment_edit.html:12
 msgid "New comment"
 msgstr "Nuevo comentario"
@@ -989,7 +1003,8 @@ msgstr "Reportar"
 msgid "There are no comments from this local"
 msgstr "No hay comentarios de este local"
 
-#: customer/templates/orders.html:4 seller/templates/local_charts.html:66
+#: customer/templates/orders.html:4 customer/templates/ordersLine.html:4
+#: seller/templates/local_charts.html:66
 msgid "Orders"
 msgstr "Pedidos"
 
@@ -1107,6 +1122,10 @@ msgstr "Seguir comprando"
 #: customer/templates/shoppingcart.html:86 seller/templates/menu.html:123
 msgid "The quantity entered must be a number between 1 and 10."
 msgstr "La cantidad introducida debe estar entre 1 y 10"
+
+#: customer/templates/thanks.html:4
+msgid "Thanks"
+msgstr ""
 
 #: customer/templates/thanks.html:12
 msgid ""
@@ -1264,7 +1283,7 @@ msgstr "Demasiado barato!"
 msgid "Edit category"
 msgstr "Editar categoria"
 
-#: seller/templates/category_list.html:4
+#: seller/templates/category_list.html:4 seller/templates/category_list.html:8
 msgid "Category"
 msgstr "Categoria"
 
@@ -1388,10 +1407,6 @@ msgstr "Ver categorias"
 msgid "New product"
 msgstr "Nuevo producto"
 
-#: seller/templates/local_detail.html:41
-msgid "Comments"
-msgstr "Comentarios"
-
 #: seller/templates/local_edit.html:11
 msgid "Create local"
 msgstr "Crear local"
@@ -1486,8 +1501,3 @@ msgstr "Categoria borrada correctamente"
 #: seller/views.py:109
 msgid "The category has not been deleted because it does not belong to you."
 msgstr "La categoria que has intentado borrar no te pertenece"
-
-#, fuzzy
-#~| msgid "Birthday"
-#~ msgid "birth_date"
-#~ msgstr "Cumpleaños"
