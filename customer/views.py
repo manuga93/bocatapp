@@ -324,41 +324,12 @@ def checkout(request, form=CreditCardForm(None)):
 
 @login_required
 def do_checkout(request):
+    form = CreditCardForm()
     if request.user.is_authenticated():
         current_user = request.user
         # Get shopping cart
         shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id, checkout=False)
         creditcard_opt = request.POST.get('creditcard', '')
-        if creditcard_opt == 'new':
-            # New credit card
-            values = request.POST.copy()
-            values['user'] = request.user.id
-            expiration_date = request.POST.get('cardExpiry', '')
-            # parse and split.
-            if expiration_date and '/' in expiration_date:
-                expireMonth = expiration_date.split('/')[0]
-                expireYear = "20" + expiration_date.split('/')[1]
-                values['expireMonth'] = expireMonth
-                values['expireYear'] = expireYear
-            form = CreditCardForm(values)
-            if not form.is_valid():
-                return checkout(request, form)
-            if request.POST.get('save', '') == 'on':
-                creditcard = form.save()
-            else:
-                creditcard = None
-        elif creditcard_opt == 'balance':
-            # Other credit card
-            if current_user.amount_money < shoppingcart.total_price:
-                messages.add_message(request, messages.WARNING, _('Choose another method of payment, you do not have enough balance!'))
-                return checkout(request)
-            else:
-                request.user.amount_money -= shoppingcart.total_price
-                request.user.save()
-                creditcard = None
-        else:
-            creditcard = CreditCard.objects.get(id=creditcard_opt)
-
         shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
         local = shoppingcart_lines[0].product.local
         date = request.POST.get('dateCheckout', '')
@@ -379,6 +350,37 @@ def do_checkout(request):
                 differenceDates = (momentOrder - present).total_seconds()/60
 
                 if present < momentOrder and differenceDates > 9:
+                    if creditcard_opt == 'new':
+                        # New credit card
+                        values = request.POST.copy()
+                        values['user'] = request.user.id
+                        expiration_date = request.POST.get('cardExpiry', '')
+                        # parse and split.
+                        if expiration_date and '/' in expiration_date:
+                            expireMonth = expiration_date.split('/')[0]
+                            expireYear = "20" + expiration_date.split('/')[1]
+                            values['expireMonth'] = expireMonth
+                            values['expireYear'] = expireYear
+                        form = CreditCardForm(values)
+                        if not form.is_valid():
+                            return checkout(request, form)
+                        if request.POST.get('save', '') == 'on':
+                            creditcard = form.save()
+                        else:
+                            creditcard = None
+                    elif creditcard_opt == 'balance':
+                        # Other credit card
+                        if current_user.amount_money < shoppingcart.total_price:
+                            messages.add_message(request, messages.WARNING,
+                                                 _('Choose another method of payment, you do not have enough balance!'))
+                            return checkout(request)
+                        else:
+                            request.user.amount_money -= shoppingcart.total_price
+                            request.user.save()
+                            creditcard = None
+                    else:
+                        creditcard = CreditCard.objects.get(id=creditcard_opt)
+
                     # saving order
                     new_order = Order(
                         totalPrice=shoppingcart.total_price,
