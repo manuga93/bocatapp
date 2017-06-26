@@ -37,7 +37,7 @@ class CategoryForm(forms.ModelForm):
 
 class ProductForm(forms.ModelForm):
     nombre = forms.CharField()
-    precio = forms.DecimalField()
+    precio = forms.DecimalField(min_value=0.05)
     ingredientes = forms.CharField()
     categoria = forms.ModelChoiceField(queryset=Category.objects.none(), required=True)
 
