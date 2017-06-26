@@ -319,8 +319,9 @@ def objectsInCategory(cat):
 def checkout(request, form=CreditCardForm(None)):
     current_user = request.user
     shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
+    local = shoppingcart.shoppingcartline_set.all()[0].product.local
     creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
-    return render(request, 'checkout.html', {'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=10)})
+    return render(request, 'checkout.html', {'local': local,'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=30)})
 
 @login_required
 def do_checkout(request):

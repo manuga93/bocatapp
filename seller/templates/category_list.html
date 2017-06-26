@@ -83,12 +83,12 @@
                     </div>
                 {% endfor %}
                 {% else %}
-                    <h2><span class="glyphicon glyphicon-exclamation-sign"> </span> No hay categor&iacute;as creadas en este local.</h2>
+                    <h2><span class="glyphicon glyphicon-exclamation-sign"> </span> {% trans "There are no categories for this local" %}</h2>
                 {% endif %}
                 <div class="row">
                     <a class="col-sm-2 text-left" href="{% url 'locals_by_seller'%}">
                         <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                             <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Atr&aacute;s
+                             <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
                         </button>
                      </a>
                 </div>

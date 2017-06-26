@@ -123,8 +123,8 @@
                         <label><input type="checkbox" name="save" checked>{% trans "Yes, I would like to keep my credit card in the system" %}</label>
                       </div>
                     </div>
-                <br />
-
+                    <br />
+                </form>
             </div>
         </div>
         <!-- CREDIT CARD FORM ENDS HERE -->
@@ -134,16 +134,17 @@
         <div class="row">
           <div class="col-xs-6 col-sm-6 col-md-6">
               <address>
-                  <strong>Ñam Ñam S.L.</strong>
+                  <strong>{{ local.name }}</strong>
                   <br>
-                  Av. Reina Mercedes 15
+                  {{ local.address }}
                   <br>
-                  Sevilla, 41010
+                  {{ local.postalCode }}
                   <br>
-                  <abbr title="Phone">+34</abbr> 955 91 32 00
+                  {{ local.phone }}
               </address>
           </div>
         </div>
+
         <div class="text-center">
             <h3>{% trans "Order details" %}</h3>
         </div>
@@ -234,6 +235,15 @@
       <br>
       </div>
   </div>
+
+    <div class="row">
+        <a class="col-sm-2 text-left" href="{% url 'list_shoppingcart' pk=shoppingcart.pk%}">
+            <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
+            </button>
+        </a>
+            </div>
+      </div>
 </div>
 
 {% endblock%}

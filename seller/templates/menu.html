@@ -5,7 +5,17 @@
 {% block content %}
     <div class="container">
         <h2>{% trans "Menu of" %} {{ local.name }}</h2>
-        <br/>
+        {% if perms.bocatapp.seller %}
+        <div class="row">
+            <div class ="btn-group">
+                <a class="col-md-2 col-md-offset-10" href="{% url 'product_new' pk=local.pk %}">
+                    <button type="button" class="btn btn-success col-xs-12" style="margin-bottom: 15px">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {% trans "New product" %}
+                    </button>
+                </a>
+            </div>
+        </div>
+        {% endif %}
         <form id="search_form" method="GET" action="{% url 'search_product' local_id=local.id %}">
             <div class="input-group stylish-input-group" style="z-index: 0">
                 <input name="search_input" type="text" class="form-control" placeholder="{% trans "Search" %}">
@@ -60,6 +70,32 @@
                 {% endfor %}
             </div>
         {% endfor %}
+        {% if perms.bocatapp.seller %}
+        <div class="row">
+                    <a class="col-sm-2 text-left" href="{% url 'locals_by_seller'%}">
+                        <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                             <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
+                        </button>
+                     </a>
+                </div>
+        {% endif %}
+        {% if perms.bocatapp.seller %}
+            <div class="row">
+                    <a class="col-sm-2 text-left" href="{% url 'locals_by_seller'%}">
+                        <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                             <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
+                        </button>
+                     </a>
+            </div>
+            {% else %}
+            <div class="row">
+                    <a class="col-sm-2 text-left" href="{% url 'local_search2' pk=local.pk%}">
+                        <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                             <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
+                        </button>
+                     </a>
+            </div>
+        {% endif %}
     </div>
     <script>
         var acc = document.getElementsByClassName("accordion");
