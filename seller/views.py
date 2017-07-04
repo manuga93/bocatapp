@@ -62,7 +62,7 @@ def category_new(request, pk):
                 category = form.save(commit=False)
                 category.local = local
                 category.save()
-                messages.error(request, _('Category created correctly'))
+                messages.success(request, _('Category created correctly'))
                 return redirect('category_list', pk=local.pk)
         else:
             form = CategoryForm()
@@ -250,7 +250,7 @@ def local_edit(request, pk):
             local.seller = request.user
             local.isActive = True
             local.save()
-            return redirect('seller.views.local_detail', pk=local.pk)
+            return redirect('seller.views.get_my_locals')
     else:
         form = LocalForm(instance=local)
 
