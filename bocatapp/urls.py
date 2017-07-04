@@ -6,6 +6,8 @@ from bocatapp.views import home, UserRegister, UserAccount, ShoppingCart
 from seller import views
 from django.views.generic import TemplateView
 from views.TranlateView import change_language
+from django.utils.translation import ugettext_lazy as _
+
 urlpatterns = [
     # Examples:
     url(r'^$', home.home, name='home'),#../templates/passwordreset/
@@ -30,7 +32,7 @@ urlpatterns = [
     # session ==================================================================
 
     url(r'^login/$', anonymous_required(login,
-                                        message='You`ve already sign in!'), {'template_name': 'auth/login.html'}, name='login'),
+                                        message=_('You`ve already sign in!')), {'template_name': 'auth/login.html'}, name='login'),
     url(r'^logout/$', logout, {'next_page': '/'}),
 
     # Admin ==================================================================
@@ -39,7 +41,7 @@ urlpatterns = [
 
     # Seller ==================================================================
     url(r'^seller/register/$', anonymous_required(UserRegister.RegistrationSellerView.as_view(),
-                                                  message='You`ve already sign in!'), name='seller_register'),
+                                                  message=_('You`ve already sign in!')), name='seller_register'),
     url(r'^seller/', include('seller.urls')),
     url(r'^pack/all/$', views.packs_list, name="packs_all"),
     url(r'^pack/local/(?P<pk>[0-9]+)/$', views.local_packs, name="packs_local"),
@@ -48,7 +50,7 @@ urlpatterns = [
     # Customer ==================================================================
     url(r'^customer/', include('customer.urls')),
     url(r'^customer/register/$', anonymous_required(UserRegister.RegistrationCustomerView.as_view(),
-                                                    message='You`ve already sign in!'), name='customer_register'),
+                                                    message=_('You`ve already sign in!')), name='customer_register'),
 
     # ShoppingCart ==============================================================
     url(r'^shoppingcart/list/(?P<pk>[0-9]+)/$', ShoppingCart.list_shopping_cart, name='list_shoppingcart'),

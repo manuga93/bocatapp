@@ -158,8 +158,9 @@ def local_list(request):
 # Vista para las orders de un local
 @permission_required('bocatapp.seller', message=_('You are not a seller'))
 def local_orders(request, pk):
-    local = get_object_or_404(Local, pk=pk)
-    if local.seller.pk == request.user.pk:
+    if request.user.local_set.filter(pk=pk):
+        local = get_object_or_404(Local, pk=pk)
+
         # Pending orders
         orders_not_do = local.order_set.all().filter(status=False, cancelled=False)
         orders_pending = {o: o.orderline_set.all() for o in orders_not_do}
@@ -172,15 +173,17 @@ def local_orders(request, pk):
 
         return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done, 'orders_cancelled': orders_cancelled})
     else:
-        return redirect("/")
+        return render(request, '../templates/forbidden.html')
 
 @permission_required('bocatapp.seller', message=_('You are not a seller'))
 def do_order(request, pk):
-    order = Order.objects.get(id=pk)
-    order.status = True
-    order.save()
-    return redirect('local_orders', pk=order.local_id)
-
+    order = get_object_or_404(Order, id=pk)
+    if request.user.local_set.filter(pk=order.local_id):
+        order.status = True
+        order.save()
+        return redirect('local_orders', pk=order.local_id)
+    else:
+        return render(request, '../templates/forbidden.html')
 
 # Vista para la creacion de un nuevo local
 @permission_required('bocatapp.seller', message=_('You are not a seller'))
@@ -242,19 +245,21 @@ def local_charts(request, pk):
 # Vista para la creacion de un local
 @permission_required('bocatapp.seller', message=_('You are not a seller'))
 def local_edit(request, pk):
-    local = get_object_or_404(Local, pk=pk)
-    if request.method == "POST":
-        form = LocalForm(request.POST, instance=local)
-        if form.is_valid():
-            local = form.save(commit=False)
-            local.seller = request.user
-            local.isActive = True
-            local.save()
-            return redirect('seller.views.get_my_locals')
+    if request.user.local_set.filter(pk=pk):
+        local = get_object_or_404(Local, pk=pk)
+        if request.method == "POST":
+            form = LocalForm(request.POST, instance=local)
+            if form.is_valid():
+                local = form.save(commit=False)
+                local.seller = request.user
+                local.isActive = True
+                local.save()
+                return redirect('seller.views.get_my_locals')
+        else:
+            form = LocalForm(instance=local)
+            return render(request, 'local_edit.html', {'form': form,'pk':pk})
     else:
-        form = LocalForm(instance=local)
-
-    return render(request, 'local_edit.html', {'form': form,'pk':pk})
+        return render(request, '../templates/forbidden.html')
 
 
 def search(request):

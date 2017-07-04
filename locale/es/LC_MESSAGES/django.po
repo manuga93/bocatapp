@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-26 14:31+0200\n"
+"POT-Creation-Date: 2017-07-04 19:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -420,6 +420,18 @@ msgstr "Sí, podrás cancelar el pedido hasta 2h antes de la entrega."
 msgid "if you need more information, contact with"
 msgstr "Si necesitas mas informacion, sigue el siguiente"
 
+#: bocatapp/templates/forbidden.html:14
+msgid "Oops!"
+msgstr "Ups!"
+
+#: bocatapp/templates/forbidden.html:17
+msgid "Sorry, an error has occured. Request refused!"
+msgstr "Disculpa, ha ocurrido un error. Petición rechazada!"
+
+#: bocatapp/templates/forbidden.html:20 bocatapp/templates/home.html:4
+msgid "Home"
+msgstr ""
+
 #: bocatapp/templates/forms/login_form.html:15
 msgid "Forget password?"
 msgstr "Nueva contraseña"
@@ -452,10 +464,6 @@ msgstr "Atrás"
 #: seller/templates/local_edit.html:20 seller/templates/product_edit.html:28
 msgid "Save"
 msgstr "Guardar"
-
-#: bocatapp/templates/home.html:4
-msgid "Home"
-msgstr ""
 
 #: bocatapp/templates/home.html:10
 msgid "Skip the queue in a bite"
@@ -787,6 +795,10 @@ msgid ""
 msgstr ""
 "Si el pedido se cancela durante los últimos 59 minutos no se le devolverá "
 "importe ninguno."
+
+#: bocatapp/urls.py:35 bocatapp/urls.py:44 bocatapp/urls.py:53
+msgid "You`ve already sign in!"
+msgstr "Ya estás registrado"
 
 #: bocatapp/views/ShoppingCart.py:123
 msgid "Product has not been added to cart"
@@ -1481,9 +1493,9 @@ msgid "Edit product"
 msgstr "Editar producto"
 
 #: seller/views.py:54 seller/views.py:77 seller/views.py:99 seller/views.py:114
-#: seller/views.py:135 seller/views.py:159 seller/views.py:177
-#: seller/views.py:186 seller/views.py:203 seller/views.py:215
-#: seller/views.py:243
+#: seller/views.py:135 seller/views.py:159 seller/views.py:178
+#: seller/views.py:189 seller/views.py:206 seller/views.py:218
+#: seller/views.py:246
 msgid "You are not a seller"
 msgstr "Usted no es un vendedor"
 
