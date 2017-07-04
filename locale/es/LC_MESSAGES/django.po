@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-06 00:48+0200\n"
+"POT-Creation-Date: 2017-06-26 14:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr "Repetir contraseña"
 msgid "I accept the terms and conditions"
 msgstr "Acepto los términos y condiciones"
 
-#: bocatapp/forms.py:33 bocatapp/forms.py:80 seller/forms/forms.py:17
+#: bocatapp/forms.py:33 bocatapp/forms.py:80 seller/forms/forms.py:18
 #: seller/templates/local_detail.html:21
 msgid "Phone"
 msgstr "teléfono"
@@ -77,9 +77,9 @@ msgid "Email is already in use"
 msgstr "Correo ya en uso"
 
 #: bocatapp/forms.py:77 customer/templates/checkout.html:57
-#: customer/templates/shoppingcart.html:11 seller/forms/forms.py:14
-#: seller/forms/forms.py:30 seller/forms/forms.py:50
-#: seller/templates/menu.html:26
+#: customer/templates/shoppingcart.html:11 seller/forms/forms.py:15
+#: seller/forms/forms.py:31 seller/forms/forms.py:52
+#: seller/templates/menu.html:36
 msgid "Name"
 msgstr "Nombre"
 
@@ -433,8 +433,11 @@ msgstr "Repetir contraseña"
 #: bocatapp/templates/forms/user_edit.html:17
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:30
 #: bocatapp/templates/passwordreset/password_reset_form.html:22
-#: customer/templates/comment_list.html:69
-#: seller/templates/local_charts.html:23 seller/templates/local_edit.html:19
+#: customer/templates/checkout.html:242 customer/templates/comment_list.html:69
+#: customer/templates/orders.html:184 customer/templates/report_list.html:63
+#: seller/templates/category_list.html:91 seller/templates/local_charts.html:23
+#: seller/templates/local_edit.html:19 seller/templates/menu.html:77
+#: seller/templates/menu.html.py:86 seller/templates/menu.html:94
 #: seller/templates/pack/edit.html:47 seller/templates/product_edit.html:27
 msgid "Back"
 msgstr "Atrás"
@@ -444,8 +447,8 @@ msgstr "Atrás"
 #: bocatapp/templates/forms/user_edit.html:18
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:31
 #: customer/templates/comment_edit.html:33
-#: seller/templates/category_new.html:14 seller/templates/category_new.html:17
-#: seller/templates/forms/category_form.html:6
+#: seller/templates/category_new.html:14
+#: seller/templates/forms/category_form.html:11
 #: seller/templates/local_edit.html:20 seller/templates/product_edit.html:28
 msgid "Save"
 msgstr "Guardar"
@@ -467,7 +470,7 @@ msgid "Insert a ZIP code to find places near you"
 msgstr "Inserta un código postar para buscar locales cercanos"
 
 #: bocatapp/templates/home.html:22 seller/templates/cp_search.html:16
-#: seller/templates/menu.html:11 seller/templates/pack/details.html:16
+#: seller/templates/menu.html:21 seller/templates/pack/details.html:16
 #: seller/templates/pack/list.html:16
 msgid "Search"
 msgstr "Buscar"
@@ -868,7 +871,7 @@ msgstr ""
 "No se pudo iniciar la transacción debido a problemas de conexión. Si el "
 "problema persiste, póngase en contacto con nuestro servicio de asistencia."
 
-#: customer/forms/forms.py:8 seller/forms/forms.py:15 seller/forms/forms.py:31
+#: customer/forms/forms.py:8 seller/forms/forms.py:16 seller/forms/forms.py:32
 msgid "Description"
 msgstr "Descripcion"
 
@@ -928,38 +931,38 @@ msgstr "Fecha de expiracion"
 msgid "Yes, I would like to keep my credit card in the system"
 msgstr "Si, me gustaria guardar mi tarjeta de credito en el sistema"
 
-#: customer/templates/checkout.html:148
+#: customer/templates/checkout.html:149
 msgid "Order details"
 msgstr "Detalles del pedido"
 
-#: customer/templates/checkout.html:153 customer/templates/orders.html:30
+#: customer/templates/checkout.html:154 customer/templates/orders.html:30
 #: customer/templates/orders.html.py:105 customer/templates/orders.html:156
 #: customer/templates/ordersLine.html:14
 msgid "Product"
 msgstr "Producto"
 
-#: customer/templates/checkout.html:155 customer/templates/orders.html:18
+#: customer/templates/checkout.html:156 customer/templates/orders.html:18
 #: customer/templates/orders.html.py:33 customer/templates/orders.html:93
 #: customer/templates/orders.html.py:108 customer/templates/orders.html:144
 #: customer/templates/orders.html.py:159 customer/templates/ordersLine.html:15
-#: customer/templates/shoppingcart.html:14 seller/forms/forms.py:51
-#: seller/templates/menu.html:32
+#: customer/templates/shoppingcart.html:14 seller/forms/forms.py:53
+#: seller/templates/menu.html:42
 msgid "Price"
 msgstr "Precio"
 
-#: customer/templates/checkout.html:175
+#: customer/templates/checkout.html:176
 msgid "Taxes"
 msgstr "Gestión"
 
-#: customer/templates/checkout.html:205
+#: customer/templates/checkout.html:206
 msgid "Pick up date"
 msgstr "Fecha de recogida"
 
-#: customer/templates/checkout.html:216
+#: customer/templates/checkout.html:217
 msgid "Pick up time"
 msgstr "Hora de recogida"
 
-#: customer/templates/checkout.html:233
+#: customer/templates/checkout.html:234
 msgid "Make the reservation"
 msgstr "Realizar reserva"
 
@@ -1021,7 +1024,8 @@ msgstr "Recogida"
 msgid "Are you sure?"
 msgstr "¿Estas seguro?"
 
-#: customer/templates/orders.html:52
+#: customer/templates/orders.html:52 seller/templates/category_new.html:17
+#: seller/templates/forms/category_form.html:8
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -1049,7 +1053,7 @@ msgstr "Pedidos hechos"
 msgid "There are no done orders"
 msgstr "No hay pedidos hechos"
 
-#: customer/templates/orders.html:184
+#: customer/templates/orders.html:192
 msgid "Make another order"
 msgstr "Realizar otra reserva"
 
@@ -1107,7 +1111,7 @@ msgstr "No hay pedidos activos"
 msgid "Shopping cart"
 msgstr "Carrito de compra"
 
-#: customer/templates/shoppingcart.html:17 seller/templates/menu.html:36
+#: customer/templates/shoppingcart.html:17 seller/templates/menu.html:46
 msgid "Add"
 msgstr "Añadir"
 
@@ -1119,7 +1123,7 @@ msgstr "Finalizar y pagar"
 msgid "Keep buying"
 msgstr "Seguir comprando"
 
-#: customer/templates/shoppingcart.html:86 seller/templates/menu.html:123
+#: customer/templates/shoppingcart.html:86 seller/templates/menu.html:159
 msgid "The quantity entered must be a number between 1 and 10."
 msgstr "La cantidad introducida debe estar entre 1 y 10"
 
@@ -1191,7 +1195,7 @@ msgid "There was a problem connecting to PaySafeCard, please try again later!"
 msgstr ""
 "¡Hubo un problema al conectar con PaySafeCard, ¡inténtelo de nuevo más tarde!"
 
-#: customer/views.py:233 customer/views.py:414
+#: customer/views.py:233 customer/views.py:417
 msgid "You are not a customer"
 msgstr "Usted no es cliente"
 
@@ -1219,15 +1223,15 @@ msgstr "La fecha del pedido ya ha pasado."
 msgid "The order you are trying to cancel does not belong to you."
 msgstr "El pedido que intentas cancelar no te pertenece."
 
-#: customer/views.py:353
+#: customer/views.py:376
 msgid "Choose another method of payment, you do not have enough balance!"
 msgstr "Elige otro método de pago, ¡no tienes suficiente saldo!"
 
-#: customer/views.py:387
+#: customer/views.py:390
 msgid "Add your comment"
 msgstr "Añade tu comentario"
 
-#: customer/views.py:403
+#: customer/views.py:406
 msgid ""
 "The date and time of collection must be after the current date and time. "
 "Minimum 10 min."
@@ -1235,15 +1239,15 @@ msgstr ""
 "La fecha y hora de recogida debe ser posterior a la fecha y hora actual. "
 "Mínimo 10 min"
 
-#: customer/views.py:408
+#: customer/views.py:411
 msgid "Date or time is not correct"
 msgstr "Fecha u hora no es correcta"
 
-#: customer/views.py:438
+#: customer/views.py:441
 msgid "You are not user"
 msgstr "Usted no es usuario"
 
-#: customer/views.py:463 customer/views.py:469 customer/views.py:475
+#: customer/views.py:466 customer/views.py:472 customer/views.py:478
 msgid "You are not an admin"
 msgstr "Usted no es administrador"
 
@@ -1251,19 +1255,19 @@ msgstr "Usted no es administrador"
 msgid "Must have 999999999 format"
 msgstr "Debe tener el formato 999999999"
 
-#: seller/forms/forms.py:16 seller/templates/local_detail.html:20
+#: seller/forms/forms.py:17 seller/templates/local_detail.html:20
 msgid "Address"
 msgstr "Direccion"
 
-#: seller/forms/forms.py:18
+#: seller/forms/forms.py:19
 msgid "Postal code"
 msgstr "Codigo Postal"
 
-#: seller/forms/forms.py:19
+#: seller/forms/forms.py:20
 msgid "Photo"
 msgstr "Foto"
 
-#: seller/forms/forms.py:52
+#: seller/forms/forms.py:54
 msgid "Ingredients"
 msgstr "Ingredientes"
 
@@ -1323,6 +1327,10 @@ msgstr "Si"
 #: seller/templates/category_list.html:72
 msgid "No"
 msgstr "No"
+
+#: seller/templates/category_list.html:86
+msgid "There are no categories for this local"
+msgstr "No hay categorias de este local"
 
 #: seller/templates/cp_search.html:4 seller/templates/local_detail.html:4
 #: seller/templates/local_edit.html:6 seller/templates/local_list.html:4
@@ -1404,6 +1412,7 @@ msgid "See categories"
 msgstr "Ver categorias"
 
 #: seller/templates/local_detail.html:33 seller/templates/local_list.html:74
+#: seller/templates/menu.html:13
 msgid "New product"
 msgstr "Nuevo producto"
 
@@ -1488,7 +1497,7 @@ msgstr "La categoria no ha sido creada porque no te pertenece"
 
 #: seller/views.py:89
 msgid "Category updated correctly"
-msgstr "Fecha u hora no es correcta"
+msgstr "Categoria actualizada correctamente"
 
 #: seller/views.py:96
 msgid "The category has not been edited because it does not belong to you."

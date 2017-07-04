@@ -177,13 +177,22 @@
         {% endif %}
         <br/>
         <br/>
-        {% if perms.bocatapp.customer %}
-
-        <a class="col-sm-2 text-left" href="{% url 'home' %}">
-            <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                <span class="glyphicon glyphicon" aria-hidden="true"></span> {% trans "Make another order" %}
-            </button>
-        </a>
+        {% if perms.bocatapp.seller %}
+            <div class="row">
+                <a class="col-sm-2 text-left" href="{% url 'locals_by_seller' %}">
+                    <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                        <span class="glyphicon glyphicon" aria-hidden="true"></span> {% trans "Back" %}
+                    </button>
+                </a>
+            </div>
+            {% else %}
+            <div class="row">
+                <a class="col-sm-2 text-left" href="{% url 'home' %}">
+                    <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                        <span class="glyphicon glyphicon" aria-hidden="true"></span> {% trans "Make another order" %}
+                    </button>
+                </a>
+            </div>
         {% endif %}
 
     </div>

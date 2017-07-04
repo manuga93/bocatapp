@@ -10,5 +10,6 @@
     <h1>{% trans "Edit category" %}</h1>
         <form method="POST" class="local-form" action="{% url 'category_edit' pk=category_id %}">
         {% include "forms/category_form.html"%}
+        </form>
   </div>
 {%endblock%}

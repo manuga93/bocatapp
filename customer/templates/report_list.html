@@ -57,5 +57,12 @@
     {% if not reports %}
         <h2>{% trans "There are no activated reports" %}</h2>
     {% endif %}
+    <div class="row">
+                <a class="col-sm-2 text-left" href="{% url 'home' %}">
+                    <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                        <span class="glyphicon glyphicon" aria-hidden="true"></span> {% trans "Back" %}
+                    </button>
+                </a>
+            </div>
     </div>
 {% endblock %}
