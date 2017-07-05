@@ -63,12 +63,22 @@
 
             </div>
         </div>
-
-        <a class="col-sm-2 text-left" href="javascript:history.back(-1);">
-            <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
-            </button>
-        </a>
+        <div class="row">
+        {% if perms.bocatapp.seller %}
+            <a class="col-sm-2 text-left" href="javascript:history.back(-1);">
+                <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
+                </button>
+            </a>
+        {% else %}
+            
+            <a class="col-sm-2 text-left" href="{% url 'search' postcode=local.postalCode %}">
+                <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
+                </button>
+            </a>
+        {% endif %}
+        </div>
 
 
     </div>
