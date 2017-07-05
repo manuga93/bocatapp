@@ -5,7 +5,7 @@
 {% block content %}
     <div class="container">
         <h2>{% trans "Menu of" %} {{ local.name }}</h2>
-        {% if perms.bocatapp.seller %}
+        {% if perms.bocatapp.seller and local.seller.pk == user.pk %}
         <div class="row" style="padding-right: 1em">
             <div class ="text-right">
                 <a class="btn btn-success" href="{% url 'product_new' pk=local.pk %}">
