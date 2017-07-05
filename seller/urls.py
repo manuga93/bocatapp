@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^local/(?P<pk>[0-9]+)/$', 'seller.views.local_detail'),
     url(r'^local/(?P<pk>[0-9]+)/edit/$', 'seller.views.local_edit', name='local_edit'),
     url(r'^local/(?P<pk>[0-9]+)/charts/$', 'seller.views.local_charts', name='local_charts'),
+    url(r'^search/\?postcode=(?P<postcode>[0-9]+)$', 'seller.views.search', name="search"),
     url(r'^search/$', 'seller.views.search', name="search"),
     url(r'^search/(?P<pk>[0-9]+)$', 'seller.views.search2', name='local_search2'),
     url(r'^local/getMine/$', 'seller.views.get_my_locals', name="locals_by_seller"),

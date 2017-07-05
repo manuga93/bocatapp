@@ -73,7 +73,7 @@
 
         {% if perms.bocatapp.seller %}
             <div class="row">
-                    <a class="col-sm-2 text-left" href="{% url 'locals_by_seller'%}">
+                    <a class="col-sm-2 text-left" href="{% url 'category_list' pk=local.pk %}">
                         <button type="button" class="btn btn-default" style="margin-bottom: 15px">
                              <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
                         </button>

@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.views.generic import edit
 from datetime import datetime, timedelta
 import itertools
+from bocatapp.views import home
 
 from seller.forms.packsForms import PackForm
 from seller.models import Product, Local, Category, Pack, ProductLine, LocalCategory
@@ -265,24 +266,31 @@ def local_edit(request, pk):
 def search(request):
     ### COMPROBAR PRIMERO LA COCINA Y ENTONCES ORDENAR POR ESTRELLAS SI AUX
     input_search = request.GET.get("postcode")
-    #print (LocalCategory.objects.filter(locals__id=68))
-    supercats = find_different_cats()
-    if input_search and input_search.isdigit():
-        locals = Local.objects.all().filter(postalCode=input_search)
-        aux = request.GET.get('list_by')
-        cocina = request.GET.get("cuisine")
-        if cocina:
-            locals = sort_locals(cocina)
-        if aux == u'1':
-            locals = locals.order_by("avg_rating")
-        elif aux == u'0':
-            locals = locals.order_by("-avg_rating")
-    elif not isinstance(input_search, int):
-        locals = []
-    else:
-        locals = Local.objects.all()
 
-    return render(request, 'cp_search.html', {'locals': locals, 'supercats': supercats})
+    if input_search != "":
+        #print (LocalCategory.objects.filter(locals__id=68))
+        supercats = find_different_cats()
+        if input_search and input_search.isdigit():
+            locals = Local.objects.all().filter(postalCode=input_search)
+            aux = request.GET.get('list_by')
+            cocina = request.GET.get("cuisine")
+            if cocina:
+                locals = sort_locals(cocina)
+            if aux == u'1':
+                locals = locals.order_by("avg_rating")
+            elif aux == u'0':
+                locals = locals.order_by("-avg_rating")
+        elif not isinstance(input_search, int):
+            locals = []
+        else:
+            locals = Local.objects.all()
+
+        return render(request, 'cp_search.html', {'locals': locals, 'supercats': supercats})
+
+    else:
+        messages.warning(request, unicode(_('You must enter a zip code')))
+        return redirect(home.home)
+            
 
 def find_different_cats():
     aux = LocalCategory.objects.all()

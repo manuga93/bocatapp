@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-04 19:22+0200\n"
+"POT-Creation-Date: 2017-07-05 16:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,7 +79,7 @@ msgstr "Correo ya en uso"
 #: bocatapp/forms.py:77 customer/templates/checkout.html:57
 #: customer/templates/shoppingcart.html:11 seller/forms/forms.py:15
 #: seller/forms/forms.py:31 seller/forms/forms.py:52
-#: seller/templates/menu.html:36
+#: seller/templates/menu.html:35
 msgid "Name"
 msgstr "Nombre"
 
@@ -162,7 +162,7 @@ msgstr "Aceptar"
 
 #: bocatapp/templates/cookies.html:10
 msgid "Cookies policy"
-msgstr "Politica de cookies"
+msgstr "Política de cookies"
 
 #: bocatapp/templates/cookies.html:11
 msgid ""
@@ -184,7 +184,7 @@ msgstr ""
 
 #: bocatapp/templates/cookies.html:13
 msgid "What types of cookies does BocatApp use?"
-msgstr "¿Que tipos de cookies utiliza BocatApp?"
+msgstr "¿Qué tipos de cookies utiliza BocatApp?"
 
 #: bocatapp/templates/cookies.html:14
 msgid ""
@@ -251,7 +251,7 @@ msgstr ""
 
 #: bocatapp/templates/cookies.html:18
 msgid "If you need more information, follow the following "
-msgstr "Si necesitas mas informacion, sigue el siguiente"
+msgstr "Si necesitas más informacion, sigue el siguiente"
 
 #: bocatapp/templates/cookies.html:18
 msgid "link"
@@ -263,7 +263,7 @@ msgstr "Preguntas generales"
 
 #: bocatapp/templates/faq.html:15
 msgid "What is Bocatapp?"
-msgstr "¿Que es Bocatapp?"
+msgstr "¿Qué es Bocatapp?"
 
 #: bocatapp/templates/faq.html:20
 msgid ""
@@ -290,7 +290,7 @@ msgstr ""
 
 #: bocatapp/templates/faq.html:42
 msgid "What is the currency used in all transactions?"
-msgstr "¿Cual es la divisa utilizada en todas las transacciones?"
+msgstr "¿Cuál es la divisa utilizada en todas las transacciones?"
 
 #: bocatapp/templates/faq.html:47
 msgid "All the prices are in "
@@ -447,10 +447,10 @@ msgstr "Repetir contraseña"
 #: bocatapp/templates/passwordreset/password_reset_form.html:22
 #: customer/templates/checkout.html:242 customer/templates/comment_list.html:69
 #: customer/templates/orders.html:184 customer/templates/report_list.html:63
-#: seller/templates/category_list.html:91 seller/templates/local_charts.html:23
-#: seller/templates/local_edit.html:19 seller/templates/menu.html:77
-#: seller/templates/menu.html.py:86 seller/templates/menu.html:94
-#: seller/templates/pack/edit.html:47 seller/templates/product_edit.html:27
+#: seller/templates/category_list.html:97 seller/templates/local_charts.html:23
+#: seller/templates/local_edit.html:19 seller/templates/menu.html:78
+#: seller/templates/menu.html.py:86 seller/templates/pack/edit.html:47
+#: seller/templates/product_edit.html:27
 msgid "Back"
 msgstr "Atrás"
 
@@ -460,7 +460,7 @@ msgstr "Atrás"
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:31
 #: customer/templates/comment_edit.html:33
 #: seller/templates/category_new.html:14
-#: seller/templates/forms/category_form.html:11
+#: seller/templates/forms/category_form.html:14
 #: seller/templates/local_edit.html:20 seller/templates/product_edit.html:28
 msgid "Save"
 msgstr "Guardar"
@@ -478,7 +478,7 @@ msgid "Insert a ZIP code to find places near you"
 msgstr "Inserta un código postar para buscar locales cercanos"
 
 #: bocatapp/templates/home.html:22 seller/templates/cp_search.html:16
-#: seller/templates/menu.html:21 seller/templates/pack/details.html:16
+#: seller/templates/menu.html:20 seller/templates/pack/details.html:16
 #: seller/templates/pack/list.html:16
 msgid "Search"
 msgstr "Buscar"
@@ -800,27 +800,27 @@ msgstr ""
 msgid "You`ve already sign in!"
 msgstr "Ya estás registrado"
 
-#: bocatapp/views/ShoppingCart.py:123
+#: bocatapp/views/ShoppingCart.py:132
 msgid "Product has not been added to cart"
 msgstr "El producto no ha sido añadido al carrito"
 
-#: bocatapp/views/ShoppingCart.py:135
+#: bocatapp/views/ShoppingCart.py:144
 msgid "You can not add products from different locations."
 msgstr "No se pueden agregar productos de distintos locales."
 
-#: bocatapp/views/ShoppingCart.py:145
+#: bocatapp/views/ShoppingCart.py:154
 msgid "The product has been successfully added to cart."
 msgstr "El producto ha sido añadido correctamente al carrito"
 
-#: bocatapp/views/ShoppingCart.py:177
+#: bocatapp/views/ShoppingCart.py:186
 msgid "The product has been updated successfully."
 msgstr "El producto se ha añadido correctamente al carrito."
 
-#: bocatapp/views/ShoppingCart.py:182
+#: bocatapp/views/ShoppingCart.py:191
 msgid "The product has not been updated successfully."
 msgstr "El producto no se ha añadido correctamente al carrito."
 
-#: bocatapp/views/ShoppingCart.py:199
+#: bocatapp/views/ShoppingCart.py:208
 msgid "The product has been removed from the cart."
 msgstr "El producto se ha eliminado del carrito."
 
@@ -885,7 +885,7 @@ msgstr ""
 
 #: customer/forms/forms.py:8 seller/forms/forms.py:16 seller/forms/forms.py:32
 msgid "Description"
-msgstr "Descripcion"
+msgstr "Descripción"
 
 #: customer/forms/forms.py:19 customer/templates/report_list.html:35
 msgid "Reason"
@@ -897,7 +897,7 @@ msgstr "Cantidad a recargar"
 
 #: customer/templates/checkout.html:6 customer/templates/checkout.html.py:16
 msgid "Payment method"
-msgstr "Metodo de pago"
+msgstr "Método de pago"
 
 #: customer/templates/checkout.html:10
 msgid "Checkout"
@@ -921,7 +921,7 @@ msgstr "¡No tienes saldo suficiente!"
 
 #: customer/templates/checkout.html:47
 msgid "New credit card"
-msgstr "Nueva tarjeta de credito"
+msgstr "Nueva tarjeta de crédito"
 
 #: customer/templates/checkout.html:63
 msgid "Holdername"
@@ -929,19 +929,19 @@ msgstr "Nombre del titular"
 
 #: customer/templates/checkout.html:73
 msgid "Number of credit card"
-msgstr "Numero de tarjeta de credito"
+msgstr "Número de tarjeta de crédito"
 
 #: customer/templates/checkout.html:80
 msgid "Valid credit card number"
-msgstr "Numero de tarjeta de credito valido"
+msgstr "Número de tarjeta de crédito válido"
 
 #: customer/templates/checkout.html:93
 msgid "Expiration date"
-msgstr "Fecha de expiracion"
+msgstr "Fecha de expiración"
 
 #: customer/templates/checkout.html:123
 msgid "Yes, I would like to keep my credit card in the system"
-msgstr "Si, me gustaria guardar mi tarjeta de credito en el sistema"
+msgstr "Sí, me gustaría guardar mi tarjeta de crédito en el sistema"
 
 #: customer/templates/checkout.html:149
 msgid "Order details"
@@ -958,7 +958,7 @@ msgstr "Producto"
 #: customer/templates/orders.html.py:108 customer/templates/orders.html:144
 #: customer/templates/orders.html.py:159 customer/templates/ordersLine.html:15
 #: customer/templates/shoppingcart.html:14 seller/forms/forms.py:53
-#: seller/templates/menu.html:42
+#: seller/templates/menu.html:41
 msgid "Price"
 msgstr "Precio"
 
@@ -990,7 +990,7 @@ msgstr "Nuevo comentario"
 #: customer/templates/comment_edit.html:18
 #: customer/templates/report_list.html:20
 msgid "Valoration"
-msgstr "Valoracion"
+msgstr "Valoración"
 
 #: customer/templates/comment_list.html:11
 msgid "Comments of"
@@ -1032,12 +1032,12 @@ msgstr "Pendiente"
 msgid "Pick up"
 msgstr "Recogida"
 
-#: customer/templates/orders.html:51
+#: customer/templates/orders.html:51 seller/templates/category_list.html:48
 msgid "Are you sure?"
-msgstr "¿Estas seguro?"
+msgstr "¿Estás seguro?"
 
 #: customer/templates/orders.html:52 seller/templates/category_new.html:17
-#: seller/templates/forms/category_form.html:8
+#: seller/templates/forms/category_form.html:9
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -1123,7 +1123,7 @@ msgstr "No hay pedidos activos"
 msgid "Shopping cart"
 msgstr "Carrito de compra"
 
-#: customer/templates/shoppingcart.html:17 seller/templates/menu.html:46
+#: customer/templates/shoppingcart.html:17 seller/templates/menu.html:45
 msgid "Add"
 msgstr "Añadir"
 
@@ -1135,13 +1135,13 @@ msgstr "Finalizar y pagar"
 msgid "Keep buying"
 msgstr "Seguir comprando"
 
-#: customer/templates/shoppingcart.html:86 seller/templates/menu.html:159
+#: customer/templates/shoppingcart.html:86 seller/templates/menu.html:151
 msgid "The quantity entered must be a number between 1 and 10."
 msgstr "La cantidad introducida debe estar entre 1 y 10"
 
 #: customer/templates/thanks.html:4
 msgid "Thanks"
-msgstr ""
+msgstr "Gracias"
 
 #: customer/templates/thanks.html:12
 msgid ""
@@ -1213,7 +1213,7 @@ msgstr "Usted no es cliente"
 
 #: customer/views.py:256
 msgid "Cancellation made. Soon we will enter "
-msgstr "Cancelacion realizada. En breve te ingresaremos "
+msgstr "Cancelación realizada. En breve te ingresaremos "
 
 #: customer/views.py:256
 msgid " in your balance."
@@ -1225,7 +1225,7 @@ msgstr "El pedido ya ha sido cancelado"
 
 #: customer/views.py:262
 msgid "Sorry, the order is already made, and it is impossible to cancel it"
-msgstr "Lo sentimos, el pedido ya esta realizado, y es imposible cancelarlo"
+msgstr "Lo sentimos, el pedido ya está realizado, y es imposible cancelarlo"
 
 #: customer/views.py:265
 msgid "The order date has already passed."
@@ -1269,11 +1269,11 @@ msgstr "Debe tener el formato 999999999"
 
 #: seller/forms/forms.py:17 seller/templates/local_detail.html:20
 msgid "Address"
-msgstr "Direccion"
+msgstr "Dirección"
 
 #: seller/forms/forms.py:19
 msgid "Postal code"
-msgstr "Codigo Postal"
+msgstr "Código Postal"
 
 #: seller/forms/forms.py:20
 msgid "Photo"
@@ -1297,52 +1297,52 @@ msgstr "Demasiado barato!"
 
 #: seller/templates/category_edit.html:6 seller/templates/category_edit.html:10
 msgid "Edit category"
-msgstr "Editar categoria"
+msgstr "Editar categoría"
 
 #: seller/templates/category_list.html:4 seller/templates/category_list.html:8
 msgid "Category"
-msgstr "Categoria"
+msgstr "Categoría"
 
 #: seller/templates/category_list.html:13 seller/templates/category_new.html:6
 #: seller/templates/category_new.html:10 seller/templates/local_detail.html:35
 msgid "New category"
-msgstr "Nueva categoria"
+msgstr "Nueva categoría"
 
-#: seller/templates/category_list.html:31
+#: seller/templates/category_list.html:33
 msgid "See products"
 msgstr "Ver productos"
 
-#: seller/templates/category_list.html:37 seller/templates/local_detail.html:28
+#: seller/templates/category_list.html:41 seller/templates/local_detail.html:28
 msgid "Edit"
 msgstr "Editar"
 
-#: seller/templates/category_list.html:44
+#: seller/templates/category_list.html:49
 msgid "Delete"
 msgstr "Borrar"
 
-#: seller/templates/category_list.html:60
+#: seller/templates/category_list.html:66
 msgid "Delete category"
-msgstr "Borrar categoria"
-
-#: seller/templates/category_list.html:63
-msgid "Do you want to delete this category?"
-msgstr "¿Quieres borrar esta categoria? "
-
-#: seller/templates/category_list.html:63
-msgid "The products which belong to it will be deleted"
-msgstr "Los productos pertenecientes seran borrados"
+msgstr "Borrar categoría"
 
 #: seller/templates/category_list.html:69
-msgid "Yes"
-msgstr "Si"
+msgid "Do you want to delete this category?"
+msgstr "¿Quieres borrar esta categoría? "
 
-#: seller/templates/category_list.html:72
+#: seller/templates/category_list.html:69
+msgid "The products which belong to it will be deleted"
+msgstr "Los productos pertenecientes serán borrados"
+
+#: seller/templates/category_list.html:75
+msgid "Yes"
+msgstr "Sí"
+
+#: seller/templates/category_list.html:78
 msgid "No"
 msgstr "No"
 
-#: seller/templates/category_list.html:86
+#: seller/templates/category_list.html:92
 msgid "There are no categories for this local"
-msgstr "No hay categorias de este local"
+msgstr "No hay categorías de este local"
 
 #: seller/templates/cp_search.html:4 seller/templates/local_detail.html:4
 #: seller/templates/local_edit.html:6 seller/templates/local_list.html:4
@@ -1360,7 +1360,7 @@ msgstr "Ordenar por"
 
 #: seller/templates/cp_search.html:29
 msgid "Top-Rated"
-msgstr "Mejor puntuacion media"
+msgstr "Mejor puntuación media"
 
 #: seller/templates/cp_search.html:35
 msgid "New"
@@ -1417,14 +1417,14 @@ msgstr "Preparado"
 
 #: seller/templates/local_detail.html:25
 msgid "See menu"
-msgstr "Ver menu"
+msgstr "Ver menú"
 
 #: seller/templates/local_detail.html:30
 msgid "See categories"
-msgstr "Ver categorias"
+msgstr "Ver categorías"
 
 #: seller/templates/local_detail.html:33 seller/templates/local_list.html:74
-#: seller/templates/menu.html:13
+#: seller/templates/menu.html:12
 msgid "New product"
 msgstr "Nuevo producto"
 
@@ -1438,7 +1438,7 @@ msgstr "Editar local"
 
 #: seller/templates/local_list.html:14
 msgid "New local"
-msgstr "Nueva local"
+msgstr "Nuevo local"
 
 #: seller/templates/local_list.html:62
 msgid "Manage orders"
@@ -1446,11 +1446,11 @@ msgstr "Gestionar pedidos"
 
 #: seller/templates/local_list.html:65
 msgid "Statistics"
-msgstr "Estadisticas"
+msgstr "Estadísticas"
 
 #: seller/templates/local_list.html:69
 msgid "Configuration"
-msgstr "Configuracion"
+msgstr "Configuración"
 
 #: seller/templates/local_list.html:72
 msgid "Menu"
@@ -1458,11 +1458,11 @@ msgstr "Carta"
 
 #: seller/templates/local_list.html:73
 msgid "Categories"
-msgstr "Categorias"
+msgstr "Categorías"
 
 #: seller/templates/local_list.html:90
 msgid "There is no locals yet"
-msgstr "No hay locales aun"
+msgstr "No hay locales aún"
 
 #: seller/templates/menu.html:7
 msgid "Menu of"
@@ -1501,24 +1501,28 @@ msgstr "Usted no es un vendedor"
 
 #: seller/views.py:65
 msgid "Category created correctly"
-msgstr "Categoria creada correctamente"
+msgstr "Categoría creada correctamente"
 
 #: seller/views.py:72
 msgid "The category has not been created because it does not belong to you."
-msgstr "La categoria no ha sido creada porque no te pertenece"
+msgstr "La categoría no ha sido creada porque no te pertenece"
 
 #: seller/views.py:89
 msgid "Category updated correctly"
-msgstr "Categoria actualizada correctamente"
+msgstr "Categoría actualizada correctamente"
 
 #: seller/views.py:96
 msgid "The category has not been edited because it does not belong to you."
-msgstr "La categoria no ha sido editada porque no te pertenece"
+msgstr "La categoría no ha sido editada porque no te pertenece"
 
 #: seller/views.py:106
 msgid "Category successfully deleted. "
-msgstr "Categoria borrada correctamente"
+msgstr "Categoría borrada correctamente"
 
 #: seller/views.py:109
 msgid "The category has not been deleted because it does not belong to you."
-msgstr "La categoria que has intentado borrar no te pertenece"
+msgstr "La categoría que has intentado borrar no te pertenece"
+
+#: seller/views.py:290
+msgid "You must enter a zip code"
+msgstr "Debes introducir un Código Postal"

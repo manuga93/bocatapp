@@ -457,10 +457,13 @@ def report_new(request, pk):
 
 # Lista los comentarios de un local
 def comment_list(request, pk):
-    local = Local.objects.get(pk=pk)
-    comentarios = Comment.objects.filter(local = pk, reported=0)
-    return render_to_response('comment_list.html',
+    try:
+        local = Local.objects.get(pk=pk)
+        comentarios = Comment.objects.filter(local = pk, reported=0)
+        return render_to_response('comment_list.html',
                                 {'comentarios': comentarios, 'local': local}, context_instance=RequestContext(request))
+    except Local.DoesNotExist:
+        return render(request, 'forbidden.html')
 
 # Lista los reportes de un comentario
 @permission_required('bocatapp.administrator', message=_('You are not an admin'))
