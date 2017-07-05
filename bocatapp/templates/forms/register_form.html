@@ -4,10 +4,9 @@
 {% load i18n %}
 {% bootstrap_messages %}
 {% block content %}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <div class="container">
-
+      <div class="row">
+        <h2>{% trans "Sign up - Would you like to join to Bocatapp?" %}</h2>
         <div class="contact-main well white">
             <form method="post">
                 {% csrf_token %}
@@ -20,6 +19,6 @@
                 {% endbuttons %}
             </form>
         </div>
+      </div>
     </div>
-
 {% endblock %}
