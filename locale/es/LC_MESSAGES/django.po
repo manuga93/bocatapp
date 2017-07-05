@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-05 16:16+0200\n"
+"POT-Creation-Date: 2017-07-05 19:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,8 +25,8 @@ msgstr "Debes estar logueado"
 msgid "It must be 999999999 format"
 msgstr "Debe tener el formato 999999999"
 
-#: bocatapp/forms.py:26 bocatapp/templates/forms/login_form.html:9
-#: bocatapp/templates/forms/login_form.html:10
+#: bocatapp/forms.py:26 bocatapp/templates/forms/login_form.html:16
+#: bocatapp/templates/forms/login_form.html:17
 #: customer/templates/orders.html:12 customer/templates/orders.html.py:87
 #: customer/templates/orders.html:138
 msgid "Username"
@@ -45,8 +45,8 @@ msgstr "Apellidos"
 msgid "Email"
 msgstr "Correo"
 
-#: bocatapp/forms.py:30 bocatapp/templates/forms/login_form.html:13
-#: bocatapp/templates/forms/login_form.html:14
+#: bocatapp/forms.py:30 bocatapp/templates/forms/login_form.html:20
+#: bocatapp/templates/forms/login_form.html:21
 msgid "Password"
 msgstr "Contraseña"
 
@@ -122,7 +122,7 @@ msgid "Bocatapp - Log in"
 msgstr "Bocatapp - Iniciar sesion"
 
 #: bocatapp/templates/auth/login.html:9
-#: bocatapp/templates/forms/login_form.html:18
+#: bocatapp/templates/forms/login_form.html:25
 #: bocatapp/templates/includes/header.html:56
 #: bocatapp/templates/includes/header.html:58
 msgid "Log in"
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Following this link"
 msgstr "Siguiendo este enlace"
 
-#: bocatapp/templates/base.html:63 customer/templates/report_list.html:42
+#: bocatapp/templates/base.html:63 customer/templates/report_list.html:33
 msgid "Accept"
 msgstr "Aceptar"
 
@@ -432,21 +432,22 @@ msgstr "Disculpa, ha ocurrido un error. Petición rechazada!"
 msgid "Home"
 msgstr ""
 
-#: bocatapp/templates/forms/login_form.html:15
-msgid "Forget password?"
-msgstr "Nueva contraseña"
-
 #: bocatapp/templates/forms/login_form.html:22
+msgid "Forget password?"
+msgstr "¿Olvidaste tu contraseña?"
+
+#: bocatapp/templates/forms/login_form.html:29
 msgid "Remember password"
 msgstr "Repetir contraseña"
 
 #: bocatapp/templates/forms/password_edit.html:18
-#: bocatapp/templates/forms/register_form.html:17
+#: bocatapp/templates/forms/register_form.html:16
 #: bocatapp/templates/forms/user_edit.html:17
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:30
 #: bocatapp/templates/passwordreset/password_reset_form.html:22
-#: customer/templates/checkout.html:242 customer/templates/comment_list.html:69
-#: customer/templates/orders.html:184 customer/templates/report_list.html:63
+#: customer/templates/checkout.html:241 customer/templates/comment_list.html:70
+#: customer/templates/comment_list.html:77 customer/templates/orders.html:184
+#: customer/templates/report_list.html:50
 #: seller/templates/category_list.html:97 seller/templates/local_charts.html:23
 #: seller/templates/local_edit.html:19 seller/templates/menu.html:78
 #: seller/templates/menu.html.py:86 seller/templates/pack/edit.html:47
@@ -455,7 +456,7 @@ msgid "Back"
 msgstr "Atrás"
 
 #: bocatapp/templates/forms/password_edit.html:19
-#: bocatapp/templates/forms/register_form.html:18
+#: bocatapp/templates/forms/register_form.html:17
 #: bocatapp/templates/forms/user_edit.html:18
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:31
 #: customer/templates/comment_edit.html:33
@@ -464,6 +465,10 @@ msgstr "Atrás"
 #: seller/templates/local_edit.html:20 seller/templates/product_edit.html:28
 msgid "Save"
 msgstr "Guardar"
+
+#: bocatapp/templates/forms/register_form.html:9
+msgid "Sign up - Would you like to join to Bocatapp?"
+msgstr "Registro - ¿Te gustaría formar parte de Bocatapp?"
 
 #: bocatapp/templates/home.html:10
 msgid "Skip the queue in a bite"
@@ -887,7 +892,7 @@ msgstr ""
 msgid "Description"
 msgstr "Descripción"
 
-#: customer/forms/forms.py:19 customer/templates/report_list.html:35
+#: customer/forms/forms.py:19 customer/templates/report_list.html:30
 msgid "Reason"
 msgstr "Razon"
 
@@ -943,17 +948,17 @@ msgstr "Fecha de expiración"
 msgid "Yes, I would like to keep my credit card in the system"
 msgstr "Sí, me gustaría guardar mi tarjeta de crédito en el sistema"
 
-#: customer/templates/checkout.html:149
+#: customer/templates/checkout.html:148
 msgid "Order details"
 msgstr "Detalles del pedido"
 
-#: customer/templates/checkout.html:154 customer/templates/orders.html:30
+#: customer/templates/checkout.html:153 customer/templates/orders.html:30
 #: customer/templates/orders.html.py:105 customer/templates/orders.html:156
 #: customer/templates/ordersLine.html:14
 msgid "Product"
 msgstr "Producto"
 
-#: customer/templates/checkout.html:156 customer/templates/orders.html:18
+#: customer/templates/checkout.html:155 customer/templates/orders.html:18
 #: customer/templates/orders.html.py:33 customer/templates/orders.html:93
 #: customer/templates/orders.html.py:108 customer/templates/orders.html:144
 #: customer/templates/orders.html.py:159 customer/templates/ordersLine.html:15
@@ -962,19 +967,19 @@ msgstr "Producto"
 msgid "Price"
 msgstr "Precio"
 
-#: customer/templates/checkout.html:176
+#: customer/templates/checkout.html:175
 msgid "Taxes"
 msgstr "Gestión"
 
-#: customer/templates/checkout.html:206
+#: customer/templates/checkout.html:205
 msgid "Pick up date"
 msgstr "Fecha de recogida"
 
-#: customer/templates/checkout.html:217
+#: customer/templates/checkout.html:216
 msgid "Pick up time"
 msgstr "Hora de recogida"
 
-#: customer/templates/checkout.html:234
+#: customer/templates/checkout.html:233
 msgid "Make the reservation"
 msgstr "Realizar reserva"
 
@@ -988,7 +993,7 @@ msgid "New comment"
 msgstr "Nuevo comentario"
 
 #: customer/templates/comment_edit.html:18
-#: customer/templates/report_list.html:20
+#: customer/templates/report_list.html:19
 msgid "Valoration"
 msgstr "Valoración"
 
@@ -1106,15 +1111,15 @@ msgstr "Transacciones"
 msgid "New report"
 msgstr "Nuevo reporte"
 
-#: customer/templates/report_list.html:34
+#: customer/templates/report_list.html:29
 msgid "Reported by"
 msgstr "Reportado por"
 
-#: customer/templates/report_list.html:43
+#: customer/templates/report_list.html:34
 msgid "Deny"
 msgstr "Denegar"
 
-#: customer/templates/report_list.html:58
+#: customer/templates/report_list.html:45
 msgid "There are no activated reports"
 msgstr "No hay pedidos activos"
 
@@ -1259,7 +1264,7 @@ msgstr "Fecha u hora no es correcta"
 msgid "You are not user"
 msgstr "Usted no es usuario"
 
-#: customer/views.py:466 customer/views.py:472 customer/views.py:478
+#: customer/views.py:469 customer/views.py:475 customer/views.py:481
 msgid "You are not an admin"
 msgstr "Usted no es administrador"
 
@@ -1492,37 +1497,41 @@ msgstr "Crear producto"
 msgid "Edit product"
 msgstr "Editar producto"
 
-#: seller/views.py:54 seller/views.py:77 seller/views.py:99 seller/views.py:114
-#: seller/views.py:135 seller/views.py:159 seller/views.py:178
-#: seller/views.py:189 seller/views.py:206 seller/views.py:218
-#: seller/views.py:246
+#: seller/views.py:55 seller/views.py:78 seller/views.py:100
+#: seller/views.py:115 seller/views.py:137 seller/views.py:161
+#: seller/views.py:180 seller/views.py:191 seller/views.py:208
+#: seller/views.py:220 seller/views.py:248
 msgid "You are not a seller"
 msgstr "Usted no es un vendedor"
 
-#: seller/views.py:65
+#: seller/views.py:66
 msgid "Category created correctly"
 msgstr "Categoría creada correctamente"
 
-#: seller/views.py:72
+#: seller/views.py:73
 msgid "The category has not been created because it does not belong to you."
 msgstr "La categoría no ha sido creada porque no te pertenece"
 
-#: seller/views.py:89
+#: seller/views.py:90
 msgid "Category updated correctly"
 msgstr "Categoría actualizada correctamente"
 
-#: seller/views.py:96
+#: seller/views.py:97
 msgid "The category has not been edited because it does not belong to you."
 msgstr "La categoría no ha sido editada porque no te pertenece"
 
-#: seller/views.py:106
+#: seller/views.py:107
 msgid "Category successfully deleted. "
 msgstr "Categoría borrada correctamente"
 
-#: seller/views.py:109
+#: seller/views.py:110
 msgid "The category has not been deleted because it does not belong to you."
 msgstr "La categoría que has intentado borrar no te pertenece"
 
-#: seller/views.py:290
+#: seller/views.py:132
+msgid "You can not create a product in this local because it does not belong to you."
+msgstr "No puedes crear un producto en este local porque no te pertenece."
+
+#: seller/views.py:292
 msgid "You must enter a zip code"
 msgstr "Debes introducir un Código Postal"

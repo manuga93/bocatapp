@@ -20,7 +20,7 @@ def commentsWithReports():
     reports = Report.objects.all().filter(accepted=False, decline=False)
     grouped = itertools.groupby(reports, lambda report: report.comment)
     #res = dict((r.comment, r) for r in reports)
-    res = dict((r.comment, reports.filter(comment_id=r.comment.pk)) for r in reports)
+    res = dict((r.comment, reports.filter(comment_id=r.comment.pk)) for r in reports if not r.comment.reported)
     #res = {c: r for c, r in grouped}
     #res = dict((c,r) for c,r in grouped)
     return res
