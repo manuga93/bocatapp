@@ -228,7 +228,7 @@ def local_charts(request, pk):
         pending_orders = len(orders) - done_orders
         # Last week
         label_dates = [(datetime.now() - timedelta(days=counter)).strftime('%d/%m') for counter in range(7)][::-1]
-        orders = Order.objects.filter(moment__gte=datetime.now() - timedelta(days=7))
+        orders = Order.objects.filter(local=pk, moment__gte=datetime.now() - timedelta(days=7))
         grouped = itertools.groupby(orders, lambda record: record.moment.strftime("%d/%m"))
         orders_by_day = {day: len(list(jobs_this_day)) for day, jobs_this_day in grouped}
         # orders_by_day_result = [(date, orders_by_day.get(date, 0)) for date in label_dates]
