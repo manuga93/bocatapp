@@ -3,11 +3,15 @@
 {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
-        <a class="col-sm-2 text-left" href="{% url 'seller.views.get_my_locals' %}">
-                  <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Cancel" %}
-                  </button>
-              </a>
-        <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+        <div class="btn-group">
+            <a href="{% url 'category_list' pk=local.pk %}">
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Cancel" %}
+                </button>
+            </a>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {% trans "Save" %}</button>
+        </div>
     {% endbuttons %}
 </form>

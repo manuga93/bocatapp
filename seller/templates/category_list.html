@@ -6,14 +6,15 @@
 
     <div class="container">
         <h1>{% trans "Category" %}</h1>
-        <div class="row">
-            <div class ="btn-group">
-                <a class="col-md-2 col-md-offset-10" href="{% url 'category_new' pk=local_pk %}">
-                    <button type="button" class="btn btn-success col-xs-12" style="margin-bottom: 15px">
+        <div class="row" style="padding-right: 1em">
+            <div class ="text-right">
+                <a href="{% url 'category_new' pk=local_pk %}">
+                    <button type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {% trans "New category" %}
                     </button>
                 </a>
             </div>
+        <br/>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -25,25 +26,30 @@
                                 <h3>{{category.name}}</h3>
                                 <p>{{category.description}}</p>
                             </div>
-                            <div class="col-md-2 col-xs-12 buttons-wrapper text-center">
-                                <a href="{% url 'product_list_category' pk=category.id %}">
-                                    <button class ='btn btn-primary'> 
-                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {% trans "See products" %}
-                                    </button>
-                                </a>
+                            <div class="buttons-wrapper">
+                                <div class="btn-group">
+                                    <a href="{% url 'product_list_category' pk=category.id %}">
+                                        <button class ='btn btn-primary'> 
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> {% trans "See products" %}
+                                        </button>
+                                    </a>
+                                </div>
                                 {% if perms.bocatapp.seller %}
-                                    <a href="{% url 'category_edit' pk=category.id %}">
-                                        <button class ='btn btn-warning'> 
-                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> {% trans "Edit" %}
-                                        </button>
-                                    </a>
+                                    <div class="btn-group">
+                                        <a href="{% url 'category_edit' pk=category.id %}">
+                                            <button class ='btn btn-warning'> 
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> {% trans "Edit" %}
+                                            </button>
+                                        </a>
+                                    </div>
       <!-- Trigger the modal with a button -->
-
-                                    <a href="{% url 'category_delete' pk=category.id %}">
-                                        <button class ='btn btn-danger' onclick="return confirm('Esta seguro?')">
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> {% trans "Delete" %}
-                                        </button>
-                                    </a>
+                                    <div class="btn-group">
+                                        <a href="{% url 'category_delete' pk=category.id %}">
+                                            <button class ='btn btn-danger' onclick="return confirm('Esta seguro?')">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> {% trans "Delete" %}
+                                            </button>
+                                        </a>
+                                    </div>
                                        <!-- <button type="button" class='btn btn-danger' data-toggle="modal"
                                             data-target="#deleteCategory"><span class="glyphicon glyphicon-trash"
                                                                                 aria-hidden="true"></span> Eliminar
