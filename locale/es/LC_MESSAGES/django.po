@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-05 10:51+0200\n"
+"POT-Creation-Date: 2017-07-05 10:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1032,7 +1032,7 @@ msgstr "Pendiente"
 msgid "Pick up"
 msgstr "Recogida"
 
-#: customer/templates/orders.html:51
+#: customer/templates/orders.html:51 seller/templates/category_list.html:48
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 

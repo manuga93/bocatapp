@@ -45,7 +45,7 @@
       <!-- Trigger the modal with a button -->
                                     <div class="btn-group">
                                         <a href="{% url 'category_delete' pk=category.id %}">
-                                            <button class ='btn btn-danger' onclick="return confirm('Esta seguro?')">
+                                            <button class ='btn btn-danger' onclick="return confirm('{% trans "Are you sure?" %}')">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> {% trans "Delete" %}
                                             </button>
                                         </a>
