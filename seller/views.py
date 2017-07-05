@@ -129,6 +129,7 @@ def product_new(request, pk):
 
         return render(request, 'product_edit.html', {'form': form,'pk':pk})
     else:
+        messages.warning(request, unicode(_('You can not create a product in this local because it does not belong to you.')))
         return redirect("/")
 
 
@@ -290,7 +291,7 @@ def search(request):
     else:
         messages.warning(request, unicode(_('You must enter a zip code')))
         return redirect(home.home)
-            
+
 
 def find_different_cats():
     aux = LocalCategory.objects.all()
