@@ -11,7 +11,7 @@
           <form class="form-inline well white" style="text-align:center;">
               <div class="form-group">
                   <label style="font-weight: normal;" for="postcode">{% trans "Results for" %}: </label>
-                  <input id="postcode" name="postcode" type="text" class="form-control input-md" value="{{request.GET.postcode}}">
+                  <input id="postcode" name="postcode" type="text" class="form-control input-md" value="{{request.GET.postcode}}" required>
               </div>
               <button onclick="#" class="form-control">{% trans "Search" %}</button>
           </form>
