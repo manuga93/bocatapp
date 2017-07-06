@@ -318,11 +318,15 @@ def objectsInCategory(cat):
 @login_required
 def checkout(request, pk, form=CreditCardForm(None)):
     update_cart_checkout(request, pk)
-    current_user = request.user
-    shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
-    local = shoppingcart.shoppingcartline_set.all()[0].product.local
-    creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
-    return render(request, 'checkout.html', {'local': local,'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=30)})
+    if request.user.has_perm('bocatapp.customer'):
+        current_user = request.user
+        shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
+        local = shoppingcart.shoppingcartline_set.all()[0].product.local
+        creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
+        return render(request, 'checkout.html', {'local': local,'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=30)})
+    else:
+        return redirect(home.home)
+        
 
 def update_cart_checkout(request, idCart):
     idShoppingCart = idCart
@@ -352,6 +356,7 @@ def update_cart_checkout(request, idCart):
     else:
         actualShoppingCart = ShoppingCart.objects.filter(pk=idShoppingCart)
         actualShoppingCart.delete()
+
 
 @login_required
 def do_checkout(request):
