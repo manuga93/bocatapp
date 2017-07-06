@@ -18,9 +18,13 @@
         <ul class="nav navbar-nav navbar-right">
             {% if perms.bocatapp.customer or user.is_anonymous %}
                 <li>
-                    <a id="listSC" href="#">
+                    <a href="#" id="iconCart">
                         <span class="glyphicon glyphicon-shopping-cart"></span> <span id="numItems" class="badge"></span>
                     </a>
+                    <form id="listadoCarrito" action="{% url 'list_shoppingcart' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="idCart" id="listSC" value="#"/>
+                    </form>
                 </li>
             {% endif %}
             {% if perms.bocatapp.customer and not user.is_superuser%}
