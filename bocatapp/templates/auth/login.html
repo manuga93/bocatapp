@@ -9,8 +9,8 @@
         <h2>{% trans "Log in" %}</h2>
             {% include "forms/login_form.html" %}
         <div class="bottom text-center">
-            {% trans "Don't you have account yet?" %} <a href="{% url 'customer_register' %}"><b>{% trans "Register!" %}</b></a>
-        </div>
+            {% trans "Don't you have account yet?" %} <a href="{% url 'customer_register'%}?next={% if next %}{{next}}{% else %}/{% endif %}"><b>{% trans "Register!" %}</b></a>
+        </div>        
     </div>
     </div>
 </div>

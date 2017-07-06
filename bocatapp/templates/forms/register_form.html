@@ -8,7 +8,11 @@
       <div class="row">
         <h2>{% trans "Sign up - Would you like to join to Bocatapp?" %}</h2>
         <div class="contact-main well white">
-            <form method="post">
+            {% if next %}
+            <form  class="form" role="form" action="?next={{next}}" method="post" accept-charset="UTF-8">
+            {%else%}
+            <form  class="form" role="form" action="?next=/" method="post" accept-charset="UTF-8">
+            {% endif %}
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}
