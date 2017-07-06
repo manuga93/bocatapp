@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}Ups{% endblock %}
 
 {% block content %}
+
     <section class="container">
-        <div class="contact-main jumbotron">
-            <br/>
-            <a href='..'>home</a>
-            <br/>
+        <br>
+        <div class="contact-main well white">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h1>{% trans "Oops!" %}</h1>
+                        <h2>403 Forbidden</h2>
+                        <div class="error-details">
+                            {% trans "Sorry, an error has occured. Request refused!" %}
+                        </div>
+                        <button onclick="location.replace('{% url 'home' %}');"
+                                    class="btn btn-default btn-lg">{% trans "Home" %}
+                         </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}

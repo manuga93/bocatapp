@@ -98,12 +98,21 @@ def update_cookie(request):
 def list_shopping_cart(request, pk):
     if request.user.is_authenticated():
         if request.user.has_perm('bocatapp.customer'):
-            shoppingcart = ShoppingCart.objects.get(pk=pk)
+            try:
+                shoppingcart = ShoppingCart.objects.get(pk=pk)
+            except ShoppingCart.DoesNotExist:
+                return render(request, 'forbidden.html')
+
             if shoppingcart.customer.pk == request.user.pk:
                 return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
+            else:
+                return render(request, 'forbidden.html')
     else:
-        shoppingcart = ShoppingCart.objects.get(pk=pk)
-        return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
+        try:
+            shoppingcart = ShoppingCart.objects.get(pk=pk)
+            return render(request, 'shoppingcart.html', {'shoppingcart': shoppingcart})
+        except ShoppingCart.DoesNotExist:
+            return render(request, 'forbidden.html')
         
     return redirect(home.home)
 

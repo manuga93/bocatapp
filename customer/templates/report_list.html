@@ -10,52 +10,45 @@
     <h1>{% trans "Reports" %}</h1>
     <hr>
     {% if reports %}
-    {% for c, r in reports.items %}
+      {% for c, r in reports.items %}
         <div class="row">
-            <div class="col-md-12">
-                <div class="item-search well white">
-                        <div class="comment">
-                        <p>{% trans "Writen by" %}: <strong>{{ c.customer.username }}</strong></p>
-
-                            <p>{% trans "Valoration" %}:
-                            {% for i in "x"|ljust:c.rating %}
-                                <i class="fa fa-star"></i>
-                            {% endfor %}
-                            <p>{{ c.description|linebreaks }}</p>
-                        </div>
-                        {% if perms.bocatapp.administration %}
-
-
-                            </div>
-                        {% endif %}
-
-        {% for k in r %}
-        <div class="report">
-            <p>{% trans "Reported by" %}: <b>{{ k.customer.username }}</b></p>
-            <p>{% trans "Reason" %}: {{ k.reason }}</p>
-
-
-        </div>
-
-
-        <div class="botones">
-            <a href="{% url 'report_accept' pk=k.pk %}" class='btn btn-primary'> {% trans "Accept" %} </a>
-            <a href="{% url 'report_decline' pk=k.pk %}" class='btn btn-danger'> {% trans "Deny" %} </a>
-
-        </div>
-            <br/>
-
-        {% endfor %}
+          <div class="col-md-12">
+            <div class="item-search well white">
+              <div class="comment">
+                <p>{% trans "Writen by" %}: <strong>{{ c.customer.username }}</strong></p>
+                  <p>{% trans "Valoration" %}:
+                  {% for i in "x"|ljust:c.rating %}
+                      <i class="fa fa-star"></i>
+                  {% endfor %}
+                  <p>{{ c.description|linebreaks }}</p>
+              </div>
+            </div>
+            {% if perms.bocatapp.administration %}
+              {% for k in r %}
+                <div class="report">
+                  <p>{% trans "Reported by" %}: <b>{{ k.customer.username }}</b></p>
+                  <p>{% trans "Reason" %}: {{ k.reason }}</p>
+                </div>
+                <div class="botones">
+                  <a href="{% url 'report_accept' pk=k.pk %}" class='btn btn-primary'> {% trans "Accept" %} </a>
+                  <a href="{% url 'report_decline' pk=k.pk %}" class='btn btn-danger'> {% trans "Deny" %} </a>
+                </div>
+                <br/>
+              {% endfor %}
+            {% endif %}
             <hr/>
-        <br/>
+            <br/>
+          </div>
         </div>
-        </div>
-        {% endfor %}
-
-    {% endif %}
-
-    {% if not reports %}
+      {% endfor %}
+    {% else %}
         <h2>{% trans "There are no activated reports" %}</h2>
     {% endif %}
+    <div class="row">
+      <a class="col-sm-2 text-left" href="{% url 'home' %}">
+          <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+              <span class="glyphicon glyphicon" aria-hidden="true"></span> {% trans "Back" %}
+          </button>
+      </a>
     </div>
 {% endblock %}

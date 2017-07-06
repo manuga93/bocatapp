@@ -11,8 +11,10 @@ class RegistrationCustomerView(FormView):
     def get(self, request):
         if not request.user.is_authenticated():
             form = UserRegistrationForm()
+            _next = request.GET.get('next', '')
             context = {'type': 'Registro',
                        'form': form,
+                       'next': _next
                        }
             return render(request, '../templates/forms/register_form.html', context)
         else:
@@ -22,12 +24,13 @@ class RegistrationCustomerView(FormView):
     def post(self, request):
         if not request.user.is_authenticated():
             form = UserRegistrationForm(request.POST or None)
+            _next = request.GET.get('next', '/')
             if form.is_valid():
                 user = form.create_user()
                 password = form.cleaned_data.get('password')
                 user.set_password(password)
                 save_customer(user)
-                return HttpResponseRedirect("/")
+                return HttpResponseRedirect(_next)
             else:
                 message = ""
                 for field, errors in form.errors.items():
@@ -35,7 +38,8 @@ class RegistrationCustomerView(FormView):
                         message += error
                 context = {
                     'type': _('Register'),
-                    'form': form, 'message': message
+                    'form': form, 'message': message,
+                    'next': _next
                 }
                 return render(request, '../templates/forms/register_form.html', context)
         else:

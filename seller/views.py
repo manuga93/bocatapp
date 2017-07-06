@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.views.generic import edit
 from datetime import datetime, timedelta
 import itertools
+from bocatapp.views import home
 
 from seller.forms.packsForms import PackForm
 from seller.models import Product, Local, Category, Pack, ProductLine, LocalCategory
@@ -62,7 +63,7 @@ def category_new(request, pk):
                 category = form.save(commit=False)
                 category.local = local
                 category.save()
-                messages.error(request, _('Category created correctly'))
+                messages.success(request, _('Category created correctly'))
                 return redirect('category_list', pk=local.pk)
         else:
             form = CategoryForm()
@@ -128,6 +129,7 @@ def product_new(request, pk):
 
         return render(request, 'product_edit.html', {'form': form,'pk':pk})
     else:
+        messages.warning(request, unicode(_('You can not create a product in this local because it does not belong to you.')))
         return redirect("/")
 
 
@@ -158,8 +160,9 @@ def local_list(request):
 # Vista para las orders de un local
 @permission_required('bocatapp.seller', message=_('You are not a seller'))
 def local_orders(request, pk):
-    local = get_object_or_404(Local, pk=pk)
-    if local.seller.pk == request.user.pk:
+    if request.user.local_set.filter(pk=pk):
+        local = get_object_or_404(Local, pk=pk)
+
         # Pending orders
         orders_not_do = local.order_set.all().filter(status=False, cancelled=False)
         orders_pending = {o: o.orderline_set.all() for o in orders_not_do}
@@ -172,15 +175,17 @@ def local_orders(request, pk):
 
         return render(request, 'orders.html', {'orders_pending': orders_pending, 'orders_done': orders_done, 'orders_cancelled': orders_cancelled})
     else:
-        return redirect("/")
+        return render(request, '../templates/forbidden.html')
 
 @permission_required('bocatapp.seller', message=_('You are not a seller'))
 def do_order(request, pk):
-    order = Order.objects.get(id=pk)
-    order.status = True
-    order.save()
-    return redirect('local_orders', pk=order.local_id)
-
+    order = get_object_or_404(Order, id=pk)
+    if request.user.local_set.filter(pk=order.local_id):
+        order.status = True
+        order.save()
+        return redirect('local_orders', pk=order.local_id)
+    else:
+        return render(request, '../templates/forbidden.html')
 
 # Vista para la creacion de un nuevo local
 @permission_required('bocatapp.seller', message=_('You are not a seller'))
@@ -223,7 +228,7 @@ def local_charts(request, pk):
         pending_orders = len(orders) - done_orders
         # Last week
         label_dates = [(datetime.now() - timedelta(days=counter)).strftime('%d/%m') for counter in range(7)][::-1]
-        orders = Order.objects.filter(moment__gte=datetime.now() - timedelta(days=7))
+        orders = Order.objects.filter(local=pk, moment__gte=datetime.now() - timedelta(days=7))
         grouped = itertools.groupby(orders, lambda record: record.moment.strftime("%d/%m"))
         orders_by_day = {day: len(list(jobs_this_day)) for day, jobs_this_day in grouped}
         # orders_by_day_result = [(date, orders_by_day.get(date, 0)) for date in label_dates]
@@ -242,42 +247,51 @@ def local_charts(request, pk):
 # Vista para la creacion de un local
 @permission_required('bocatapp.seller', message=_('You are not a seller'))
 def local_edit(request, pk):
-    local = get_object_or_404(Local, pk=pk)
-    if request.method == "POST":
-        form = LocalForm(request.POST, instance=local)
-        if form.is_valid():
-            local = form.save(commit=False)
-            local.seller = request.user
-            local.isActive = True
-            local.save()
-            return redirect('seller.views.local_detail', pk=local.pk)
+    if request.user.local_set.filter(pk=pk):
+        local = get_object_or_404(Local, pk=pk)
+        if request.method == "POST":
+            form = LocalForm(request.POST, instance=local)
+            if form.is_valid():
+                local = form.save(commit=False)
+                local.seller = request.user
+                local.isActive = True
+                local.save()
+                return redirect('seller.views.get_my_locals')
+        else:
+            form = LocalForm(instance=local)
+            return render(request, 'local_edit.html', {'form': form,'pk':pk})
     else:
-        form = LocalForm(instance=local)
-
-    return render(request, 'local_edit.html', {'form': form,'pk':pk})
+        return render(request, '../templates/forbidden.html')
 
 
 def search(request):
     ### COMPROBAR PRIMERO LA COCINA Y ENTONCES ORDENAR POR ESTRELLAS SI AUX
     input_search = request.GET.get("postcode")
-    #print (LocalCategory.objects.filter(locals__id=68))
-    supercats = find_different_cats()
-    if input_search and input_search.isdigit():
-        locals = Local.objects.all().filter(postalCode=input_search)
-        aux = request.GET.get('list_by')
-        cocina = request.GET.get("cuisine")
-        if cocina:
-            locals = sort_locals(cocina)
-        if aux == u'1':
-            locals = locals.order_by("avg_rating")
-        elif aux == u'0':
-            locals = locals.order_by("-avg_rating")
-    elif not isinstance(input_search, int):
-        locals = []
-    else:
-        locals = Local.objects.all()
 
-    return render(request, 'cp_search.html', {'locals': locals, 'supercats': supercats})
+    if input_search != "":
+        #print (LocalCategory.objects.filter(locals__id=68))
+        supercats = find_different_cats()
+        if input_search and input_search.isdigit():
+            locals = Local.objects.all().filter(postalCode=input_search)
+            aux = request.GET.get('list_by')
+            cocina = request.GET.get("cuisine")
+            if cocina:
+                locals = sort_locals(cocina)
+            if aux == u'1':
+                locals = locals.order_by("avg_rating")
+            elif aux == u'0':
+                locals = locals.order_by("-avg_rating")
+        elif not isinstance(input_search, int):
+            locals = []
+        else:
+            locals = Local.objects.all()
+
+        return render(request, 'cp_search.html', {'locals': locals, 'supercats': supercats})
+
+    else:
+        messages.warning(request, unicode(_('You must enter a zip code')))
+        return redirect(home.home)
+
 
 def find_different_cats():
     aux = LocalCategory.objects.all()

@@ -316,11 +316,47 @@ def objectsInCategory(cat):
 
 # Checkout view
 @login_required
-def checkout(request, form=CreditCardForm(None)):
-    current_user = request.user
-    shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
-    creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
-    return render(request, 'checkout.html', {'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=10)})
+def checkout(request, pk, form=CreditCardForm(None)):
+    update_cart_checkout(request, pk)
+    if request.user.has_perm('bocatapp.customer'):
+        current_user = request.user
+        shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
+        local = shoppingcart.shoppingcartline_set.all()[0].product.local
+        creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
+        return render(request, 'checkout.html', {'local': local,'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=30)})
+    else:
+        return redirect(home.home)
+        
+
+def update_cart_checkout(request, idCart):
+    idShoppingCart = idCart
+    if request.user.has_perm('bocatapp.customer'):
+        customer = User.objects.filter(pk=request.user.id)
+        shoppingCart = ShoppingCart.objects.filter(customer_id=request.user.id, checkout=False)
+
+        try:
+            actualShoppingCart = ShoppingCart.objects.get(pk=idShoppingCart)
+        except ShoppingCart.DoesNotExist:
+            actualShoppingCart = None
+
+        if not shoppingCart:
+            ShoppingCart.objects.filter(pk=idShoppingCart).update(customer=customer[0])
+        else:
+            productsShoppingCart = ShoppingCartLine.objects.filter(shoppingCart_id=shoppingCart[0].id)
+            productsActualShoppingCart = ShoppingCartLine.objects.filter(shoppingCart_id=idShoppingCart)
+
+            if productsActualShoppingCart and productsActualShoppingCart.count() > 0:
+                if int(idShoppingCart) != int(shoppingCart[0].pk):
+                    shoppingCart[0].delete()
+                    ShoppingCart.objects.filter(pk=idShoppingCart).update(customer=customer[0])
+            else:
+                if int(idShoppingCart) != int(shoppingCart[0].pk):
+                    if actualShoppingCart:
+                        actualShoppingCart.delete()
+    else:
+        actualShoppingCart = ShoppingCart.objects.filter(pk=idShoppingCart)
+        actualShoppingCart.delete()
+
 
 @login_required
 def do_checkout(request):
@@ -456,10 +492,13 @@ def report_new(request, pk):
 
 # Lista los comentarios de un local
 def comment_list(request, pk):
-    local = Local.objects.get(pk=pk)
-    comentarios = Comment.objects.filter(local = pk, reported=0)
-    return render_to_response('comment_list.html',
+    try:
+        local = Local.objects.get(pk=pk)
+        comentarios = Comment.objects.filter(local = pk, reported=0)
+        return render_to_response('comment_list.html',
                                 {'comentarios': comentarios, 'local': local}, context_instance=RequestContext(request))
+    except Local.DoesNotExist:
+        return render(request, 'forbidden.html')
 
 # Lista los reportes de un comentario
 @permission_required('bocatapp.administrator', message=_('You are not an admin'))
