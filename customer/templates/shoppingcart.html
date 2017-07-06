@@ -35,7 +35,7 @@
             <hr/>
         {% endfor %}
         <h3>Total: <span id="totalCart">{{ shoppingcart.total_price }}</span> € {% if shoppingcart.total_price != 0 %}
-            <a id="checkoutSC" class="btn btn-success" href="{% url 'checkout' %}"><span
+            <a id="checkoutSC" class="btn btn-success" href="#"><span
                     class="glyphicon glyphicon-ok"></span> {% trans "Finish and pay" %}</a>{% endif %}</h3>
         <br/>
         <a class="col-sm-2 text-left" href="{% url 'home' %}">
@@ -49,6 +49,8 @@
 {% block scripts %}
     {{ block.super }}
     <script type="text/javascript">
+        $(document).ready( function () {
+        }, changeShoppingCartCheckout());
         $('.container').on('click', '#updatesc', function () {
             var td = $(this).parent('.col-xs-6');
             var quantity = td.children('input#quantity').val();
@@ -141,6 +143,12 @@
                     }
                 }
             });
+        }
+
+        function changeShoppingCartCheckout() {
+            var cartId = getIdCart();
+            var url_mask = "{% url 'checkout' pk=12345 %}".replace(/12345/, cartId.toString());
+            document.getElementById("checkoutSC").href=url_mask;
         }
     </script>
 {% endblock %}
