@@ -406,13 +406,22 @@ def do_checkout(request):
                             expireYear = "20" + expiration_date.split('/')[1]
                             values['expireMonth'] = expireMonth
                             values['expireYear'] = expireYear
+                        
                         form = CreditCardForm(values)
+                        currentMonth = datetime.now().strftime("%m")
+                        
+                        if expireMonth < currentMonth:
+                            messages.warning(request, unicode(_('CreditCard is expired.')))
+                            return checkout(request, shoppingcart.id, form)
+
                         if not form.is_valid():
                             return checkout(request, shoppingcart.id, form)
+
                         if request.POST.get('save', '') == 'on':
                             creditcard = form.save()
                         else:
                             creditcard = None
+
                     elif creditcard_opt == 'balance':
                         # Other credit card
                         if current_user.amount_money < shoppingcart.total_price:
