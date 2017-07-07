@@ -9,7 +9,7 @@
         <h1>{% trans "Locals" %}</h1>
         <div class="row">
             <div class="col-md-2 col-md-offset-10">
-                <button type="button" class="btn btn-default col-xs-12"
+                <button type="button" class="btn btn-success col-xs-12"
                         onclick="location.replace('{% url 'seller.views.local_new' %}')" style="margin-bottom: 15px">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {% trans "New local" %}
                 </button>
@@ -41,6 +41,7 @@
                                         {{ local.description|linebreaksbr }}
                                     </p>
                                     <p class="brief-text bottom">
+                                        <span class="glyphicon glyphicon-comment"></span> 
                                         {% if local.comment_set.count == 0 or not local.comment_set %} {% trans "No opinions" %}.
                                             {% if perms.bocatapp.customer %}
                                             {% trans "Write yours" %} - <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>
@@ -59,14 +60,14 @@
                                   <ul class="nav navbar-nav">
 
                                         <button  onclick="location.replace('{% url 'local_orders' pk=local.pk %}');"
-                                                class="form-control text-left"><i class="fa fa-tasks"></i> {% trans "Manage orders" %}
+                                                class="form-control text-left btn btn-primary"><i class="fa fa-tasks"></i> {% trans "Manage orders" %}
                                         </button>
                                         <button onclick="location.replace('{% url 'local_charts' pk=local.pk %}');"
-                                                class="form-control text-left"><i class="fa fa-pie-chart"></i> {% trans "Statistics" %}
+                                                class="form-control text-left btn btn-warning"><i class="fa fa-pie-chart"></i> {% trans "Statistics" %}
                                         </button>
                                         <div class="btn-group btn-block">
                                         <li class="dropdown">
-                                          <button href="#" class="dropdown-toggle form-control text-left btn-block" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> {% trans "Configuration" %} </button>
+                                          <button href="#" class="dropdown-toggle form-control text-left btn-block btn-info" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i> {% trans "Configuration" %} </button>
                                           <ul class="dropdown-menu">
                                             <li><a href='{% url 'local_edit' pk=local.pk %}'>{% trans "Edit local" %}</a></li>
                                             <li><a href='{% url 'menu_list' pk=local.pk %}'>{% trans "Menu" %}</a></li>

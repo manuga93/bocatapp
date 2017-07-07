@@ -95,7 +95,8 @@ def update_cookie(request):
     
 
 # Vista del carrito de compra actual del customer logueado
-def list_shopping_cart(request, pk):
+def list_shopping_cart(request):
+    pk = request.POST.get('idCart',''); 
     if request.user.is_authenticated():
         if request.user.has_perm('bocatapp.customer'):
             try:
