@@ -373,9 +373,10 @@ def do_checkout(request):
             shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id, checkout=False)
         except ShoppingCart.DoesNotExist:
             return render(request, 'forbidden.html')
-
-        creditcard_opt = request.POST.get('creditcard', '')
         shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
+        if len(shoppingcart_lines) == 0:
+            return redirect('/')
+        creditcard_opt = request.POST.get('creditcard', '')
         local = shoppingcart_lines[0].product.local
         date = request.POST.get('dateCheckout', '')
         hour = request.POST.get('hourCheckout', '')
@@ -407,14 +408,21 @@ def do_checkout(request):
                             values['expireMonth'] = expireMonth
                             values['expireYear'] = expireYear
 
+                            yearMax = int(datetime.now().year + 8)
+
+                            expireDate = datetime.strptime(expireMonth + "-" + expireYear, "%m-%Y")
+                            actualDate = datetime.now()
+
                         form = CreditCardForm(values)
-                        currentMonth = datetime.now().strftime("%m")
 
                         if not form.is_valid():
                             return checkout(request, shoppingcart.id, form)
 
-                        if expireMonth < currentMonth:
+                        if expireDate < actualDate:
                             messages.warning(request, unicode(_('CreditCard is expired.')))
+                            return checkout(request, shoppingcart.id, form)
+                        if int(expireYear) > yearMax:
+                            messages.warning(request, unicode(_('Expiration date is not valid.')))
                             return checkout(request, shoppingcart.id, form)
 
                         if request.POST.get('save', '') == 'on':
@@ -462,7 +470,7 @@ def do_checkout(request):
             return render(request, 'thanks.html', {})
         else:
             messages.warning(request, unicode(_('Date or time is not correct')))
-            return redirect('customer.views.checkout')
+            return checkout(request, shoppingcart.id, form)
     return redirect(home.home)
 
 
