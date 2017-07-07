@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-05 19:44+0200\n"
+"POT-Creation-Date: 2017-07-07 10:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,7 @@ msgstr "Acepto los términos y condiciones"
 #: bocatapp/forms.py:33 bocatapp/forms.py:80 seller/forms/forms.py:18
 #: seller/templates/local_detail.html:21
 msgid "Phone"
-msgstr "teléfono"
+msgstr "Teléfono"
 
 #: bocatapp/forms.py:43
 msgid "Passwords dont match"
@@ -97,7 +97,7 @@ msgstr "Avatar"
 
 #: bocatapp/forms.py:96 seller/forms/packsForms.py:33
 msgid "You must enter a valid date"
-msgstr "Debes introducir una fecha valida"
+msgstr "Debes introducir una fecha válida"
 
 #: bocatapp/forms.py:119
 msgid "Old password"
@@ -123,8 +123,8 @@ msgstr "Bocatapp - Iniciar sesion"
 
 #: bocatapp/templates/auth/login.html:9
 #: bocatapp/templates/forms/login_form.html:25
-#: bocatapp/templates/includes/header.html:56
-#: bocatapp/templates/includes/header.html:58
+#: bocatapp/templates/includes/header.html:66
+#: bocatapp/templates/includes/header.html:68
 msgid "Log in"
 msgstr "Iniciar sesión"
 
@@ -242,7 +242,7 @@ msgid ""
 "process the information for Google account."
 msgstr ""
 "En particular Bocatapp utiliza Google Analytics, un servicio analítico de "
-"webs prestado por Google, Inc.Para la prestación de estos servicios,estos "
+"webs prestado por Google, Inc. Para la prestación de estos servicios,estos "
 "utilizan cookies que recopilan la información, incluida la dirección IP del "
 "usuario, que será transmitida, tratada y almacenada por Google en los "
 "términos fijados en la Web Google.com. Incluyendo la posible transmisión de "
@@ -271,7 +271,7 @@ msgid ""
 "establishments near to: business areas, university campuses or institutes."
 msgstr ""
 "BocatApp es una plataforma especializada en la compra-venta de comida en los "
-"establecimientos cercanos a : zonas empresariales,campus universitarios o "
+"establecimientos cercanos a: zonas empresariales,campus universitarios o "
 "institutos."
 
 #: bocatapp/templates/faq.html:28
@@ -302,7 +302,7 @@ msgstr "Vendedores"
 
 #: bocatapp/templates/faq.html:57
 msgid "Who can sell products?"
-msgstr "¿Quien puede vender productos?"
+msgstr "¿Quién puede vender productos?"
 
 #: bocatapp/templates/faq.html:62
 msgid ""
@@ -327,7 +327,7 @@ msgid ""
 "moment of collection of such orders."
 msgstr ""
 "La principal ventaja que tendrás si vendes tus productos desde BocatApp es "
-"facilitar la gestiónde pedidos, ya que podrás saber el momento de recogida "
+"facilitar la gestión de pedidos, ya que podrás saber el momento de recogida "
 "de dichos pedidos."
 
 #: bocatapp/templates/faq.html:85
@@ -341,7 +341,7 @@ msgid ""
 "customer does not collect the order, the establishment will have the sale "
 "covered and will not have losses."
 msgstr ""
-"En BocatApp queremos proteger a nuestros negocios por ello, los clientes de "
+"En BocatApp queremos proteger a nuestros negocios, por ello los clientes de "
 "sus establecimientos deben hacer el pago en el momento de la compra. Si el "
 "cliente no recoge el pedido, el establecimiento tendrá cubierta la venta y "
 "no tendrá pérdidas."
@@ -367,7 +367,7 @@ msgstr "Clientes"
 #: bocatapp/templates/faq.html:114
 msgid ""
 "What benefits do I have in front of placing the order in the own premises?"
-msgstr "¿Que beneficios tengo frente a hacer el pedido en el propio local?"
+msgstr "¿Qué beneficios tengo frente a hacer el pedido en el propio local?"
 
 #: bocatapp/templates/faq.html:119
 msgid ""
@@ -418,7 +418,7 @@ msgstr "Sí, podrás cancelar el pedido hasta 2h antes de la entrega."
 
 #: bocatapp/templates/faq.html:163
 msgid "if you need more information, contact with"
-msgstr "Si necesitas mas informacion, sigue el siguiente"
+msgstr "Si necesitas mas información, sigue el siguiente"
 
 #: bocatapp/templates/forbidden.html:14
 msgid "Oops!"
@@ -429,8 +429,9 @@ msgid "Sorry, an error has occured. Request refused!"
 msgstr "Disculpa, ha ocurrido un error. Petición rechazada!"
 
 #: bocatapp/templates/forbidden.html:20 bocatapp/templates/home.html:4
+#: bocatapp/templates/includes/header.html:21
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
 #: bocatapp/templates/forms/login_form.html:22
 msgid "Forget password?"
@@ -441,11 +442,11 @@ msgid "Remember password"
 msgstr "Repetir contraseña"
 
 #: bocatapp/templates/forms/password_edit.html:18
-#: bocatapp/templates/forms/register_form.html:16
+#: bocatapp/templates/forms/register_form.html:20
 #: bocatapp/templates/forms/user_edit.html:17
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:30
 #: bocatapp/templates/passwordreset/password_reset_form.html:22
-#: customer/templates/checkout.html:241 customer/templates/comment_list.html:70
+#: customer/templates/comment_list.html:70
 #: customer/templates/comment_list.html:77 customer/templates/orders.html:184
 #: customer/templates/report_list.html:50
 #: seller/templates/category_list.html:97 seller/templates/local_charts.html:23
@@ -456,11 +457,11 @@ msgid "Back"
 msgstr "Atrás"
 
 #: bocatapp/templates/forms/password_edit.html:19
-#: bocatapp/templates/forms/register_form.html:17
+#: bocatapp/templates/forms/register_form.html:21
 #: bocatapp/templates/forms/user_edit.html:18
 #: bocatapp/templates/passwordreset/password_reset_confirm.html:31
 #: customer/templates/comment_edit.html:33
-#: seller/templates/category_new.html:14
+#: seller/templates/category_new.html:20
 #: seller/templates/forms/category_form.html:14
 #: seller/templates/local_edit.html:20 seller/templates/product_edit.html:28
 msgid "Save"
@@ -496,59 +497,59 @@ msgstr "Todos los derechos reservados"
 msgid "Terms and use conditions"
 msgstr "Términos y condiciones"
 
-#: bocatapp/templates/includes/header.html:28
-#: bocatapp/templates/includes/header.html:30
+#: bocatapp/templates/includes/header.html:38
+#: bocatapp/templates/includes/header.html:40
 #: customer/templates/checkout.html:44
 msgid "Balance"
 msgstr "Saldo"
 
-#: bocatapp/templates/includes/header.html:32
+#: bocatapp/templates/includes/header.html:42
 msgid "Recharge balance"
 msgstr "Recargar saldo"
 
-#: bocatapp/templates/includes/header.html:40
+#: bocatapp/templates/includes/header.html:50
 msgid "Language"
 msgstr "Idioma"
 
-#: bocatapp/templates/includes/header.html:43
+#: bocatapp/templates/includes/header.html:53
 msgid "Spanish"
 msgstr "Español"
 
-#: bocatapp/templates/includes/header.html:46
+#: bocatapp/templates/includes/header.html:56
 msgid "English"
 msgstr "Inglés"
 
-#: bocatapp/templates/includes/header.html:53
+#: bocatapp/templates/includes/header.html:63
 msgid "Help"
 msgstr "Ayuda"
 
-#: bocatapp/templates/includes/header.html:66
+#: bocatapp/templates/includes/header.html:76
 msgid "Do not have an account yet?"
 msgstr "¿No tienes cuenta todavía?"
 
-#: bocatapp/templates/includes/header.html:66
+#: bocatapp/templates/includes/header.html:76
 msgid "Register now!"
 msgstr "Registro"
 
-#: bocatapp/templates/includes/header.html:88
+#: bocatapp/templates/includes/header.html:98
 msgid "My account"
 msgstr "Mi cuenta"
 
-#: bocatapp/templates/includes/header.html:91
+#: bocatapp/templates/includes/header.html:101
 #: customer/templates/comment_list.html:49
 #: customer/templates/report_list.html:4 customer/templates/report_list.html:10
 msgid "Reports"
 msgstr "Reportes"
 
-#: bocatapp/templates/includes/header.html:94
+#: bocatapp/templates/includes/header.html:104
 msgid "My locals"
 msgstr "Mis locales"
 
-#: bocatapp/templates/includes/header.html:97
+#: bocatapp/templates/includes/header.html:107
 msgid "My orders"
 msgstr "Mis pedidos"
 
-#: bocatapp/templates/includes/header.html:99
+#: bocatapp/templates/includes/header.html:109
 msgid "Disconect"
 msgstr "Cerrar Sesión"
 
@@ -805,35 +806,35 @@ msgstr ""
 msgid "You`ve already sign in!"
 msgstr "Ya estás registrado"
 
-#: bocatapp/views/ShoppingCart.py:132
+#: bocatapp/views/ShoppingCart.py:133
 msgid "Product has not been added to cart"
 msgstr "El producto no ha sido añadido al carrito"
 
-#: bocatapp/views/ShoppingCart.py:144
+#: bocatapp/views/ShoppingCart.py:145
 msgid "You can not add products from different locations."
 msgstr "No se pueden agregar productos de distintos locales."
 
-#: bocatapp/views/ShoppingCart.py:154
+#: bocatapp/views/ShoppingCart.py:155
 msgid "The product has been successfully added to cart."
 msgstr "El producto ha sido añadido correctamente al carrito"
 
-#: bocatapp/views/ShoppingCart.py:186
+#: bocatapp/views/ShoppingCart.py:187
 msgid "The product has been updated successfully."
 msgstr "El producto se ha añadido correctamente al carrito."
 
-#: bocatapp/views/ShoppingCart.py:191
+#: bocatapp/views/ShoppingCart.py:192
 msgid "The product has not been updated successfully."
 msgstr "El producto no se ha añadido correctamente al carrito."
 
-#: bocatapp/views/ShoppingCart.py:208
+#: bocatapp/views/ShoppingCart.py:209
 msgid "The product has been removed from the cart."
 msgstr "El producto se ha eliminado del carrito."
 
-#: bocatapp/views/UserRegister.py:37
+#: bocatapp/views/UserRegister.py:40
 msgid "Register"
 msgstr "Registro"
 
-#: bocatapp/views/UserRegister.py:49 bocatapp/views/UserRegister.py:71
+#: bocatapp/views/UserRegister.py:53 bocatapp/views/UserRegister.py:75
 msgid "Seller register"
 msgstr "Registro de vendedor"
 
@@ -894,7 +895,7 @@ msgstr "Descripción"
 
 #: customer/forms/forms.py:19 customer/templates/report_list.html:30
 msgid "Reason"
-msgstr "Razon"
+msgstr "Razón"
 
 #: customer/forms/forms.py:31
 msgid "Amount to recharge"
@@ -1003,8 +1004,8 @@ msgstr "Comentarios de"
 
 #: customer/templates/comment_list.html:17 seller/templates/cp_search.html:83
 #: seller/templates/cp_search.html.py:86 seller/templates/cp_search.html:89
-#: seller/templates/local_list.html:46 seller/templates/local_list.html:50
-#: seller/templates/local_list.html:53
+#: seller/templates/local_list.html:47 seller/templates/local_list.html:51
+#: seller/templates/local_list.html:54
 msgid "Comment"
 msgstr "Comentar"
 
@@ -1136,11 +1137,11 @@ msgstr "Añadir"
 msgid "Finish and pay"
 msgstr "Finalizar y pagar"
 
-#: customer/templates/shoppingcart.html:43
+#: customer/templates/shoppingcart.html:44
 msgid "Keep buying"
 msgstr "Seguir comprando"
 
-#: customer/templates/shoppingcart.html:86 seller/templates/menu.html:151
+#: customer/templates/shoppingcart.html:90 seller/templates/menu.html:151
 msgid "The quantity entered must be a number between 1 and 10."
 msgstr "La cantidad introducida debe estar entre 1 y 10"
 
@@ -1212,7 +1213,7 @@ msgid "There was a problem connecting to PaySafeCard, please try again later!"
 msgstr ""
 "¡Hubo un problema al conectar con PaySafeCard, ¡inténtelo de nuevo más tarde!"
 
-#: customer/views.py:233 customer/views.py:417
+#: customer/views.py:233 customer/views.py:470
 msgid "You are not a customer"
 msgstr "Usted no es cliente"
 
@@ -1240,15 +1241,19 @@ msgstr "La fecha del pedido ya ha pasado."
 msgid "The order you are trying to cancel does not belong to you."
 msgstr "El pedido que intentas cancelar no te pertenece."
 
-#: customer/views.py:376
+#: customer/views.py:414
+msgid "CreditCard is expired."
+msgstr "La tarjeta de crédito está caducada"
+
+#: customer/views.py:429
 msgid "Choose another method of payment, you do not have enough balance!"
 msgstr "Elige otro método de pago, ¡no tienes suficiente saldo!"
 
-#: customer/views.py:390
+#: customer/views.py:443
 msgid "Add your comment"
 msgstr "Añade tu comentario"
 
-#: customer/views.py:406
+#: customer/views.py:459
 msgid ""
 "The date and time of collection must be after the current date and time. "
 "Minimum 10 min."
@@ -1256,15 +1261,15 @@ msgstr ""
 "La fecha y hora de recogida debe ser posterior a la fecha y hora actual. "
 "Mínimo 10 min"
 
-#: customer/views.py:411
+#: customer/views.py:464
 msgid "Date or time is not correct"
 msgstr "Fecha u hora no es correcta"
 
-#: customer/views.py:441
+#: customer/views.py:494
 msgid "You are not user"
 msgstr "Usted no es usuario"
 
-#: customer/views.py:469 customer/views.py:475 customer/views.py:481
+#: customer/views.py:522 customer/views.py:528 customer/views.py:534
 msgid "You are not an admin"
 msgstr "Usted no es administrador"
 
@@ -1388,19 +1393,19 @@ msgstr "encontrado en esta zona"
 msgid "Profile image"
 msgstr "Imagen de perfil"
 
-#: seller/templates/cp_search.html:82 seller/templates/local_list.html:44
+#: seller/templates/cp_search.html:82 seller/templates/local_list.html:45
 msgid "No opinions"
 msgstr "Sin opiniones"
 
-#: seller/templates/cp_search.html:83 seller/templates/local_list.html:46
+#: seller/templates/cp_search.html:83 seller/templates/local_list.html:47
 msgid "Write yours"
 msgstr "Escribe la tuya"
 
-#: seller/templates/cp_search.html:86 seller/templates/local_list.html:50
+#: seller/templates/cp_search.html:86 seller/templates/local_list.html:51
 msgid "1 comment"
 msgstr "1 comentario"
 
-#: seller/templates/cp_search.html:89 seller/templates/local_list.html:53
+#: seller/templates/cp_search.html:89 seller/templates/local_list.html:54
 msgid "comments"
 msgstr "Comentarios"
 
@@ -1428,7 +1433,7 @@ msgstr "Ver menú"
 msgid "See categories"
 msgstr "Ver categorías"
 
-#: seller/templates/local_detail.html:33 seller/templates/local_list.html:74
+#: seller/templates/local_detail.html:33 seller/templates/local_list.html:75
 #: seller/templates/menu.html:12
 msgid "New product"
 msgstr "Nuevo producto"
@@ -1437,7 +1442,7 @@ msgstr "Nuevo producto"
 msgid "Create local"
 msgstr "Crear local"
 
-#: seller/templates/local_edit.html:14 seller/templates/local_list.html:71
+#: seller/templates/local_edit.html:14 seller/templates/local_list.html:72
 msgid "Edit local"
 msgstr "Editar local"
 
@@ -1445,27 +1450,27 @@ msgstr "Editar local"
 msgid "New local"
 msgstr "Nuevo local"
 
-#: seller/templates/local_list.html:62
+#: seller/templates/local_list.html:63
 msgid "Manage orders"
 msgstr "Gestionar pedidos"
 
-#: seller/templates/local_list.html:65
+#: seller/templates/local_list.html:66
 msgid "Statistics"
 msgstr "Estadísticas"
 
-#: seller/templates/local_list.html:69
+#: seller/templates/local_list.html:70
 msgid "Configuration"
 msgstr "Configuración"
 
-#: seller/templates/local_list.html:72
+#: seller/templates/local_list.html:73
 msgid "Menu"
 msgstr "Carta"
 
-#: seller/templates/local_list.html:73
+#: seller/templates/local_list.html:74
 msgid "Categories"
 msgstr "Categorías"
 
-#: seller/templates/local_list.html:90
+#: seller/templates/local_list.html:91
 msgid "There is no locals yet"
 msgstr "No hay locales aún"
 
@@ -1529,7 +1534,8 @@ msgid "The category has not been deleted because it does not belong to you."
 msgstr "La categoría que has intentado borrar no te pertenece"
 
 #: seller/views.py:132
-msgid "You can not create a product in this local because it does not belong to you."
+msgid ""
+"You can not create a product in this local because it does not belong to you."
 msgstr "No puedes crear un producto en este local porque no te pertenece."
 
 #: seller/views.py:292

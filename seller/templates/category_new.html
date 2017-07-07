@@ -11,12 +11,14 @@
   <form method="POST" class="local-form"> {%csrf_token%}
           {% bootstrap_form form %}
           {% buttons %}
-          <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
-              <a class="col-sm-2 text-left" href="{% url 'seller.views.get_my_locals'%}">
-                  <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Cancel" %}
-                  </button>
-              </a>
+          <div class="row">
+            <a class="col-sm-2 text-left" href="{% url 'seller.views.get_my_locals'%}">
+                <button type="button" class="btn btn-default" style="margin-bottom: 15px">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Cancel" %}
+                </button>
+            </a>
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> {% trans "Save" %}</button>
+          </div>
           {% endbuttons %}
   </form>
   </div>

@@ -38,11 +38,13 @@
             <a id="checkoutSC" class="btn btn-success" href="#"><span
                     class="glyphicon glyphicon-ok"></span> {% trans "Finish and pay" %}</a>{% endif %}</h3>
         <br/>
-        <a class="col-sm-2 text-left" href="{% url 'home' %}">
-            <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                <span class="glyphicon glyphicon" aria-hidden="true"></span> {% trans "Keep buying" %}
-            </button>
-        </a>
+        <div class="row">
+            <a class="col-sm-2 text-left" href="{% url 'home' %}">
+                <button type="button" class="btn btn-info" style="margin-bottom: 15px">
+                    <span class="glyphicon glyphicon" aria-hidden="true"></span> {% trans "Keep buying" %}
+                </button>
+            </a>
+        </div>
     </div>
 {% endblock %}
 

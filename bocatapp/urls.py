@@ -53,7 +53,7 @@ urlpatterns = [
                                                     message=_('You`ve already sign in!')), name='customer_register'),
 
     # ShoppingCart ==============================================================
-    url(r'^shoppingcart/list/(?P<pk>[0-9]+)/$', ShoppingCart.list_shopping_cart, name='list_shoppingcart'),
+    url(r'^shoppingcart/list/', ShoppingCart.list_shopping_cart, name='list_shoppingcart'),
     url(r'^shoppingCart/create/', ShoppingCart.create_shopping_cart, name='create_shoppingcart'),
     url(r'^shoppingCart/update_cookie/', ShoppingCart.update_cookie, name='update_cookie'),
     url(r'^shoppingCart/add/', ShoppingCart.add_product, name='add_product_cart'),
