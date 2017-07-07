@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-07 10:53+0200\n"
+"POT-Creation-Date: 2017-07-07 23:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1213,7 +1213,7 @@ msgid "There was a problem connecting to PaySafeCard, please try again later!"
 msgstr ""
 "¡Hubo un problema al conectar con PaySafeCard, ¡inténtelo de nuevo más tarde!"
 
-#: customer/views.py:233 customer/views.py:470
+#: customer/views.py:233 customer/views.py:485
 msgid "You are not a customer"
 msgstr "Usted no es cliente"
 
@@ -1241,19 +1241,29 @@ msgstr "La fecha del pedido ya ha pasado."
 msgid "The order you are trying to cancel does not belong to you."
 msgstr "El pedido que intentas cancelar no te pertenece."
 
-#: customer/views.py:414
-msgid "CreditCard is expired."
-msgstr "La tarjeta de crédito está caducada"
+#: customer/views.py:327
+msgid "Cart price can not be greater than 99.99 eur. Please delete some items."
+msgstr "El precio del carrito no puede ser superior a 99.99 eur. Por favor, elimina algunos items."
 
-#: customer/views.py:429
+#: customer/views.py:420
+msgid "CreditCard is expired."
+msgstr "La tarjeta de crédito está caducada."
+
+#: customer/views.py:423 customer/views.py:428 customer/views.py:431
+#, fuzzy
+#| msgid "Expiration date"
+msgid "Expiration date is not valid."
+msgstr "Fecha de expiración inválida."
+
+#: customer/views.py:443
 msgid "Choose another method of payment, you do not have enough balance!"
 msgstr "Elige otro método de pago, ¡no tienes suficiente saldo!"
 
-#: customer/views.py:443
+#: customer/views.py:456
 msgid "Add your comment"
 msgstr "Añade tu comentario"
 
-#: customer/views.py:459
+#: customer/views.py:473
 msgid ""
 "The date and time of collection must be after the current date and time. "
 "Minimum 10 min."
@@ -1261,15 +1271,15 @@ msgstr ""
 "La fecha y hora de recogida debe ser posterior a la fecha y hora actual. "
 "Mínimo 10 min"
 
-#: customer/views.py:464
+#: customer/views.py:479
 msgid "Date or time is not correct"
 msgstr "Fecha u hora no es correcta"
 
-#: customer/views.py:494
+#: customer/views.py:509
 msgid "You are not user"
 msgstr "Usted no es usuario"
 
-#: customer/views.py:522 customer/views.py:528 customer/views.py:534
+#: customer/views.py:537 customer/views.py:543 customer/views.py:549
 msgid "You are not an admin"
 msgstr "Usted no es administrador"
 

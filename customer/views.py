@@ -323,6 +323,9 @@ def checkout(request, pk, form=CreditCardForm(None)):
 
         try:
             shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
+            if shoppingcart.total_price > 99.99:
+                messages.warning(request, unicode(_('Cart price can not be greater than 99.99 eur. Please delete some items.')))
+                return redirect('/')
         except ShoppingCart.DoesNotExist:
             return render(request, 'forbidden.html')
 
@@ -445,7 +448,6 @@ def do_checkout(request):
                             creditcard = None
                     else:
                         creditcard = CreditCard.objects.get(id=creditcard_opt)
-
                     # saving order
                     new_order = Order(
                         totalPrice=shoppingcart.total_price,
