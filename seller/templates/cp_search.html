@@ -83,7 +83,7 @@
                                       {% trans "Write yours" %} - <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>
                                   {% endif %}
                                   {% if local.comment_set.count == 1 %}
-                                    <a href="{% url 'comment_list' pk=local.pk %}">{% trans "1 comment" %}</a> - <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>
+                                    <a href="{% url 'comment_list' pk=local.pk %}">{% trans "1 comment" %}</a> {% if perms.bocatapp.customer %}- <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>{% endif %}
                                   {% endif %}
                                   {% if local.comment_set.count > 1 %}
                                     <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} {% trans "comments" %}</a>   {% if perms.bocatapp.customer %}- <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>  {% endif %}
