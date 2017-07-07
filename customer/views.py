@@ -402,26 +402,29 @@ def do_checkout(request):
                         values['user'] = request.user.id
                         expiration_date = request.POST.get('cardExpiry', '')
                         # parse and split.
+                        form = CreditCardForm(values)
                         if expiration_date and '/' in expiration_date:
                             expireMonth = expiration_date.split('/')[0]
                             expireYear = "20" + expiration_date.split('/')[1]
                             values['expireMonth'] = expireMonth
                             values['expireYear'] = expireYear
-
+                            form = CreditCardForm(values)
                             yearMax = int(datetime.now().year + 8)
-
-                            expireDate = datetime.strptime(expireMonth + "-" + expireYear, "%m-%Y")
-                            actualDate = datetime.now()
-
-                        form = CreditCardForm(values)
-
-                        if not form.is_valid():
-                            return checkout(request, shoppingcart.id, form)
-
-                        if expireDate < actualDate:
-                            messages.warning(request, unicode(_('CreditCard is expired.')))
-                            return checkout(request, shoppingcart.id, form)
-                        if int(expireYear) > yearMax:
+                            try:
+                                actualDate = datetime.now()
+                                expireDate = datetime.strptime(expireMonth[0:2] + "-" + expireYear[0:4], "%m-%Y")
+                                if expireDate is None and expireDate < actualDate:
+                                    messages.warning(request, unicode(_('CreditCard is expired.')))
+                                    return checkout(request, shoppingcart.id, form)
+                                if int(expireYear) > yearMax:
+                                    messages.warning(request, unicode(_('Expiration date is not valid.')))
+                                    return checkout(request, shoppingcart.id, form)
+                                if not form.is_valid():
+                                    return checkout(request, shoppingcart.id, form)
+                            except:
+                                messages.warning(request, unicode(_('Expiration date is not valid.')))
+                                return checkout(request, shoppingcart.id, form)
+                        else:
                             messages.warning(request, unicode(_('Expiration date is not valid.')))
                             return checkout(request, shoppingcart.id, form)
 
@@ -464,11 +467,13 @@ def do_checkout(request):
                     ShoppingCart.objects.filter(customer_id=current_user.id, checkout=False).update(checkout=True)
 
                 else:
+                    form = CreditCardForm(request.POST or None)
                     messages.warning(request, unicode(_('The date and time of collection must be after the current date and time. Minimum 10 min.')))
                     return checkout(request, shoppingcart.id, form)
 
             return render(request, 'thanks.html', {})
         else:
+            form = CreditCardForm(request.POST or None)
             messages.warning(request, unicode(_('Date or time is not correct')))
             return checkout(request, shoppingcart.id, form)
     return redirect(home.home)
