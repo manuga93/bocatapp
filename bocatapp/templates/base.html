@@ -191,12 +191,16 @@
 
     function changeShoppingCart() {
         var cartId = getIdCart();
-        var url_mask = "{% url 'list_shoppingcart' pk=12345 %}".replace(/12345/, cartId.toString());
-        document.getElementById("listSC").href=url_mask;
+        document.getElementById("listSC").value=cartId.toString();
     }
-     $('#logoutButton').click(function(){
-            removeCookieCart();
-     });
+
+    $('#logoutButton').click(function(){
+        removeCookieCart();
+    });
+
+    $('#iconCart').click(function(){
+        $( "#listadoCarrito" ).submit();
+    });
 
     $(document).ready(function () {
         // Datepicker

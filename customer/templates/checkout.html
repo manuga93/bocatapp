@@ -231,18 +231,10 @@
   <div class="row">
       <div class="col-md-4 col-md-offset-8">
           <button class="savecard btn btn-success btn-lg btn-block" onclick="$('#payment-form').submit();" type="button">{% trans "Make the reservation" %}</button>
-      <br>
+        <br>
       </div>
   </div>
-
-    <div class="row">
-        <a class="col-sm-2 text-left" href="{% url 'list_shoppingcart' pk=shoppingcart.pk%}">
-            <button type="button" class="btn btn-default" style="margin-bottom: 15px">
-                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {% trans "Back" %}
-            </button>
-        </a>
-            </div>
-      </div>
+</div>
 </div>
 
 {% endblock%}

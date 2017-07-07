@@ -13,7 +13,7 @@
                   <label style="font-weight: normal;" for="postcode">{% trans "Results for" %}: </label>
                   <input id="postcode" name="postcode" type="text" class="form-control input-md" value="{{request.GET.postcode}}" required>
               </div>
-              <button onclick="#" class="form-control">{% trans "Search" %}</button>
+              <button onclick="#" class="form-control"><span class="glyphicon glyphicon-search"></span> {% trans "Search" %}</button>
           </form>
       </div>
     </div>
@@ -46,7 +46,7 @@
               </div>
                 {% endfor %}
               <input type="hidden" name="postcode" value="{{request.GET.postcode}}" />
-              <button onclick="#" class="form-control">{% trans "Update" %}</button>
+              <button onclick="#" class="form-control"><span class="glyphicon glyphicon-refresh"></span> {% trans "Update" %}</button>
             </form>
           </div>
       </div>
@@ -86,14 +86,14 @@
                                     <a href="{% url 'comment_list' pk=local.pk %}">{% trans "1 comment" %}</a> - <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>
                                   {% endif %}
                                   {% if local.comment_set.count > 1 %}
-                                    <a href="{% url 'comment_list' pk=local.pk %}">{{ local.comment_set.count }} {% trans "comments" %}</a>   {% if perms.bocatapp.customer %}- <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>  {% endif %}
+                                    <a href="{% url 'comment_list' pk=local.pk %}"><span class="glyphicon glyphicon-comment"></span> {{ local.comment_set.count }} {% trans "comments" %}</a>   {% if perms.bocatapp.customer %}- <a href="{% url 'comment_new' pk=local.pk %}">{% trans "Comment" %}</a>  {% endif %}
                                   {% endif %}
                               </p>
                           </div>
                           <div class="col-md-2 col-xs-12 buttons-wrapper text-center">
-                              <button onclick="location.replace('{% url 'menu_list' pk=local.pk %}');" class="form-control">Menu</button>
+                              <button onclick="location.replace('{% url 'menu_list' pk=local.pk %}');" class="form-control"><span class="glyphicon glyphicon-file"></span> Menu</button>
                               <p class="brief-text">
-                                  TODA LA SEMANA · 9-14:30
+                                  <span class="glyphicon glyphicon-time"></span> TODA LA SEMANA · 9-14:30
                               </p>
                           </div>
                       </div>
