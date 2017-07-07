@@ -16,6 +16,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+            {% if request.path != "/" %}
+                <li>
+                    <a href="/"><span class="glyphicon glyphicon-home"></span> {% trans 'Home' %}</a>
+                </li>
+            {% endif %}
+
             {% if perms.bocatapp.customer or user.is_anonymous %}
                 <li>
                     <a href="#" id="iconCart">
@@ -41,7 +47,7 @@
 
 
          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Language" %}</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span> {% trans "Language" %}</a>
             <ul class="dropdown-menu box main-dp">
                 <li>
                     <a class="dropdown-item" href="/i18n/change_language?language=es">{% trans "Spanish" %}</a>
@@ -54,12 +60,12 @@
 
 
 
-            <li><a href="/faq">{% trans 'Help' %}</a></li>
+            <li><a href="/faq"><span class="glyphicon glyphicon-info-sign"></span> {% trans 'Help' %}</a></li>
             {% if user.is_anonymous %}
                 <li class="dropdown">
                     <a href="#" class="hidden-sm hidden-md hidden-lg" data-toggle="dropdown">{% trans 'Log in' %}
                     <span class="caret hidden-sm hidden-md hidden-lg"></span></a>
-                    <a class="hidden-xs" data-toggle="dropdown" href="#">{% trans 'Log in' %}</a>
+                    <a class="hidden-xs" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-log-in"></span> {% trans 'Log in' %}</a>
                     <ul id="login-dp" class="dropdown-menu box main-dp">
                         <li>
                              <div class="row">
@@ -89,18 +95,18 @@
                     <ul id="myaccount-dp" class="dropdown-menu box main-dp">
                         <li>
                             <a href="/user/myAccount/"><strong class="hidden-xs block">{{ user.get_full_name }}</strong>
-                            <span class="block">{% trans 'My account' %}</span></a>
+                            <span class="block"><span class="glyphicon glyphicon-cog"></span> {% trans 'My account' %}</span></a>
                         </li>
                         {% if user.is_superuser %}
                             <li><a href="{% url 'report_list' %}">{% trans 'Reports' %}</a></li>
                         {% endif %}
                         {% if perms.bocatapp.seller and not user.is_superuser%}
-                          <li><a href="{% url 'locals_by_seller' %}">{% trans 'My locals' %}</a></li>
+                          <li><a href="{% url 'locals_by_seller' %}"><span class="glyphicon glyphicon-inbox"></span> {% trans 'My locals' %}</a></li>
                         {% endif %}
                         {% if perms.bocatapp.customer and not user.is_superuser%}
-                          <li><a href="{% url 'orders_by_customer'%}">{% trans 'My orders' %}</a></li>
+                          <li><a href="{% url 'orders_by_customer'%}"><span class="glyphicon glyphicon-cutlery"></span> {% trans 'My orders' %}</a></li>
                         {% endif %}
-                        <li><a id= "logoutButton" href="/logout">{% trans 'Disconect' %}</a></li>
+                        <li><a id= "logoutButton" href="/logout"><span class="glyphicon glyphicon-off"></span> {% trans 'Disconect' %}</a></li>
                     </ul>
                 </li>
             {% endif %}

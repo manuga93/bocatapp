@@ -47,7 +47,7 @@
                     <div class="col-md-4 text-left">
                         <div class="previous">
                             <button onclick="location.replace('{% url 'edit_profile' %}');"
-                                    class="form-control">{% trans "Edit profile" %}
+                                    class="form-control btn btn-success"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit profile" %}
                             </button>
 
 
@@ -57,7 +57,7 @@
                     <div class="col-md-4 text-right">
                         <div class="next">
                             <button onclick="location.replace('{% url 'edit_password' %}');"
-                                    class="form-control">{% trans "Edit password" %}
+                                    class="form-control btn btn-success"><span class="glyphicon glyphicon-lock"></span> {% trans "Edit password" %}
                             </button>
                         </div>
                     </div>
