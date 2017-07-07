@@ -320,18 +320,18 @@ def checkout(request, pk, form=CreditCardForm(None)):
     update_cart_checkout(request, pk)
     if request.user.has_perm('bocatapp.customer'):
         current_user = request.user
-        
+
         try:
             shoppingcart = ShoppingCart.objects.get(customer=current_user, checkout=False)
         except ShoppingCart.DoesNotExist:
             return render(request, 'forbidden.html')
-        
+
         local = shoppingcart.shoppingcartline_set.all()[0].product.local
         creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
         return render(request, 'checkout.html', {'local': local,'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=30)})
     else:
         return redirect(home.home)
-        
+
 
 def update_cart_checkout(request, idCart):
     idShoppingCart = idCart
@@ -373,7 +373,7 @@ def do_checkout(request):
             shoppingcart = ShoppingCart.objects.get(customer_id=current_user.id, checkout=False)
         except ShoppingCart.DoesNotExist:
             return render(request, 'forbidden.html')
-            
+
         creditcard_opt = request.POST.get('creditcard', '')
         shoppingcart_lines = shoppingcart.shoppingcartline_set.all()
         local = shoppingcart_lines[0].product.local
@@ -406,15 +406,15 @@ def do_checkout(request):
                             expireYear = "20" + expiration_date.split('/')[1]
                             values['expireMonth'] = expireMonth
                             values['expireYear'] = expireYear
-                        
+
                         form = CreditCardForm(values)
                         currentMonth = datetime.now().strftime("%m")
-                        
-                        if expireMonth < currentMonth:
-                            messages.warning(request, unicode(_('CreditCard is expired.')))
-                            return checkout(request, shoppingcart.id, form)
 
                         if not form.is_valid():
+                            return checkout(request, shoppingcart.id, form)
+
+                        if expireMonth < currentMonth:
+                            messages.warning(request, unicode(_('CreditCard is expired.')))
                             return checkout(request, shoppingcart.id, form)
 
                         if request.POST.get('save', '') == 'on':
