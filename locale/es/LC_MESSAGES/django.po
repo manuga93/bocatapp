@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-07 23:31+0200\n"
+"POT-Creation-Date: 2017-07-08 12:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: administration/models.py:7
+msgid "Holder name field must be contains letters"
+msgstr "El nombre del titular debe contener sólo letras"
 
 #: bocatapp/decorators.py:52
 msgid "You must to be logged."
@@ -1243,7 +1247,9 @@ msgstr "El pedido que intentas cancelar no te pertenece."
 
 #: customer/views.py:327
 msgid "Cart price can not be greater than 99.99 eur. Please delete some items."
-msgstr "El precio del carrito no puede ser superior a 99.99 eur. Por favor, elimina algunos items."
+msgstr ""
+"El precio del carrito no puede ser superior a 99.99 eur. Por favor, elimina "
+"algunos items."
 
 #: customer/views.py:420
 msgid "CreditCard is expired."

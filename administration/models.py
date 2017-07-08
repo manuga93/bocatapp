@@ -1,13 +1,15 @@
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from bocatapp.models import User
 from administration.services import CreditCardService
+from django.utils.translation import ugettext_lazy as _
 
+alphanumeric = RegexValidator(r'^[\sa-zA-Z]*$', _('Holder name field must be contains letters'))
 
 # Create your models here.
 
 class CreditCard(models.Model):
-    holderName = models.CharField(max_length=32)
+    holderName = models.CharField(max_length=32, validators=[alphanumeric])
     brandName = models.CharField(max_length=32)
     expireMonth = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(12)])
     expireYear = models.IntegerField(validators=[MinValueValidator(2017)])
