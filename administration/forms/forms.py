@@ -3,6 +3,8 @@ from ..models import CreditCard, Allergen
 
 
 class CreditCardForm(forms.ModelForm):
+    cardExpiry = forms.CharField()
+
     def __init__(self, *args, **kwargs):
         super(CreditCardForm, self).__init__(*args, **kwargs)
         self.fields['holderName'].label = "Nombre"

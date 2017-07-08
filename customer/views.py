@@ -381,6 +381,18 @@ def do_checkout(request):
             return redirect('/')
         creditcard_opt = request.POST.get('creditcard', '')
         local = shoppingcart_lines[0].product.local
+
+        # Send expiration_date if fails
+        values = request.POST.copy()
+        expiration_date = request.POST.get('cardExpiry', '')
+        if creditcard_opt == "new" and '/' in expiration_date:
+            values['user'] = request.user.id
+            expireMonth = expiration_date.split('/')[0]
+            expireYear = "20" + expiration_date.split('/')[1]
+            values['expireMonth'] = expireMonth
+            values['expireYear'] = expireYear
+
+
         date = request.POST.get('dateCheckout', '')
         hour = request.POST.get('hourCheckout', '')
         matchDate = re.match('(\d{2})[/.-](\d{2})[/.-](\d{4})$', date)
@@ -400,9 +412,6 @@ def do_checkout(request):
 
                 if present < momentOrder and differenceDates > 9:
                     if creditcard_opt == 'new':
-                        # New credit card
-                        values = request.POST.copy()
-                        values['user'] = request.user.id
                         expiration_date = request.POST.get('cardExpiry', '')
                         # parse and split.
                         form = CreditCardForm(values)
@@ -469,13 +478,13 @@ def do_checkout(request):
                     ShoppingCart.objects.filter(customer_id=current_user.id, checkout=False).update(checkout=True)
 
                 else:
-                    form = CreditCardForm(request.POST or None)
+                    form = CreditCardForm(values or None)
                     messages.warning(request, unicode(_('The date and time of collection must be after the current date and time. Minimum 10 min.')))
                     return checkout(request, shoppingcart.id, form)
 
             return render(request, 'thanks.html', {})
         else:
-            form = CreditCardForm(request.POST or None)
+            form = CreditCardForm(values or None)
             messages.warning(request, unicode(_('Date or time is not correct')))
             return checkout(request, shoppingcart.id, form)
     return redirect(home.home)
