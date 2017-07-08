@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-08 12:14+0200\n"
+"POT-Creation-Date: 2017-07-08 12:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,10 @@ msgstr ""
 #: administration/models.py:7
 msgid "Holder name field must be contains letters"
 msgstr "El nombre del titular debe contener sólo letras"
+
+#: administration/models.py:8
+msgid "CVV must have 3 or 4 digits"
+msgstr "El codigo cvv debe tener 3 o 4 dígitos"
 
 #: bocatapp/decorators.py:52
 msgid "You must to be logged."
@@ -949,21 +953,21 @@ msgstr "Número de tarjeta de crédito válido"
 msgid "Expiration date"
 msgstr "Fecha de expiración"
 
-#: customer/templates/checkout.html:123
+#: customer/templates/checkout.html:124
 msgid "Yes, I would like to keep my credit card in the system"
 msgstr "Sí, me gustaría guardar mi tarjeta de crédito en el sistema"
 
-#: customer/templates/checkout.html:148
+#: customer/templates/checkout.html:149
 msgid "Order details"
 msgstr "Detalles del pedido"
 
-#: customer/templates/checkout.html:153 customer/templates/orders.html:30
+#: customer/templates/checkout.html:154 customer/templates/orders.html:30
 #: customer/templates/orders.html.py:105 customer/templates/orders.html:156
 #: customer/templates/ordersLine.html:14
 msgid "Product"
 msgstr "Producto"
 
-#: customer/templates/checkout.html:155 customer/templates/orders.html:18
+#: customer/templates/checkout.html:156 customer/templates/orders.html:18
 #: customer/templates/orders.html.py:33 customer/templates/orders.html:93
 #: customer/templates/orders.html.py:108 customer/templates/orders.html:144
 #: customer/templates/orders.html.py:159 customer/templates/ordersLine.html:15
@@ -972,19 +976,19 @@ msgstr "Producto"
 msgid "Price"
 msgstr "Precio"
 
-#: customer/templates/checkout.html:175
+#: customer/templates/checkout.html:176
 msgid "Taxes"
 msgstr "Gestión"
 
-#: customer/templates/checkout.html:205
+#: customer/templates/checkout.html:206
 msgid "Pick up date"
 msgstr "Fecha de recogida"
 
-#: customer/templates/checkout.html:216
+#: customer/templates/checkout.html:217
 msgid "Pick up time"
 msgstr "Hora de recogida"
 
-#: customer/templates/checkout.html:233
+#: customer/templates/checkout.html:234
 msgid "Make the reservation"
 msgstr "Realizar reserva"
 
@@ -1217,7 +1221,7 @@ msgid "There was a problem connecting to PaySafeCard, please try again later!"
 msgstr ""
 "¡Hubo un problema al conectar con PaySafeCard, ¡inténtelo de nuevo más tarde!"
 
-#: customer/views.py:233 customer/views.py:485
+#: customer/views.py:233 customer/views.py:494
 msgid "You are not a customer"
 msgstr "Usted no es cliente"
 
@@ -1251,25 +1255,25 @@ msgstr ""
 "El precio del carrito no puede ser superior a 99.99 eur. Por favor, elimina "
 "algunos items."
 
-#: customer/views.py:420
+#: customer/views.py:429
 msgid "CreditCard is expired."
 msgstr "La tarjeta de crédito está caducada."
 
-#: customer/views.py:423 customer/views.py:428 customer/views.py:431
+#: customer/views.py:432 customer/views.py:437 customer/views.py:440
 #, fuzzy
 #| msgid "Expiration date"
 msgid "Expiration date is not valid."
 msgstr "Fecha de expiración inválida."
 
-#: customer/views.py:443
+#: customer/views.py:452
 msgid "Choose another method of payment, you do not have enough balance!"
 msgstr "Elige otro método de pago, ¡no tienes suficiente saldo!"
 
-#: customer/views.py:456
+#: customer/views.py:465
 msgid "Add your comment"
 msgstr "Añade tu comentario"
 
-#: customer/views.py:473
+#: customer/views.py:482
 msgid ""
 "The date and time of collection must be after the current date and time. "
 "Minimum 10 min."
@@ -1277,15 +1281,15 @@ msgstr ""
 "La fecha y hora de recogida debe ser posterior a la fecha y hora actual. "
 "Mínimo 10 min"
 
-#: customer/views.py:479
+#: customer/views.py:488
 msgid "Date or time is not correct"
 msgstr "Fecha u hora no es correcta"
 
-#: customer/views.py:509
+#: customer/views.py:518
 msgid "You are not user"
 msgstr "Usted no es usuario"
 
-#: customer/views.py:537 customer/views.py:543 customer/views.py:549
+#: customer/views.py:546 customer/views.py:552 customer/views.py:558
 msgid "You are not an admin"
 msgstr "Usted no es administrador"
 
