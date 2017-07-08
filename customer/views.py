@@ -329,9 +329,12 @@ def checkout(request, pk, form=CreditCardForm(None)):
         except ShoppingCart.DoesNotExist:
             return render(request, 'forbidden.html')
 
-        local = shoppingcart.shoppingcartline_set.all()[0].product.local
-        creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
-        return render(request, 'checkout.html', {'local': local,'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=30)})
+        try:
+            local = shoppingcart.shoppingcartline_set.all()[0].product.local
+            creditcards = CreditCard.objects.filter(isDeleted=False, user=current_user)
+            return render(request, 'checkout.html', {'local': local,'shoppingcart': shoppingcart, 'creditcards': creditcards, 'form': form, 'datetime': datetime.now()+timedelta(minutes=30)})
+        except:
+            return render(request, 'forbidden.html')
     else:
         return redirect(home.home)
 
@@ -425,7 +428,7 @@ def do_checkout(request):
                             try:
                                 actualDate = datetime.now()
                                 expireDate = datetime.strptime(expireMonth[0:2] + "-" + expireYear[0:4], "%m-%Y")
-                                if expireDate is None and expireDate < actualDate:
+                                if expireDate is None or expireDate < actualDate:
                                     messages.warning(request, unicode(_('CreditCard is expired.')))
                                     return checkout(request, shoppingcart.id, form)
                                 if int(expireYear) > yearMax:
