@@ -4,7 +4,6 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-
 from models import User
 from datetime import date
 
@@ -69,7 +68,7 @@ class UserForm(forms.ModelForm):
     phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
                              error_message=(
                                  "Debe tener formato 999999999"))
-    birth_date = forms.DateInput()
+    birth_date = forms.DateField(input_formats=['%d/%m/%Y'])
     avatar = forms.URLField(required=False)
 
     def __init__(self, *args, **kwargs):
