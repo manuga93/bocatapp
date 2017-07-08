@@ -22,9 +22,9 @@
               	<p>{% trans "The operation could not be performed because one or more errors have occurred." %}<!--<br />Por favor, reenvie el formulario después de hacer los siguientes cambios:</p>-->
               	<!-- <ul>
               	{% for field in form %}
-              	<li>{{ field.errors|striptags }}</li>
+              	<li>{{field.name}}: {{ field.errors|striptags }}</li>
               	{% endfor %}
-              	</ul> -->
+              </ul> -->
               </div>
               {% endif %}
 
@@ -94,6 +94,7 @@
                                   <input
                                       type="tel"
                                       class="form-control"
+                                      value= "{{form.cardExpiry.value|default_if_none:""}}"
                                       name="cardExpiry"
                                       placeholder="MM / AA"
                                       autocomplete="cc-exp"
